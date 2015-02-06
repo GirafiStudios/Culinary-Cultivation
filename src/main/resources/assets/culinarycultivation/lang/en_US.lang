@@ -1,0 +1,14 @@
+#Items
+item.culinarycultivation:cakeKnife.name=Cake Knife
+item.culinarycultivation:clownfishCooked.name=Cooked Clownfish
+item.culinarycultivation:debugFood.name=Debug Food Item
+item.culinarycultivation:emptyStorageJar.name=Storage Jar (Empty)
+item.culinarycultivation:knife.name=Knife
+item.culinarycultivation:muttonCooked.name=Cooked Mutton
+item.culinarycultivation:muttonRaw.name=Raw Mutton
+item.culinarycultivation:pieceOfCake.name=Cake Piece
+
+#Blocks
+
+#Other
+itemGroup.culinarycultivation=Culinary Cultivation
