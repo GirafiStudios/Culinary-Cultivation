@@ -13,10 +13,10 @@ import java.util.Set;
 
 public class ItemCakeKnife extends ItemTool {
 
-    private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{Blocks.grass, Blocks.dirt, Blocks.sand, Blocks.gravel, Blocks.snow_layer, Blocks.snow, Blocks.clay, Blocks.farmland, Blocks.soul_sand, Blocks.mycelium});
+    private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{Blocks.cake});
 
     public ItemCakeKnife(Item.ToolMaterial material) { //TODO Fix texture, fix EFFECTIVE_ON and all the other things
-        super(1.0F, material, EFFECTIVE_ON);
+        super(-1.5F, material, EFFECTIVE_ON);
         setUnlocalizedName("cakeKnife");
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "cakeKnife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);

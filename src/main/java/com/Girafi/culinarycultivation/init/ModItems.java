@@ -1,17 +1,15 @@
 package com.Girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.item.*;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGlassBottle;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems
 {
 
-    //public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
+    public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     //public static final Item emptyStorageJar = new ItemStorageJar().setUnlocalizedName("emptyStorageJar").setTextureName("emptyStorageJar");
 
@@ -25,13 +23,13 @@ public class ModItems
 
     public static void init()
     {
-        //GameRegistry.registerItem(cakeKnife, "cakeKnife");
-        GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
-        GameRegistry.registerItem(cookedMutton, "cookedMutton");
         //GameRegistry.registerItem(debugFood, "debugFood");
         //GameRegistry.registerItem(emptyStorageJar, "emptyStorageJar");
-        GameRegistry.registerItem(knife, "knife");
         GameRegistry.registerItem(mutton, "mutton");
+        GameRegistry.registerItem(cookedMutton, "cookedMutton");
+        GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
         GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
+        GameRegistry.registerItem(knife, "knife");
+        GameRegistry.registerItem(cakeKnife, "cakeKnife");
     }
 }

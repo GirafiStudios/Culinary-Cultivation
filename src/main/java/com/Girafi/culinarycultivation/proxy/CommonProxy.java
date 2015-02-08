@@ -2,9 +2,7 @@ package com.Girafi.culinarycultivation.proxy;
 
 public abstract class CommonProxy
 {
-    public abstract void preInit();
+    public void registerRenders(){
 
-    public abstract void init();
-
-    public abstract void postInit();
+    }
 }
