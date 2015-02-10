@@ -15,8 +15,8 @@ public class ItemCakeKnife extends ItemTool {
 
     private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{Blocks.cake});
 
-    public ItemCakeKnife(Item.ToolMaterial material) { //TODO Fix texture, fix EFFECTIVE_ON and all the other things
-        super(-1.5F, material, EFFECTIVE_ON);
+    public ItemCakeKnife(Item.ToolMaterial material) { //TODO Fix texture rendering
+        super(-2.0F, material, EFFECTIVE_ON);
         setUnlocalizedName("cakeKnife");
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "cakeKnife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);

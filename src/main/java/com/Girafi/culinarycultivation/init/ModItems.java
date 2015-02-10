@@ -15,7 +15,7 @@ public class ModItems
 
     ////Food
     //HealAmount, Saturation, isWolfFood
-    public static final Item cookedClownfish = new SourceFood(3, 0.2F, false).setUnlocalizedName("clownfishCooked").setTextureName("clownfishCooked"); //new texture
+    public static final Item cookedClownfish = new SourceFood(3, 0.2F, false).setUnlocalizedName("clownfishCooked").setTextureName("clownfishCooked"); //Add very tiny chance for poison, and tiny chance for nausea
     public static final Item cookedMutton = new SourceFood(6, 0.8F, true).setUnlocalizedName("muttonCooked").setTextureName("muttonCooked");
     //public static final Item debugFood = new SourceFood(-19, 0.0F, false).setUnlocalizedName("debugFood");
     public static final Item mutton = new SourceFood(2, 0.3F, true).setUnlocalizedName("muttonRaw").setTextureName("muttonRaw");

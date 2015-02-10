@@ -1,7 +1,5 @@
 package com.Girafi.culinarycultivation;
 
-import com.Girafi.client.render.item.RenderItemCakeKnife;
-import com.Girafi.culinarycultivation.event.CakeDropEvent;
 import com.Girafi.culinarycultivation.event.SheepsDropsMutton;
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.handler.CraftingHandler;
@@ -15,7 +13,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
@@ -36,7 +33,7 @@ public class CulinaryCultivation
         ModItems.init();
         proxy.registerRenders();
         MinecraftForge.EVENT_BUS.register(new SheepsDropsMutton());
-        LogHelper.info("Pre Initialization Complete.");
+        LogHelper.info("CulinaryCultivation Pre Initialization Complete.");
     }
 
     @Mod.EventHandler
@@ -46,12 +43,12 @@ public class CulinaryCultivation
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
         OreDictionaryRegistration.init();
         Recipes.init();
-        LogHelper.info("Initialization Complete.");
+        LogHelper.info("CulinaryCultivation Initialization Complete.");
     }
 
     @Mod.EventHandler
     public void init (FMLPostInitializationEvent event)
     {
-        LogHelper.info("Post Initialization Complete.");
+        LogHelper.info("CulinaryCultivation Post Initialization Complete.");
     }
 }

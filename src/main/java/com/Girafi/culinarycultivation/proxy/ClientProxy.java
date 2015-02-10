@@ -1,6 +1,6 @@
 package com.Girafi.culinarycultivation.proxy;
 
-import com.Girafi.client.render.item.RenderItemCakeKnife;
+import com.Girafi.culinarycultivation.client.render.item.RenderItemCakeKnife;
 import com.Girafi.culinarycultivation.init.ModItems;
 import net.minecraftforge.client.MinecraftForgeClient;
 
