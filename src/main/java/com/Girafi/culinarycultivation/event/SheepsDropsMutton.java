@@ -15,7 +15,7 @@ public class SheepsDropsMutton {
     public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
         rand = Math.random();
         if (ShouldSheepsDropMutton == true) {
-            if (DropsEvent.entityLiving instanceof EntitySheep) {
+            if (DropsEvent.entityLiving instanceof EntitySheep &! DropsEvent.entityLiving.isChild()) {
                 if (DropsEvent.entityLiving.isBurning()) {
                     DropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
 
