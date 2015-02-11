@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 public class ModItems
 {
 
-    public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
+    //public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     //public static final Item emptyStorageJar = new ItemStorageJar().setUnlocalizedName("emptyStorageJar").setTextureName("emptyStorageJar");
 
@@ -30,6 +30,6 @@ public class ModItems
         GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
         GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
         GameRegistry.registerItem(knife, "knife");
-        GameRegistry.registerItem(cakeKnife, "cakeKnife");
+        //GameRegistry.registerItem(cakeKnife, "cakeKnife");
     }
 }

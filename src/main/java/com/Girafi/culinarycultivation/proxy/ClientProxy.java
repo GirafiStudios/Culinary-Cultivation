@@ -6,9 +6,9 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ClientProxy extends CommonProxy
 {
-    @Override
+    /*@Override
     public void registerRenders(){
         MinecraftForgeClient.registerItemRenderer(ModItems.cakeKnife, new RenderItemCakeKnife());
 
-    }
+    }*/
 }

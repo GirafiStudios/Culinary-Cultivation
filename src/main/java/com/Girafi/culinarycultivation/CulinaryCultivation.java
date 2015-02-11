@@ -31,7 +31,7 @@ public class CulinaryCultivation
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
         ModItems.init();
-        proxy.registerRenders();
+        //proxy.registerRenders();
         MinecraftForge.EVENT_BUS.register(new SheepsDropsMutton());
         LogHelper.info("CulinaryCultivation Pre Initialization Complete.");
     }
