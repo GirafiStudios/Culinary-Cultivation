@@ -31,9 +31,9 @@ public class CulinaryCultivation
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
         ModItems.init();
-        //proxy.registerRenders();
+        proxy.registerRenders();
         MinecraftForge.EVENT_BUS.register(new SheepsDropsMutton());
-        LogHelper.info("CulinaryCultivation Pre Initialization Complete.");
+        LogHelper.info("Culinary Cultivation Pre Initialization Complete.");
     }
 
     @Mod.EventHandler
@@ -43,12 +43,12 @@ public class CulinaryCultivation
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
         OreDictionaryRegistration.init();
         Recipes.init();
-        LogHelper.info("CulinaryCultivation Initialization Complete.");
+        LogHelper.info("Culinary Cultivation Initialization Complete.");
     }
 
     @Mod.EventHandler
     public void init (FMLPostInitializationEvent event)
     {
-        LogHelper.info("CulinaryCultivation Post Initialization Complete.");
+        LogHelper.info("Culinary Cultivation Post Initialization Complete.");
     }
 }

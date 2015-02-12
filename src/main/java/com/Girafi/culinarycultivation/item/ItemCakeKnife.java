@@ -3,6 +3,8 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.google.common.collect.Sets;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -15,7 +17,7 @@ public class ItemCakeKnife extends ItemTool {
 
     private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{Blocks.cake});
 
-    public ItemCakeKnife(Item.ToolMaterial material) { //TODO Fix texture rendering
+    public ItemCakeKnife(Item.ToolMaterial material) {
         super(-2.0F, material, EFFECTIVE_ON);
         setUnlocalizedName("cakeKnife");
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "cakeKnife");

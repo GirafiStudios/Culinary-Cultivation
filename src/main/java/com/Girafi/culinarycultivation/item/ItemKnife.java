@@ -3,6 +3,8 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.google.common.collect.Sets;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
@@ -17,14 +19,20 @@ public class ItemKnife extends ItemTool
 
     private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{});
 
-    public ItemKnife(Item.ToolMaterial material) //TODO Fix Inventory rendering of Item
+    public ItemKnife(Item.ToolMaterial material)
     {
         super(3.5F, material, EFFECTIVE_ON);
         setUnlocalizedName("knife");
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "knife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
+    }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldRotateAroundWhenRendering()
+    {
+        return true;
     }
 
     @Override

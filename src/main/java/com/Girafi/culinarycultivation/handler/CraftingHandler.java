@@ -25,7 +25,7 @@ public class CraftingHandler {
                 itemCraftedEvent.craftMatrix.setInventorySlotContents(i, itemKnife);
             }
         }
-        /*final IInventory cakeKnifeCrafting = null;
+        final IInventory cakeKnifeCrafting = null;
         for(int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++){
             ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
             if(stack != null && stack.getItem() instanceof ItemCakeKnife){
@@ -36,6 +36,6 @@ public class CraftingHandler {
                 }
                 itemCraftedEvent.craftMatrix.setInventorySlotContents(i, cakeKnife);
             }
-        }*/
+        }
     }
 }
