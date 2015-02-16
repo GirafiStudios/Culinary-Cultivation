@@ -25,6 +25,10 @@ public class ItemCakeKnife extends ItemTool {
         maxStackSize=1;
     }
 
+    @Override
+    public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel();
+    }
+
 ////Setting unlocalized name
 //Copyed from SourceItem
     @Override

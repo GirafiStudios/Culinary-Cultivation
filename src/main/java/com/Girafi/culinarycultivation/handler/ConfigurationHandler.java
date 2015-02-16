@@ -12,7 +12,7 @@ import static net.minecraftforge.common.config.Configuration.CATEGORY_GENERAL;
 public class ConfigurationHandler
 {
     public static Configuration configuration;
-    public static boolean ShouldSheepsDropMutton;
+    public static boolean ShouldSheepDropMutton;
 
     public static void init(File configFile)
     {
@@ -25,7 +25,7 @@ public class ConfigurationHandler
 
     private static void loadConfiguration()
     {
-        ShouldSheepsDropMutton = configuration.getBoolean("Should sheep drop Mutton?", CATEGORY_GENERAL, true, "Whether sheep should drop mutton or not.");
+        ShouldSheepDropMutton = configuration.getBoolean("Should sheep drop mutton?", CATEGORY_GENERAL, true, "Whether sheep should drop mutton or not.");
 
         if (configuration.hasChanged())
         {

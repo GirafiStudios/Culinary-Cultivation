@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
-public class RenderItemKnife implements IItemRenderer {//This class is not doing anything, just saved as an example
+public class RenderExample implements IItemRenderer {//This class is not doing anything, just saved as an example
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {

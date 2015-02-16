@@ -1,6 +1,8 @@
 package com.Girafi.culinarycultivation;
 
-import com.Girafi.culinarycultivation.event.SheepsDropsMutton;
+import com.Girafi.culinarycultivation.event.BabyCowDropsVeal;
+import com.Girafi.culinarycultivation.event.BabySheepDropsLamb;
+import com.Girafi.culinarycultivation.event.SheepDropsMutton;
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.handler.CraftingHandler;
 import com.Girafi.culinarycultivation.init.*;
@@ -32,7 +34,9 @@ public class CulinaryCultivation
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
         ModItems.init();
         proxy.registerRenders();
-        MinecraftForge.EVENT_BUS.register(new SheepsDropsMutton());
+        MinecraftForge.EVENT_BUS.register(new SheepDropsMutton());
+        MinecraftForge.EVENT_BUS.register(new BabySheepDropsLamb());
+        MinecraftForge.EVENT_BUS.register(new BabyCowDropsVeal());
         LogHelper.info("Culinary Cultivation Pre Initialization Complete.");
     }
 

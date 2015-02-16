@@ -4,9 +4,14 @@ item.culinarycultivation:clownfishCooked.name=Cooked Clownfish
 item.culinarycultivation:debugFood.name=Debug Food Item
 item.culinarycultivation:emptyStorageJar.name=Storage Jar (Empty)
 item.culinarycultivation:knife.name=Knife
+item.culinarycultivation:lambCooked.name=Lamb
+item.culinarycultivation:lambRaw.name=Raw Lamb
 item.culinarycultivation:muttonCooked.name=Cooked Mutton
 item.culinarycultivation:muttonRaw.name=Raw Mutton
 item.culinarycultivation:pieceOfCake.name=Cake Piece
+item.culinarycultivation:vealCooked.name=Cooked Veal
+item.culinarycultivation:vealRaw.name=Raw Veal
+item.culinarycultivation:toolHandle.name=Tool Handle
 
 #Blocks
 

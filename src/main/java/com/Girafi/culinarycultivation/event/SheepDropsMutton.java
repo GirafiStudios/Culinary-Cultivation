@@ -7,14 +7,14 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import static com.Girafi.culinarycultivation.handler.ConfigurationHandler.*;
 
-public class SheepsDropsMutton {
+public class SheepDropsMutton {
 
     public static double rand;
 
     @SubscribeEvent
     public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
         rand = Math.random();
-        if (ShouldSheepsDropMutton == true) {
+        if (ShouldSheepDropMutton == true) {
             if (DropsEvent.entityLiving instanceof EntitySheep &! DropsEvent.entityLiving.isChild()) {
                 if (DropsEvent.entityLiving.isBurning()) {
                     DropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);

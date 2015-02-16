@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.world.World;
 
@@ -26,13 +27,6 @@ public class ItemKnife extends ItemTool
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "knife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean shouldRotateAroundWhenRendering()
-    {
-        return true;
     }
 
     @Override

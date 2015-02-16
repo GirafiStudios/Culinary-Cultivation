@@ -8,6 +8,7 @@ public class OreDictionaryRegistration {
     public static void init() {
 
         OreDictionary.registerOre("foodCakePiece", ModItems.pieceOfCake);
+        OreDictionary.registerOre("food", ModItems.lamb);
 
         //Mutton
         if (Loader.isModLoaded("harvestcraft")) {
