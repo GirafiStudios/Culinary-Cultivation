@@ -10,9 +10,9 @@ public class BabyCowDropsVeal  {
     public static double rand;
 
     @SubscribeEvent
-    public void LivingDropsEvent(LivingDropsEvent DropsEvent) { //Try to look if it's possible to make something with how long time the baby cow have been in the world / age
+    public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
         rand = Math.random();
-        if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) { //Slaughter age: Between 4 and 6 months old
+        if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) {
             if (rand < 0.13D) {
                 if (DropsEvent.entityLiving.isBurning()) {
                     DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 2);
