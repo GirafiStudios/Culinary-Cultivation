@@ -2,6 +2,8 @@ package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Reference;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -22,6 +24,12 @@ public class ItemMeatCleaver extends ItemSword {
     public void addInformation(ItemStack stackIn, EntityPlayer playerIn, List list, boolean par4)
     {
         list.add("A finer way to cleave meat");
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean shouldRotateAroundWhenRendering()
+    {
+        return true;
     }
 
 ////Setting unlocalized name

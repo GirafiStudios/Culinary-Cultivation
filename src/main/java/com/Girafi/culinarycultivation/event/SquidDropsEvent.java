@@ -16,7 +16,7 @@ public class SquidDropsEvent {
         rand = Math.random();
 
         if (DropsEvent.entityLiving instanceof EntitySquid) {
-            if (rand > 0.95D) {
+            if (rand > 0.90D) {
                 DropsEvent.entityLiving.dropItem(ModItems.squidMantle, 1);
             }
         }

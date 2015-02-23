@@ -48,6 +48,12 @@ public class ItemKnife extends ItemTool
     public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel(); //Might want to find another way, to make it not enchantable. Works for now.
     }
 
+    @SideOnly(Side.CLIENT)
+    public boolean shouldRotateAroundWhenRendering()
+    {
+        return true;
+    }
+
 ////Setting unlocalized name
 //Copyed from SourceItem
 @Override
