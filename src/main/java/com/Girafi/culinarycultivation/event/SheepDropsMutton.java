@@ -5,16 +5,15 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
-import static com.Girafi.culinarycultivation.handler.ConfigurationHandler.*;
-
 public class SheepDropsMutton {
 
-    public static double rand;
+    private static double rand;
 
     @SubscribeEvent
     public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+
         rand = Math.random();
-        if (ShouldSheepDropMutton == true) {
+
             if (DropsEvent.entityLiving instanceof EntitySheep &! DropsEvent.entityLiving.isChild()) {
                 if (DropsEvent.entityLiving.isBurning()) {
                     DropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
@@ -29,7 +28,7 @@ public class SheepDropsMutton {
 
                         } else {
                             DropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
-                        }
+
                     }
                 }
             }

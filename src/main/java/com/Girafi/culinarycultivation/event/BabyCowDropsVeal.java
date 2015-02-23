@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 public class BabyCowDropsVeal {
 
-    public static double rand;
+    private static double rand;
 
     @SubscribeEvent
     public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
@@ -17,18 +17,17 @@ public class BabyCowDropsVeal {
 
         if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
-            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.knife) {
+            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
                 if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) {
-                        if (DropsEvent.entityLiving.isBurning()) {
-                            DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 2);
+                    if (DropsEvent.entityLiving.isBurning()) {
+                        DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
 
-                        } else {
-                            DropsEvent.entityLiving.dropItem(ModItems.veal, 2);
-                        }
+                    } else {
+                        DropsEvent.entityLiving.dropItem(ModItems.veal, 1);
                     }
                 }
                 if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) {
-                    if (rand > 0.7D) {
+                    if (rand > 0.85D) {
                         if (DropsEvent.entityLiving.isBurning()) {
                             DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
 
@@ -37,6 +36,18 @@ public class BabyCowDropsVeal {
                         }
                     }
                 }
+                if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) {
+                    if (rand > 0.98D) {
+                        if (DropsEvent.entityLiving.isBurning()) {
+                            DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
+
+                        } else {
+                            DropsEvent.entityLiving.dropItem(ModItems.veal, 1);
+
+                        }
+                    }
+                }
             }
         }
     }
+}

@@ -22,7 +22,7 @@ public class ItemKnife extends ItemTool
 
     public ItemKnife(Item.ToolMaterial material)
     {
-        super(3.5F, material, EFFECTIVE_ON);
+        super(3.0F, material, EFFECTIVE_ON);
         setUnlocalizedName("knife");
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "knife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
