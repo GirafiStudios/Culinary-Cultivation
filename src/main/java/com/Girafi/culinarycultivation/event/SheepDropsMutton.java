@@ -28,7 +28,6 @@ public class SheepDropsMutton {
 
                         } else {
                             DropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
-
                     }
                 }
             }

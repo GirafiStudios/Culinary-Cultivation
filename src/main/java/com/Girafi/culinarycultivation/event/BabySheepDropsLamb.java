@@ -27,8 +27,7 @@ public class BabySheepDropsLamb {
                     } else {
                         DropsEvent.entityLiving.dropItem(ModItems.lamb, 1);
                     }
-                }
-                if (DropsEvent.entityLiving instanceof EntitySheep && DropsEvent.entityLiving.isChild()) {
+
                     if (rand > 0.85D) {
                         if (DropsEvent.entityLiving.isBurning()) {
                             DropsEvent.entityLiving.dropItem(ModItems.cookedLamb, 1);

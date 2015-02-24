@@ -25,8 +25,6 @@ public class BabyCowDropsVeal {
                     } else {
                         DropsEvent.entityLiving.dropItem(ModItems.veal, 1);
                     }
-                }
-                if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) {
                     if (rand > 0.85D) {
                         if (DropsEvent.entityLiving.isBurning()) {
                             DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
@@ -35,8 +33,7 @@ public class BabyCowDropsVeal {
                             DropsEvent.entityLiving.dropItem(ModItems.veal, 1);
                         }
                     }
-                }
-                if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) {
+
                     if (rand > 0.98D) {
                         if (DropsEvent.entityLiving.isBurning()) {
                             DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
