@@ -3,6 +3,7 @@ package com.Girafi.culinarycultivation.handler;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemCakeKnife;
 import com.Girafi.culinarycultivation.item.ItemKnife;
+import com.Girafi.culinarycultivation.item.ItemMeatCleaver;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.inventory.IInventory;
@@ -35,6 +36,18 @@ public class CraftingHandler {
                     cakeKnife.stackSize--;
                 }
                 itemCraftedEvent.craftMatrix.setInventorySlotContents(i, cakeKnife);
+            }
+        }
+        final IInventory meatCleaverCrafting = null;
+        for(int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++) {
+            ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
+            if (stack != null && stack.getItem() instanceof ItemMeatCleaver) {
+                ItemStack meatCleaver = new ItemStack(ModItems.meatCleaver, 2, stack.getItemDamage() + 1);
+
+                if (meatCleaver.getItemDamage() >= meatCleaver.getMaxDamage()) {
+                    meatCleaver.stackSize--;
+                }
+                itemCraftedEvent.craftMatrix.setInventorySlotContents(i, meatCleaver);
             }
         }
     }
