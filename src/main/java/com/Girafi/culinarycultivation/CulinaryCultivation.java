@@ -1,8 +1,5 @@
 package com.Girafi.culinarycultivation;
 
-import com.Girafi.culinarycultivation.event.BabyCowDropsVeal;
-import com.Girafi.culinarycultivation.event.BabySheepDropsLamb;
-import com.Girafi.culinarycultivation.event.SheepDropsMutton;
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.handler.CraftingHandler;
 import com.Girafi.culinarycultivation.init.*;
@@ -15,7 +12,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.DEPENDENCIES)
 public class CulinaryCultivation
@@ -33,6 +29,7 @@ public class CulinaryCultivation
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
         ModItems.init();
+        ModBlocks.init();
         Events.init();
         proxy.registerRenders();
         LogHelper.info("Culinary Cultivation Pre Initialization Complete.");

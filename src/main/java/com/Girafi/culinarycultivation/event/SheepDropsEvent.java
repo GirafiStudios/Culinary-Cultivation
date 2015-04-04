@@ -5,7 +5,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
-public class SheepDropsMutton {
+public class SheepDropsEvent {
 
     private static double rand;
 

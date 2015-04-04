@@ -34,6 +34,32 @@ public class ModItems
     public static final Item squidTentacleCooked = new SourceFood(4, 0.4F, false).setUnlocalizedName("squidTentacleCooked").setTextureName("squidTentacleCooked");
     public static final Item veal = new SourceFood(2, 0.4F, true).setUnlocalizedName("vealRaw").setTextureName("vealRaw");
 
+    public static final Item chickenNuggetRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenNuggetRaw").setTextureName("chickenNuggetRaw");
+    public static final Item chickenNuggetCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenNuggetCooked").setTextureName("chickenNuggetCooked");
+    public static final Item chickenWingHot = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenWingHot").setTextureName("chickenWingHot");
+    public static final Item chickenWingCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenWingCooked").setTextureName("chickenWingCooked");
+    public static final Item chickenWingRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenWingRaw").setTextureName("chickenWingRaw");
+
+    public static final Item drumstickRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("drumstickRaw").setTextureName("drumstickRaw");
+    public static final Item drumstickCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("drumstickCooked").setTextureName("drumstickCooked");
+
+    public static final Item legSheepRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("legSheepRaw").setTextureName("legSheepRaw");
+    public static final Item legSheepCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("legSheepCooked").setTextureName("legSheepCooked");
+
+    public static final Item pattyRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("pattyRaw").setTextureName("pattyRaw");
+    public static final Item pattyCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("pattyCooked").setTextureName("pattyCooked");
+
+    public static final Item ribsBeefRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("ribsBeefRaw").setTextureName("ribsBeefRaw");
+    public static final Item ribsPorkRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("ribsPorkRaw").setTextureName("ribsPorkRaw");
+    public static final Item ribsCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("ribsCooked").setTextureName("ribsCooked");
+
+    public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage").setTextureName("sausage");
+
+    public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog").setTextureName("hotdog");
+
+    public static final Item beetRaw = new SourceFood(0, 0.0F, false).setUnlocalizedName("beet").setTextureName("beet");
+    public static final Item beetSeed = new SourceFood(0, 0.0F, false).setUnlocalizedName("beetSeed").setTextureName("beetSeed");
+    public static final Item beetSoup = new SourceFood(0, 0.0F, false).setUnlocalizedName("beetSoup").setTextureName("beetSoup");
 
     public static void init() //Will show up in this order in NEI and Creative Tab
     {
@@ -45,6 +71,22 @@ public class ModItems
         GameRegistry.registerItem(cookedLamb, "cookedLamb");
         GameRegistry.registerItem(veal, "veal");
         GameRegistry.registerItem(cookedVeal, "cookedVeal");
+        GameRegistry.registerItem(legSheepRaw, "legSheepRaw");
+        GameRegistry.registerItem(legSheepCooked, "legSheepCooked");
+        GameRegistry.registerItem(ribsBeefRaw, "ribsBeefRaw");
+        GameRegistry.registerItem(ribsPorkRaw, "ribsPorkRaw");
+        GameRegistry.registerItem(ribsCooked, "ribsCooked");
+        GameRegistry.registerItem(pattyRaw, "pattyRaw");
+        GameRegistry.registerItem(pattyCooked, "pattyCooked");
+        GameRegistry.registerItem(sausage, "sausage");
+        GameRegistry.registerItem(hotdog, "hotdog");
+        GameRegistry.registerItem(chickenWingRaw, "chickenWingRaw");
+        GameRegistry.registerItem(chickenWingCooked, "chickenWingCooked");
+        GameRegistry.registerItem(chickenWingHot, "chickenWingHot");
+        GameRegistry.registerItem(drumstickRaw, "drumstickRaw");
+        GameRegistry.registerItem(drumstickCooked, "drumstickCooked");
+        GameRegistry.registerItem(chickenNuggetRaw, "chickenNuggetRaw");
+        GameRegistry.registerItem(chickenNuggetCooked, "chickenNuggetCooked");
         GameRegistry.registerItem(squidMantle, "squidMantle");
         GameRegistry.registerItem(squidMantleCooked, "squidMantleCooked");
         GameRegistry.registerItem(squidTentacle, "squidTentacle");
@@ -52,6 +94,9 @@ public class ModItems
         GameRegistry.registerItem(squidRing, "squidRing");
         GameRegistry.registerItem(squidRingCooked, "squidRingCooked");
         GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
+        GameRegistry.registerItem(beetSeed, "beetSeed");
+        GameRegistry.registerItem(beetRaw, "beetRaw");
+        GameRegistry.registerItem(beetSoup, "beetSoup");
         GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
         GameRegistry.registerItem(toolHandle, "toolHandle");
         GameRegistry.registerItem(knife, "knife");

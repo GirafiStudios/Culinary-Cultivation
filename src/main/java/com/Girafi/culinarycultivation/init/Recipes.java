@@ -22,12 +22,19 @@ public class Recipes {
 
 
         //Furnace recipes
+        GameRegistry.addSmelting(chickenNuggetRaw, new ItemStack(chickenNuggetCooked), 0.35F);
+        GameRegistry.addSmelting(chickenWingRaw, new ItemStack(chickenWingCooked), 0.35F);
+        GameRegistry.addSmelting(drumstickRaw, new ItemStack(drumstickCooked), 0.35F);
         GameRegistry.addSmelting(lamb, new ItemStack(cookedLamb), 0.35F);
+        GameRegistry.addSmelting(legSheepRaw, new ItemStack(legSheepCooked), 0.35F);
         GameRegistry.addSmelting(mutton, new ItemStack(cookedMutton), 0.35F);
+        GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cookedClownfish), 0.35F);
+        GameRegistry.addSmelting(pattyRaw, new ItemStack(pattyCooked), 0.35F);
+        GameRegistry.addSmelting(ribsBeefRaw, new ItemStack(ribsCooked), 0.35F);
+        GameRegistry.addSmelting(ribsPorkRaw, new ItemStack(ribsCooked), 0.35F);
         GameRegistry.addSmelting(squidMantle, new ItemStack(squidMantleCooked), 0.35F);
         GameRegistry.addSmelting(squidRing, new ItemStack(squidRingCooked), 0.35F);
         GameRegistry.addSmelting(squidTentacle, new ItemStack(squidTentacleCooked), 0.35F);
         GameRegistry.addSmelting(veal, new ItemStack(cookedVeal), 0.35F);
-        GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cookedClownfish), 0.35F);
     }
 }
