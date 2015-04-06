@@ -3,22 +3,24 @@ package com.Girafi.culinarycultivation.init;
 import com.Girafi.culinarycultivation.item.*;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.potion.Potion;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems
 {
 
+    public static final Item debugItem = new SourceFood(-19, 0.0F, false).setUnlocalizedName("debugFood"); //TODO Make texture
+    //public static final Item emptyStorageJar = new ItemStorageJar().setUnlocalizedName("emptyStorageJar").setTextureName("emptyStorageJar");
+    public  static final Item toolHandle = new SourceItem().setUnlocalizedName("toolHandle").setTextureName("toolHandle");
     public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
-    //public static final Item emptyStorageJar = new ItemStorageJar().setUnlocalizedName("emptyStorageJar").setTextureName("emptyStorageJar");
-    public  static final Item toolHandle = new SourceItem().setUnlocalizedName("toolHandle").setTextureName("toolHandle");
 
     ////Food
     //HealAmount, Saturation, isWolfFood
-    //public static final Item debugFood = new SourceFood(-19, 0.0F, false).setUnlocalizedName("debugFood"); //TODO Make texture
     public static final Item cookedClownfish = new SourceFood(3, 0.2F, false).setPotionEffect(Potion.poison.id, 3, 0, 0.001F).setPotionEffect(Potion.confusion.id, 8, 0, 0.08F).setUnlocalizedName("clownfishCooked").setTextureName("clownfishCooked"); //TODO Make you get the Fish achievement, when cooking this
     public static final Item cookedLamb = new SourceFood(5, 1.1F, true).setUnlocalizedName("lambCooked").setTextureName("lambCooked");
     public static final Item cookedMutton = new SourceFood(6, 0.8F, true).setUnlocalizedName("muttonCooked").setTextureName("muttonCooked");
@@ -34,32 +36,37 @@ public class ModItems
     public static final Item squidTentacleCooked = new SourceFood(4, 0.4F, false).setUnlocalizedName("squidTentacleCooked").setTextureName("squidTentacleCooked");
     public static final Item veal = new SourceFood(2, 0.4F, true).setUnlocalizedName("vealRaw").setTextureName("vealRaw");
 
-    public static final Item chickenNuggetRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenNuggetRaw").setTextureName("chickenNuggetRaw");
-    public static final Item chickenNuggetCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenNuggetCooked").setTextureName("chickenNuggetCooked");
-    public static final Item chickenWingHot = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenWingHot").setTextureName("chickenWingHot");
-    public static final Item chickenWingCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenWingCooked").setTextureName("chickenWingCooked");
-    public static final Item chickenWingRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("chickenWingRaw").setTextureName("chickenWingRaw");
+    public static final Item chickenNuggetRaw = new SourceFood(1, 0.3F, true).setPotionEffect(Potion.hunger.id, 8, 0, 0.3F).setUnlocalizedName("chickenNuggetRaw").setTextureName("chickenNuggetRaw");
+    public static final Item chickenNuggetCooked = new SourceFood(3, 0.5F, true).setUnlocalizedName("chickenNuggetCooked").setTextureName("chickenNuggetCooked");
+    public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot").setTextureName("chickenWingHot");
+    public static final Item chickenWingCooked = new SourceFood(5, 0.5F, true).setUnlocalizedName("chickenWingCooked").setTextureName("chickenWingCooked");
+    public static final Item chickenWingRaw = new SourceFood(2, 0.3F, true).setPotionEffect(Potion.hunger.id, 22, 0, 0.3F).setUnlocalizedName("chickenWingRaw").setTextureName("chickenWingRaw");
 
-    public static final Item drumstickRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("drumstickRaw").setTextureName("drumstickRaw");
-    public static final Item drumstickCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("drumstickCooked").setTextureName("drumstickCooked");
+    public static final Item drumstickRaw = new SourceFood(2, 0.3F, true).setPotionEffect(Potion.hunger.id, 16, 0, 0.3F).setUnlocalizedName("drumstickRaw").setTextureName("drumstickRaw");
+    public static final Item drumstickCooked = new SourceFood(5, 0.6F, true).setUnlocalizedName("drumstickCooked").setTextureName("drumstickCooked");
 
-    public static final Item legSheepRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("legSheepRaw").setTextureName("legSheepRaw");
-    public static final Item legSheepCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("legSheepCooked").setTextureName("legSheepCooked");
+    public static final Item legSheepRaw = new SourceFood(2, 0.3F, true).setUnlocalizedName("legSheepRaw").setTextureName("legSheepRaw");
+    public static final Item legSheepCooked = new SourceFood(5, 0.8F, true).setUnlocalizedName("legSheepCooked").setTextureName("legSheepCooked");
 
-    public static final Item pattyRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("pattyRaw").setTextureName("pattyRaw");
-    public static final Item pattyCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("pattyCooked").setTextureName("pattyCooked");
+    public static final Item pattyRaw = new SourceFood(2, 0.3F, true).setUnlocalizedName("pattyRaw").setTextureName("pattyRaw");
+    public static final Item pattyCooked = new SourceFood(7, 0.8F, true).setUnlocalizedName("pattyCooked").setTextureName("pattyCooked");
 
-    public static final Item ribsBeefRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("ribsBeefRaw").setTextureName("ribsBeefRaw");
-    public static final Item ribsPorkRaw = new SourceFood(0, 0.0F, true).setUnlocalizedName("ribsPorkRaw").setTextureName("ribsPorkRaw");
-    public static final Item ribsCooked = new SourceFood(0, 0.0F, true).setUnlocalizedName("ribsCooked").setTextureName("ribsCooked");
+    public static final Item ribsBeefRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("ribsBeefRaw").setTextureName("ribsBeefRaw");
+    public static final Item ribsPorkRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("ribsPorkRaw").setTextureName("ribsPorkRaw");
+    public static final Item ribsCooked = new SourceFood(7, 0.9F, true).setUnlocalizedName("ribsCooked").setTextureName("ribsCooked");
+
+    public static final Item baconRaw = new SourceFood(1, 0.3F, true).setUnlocalizedName("baconRaw").setTextureName("baconRaw");
+    public static final Item baconCooked = new SourceFood(4, 0.6F, true).setUnlocalizedName("baconCooked").setTextureName("baconCooked");
 
     public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage").setTextureName("sausage");
 
     public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog").setTextureName("hotdog");
 
-    public static final Item beetRaw = new SourceFood(0, 0.0F, false).setUnlocalizedName("beet").setTextureName("beet");
-    public static final Item beetSeed = new SourceFood(0, 0.0F, false).setUnlocalizedName("beetSeed").setTextureName("beetSeed");
-    public static final Item beetSoup = new SourceFood(0, 0.0F, false).setUnlocalizedName("beetSoup").setTextureName("beetSoup");
+    public static final Item beetRaw = new SourceFood(1, 0.3F, false).setUnlocalizedName("beet").setTextureName("beet");
+    public static final Item beetSoup = new SourceSoup(8).setUnlocalizedName("beetSoup").setTextureName("beetSoup");
+
+    //Seeds
+    public static final Item beetSeed = new SourceSeeds(ModBlocks.beet, Blocks.farmland).setUnlocalizedName("beetSeed").setTextureName("beetSeed");
 
     public static void init() //Will show up in this order in NEI and Creative Tab
     {
@@ -78,8 +85,10 @@ public class ModItems
         GameRegistry.registerItem(ribsCooked, "ribsCooked");
         GameRegistry.registerItem(pattyRaw, "pattyRaw");
         GameRegistry.registerItem(pattyCooked, "pattyCooked");
-        GameRegistry.registerItem(sausage, "sausage");
-        GameRegistry.registerItem(hotdog, "hotdog");
+        GameRegistry.registerItem(baconRaw, "baconRaw");
+        GameRegistry.registerItem(baconCooked, "baconCooked");
+        //GameRegistry.registerItem(sausage, "sausage");
+        //GameRegistry.registerItem(hotdog, "hotdog");
         GameRegistry.registerItem(chickenWingRaw, "chickenWingRaw");
         GameRegistry.registerItem(chickenWingCooked, "chickenWingCooked");
         GameRegistry.registerItem(chickenWingHot, "chickenWingHot");

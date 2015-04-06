@@ -12,13 +12,20 @@ import static com.Girafi.culinarycultivation.init.ModItems.*;
 public class Recipes {
 
     public static void init() {
+        //Tools and other stuff
         //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.emptyStorageJar), "   ", "PSP", " P ", 'P', new ItemStack(Blocks.glass_pane), 'S', "slabWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cakeKnife), true, "   ", "  H", "II ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knife), true, "  I", " I ", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(meatCleaver), true, " II", " II", "H  ", 'H', toolHandle, 'I', "ingotIron"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(toolHandle), "stickWood", "stickWood"));
+
+        //Food
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));  //TODO Make different cake states. Temp. recipe   //TODO 1.8 : Change cake slices from 6 to 7
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(squidRing, 3), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), new ItemStack(squidMantle)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(toolHandle), "stickWood", "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
+
+        //Crop -> seed
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(beetSeed), new ItemStack(beetRaw)));
 
 
         //Furnace recipes

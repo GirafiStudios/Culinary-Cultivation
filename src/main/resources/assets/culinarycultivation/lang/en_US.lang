@@ -1,14 +1,36 @@
 #Items
+item.culinarycultivation:baconCooked.name=Bacon
+item.culinarycultivation:baconRaw.name=Raw Bacon
+item.culinarycultivation:beet.name=Beet
+item.culinarycultivation:beetSeed.name=Beet Seeds
+item.culinarycultivation:beetSoup.name=Beet Soup
 item.culinarycultivation:cakeKnife.name=Cake Knife
+item.culinarycultivation:chickenNuggetCooked.name=Chicken Nugget
+item.culinarycultivation:chickenNuggetRaw.name=Raw Chicken Nugget
+item.culinarycultivation:chickenWingCooked.name=Chicken Wings
+item.culinarycultivation:chickenWingHot.name=Hot Wings
+item.culinarycultivation:chickenWingRaw.name=Raw Chicken Wings
 item.culinarycultivation:clownfishCooked.name=Cooked Clownfish
 item.culinarycultivation:debugFood.name=Debug Food Item
+item.culinarycultivation:drumstickCooked.name=Drumstick
+item.culinarycultivation:drumstickRaw.name=Raw Drumstick
 item.culinarycultivation:emptyStorageJar.name=Storage Jar (Empty)
+item.culinarycultivation:hotdog.name=Hotdog
 item.culinarycultivation:knife.name=Knife
 item.culinarycultivation:lambCooked.name=Cooked Lamb
 item.culinarycultivation:lambRaw.name=Raw Lamb
+item.culinarycultivation:legSheepCooked.name=Leg of Sheep
+item.culinarycultivation:legSheepRaw.name=Raw Leg of Sheep
+item.culinarycultivation:meatCleaver.name=Meat Cleaver
 item.culinarycultivation:muttonCooked.name=Cooked Mutton
 item.culinarycultivation:muttonRaw.name=Raw Mutton
-item.culinarycultivation:pieceOfCake.name=Cake Piece
+item.culinarycultivation:pattyCooked.name=Cooked Patty
+item.culinarycultivation:pattyRaw.name=Raw Patty
+item.culinarycultivation:pieceOfCake.name=Cake Slice
+item.culinarycultivation:ribsBeefRaw.name=Raw Ribs Beef
+item.culinarycultivation:ribsCooked.name=Ribs
+item.culinarycultivation:ribsPorkRaw.name=Raw Ribs Pork
+item.culinarycultivation:sausage.name=Sausage
 item.culinarycultivation:squidMantleCooked.name=Cooked Squid Mantle
 item.culinarycultivation:squidMantleRaw.name=Squid Mantle
 item.culinarycultivation:squidRingCooked.name=Cooked Squid Ring
@@ -18,9 +40,10 @@ item.culinarycultivation:squidTentacleRaw.name=Squid Tentacle
 item.culinarycultivation:toolHandle.name=Tool Handle
 item.culinarycultivation:vealCooked.name=Cooked Veal
 item.culinarycultivation:vealRaw.name=Raw Veal
-item.culinarycultivation:meatCleaver.name=Meat Cleaver
+
 
 #Blocks
+tile.culinarycultivation:beets.name=Beets
 
 #Other
 itemGroup.culinarycultivation=Culinary Cultivation
