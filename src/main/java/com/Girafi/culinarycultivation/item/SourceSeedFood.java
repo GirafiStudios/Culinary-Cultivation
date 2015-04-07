@@ -6,15 +6,16 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemStack;
 
-public class SourceSeeds extends ItemSeeds {
+public class SourceSeedFood extends ItemSeedFood {
 
-    public SourceSeeds(Block blockCrop, Block placeableOnBlock) {
-        super(blockCrop, placeableOnBlock);
+    public SourceSeedFood(int amount, float saturation, Block blockCrop, Block placeableOnBlock) {
+        super(amount, saturation, blockCrop, placeableOnBlock);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     }
+
     @Override
     public String getUnlocalizedName()
     {

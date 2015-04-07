@@ -16,7 +16,7 @@ public class SheepDropsEvent {
         public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.entityLiving instanceof EntitySheep & !DropsEvent.entityLiving.isChild()) {
+            if (DropsEvent.entityLiving instanceof EntitySheep &! DropsEvent.entityLiving.isChild()) {
                 if (DropsEvent.entityLiving.isBurning()) {
                     DropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
                 }else {
@@ -27,6 +27,36 @@ public class SheepDropsEvent {
                             DropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
                         }else {
                             DropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static class SheepLegOfSheepDropsEvent {
+
+        @SubscribeEvent
+        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+            rand = Math.random();
+
+            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
+                    if (DropsEvent.entityLiving instanceof EntitySheep & !DropsEvent.entityLiving.isChild()) {
+                        if (rand > 0.1D) {
+                            if (DropsEvent.entityLiving.isBurning()) {
+                                DropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
+                            } else {
+                                DropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
+                            }
+                        }
+                        if (rand > 0.6D) {
+                            if (DropsEvent.entityLiving.isBurning()) {
+                                DropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
+                            } else {
+                                DropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
+                            }
                         }
                     }
                 }

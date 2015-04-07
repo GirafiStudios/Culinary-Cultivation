@@ -12,28 +12,25 @@ public class SquidDropsEvent {
 
         public static class SquidMantleDropsEvent {
 
-        @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+            @SubscribeEvent
+            public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+                rand = Math.random();
 
-            rand = Math.random();
-
-            if (DropsEvent.entityLiving instanceof EntitySquid) {
-                if (rand > 0.90D) {
-                    DropsEvent.entityLiving.dropItem(ModItems.squidMantle, 1);
-                }
-            }
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
-                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntitySquid) {
-                        if (rand > 0.05D) {
-                            DropsEvent.entityLiving.dropItem(ModItems.squidMantle, 1);
+                if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                    EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+                    if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() != ModItems.meatCleaver) {
+                        if (DropsEvent.entityLiving instanceof EntitySquid) {
+                            if (rand > 0.90D) {
+                                DropsEvent.entityLiving.dropItem(ModItems.squidMantle, 1);
+                            }
+                                if (rand > 0.05D) {
+                                    DropsEvent.entityLiving.dropItem(ModItems.squidMantle, 1);
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
     public static class SquidTentacleDropsEvent {
         @SubscribeEvent

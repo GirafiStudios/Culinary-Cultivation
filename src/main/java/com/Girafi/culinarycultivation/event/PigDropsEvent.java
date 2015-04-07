@@ -10,7 +10,6 @@ public class PigDropsEvent {
     private static double rand;
 
     public static class PigRibsPorkDropsEvent {
-
         @SubscribeEvent
         public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
             rand = Math.random();
@@ -19,16 +18,39 @@ public class PigDropsEvent {
                 EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
                     if (DropsEvent.entityLiving instanceof EntityPig &! DropsEvent.entityLiving.isChild()) {
-                        if (DropsEvent.entityLiving.isBurning()) {
-                            DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
-                        } else {
-                            DropsEvent.entityLiving.dropItem(ModItems.ribsPorkRaw, 1);
+                        if (rand > 0.05D) {
+                            if (DropsEvent.entityLiving.isBurning()) {
+                                DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                            } else {
+                                DropsEvent.entityLiving.dropItem(ModItems.ribsPorkRaw, 1);
+                            }
                         }
                         if (rand > 0.85D) {
                             if (DropsEvent.entityLiving.isBurning()) {
                                 DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
                             } else {
                                 DropsEvent.entityLiving.dropItem(ModItems.ribsPorkRaw, 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public static class PigHamDropsEvent {
+        @SubscribeEvent
+        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+            rand = Math.random();
+
+            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
+                    if (DropsEvent.entityLiving instanceof EntityPig &! DropsEvent.entityLiving.isChild()) {
+                        if (rand < 0.1D) {
+                            if (DropsEvent.entityLiving.isBurning()) {
+                                DropsEvent.entityLiving.dropItem(ModItems.hamCooked, 1);
+                            } else {
+                                DropsEvent.entityLiving.dropItem(ModItems.hamRaw, 1);
                             }
                         }
                     }
