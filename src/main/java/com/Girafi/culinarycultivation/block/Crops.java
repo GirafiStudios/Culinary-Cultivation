@@ -21,26 +21,22 @@ public class Crops {
         private IIcon[] field_149868_a;
 
         @SideOnly(Side.CLIENT)
-        public IIcon getIcon(int side, int meta)
-        {
+        public IIcon getIcon(int side, int meta) {
             if (meta < 7)
             {
                 if (meta == 6)
                 {
                     meta = 5;
                 }
-
                 return this.field_149868_a[meta >> 1];
-            }
-            else
-            {
+            }else {
                 return this.field_149868_a[3];
             }
         }
 
         protected Item func_149866_i()
         {
-            return ModItems.beetSeed;
+            return ModItems.beetRaw;
         }
 
         protected Item func_149865_P()
@@ -48,28 +44,8 @@ public class Crops {
             return ModItems.beetRaw;
         }
 
-        @Override
-        public int quantityDropped(Random random) { //TODO Figure out how i want it to drop.
-            rand = Math.random();
-            if (rand > 0.9D) {
-                return 1;
-            }
-            if (rand >= 0.1D && rand <= 0.5D) {
-                return 2;
-            }
-            if (rand >= 0.55D && rand <= 0.9D) {
-                return 3;
-            }
-            if (rand < 0.1D) {
-                return 4;
-            }else {
-                return 0;
-            }
-        }
-
         @SideOnly(Side.CLIENT)
-        public void registerBlockIcons(IIconRegister iIconRegister)
-        {
+        public void registerBlockIcons(IIconRegister iIconRegister) {
             this.field_149868_a = new IIcon[4];
 
             for (int i = 0; i < this.field_149868_a.length; ++i)

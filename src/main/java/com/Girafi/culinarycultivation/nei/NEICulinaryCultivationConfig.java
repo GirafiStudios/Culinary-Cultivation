@@ -8,8 +8,6 @@ import net.minecraft.item.ItemStack;
 
 public class NEICulinaryCultivationConfig implements IConfigureNEI {
 
-    //TODO Make sure Culinary Cultivation can run without NEI!!
-
     @Override
     public String getName() {
         return Reference.MOD_NAME;
