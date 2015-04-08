@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.item;
 
+import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.PacketDebugItemMode;
 import com.Girafi.culinarycultivation.reference.Reference;
@@ -34,7 +35,6 @@ public class ItemDebugItem extends Item { //TODO Add more function!
         setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "debugItem");
         maxStackSize = 1;
         setAlwaysEdible();
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override
@@ -54,7 +54,6 @@ public class ItemDebugItem extends Item { //TODO Add more function!
 
     @Override
     public IIcon getIconIndex(ItemStack stack) {
-
         if (stack.getItemDamage() == 0)
             return debug;
         if (stack.getItemDamage() == 1)
@@ -157,7 +156,7 @@ public class ItemDebugItem extends Item { //TODO Add more function!
 
                 Block block = worldIn.getBlock(x, y, z);
 
-                if (side != 0 && worldIn.getBlock(x, y + 1, z).isAir(worldIn, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland)) {
+                if (side != 0 && worldIn.getBlock(x, y + 1, z).isAir(worldIn, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland || block != Blocks.stone)) {
                     Block block1 = Blocks.farmland;
                     worldIn.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block1.stepSound.getStepResourcePath(), (block1.stepSound.getVolume() + 1.0F) / 2.0F, block1.stepSound.getPitch() * 0.8F);
 
@@ -300,7 +299,7 @@ public class ItemDebugItem extends Item { //TODO Add more function!
             EntityPlayer entityPlayer = Minecraft.getMinecraft().thePlayer;
             if (entityPlayer.isSneaking()) {
                 ItemStack itemStack = entityPlayer.getHeldItem();
-                if (itemStack != null && itemStack.getItem() == this) {
+                if (itemStack != null && itemStack.getItem() == ModItems.debugItem) {
                     if (event.dwheel != 0)
                         NetworkHandler.instance().sendToServer(new PacketDebugItemMode(entityPlayer.inventory.currentItem, event.dwheel < 0));
                     event.setCanceled(true);
