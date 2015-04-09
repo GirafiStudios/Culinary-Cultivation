@@ -3,8 +3,6 @@ package com.Girafi.culinarycultivation.init;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -24,7 +22,8 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(toolHandle), "stickWood", "stickWood"));
 
         //Food
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));  //TODO Make different cake states. Temp. recipe   //TODO 1.8 : Change cake slices from 6 to 7
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));  //TODO Make different cake states? //TODO 1.8 : Change cake slices from 6 to 7
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), "   ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(squidRing, 3), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), new ItemStack(squidMantle)));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(baconRaw, 3), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.porkchop)));

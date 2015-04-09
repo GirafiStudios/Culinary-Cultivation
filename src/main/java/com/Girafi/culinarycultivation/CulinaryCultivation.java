@@ -3,7 +3,6 @@ package com.Girafi.culinarycultivation;
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.handler.CraftingHandler;
 import com.Girafi.culinarycultivation.init.*;
-import com.Girafi.culinarycultivation.item.ItemDebugItem;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;
 import com.Girafi.culinarycultivation.reference.Reference;
@@ -14,7 +13,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.DEPENDENCIES)
 public class CulinaryCultivation
@@ -31,7 +29,6 @@ public class CulinaryCultivation
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
         Events.init();
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
-        MinecraftForge.EVENT_BUS.register(new ItemDebugItem());
         ModBlocks.init();
         ModItems.init();
         NetworkHandler.init();

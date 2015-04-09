@@ -4,8 +4,10 @@ import com.Girafi.culinarycultivation.item.*;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.common.MinecraftForge;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems
@@ -17,6 +19,7 @@ public class ModItems
     public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
+    public static final Item rennet_bucket = new ItemBucket(Blocks.piston).setContainerItem(Items.bucket).setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "bucketRennet").setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "bucketRennet");
 
     ////Food
     //HealAmount, Saturation, isWolfFood
@@ -43,7 +46,7 @@ public class ModItems
     public static final Item mutton = new SourceFood(2, 0.3F, true).setUnlocalizedName("muttonRaw").setTextureName("muttonRaw");
     public static final Item pattyCooked = new SourceFood(7, 0.7F, true).setUnlocalizedName("pattyCooked").setTextureName("pattyCooked");
     public static final Item pattyRaw = new SourceFood(2, 0.3F, true).setUnlocalizedName("pattyRaw").setTextureName("pattyRaw");
-    public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake").setTextureName("pieceOfCake"); //TODO Make diffrent cake "states", each with a piece less on, when used a knife on it. (Make them not show up in NEI) //TODO Add Cake Knife, which can cut the cake pieces all at once (6 pieces)
+    public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake").setTextureName("pieceOfCake"); //TODO Make diffrent cake "states", each with a piece less on, when used the kitchen knife on it. (Make them not show up in NEI)
     public static final Item ribsBeefRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("ribsBeefRaw").setTextureName("ribsBeefRaw");
     public static final Item ribsCooked = new SourceFood(7, 0.9F, true).setUnlocalizedName("ribsCooked").setTextureName("ribsCooked");
     public static final Item ribsPorkRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("ribsPorkRaw").setTextureName("ribsPorkRaw");
@@ -110,6 +113,8 @@ public class ModItems
         GameRegistry.registerItem(meatCleaver, "meatCleaver");
         GameRegistry.registerItem(cakeKnife, "cakeKnife");
         //GameRegistry.registerItem(hoeBoots, "hoeBoots");
+        //GameRegistry.registerItem(rennet_bucket, "rennet_bucket");
         GameRegistry.registerItem(debugItem, "debugItem");
+        MinecraftForge.EVENT_BUS.register(new ItemDebugItem());
     }
 }

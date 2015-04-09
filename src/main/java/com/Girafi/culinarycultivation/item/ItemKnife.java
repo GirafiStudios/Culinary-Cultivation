@@ -22,7 +22,7 @@ public class ItemKnife extends ItemTool
     public ItemKnife(Item.ToolMaterial material)
     {
         super(3.0F, material, EFFECTIVE_ON);
-        setUnlocalizedName("knife");
+        setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "knife");
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "knife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
@@ -51,18 +51,5 @@ public class ItemKnife extends ItemTool
     public boolean shouldRotateAroundWhenRendering()
     {
         return true;
-    }
-
-////Setting unlocalized name
-//Copyed from SourceItem
-@Override
-public String getUnlocalizedName(ItemStack itemStack)
-{
-    return String.format("item.%s%s", Reference.MOD_ID.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
-}
-
-    protected String getUnwrappedUnlocalizedName(String unlocalizedName)
-    {
-        return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
 }

@@ -1,10 +1,8 @@
 package com.Girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.block.SourceBlock;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 
 import static com.Girafi.culinarycultivation.block.Crops.*;
 

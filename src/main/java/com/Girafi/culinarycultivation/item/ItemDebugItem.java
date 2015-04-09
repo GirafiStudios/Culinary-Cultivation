@@ -41,7 +41,7 @@ public class ItemDebugItem extends Item { //TODO Add more function!
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iIconRegister) {
         debug = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugItem");
-        hungerMinus = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "hotdog");
+        hungerMinus = iIconRegister.registerIcon("rotten_flesh");
         hungerPlus = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "hotdog");
         bonemealer = iIconRegister.registerIcon("dye_powder_white");
         hoe = iIconRegister.registerIcon("stone_hoe");
@@ -95,11 +95,11 @@ public class ItemDebugItem extends Item { //TODO Add more function!
     @Override
     public ItemStack onEaten(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.getItemDamage() == 1) {
-            playerIn.getFoodStats().addStats(-20, 0.0F);
+            playerIn.getFoodStats().setFoodLevel(0);
 
         }
         if (stack.getItemDamage() == 2) {
-            playerIn.getFoodStats().addStats(20, 0.0F);
+            playerIn.getFoodStats().setFoodLevel(20);
         }
         return stack;
     }
@@ -156,7 +156,7 @@ public class ItemDebugItem extends Item { //TODO Add more function!
 
                 Block block = worldIn.getBlock(x, y, z);
 
-                if (side != 0 && worldIn.getBlock(x, y + 1, z).isAir(worldIn, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland || block != Blocks.stone)) {
+                if (side != 0 && worldIn.getBlock(x, y + 1, z).isAir(worldIn, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt || block == Blocks.farmland)) {
                     Block block1 = Blocks.farmland;
                     worldIn.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block1.stepSound.getStepResourcePath(), (block1.stepSound.getVolume() + 1.0F) / 2.0F, block1.stepSound.getPitch() * 0.8F);
 

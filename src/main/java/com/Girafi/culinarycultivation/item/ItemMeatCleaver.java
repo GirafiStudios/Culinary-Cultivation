@@ -14,7 +14,7 @@ public class ItemMeatCleaver extends ItemSword {
 
     public ItemMeatCleaver(ToolMaterial material) {
         super(material);
-        setUnlocalizedName("meatCleaver");
+        setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "meatCleaver");
         setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "meatCleaver");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
@@ -30,18 +30,5 @@ public class ItemMeatCleaver extends ItemSword {
     public boolean shouldRotateAroundWhenRendering()
     {
         return true;
-    }
-
-////Setting unlocalized name
-//Copyed from SourceItem
-    @Override
-    public String getUnlocalizedName(ItemStack itemStack)
-    {
-        return String.format("item.%s%s", Reference.MOD_ID.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
-    }
-
-    protected String getUnwrappedUnlocalizedName(String unlocalizedName)
-    {
-        return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
 }
