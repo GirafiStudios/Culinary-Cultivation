@@ -4,8 +4,10 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.PacketDebugItemMode;
 import com.Girafi.culinarycultivation.reference.Reference;
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -17,6 +19,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -95,17 +98,21 @@ public class ItemDebugItem extends Item { //TODO Add more function!
     @Override
     public ItemStack onEaten(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.getItemDamage() == 1) {
-            playerIn.getFoodStats().setFoodLevel(0);
-
+            playerIn.getFoodStats().addStats(-20, 0F);
         }
         if (stack.getItemDamage() == 2) {
-            playerIn.getFoodStats().setFoodLevel(20);
+            playerIn.getFoodStats().addStats(20, 0F);
+            playerIn.heal(20);
+            playerIn.extinguish();
         }
         return stack;
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+        if (stack.getItemDamage() == 0) {
+                playerIn.addChatComponentMessage(new ChatComponentText("This mode is not implemented yet. Switch mode by shift + scrolling"));
+        }
         if (stack.getItemDamage() == 1) {
             if (playerIn.canEat(this.alwaysEdible)) {
                 playerIn.setItemInUse(stack, this.getMaxItemUseDuration(stack));
