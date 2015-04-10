@@ -12,7 +12,7 @@ import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 public class CakeDropEvent { //Might add more to this later!
 
     @SubscribeEvent
-    public void CakeDrop(HarvestDropsEvent DropsEvent) {
+    public void CakeDrop(HarvestDropsEvent DropsEvent) { //TODO Make either cake state return 1 cake slice, when right-clicked with the cake knife
         if (DropsEvent.harvester instanceof EntityPlayer) {
             EntityPlayer player = DropsEvent.harvester;
             if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife) {

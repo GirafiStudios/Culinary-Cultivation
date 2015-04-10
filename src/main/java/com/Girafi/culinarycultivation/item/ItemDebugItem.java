@@ -101,7 +101,7 @@ public class ItemDebugItem extends Item { //TODO Add more function!
             playerIn.getFoodStats().addStats(-20, 0F);
         }
         if (stack.getItemDamage() == 2) {
-            playerIn.getFoodStats().addStats(20, 0F);
+            playerIn.getFoodStats().addStats(10000, 0F);
             playerIn.heal(20);
             playerIn.extinguish();
         }
