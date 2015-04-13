@@ -57,9 +57,9 @@ public class CowDropsEvent {
                     if (DropsEvent.entityLiving instanceof EntityCow &! DropsEvent.entityLiving.isChild()) {
                         if (rand < 0.1D) {
                             if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                                DropsEvent.entityLiving.dropItem(ModItems.roastCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
+                                DropsEvent.entityLiving.dropItem(ModItems.roastRaw, 1);
                             }
                         }
                     }
