@@ -1,8 +1,8 @@
 package com.Girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.event.CakeDropEvent;
 import net.minecraftforge.common.MinecraftForge;
 
+import static com.Girafi.culinarycultivation.event.CakeDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.CowDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.PigDropsEvent.*;
@@ -24,6 +24,8 @@ public class Events {
         if (ShouldSheepDropMutton) {MinecraftForge.EVENT_BUS.register(new SheepMuttonDropsEvent()); }
         if (ShouldSquidDropSquidMantle) {MinecraftForge.EVENT_BUS.register(new SquidMantleDropsEvent()); }
         if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
-        MinecraftForge.EVENT_BUS.register(new CakeDropEvent());
+        MinecraftForge.EVENT_BUS.register(new CakeLeftClickEvent());
+        MinecraftForge.EVENT_BUS.register(new CakePickupEvent());
+        MinecraftForge.EVENT_BUS.register(new CakeRightClickEvent());
     }
 }
