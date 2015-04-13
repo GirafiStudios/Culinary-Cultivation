@@ -31,4 +31,10 @@ public class ItemMeatCleaver extends ItemSword {
     {
         return true;
     }
+
+    @Override
+    public boolean isRepairable()
+    {
+        return false;
+    }
 }

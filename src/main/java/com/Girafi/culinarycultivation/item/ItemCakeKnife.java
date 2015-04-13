@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
+import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -33,4 +34,11 @@ public class ItemCakeKnife extends ItemTool {
     @Override
     public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel();
     }
+
+    @Override
+    public boolean isRepairable()
+    {
+        return false;
+    }
+
 }

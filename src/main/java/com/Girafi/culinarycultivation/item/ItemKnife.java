@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
+import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.google.common.collect.Sets;
 import cpw.mods.fml.relauncher.Side;
@@ -51,5 +52,11 @@ public class ItemKnife extends ItemTool
     public boolean shouldRotateAroundWhenRendering()
     {
         return true;
+    }
+
+    @Override
+    public boolean isRepairable()
+    {
+        return false;
     }
 }
