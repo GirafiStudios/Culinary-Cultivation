@@ -20,32 +20,31 @@ public class CakeDropsEvent { //Might add more to this later!
 
     public static class CakePickupEvent {
         @SubscribeEvent
-        public void CakeDrop(HarvestDropsEvent DropsEvent) { //TODO Make either cake state return 1 cake slice, when right-clicked with the cake knife
-            //TODO Fix that you can eat the cake by clicking, if not full hunger
-            if (DropsEvent.harvester instanceof EntityPlayer) {
-                EntityPlayer player = DropsEvent.harvester;
+        public void CakeDrop(HarvestDropsEvent dropsEvent) { //TODO Fix that you can eat the cake by clicking, if not full hunger
+            if (dropsEvent.harvester instanceof EntityPlayer) {
+                EntityPlayer player = dropsEvent.harvester;
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife) {
-                    if (DropsEvent.block instanceof BlockCake && DropsEvent.block == Blocks.cake) {
-                        if (DropsEvent.blockMetadata == 0) {
-                            DropsEvent.drops.add(new ItemStack(Items.cake));
+                    if (dropsEvent.block instanceof BlockCake && dropsEvent.block == Blocks.cake) {
+                        if (dropsEvent.blockMetadata == 0) {
+                            dropsEvent.drops.add(new ItemStack(Items.cake));
                         }
-                        if (DropsEvent.blockMetadata == 1) {
-                            DropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 5));
+                        if (dropsEvent.blockMetadata == 1) {
+                            dropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 5));
                         }
-                        if (DropsEvent.blockMetadata == 2) {
-                            DropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 4));
+                        if (dropsEvent.blockMetadata == 2) {
+                            dropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 4));
                         }
-                        if (DropsEvent.blockMetadata == 3) {
-                            DropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 3));
+                        if (dropsEvent.blockMetadata == 3) {
+                            dropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 3));
                         }
-                        if (DropsEvent.blockMetadata == 4) {
-                            DropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 2));
+                        if (dropsEvent.blockMetadata == 4) {
+                            dropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 2));
                         }
-                        if (DropsEvent.blockMetadata == 5) {
-                            DropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake));
+                        if (dropsEvent.blockMetadata == 5) {
+                            dropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake));
                         }
-                        if (DropsEvent.blockMetadata == 6) { //Will work in 1.8
-                            DropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 0));
+                        if (dropsEvent.blockMetadata == 6) { //Will work in 1.8
+                            dropsEvent.drops.add(new ItemStack(ModItems.pieceOfCake, 0));
                         }
                     }
                 }
@@ -54,15 +53,16 @@ public class CakeDropsEvent { //Might add more to this later!
     }
 
     public static class CakeLeftClickEvent {
-
         @SubscribeEvent
-        public void CakeLeftClick(PlayerInteractEvent IEvent) {
-            if (IEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
-                EntityPlayer player = IEvent.entityPlayer;
+        public void CakeLeftClick(PlayerInteractEvent iEvent) {
+            if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
+                EntityPlayer player = iEvent.entityPlayer;
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife) {
-                    if (IEvent.world.getBlock(IEvent.x, IEvent.y, IEvent.z) instanceof BlockCake && IEvent.world.getBlock(IEvent.x, IEvent.y, IEvent.z) == Blocks.cake) {
+                    if (iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) instanceof BlockCake && iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) == Blocks.cake) {
                         if (player.getFoodStats().needFood()) {
-                            player.getFoodStats().addStats(-2, 0.0F);
+                            int prevFood = player.getFoodStats().getFoodLevel()- 2;
+                            player.getFoodStats().setFoodLevel(prevFood);
+                            player.getFoodStats().onUpdate(player);
                         }
                     }
                 }
@@ -72,24 +72,24 @@ public class CakeDropsEvent { //Might add more to this later!
 
     public static class CakeRightClickEvent {
         @SubscribeEvent
-        public void CakeRightClick(PlayerInteractEvent IEvent) {
-            if (IEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                EntityPlayer player = IEvent.entityPlayer;
+        public void CakeRightClick(PlayerInteractEvent iEvent) {
+            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                EntityPlayer player = iEvent.entityPlayer;
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife) {
-                    if (IEvent.world.getBlock(IEvent.x, IEvent.y, IEvent.z) instanceof BlockCake && IEvent.world.getBlock(IEvent.x, IEvent.y, IEvent.z) == Blocks.cake) {
+                    if (iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) instanceof BlockCake && iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) == Blocks.cake) {
                         if (player.canEat(false)) {
                             player.getFoodStats().addStats(-2, 0.0F);
-                            if (!IEvent.world.isRemote) {
-                                IEvent.world.spawnEntityInWorld(new EntityItem(IEvent.world, IEvent.x, IEvent.y, IEvent.z, new ItemStack(ModItems.pieceOfCake)));
+                            if (!iEvent.world.isRemote) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake)));
                             }
                         } else {
-                            if (!IEvent.world.isRemote) {
-                                IEvent.world.spawnEntityInWorld(new EntityItem(IEvent.world, IEvent.x, IEvent.y, IEvent.z, new ItemStack(ModItems.pieceOfCake)));
-                                int l = IEvent.world.getBlockMetadata(IEvent.x, IEvent.y, IEvent.z) + 1;
+                            if (!iEvent.world.isRemote) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake)));
+                                int l = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z) + 1;
                                 if (l >= 6) {
-                                    IEvent.world.setBlockToAir(IEvent.x, IEvent.y, IEvent.z);
+                                    iEvent.world.setBlockToAir(iEvent.x, iEvent.y, iEvent.z);
                                 } else {
-                                    IEvent.world.setBlockMetadataWithNotify(IEvent.x, IEvent.y, IEvent.z, l, 2);
+                                    iEvent.world.setBlockMetadataWithNotify(iEvent.x, iEvent.y, iEvent.z, l, 2);
                                 }
                             }
                         }

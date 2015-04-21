@@ -15,39 +15,53 @@ public class CraftingHandler {
     public void onCrafting(ItemCraftedEvent itemCraftedEvent) {
 
         final IInventory knifeCrafting = null;
-        for(int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++){
-            ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
-            if(stack != null && stack.getItem() instanceof ItemKnife){
-                ItemStack itemKnife = new ItemStack(ModItems.knife, 2, stack.getItemDamage() + 1);
+        ItemStack stackKnife = itemCraftedEvent.crafting;
+        if (stackKnife != null && stackKnife.getItem() == ModItems.knife) {
+        } else {
+            for (int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++) {
+                ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
+                if (stack != null && stack.getItem() instanceof ItemKnife) {
+                    ItemStack itemKnife = new ItemStack(ModItems.knife, 2, stack.getItemDamage() + 1);
 
-                if(itemKnife.getItemDamage() >= itemKnife.getMaxDamage()){
-                    itemKnife.stackSize--;
+                    if (itemKnife.getItemDamage() >= itemKnife.getMaxDamage()) {
+                        itemKnife.stackSize--;
+                    }
+                    itemCraftedEvent.craftMatrix.setInventorySlotContents(i, itemKnife);
                 }
-                itemCraftedEvent.craftMatrix.setInventorySlotContents(i, itemKnife);
             }
         }
+
         final IInventory cakeKnifeCrafting = null;
-        for(int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++){
-            ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
-            if(stack != null && stack.getItem() instanceof ItemCakeKnife){
-                ItemStack cakeKnife = new ItemStack(ModItems.cakeKnife, 2, stack.getItemDamage() + 1);
+        ItemStack stackCakeKnife = itemCraftedEvent.crafting;
+        if (stackCakeKnife != null && stackKnife.getItem() == ModItems.cakeKnife) {
+        } else {
+            for (int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++) {
+                ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
+                if (stack != null && stack.getItem() instanceof ItemCakeKnife) {
+                    ItemStack cakeKnife = new ItemStack(ModItems.cakeKnife, 2, stack.getItemDamage() + 1);
 
-                if(cakeKnife.getItemDamage() >= cakeKnife.getMaxDamage()){
-                    cakeKnife.stackSize--;
+                    if (cakeKnife.getItemDamage() >= cakeKnife.getMaxDamage()) {
+                        cakeKnife.stackSize--;
+                    }
+                    itemCraftedEvent.craftMatrix.setInventorySlotContents(i, cakeKnife);
                 }
-                itemCraftedEvent.craftMatrix.setInventorySlotContents(i, cakeKnife);
             }
         }
-        final IInventory meatCleaverCrafting = null;
-        for(int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++) {
-            ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
-            if (stack != null && stack.getItem() instanceof ItemMeatCleaver) {
-                ItemStack meatCleaver = new ItemStack(ModItems.meatCleaver, 2, stack.getItemDamage() + 1);
 
-                if (meatCleaver.getItemDamage() >= meatCleaver.getMaxDamage()) {
-                    meatCleaver.stackSize--;
+        final IInventory meatCleaverCrafting = null;
+        ItemStack stackMeatCleaver = itemCraftedEvent.crafting;
+        if (stackMeatCleaver != null && stackKnife.getItem() == ModItems.meatCleaver) {
+        } else {
+            for (int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++) {
+                ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
+                if (stack != null && stack.getItem() instanceof ItemMeatCleaver) {
+                    ItemStack meatCleaver = new ItemStack(ModItems.meatCleaver, 2, stack.getItemDamage() + 1);
+
+                    if (meatCleaver.getItemDamage() >= meatCleaver.getMaxDamage()) {
+                        meatCleaver.stackSize--;
+                    }
+                    itemCraftedEvent.craftMatrix.setInventorySlotContents(i, meatCleaver);
                 }
-                itemCraftedEvent.craftMatrix.setInventorySlotContents(i, meatCleaver);
             }
         }
     }

@@ -1,8 +1,12 @@
 package com.Girafi.culinarycultivation.init;
 
+import com.Girafi.culinarycultivation.item.SourceFood;
+import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.Loader;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.text.WordUtils;
 
 public class OreDictionaryRegistration {
 
@@ -18,16 +22,14 @@ public class OreDictionaryRegistration {
         OreDictionary.registerOre("foodVealCooked", ModItems.cookedVeal);
         OreDictionary.registerOre("foodVealRaw", ModItems.veal);
 
-        //Temporary Patty recipe fix
+        OreDictionary.registerOre("food" + WordUtils.capitalize(SourceFood.getUnwrappedUnlocalizedName(ModItems.baconCooked.getUnlocalizedName().replace("culinarycultivation:", ""))), new ItemStack(ModItems.baconCooked));
+
+        //Minced Meat recipe
         OreDictionary.registerOre("foodMincedMeat", Items.beef);
-        OreDictionary.registerOre("foodMincedMeat", Items.chicken);
         OreDictionary.registerOre("foodMincedMeat", Items.porkchop);
         OreDictionary.registerOre("foodMincedMeat", ModItems.hamRaw);
         OreDictionary.registerOre("foodMincedMeat", ModItems.lamb);
-        OreDictionary.registerOre("foodMincedMeat", ModItems.legSheepRaw);
         OreDictionary.registerOre("foodMincedMeat", ModItems.mutton);
-        OreDictionary.registerOre("foodMincedMeat", ModItems.ribsBeefRaw);
-        OreDictionary.registerOre("foodMincedMeat", ModItems.ribsPorkRaw);
         OreDictionary.registerOre("foodMincedMeat", ModItems.roastRaw);
         OreDictionary.registerOre("foodMincedMeat", ModItems.veal);
 

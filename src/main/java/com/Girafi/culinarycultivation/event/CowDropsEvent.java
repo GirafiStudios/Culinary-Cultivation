@@ -13,30 +13,30 @@ public class CowDropsEvent {
     public static class CowRibsBeefDropsEvent {
 
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntityCow &! DropsEvent.entityLiving.isChild()) {
-                        if (DropsEvent.entityLiving.isBurning()) {
-                            DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                    if (dropsEvent.entityLiving instanceof EntityCow &! dropsEvent.entityLiving.isChild()) {
+                        if (dropsEvent.entityLiving.isBurning()) {
+                            dropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
                         } else {
-                            DropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
+                            dropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
                         }
                         if (rand > 0.7D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
                             }
                         }
                         if (rand > 0.98D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
                             }
                         }
                     }
@@ -48,18 +48,18 @@ public class CowDropsEvent {
     public static class CowRoastDropsEvent {
 
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntityCow &! DropsEvent.entityLiving.isChild()) {
+                    if (dropsEvent.entityLiving instanceof EntityCow &! dropsEvent.entityLiving.isChild()) {
                         if (rand < 0.1D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.roastCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.roastCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.roastRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.roastRaw, 1);
                             }
                         }
                     }
@@ -71,30 +71,30 @@ public class CowDropsEvent {
     public static class BabyCowVealDropsEvent {
 
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntityCow && DropsEvent.entityLiving.isChild()) {
-                        if (DropsEvent.entityLiving.isBurning()) {
-                            DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
+                    if (dropsEvent.entityLiving instanceof EntityCow && dropsEvent.entityLiving.isChild()) {
+                        if (dropsEvent.entityLiving.isBurning()) {
+                            dropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
                         } else {
-                            DropsEvent.entityLiving.dropItem(ModItems.veal, 1);
+                            dropsEvent.entityLiving.dropItem(ModItems.veal, 1);
                         }
                         if (rand > 0.85D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.veal, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.veal, 1);
                             }
                         }
                         if (rand > 0.98D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.veal, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.veal, 1);
                             }
                         }
                     }

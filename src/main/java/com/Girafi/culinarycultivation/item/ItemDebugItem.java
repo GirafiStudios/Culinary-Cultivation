@@ -26,7 +26,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 
-public class ItemDebugItem extends Item { //TODO Add more function!
+public class ItemDebugItem extends Item {
 
     private boolean alwaysEdible;
 

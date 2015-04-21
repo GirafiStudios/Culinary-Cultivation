@@ -13,20 +13,20 @@ public class SheepDropsEvent {
     public static class SheepMuttonDropsEvent {
 
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.entityLiving instanceof EntitySheep &! DropsEvent.entityLiving.isChild()) {
-                if (DropsEvent.entityLiving.isBurning()) {
-                    DropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
+            if (dropsEvent.entityLiving instanceof EntitySheep &! dropsEvent.entityLiving.isChild()) {
+                if (dropsEvent.entityLiving.isBurning()) {
+                    dropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
                 }else {
-                    DropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
+                    dropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
 
                     if (rand > 0.6D) {
-                        if (DropsEvent.entityLiving.isBurning()) {
-                            DropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
+                        if (dropsEvent.entityLiving.isBurning()) {
+                            dropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
                         }else {
-                            DropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
+                            dropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
                         }
                     }
                 }
@@ -37,25 +37,25 @@ public class SheepDropsEvent {
     public static class SheepLegOfSheepDropsEvent {
 
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntitySheep & !DropsEvent.entityLiving.isChild()) {
+                    if (dropsEvent.entityLiving instanceof EntitySheep & !dropsEvent.entityLiving.isChild()) {
                         if (rand > 0.1D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
                             }
                         }
                         if (rand > 0.6D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
                             }
                         }
                     }
@@ -67,24 +67,24 @@ public class SheepDropsEvent {
     public static class BabySheepLambDropsEvent {
 
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntitySheep && DropsEvent.entityLiving.isChild()) {
-                        if (DropsEvent.entityLiving.isBurning()) {
-                            DropsEvent.entityLiving.dropItem(ModItems.cookedLamb, 1);
+                    if (dropsEvent.entityLiving instanceof EntitySheep && dropsEvent.entityLiving.isChild()) {
+                        if (dropsEvent.entityLiving.isBurning()) {
+                            dropsEvent.entityLiving.dropItem(ModItems.cookedLamb, 1);
                         }else {
-                            DropsEvent.entityLiving.dropItem(ModItems.lamb, 1);
+                            dropsEvent.entityLiving.dropItem(ModItems.lamb, 1);
                         }
                         if (rand > 0.85D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.cookedLamb, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.cookedLamb, 1);
 
                             }else {
-                                DropsEvent.entityLiving.dropItem(ModItems.lamb, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.lamb, 1);
                             }
                         }
                     }

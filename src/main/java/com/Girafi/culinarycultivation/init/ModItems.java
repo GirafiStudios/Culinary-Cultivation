@@ -32,7 +32,7 @@ public class ModItems
     public static final Item chickenWingCooked = new SourceFood(5, 0.5F, true).setUnlocalizedName("chickenWingCooked").setTextureName("chickenWingCooked");
     public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot").setTextureName("chickenWingHot");
     public static final Item chickenWingRaw = new SourceFood(2, 0.3F, true).setPotionEffect(Potion.hunger.id, 22, 0, 0.3F).setUnlocalizedName("chickenWingRaw").setTextureName("chickenWingRaw");
-    public static final Item cookedClownfish = new SourceFood(3, 0.2F, false).setPotionEffect(Potion.poison.id, 3, 0, 0.001F).setPotionEffect(Potion.confusion.id, 8, 0, 0.08F).setUnlocalizedName("clownfishCooked").setTextureName("clownfishCooked"); //TODO Make you get the Fish achievement, when cooking this
+    public static final Item cookedClownfish = new SourceFood(3, 0.2F, false).setPotionEffect(Potion.poison.id, 3, 0, 0.001F).setPotionEffect(Potion.confusion.id, 8, 0, 0.08F).setUnlocalizedName("clownfishCooked").setTextureName("clownfishCooked");
     public static final Item cookedLamb = new SourceFood(5, 1.1F, true).setUnlocalizedName("lambCooked").setTextureName("lambCooked");
     public static final Item cookedMutton = new SourceFood(6, 0.8F, true).setUnlocalizedName("muttonCooked").setTextureName("muttonCooked");
     public static final Item cookedVeal = new SourceFood(7, 1.0F, true).setUnlocalizedName("vealCooked").setTextureName("vealCooked");
@@ -46,7 +46,7 @@ public class ModItems
     public static final Item mutton = new SourceFood(2, 0.3F, true).setUnlocalizedName("muttonRaw").setTextureName("muttonRaw");
     public static final Item pattyCooked = new SourceFood(7, 0.7F, true).setUnlocalizedName("pattyCooked").setTextureName("pattyCooked");
     public static final Item pattyRaw = new SourceFood(2, 0.3F, true).setUnlocalizedName("pattyRaw").setTextureName("pattyRaw");
-    public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake").setTextureName("pieceOfCake"); //TODO Make diffrent cake "states", each with a piece less on, when used the kitchen knife on it. (Make them not show up in NEI)
+    public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake").setTextureName("pieceOfCake"); //TODO (MAYBE) Make diffrent cake "states", each with a piece less on, when used the kitchen knife on it. (Make them not show up in NEI)
     public static final Item ribsBeefRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("ribsBeefRaw").setTextureName("ribsBeefRaw");
     public static final Item ribsCooked = new SourceFood(7, 0.9F, true).setUnlocalizedName("ribsCooked").setTextureName("ribsCooked");
     public static final Item ribsPorkRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("ribsPorkRaw").setTextureName("ribsPorkRaw");

@@ -11,25 +11,25 @@ public class PigDropsEvent {
 
     public static class PigRibsPorkDropsEvent {
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntityPig &! DropsEvent.entityLiving.isChild()) {
+                    if (dropsEvent.entityLiving instanceof EntityPig &! dropsEvent.entityLiving.isChild()) {
                         if (rand > 0.05D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsPorkRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsPorkRaw, 1);
                             }
                         }
                         if (rand > 0.85D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.ribsPorkRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.ribsPorkRaw, 1);
                             }
                         }
                     }
@@ -39,18 +39,18 @@ public class PigDropsEvent {
     }
     public static class PigHamDropsEvent {
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntityPig &! DropsEvent.entityLiving.isChild()) {
+                    if (dropsEvent.entityLiving instanceof EntityPig &! dropsEvent.entityLiving.isChild()) {
                         if (rand < 0.1D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.hamCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.hamCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.hamRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.hamRaw, 1);
                             }
                         }
                     }

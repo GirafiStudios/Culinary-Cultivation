@@ -1,17 +1,18 @@
 package com.Girafi.culinarycultivation.init;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 import static com.Girafi.culinarycultivation.event.CakeDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.CowDropsEvent.*;
+import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.*;
 import static com.Girafi.culinarycultivation.event.PigDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.SheepDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.SquidDropsEvent.*;
 import static com.Girafi.culinarycultivation.handler.ConfigurationHandler.*;
 
 public class Events {
-
     public static void init() {
         if (ShouldBabyCowDropVeal) {MinecraftForge.EVENT_BUS.register(new BabyCowVealDropsEvent()); }
         if (ShouldBabySheepDropLamb) {MinecraftForge.EVENT_BUS.register(new BabySheepLambDropsEvent()); }
@@ -27,5 +28,7 @@ public class Events {
         MinecraftForge.EVENT_BUS.register(new CakeLeftClickEvent());
         MinecraftForge.EVENT_BUS.register(new CakePickupEvent());
         MinecraftForge.EVENT_BUS.register(new CakeRightClickEvent());
+        FMLCommonHandler.instance().bus().register(new DrumstickCraftingEvent());
+        FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
     }
 }

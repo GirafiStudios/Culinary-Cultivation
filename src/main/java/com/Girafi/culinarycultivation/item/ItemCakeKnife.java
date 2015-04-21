@@ -34,11 +34,4 @@ public class ItemCakeKnife extends ItemTool {
     @Override
     public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel();
     }
-
-    @Override
-    public boolean isRepairable()
-    {
-        return false;
-    }
-
 }

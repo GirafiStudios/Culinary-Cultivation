@@ -12,26 +12,26 @@ public class ChickenDropsEvent {
 
     public static class ChickenWingDropsEvent {
         @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent DropsEvent) {
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
 
             rand = Math.random();
 
-            if (DropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) DropsEvent.source.getSourceOfDamage();
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (DropsEvent.entityLiving instanceof EntityChicken &! DropsEvent.entityLiving.isChild()) {
+                    if (dropsEvent.entityLiving instanceof EntityChicken &! dropsEvent.entityLiving.isChild()) {
                         if (rand > 0.1D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.chickenWingCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.chickenWingCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.chickenWingRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.chickenWingRaw, 1);
                             }
                         }
                         if (rand > 0.5D) {
-                            if (DropsEvent.entityLiving.isBurning()) {
-                                DropsEvent.entityLiving.dropItem(ModItems.chickenWingCooked, 1);
+                            if (dropsEvent.entityLiving.isBurning()) {
+                                dropsEvent.entityLiving.dropItem(ModItems.chickenWingCooked, 1);
                             } else {
-                                DropsEvent.entityLiving.dropItem(ModItems.chickenWingRaw, 1);
+                                dropsEvent.entityLiving.dropItem(ModItems.chickenWingRaw, 1);
                             }
                         }
                     }

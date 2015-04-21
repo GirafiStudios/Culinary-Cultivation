@@ -54,9 +54,4 @@ public class ItemKnife extends ItemTool
         return true;
     }
 
-    @Override
-    public boolean isRepairable()
-    {
-        return false;
-    }
 }

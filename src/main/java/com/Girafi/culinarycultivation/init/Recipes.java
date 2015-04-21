@@ -22,12 +22,13 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(toolHandle), "stickWood", "stickWood"));
 
         //Food
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));  //TODO Make different cake states? //TODO 1.8 : Change cake slices from 6 to 7
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));  //TODO Minecraft 1.8 : Change cake slices from 6 to 7
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), "   ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(squidRing, 3), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), new ItemStack(squidMantle)));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(baconRaw, 3), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.porkchop)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pattyRaw), new ItemStack(meatCleaver, 1,OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(chickenNuggetRaw, 3), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), new ItemStack(Items.chicken)));
 
         //Temporary recipes
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(chickenWingHot), new ItemStack(chickenWingCooked), new ItemStack(Items.blaze_powder)));
