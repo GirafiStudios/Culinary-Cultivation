@@ -19,7 +19,7 @@ public class ModItems
     public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
-    public static final Item rennet_bucket = new ItemBucket(Blocks.piston).setContainerItem(Items.bucket).setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "bucketRennet").setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "bucketRennet");
+    //public static final Item rennet_bucket = new ItemBucket(Blocks.piston).setContainerItem(Items.bucket).setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "bucketRennet").setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "bucketRennet");
 
     ////Food
     //HealAmount, Saturation, isWolfFood
@@ -52,7 +52,7 @@ public class ModItems
     public static final Item ribsPorkRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("ribsPorkRaw").setTextureName("ribsPorkRaw");
     public static final Item roastCooked = new SourceFood(8, 0.8F, true).setUnlocalizedName("roastCooked").setTextureName("roastCooked");
     public static final Item roastRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("roastRaw").setTextureName("roastRaw");
-    public static final Item squidMantle = new SourceFood(3, 0.3F, false).setUnlocalizedName("squidMantleRaw").setTextureName("squidMantleRaw");
+    public static final Item squidMantle = new SourceFood(2, 0.3F, false).setUnlocalizedName("squidMantleRaw").setTextureName("squidMantleRaw");
     public static final Item squidMantleCooked = new SourceFood(5, 0.4F, false).setUnlocalizedName("squidMantleCooked").setTextureName("squidMantleCooked");
     public static final Item squidRing = new SourceFood(1, 0.1F, false).setUnlocalizedName("squidRingRaw").setTextureName("squidRingRaw");
     public static final Item squidRingCooked = new SourceFood(2, 0.2F, false).setUnlocalizedName("squidRingCooked").setTextureName("squidRingCooked");
@@ -60,10 +60,13 @@ public class ModItems
     public static final Item squidTentacleCooked = new SourceFood(4, 0.4F, false).setUnlocalizedName("squidTentacleCooked").setTextureName("squidTentacleCooked");
     public static final Item veal = new SourceFood(2, 0.4F, true).setUnlocalizedName("vealRaw").setTextureName("vealRaw");
 
-    public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage").setTextureName("sausage");
-    public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog").setTextureName("hotdog");
+    public static final Item fish = new ItemModFishFood(false).setUnlocalizedName("fish").setTextureName("fish_raw").setHasSubtypes(true);
+    public static final Item cooked_fish = new ItemModFishFood(true).setUnlocalizedName("fish").setTextureName("fish_cooked").setHasSubtypes(true);
 
-    public static final Item hoeBoots = new ItemHoeBoots(ItemArmor.ArmorMaterial.CLOTH, 0, 3).setUnlocalizedName("hoeBoots").setTextureName("hoeBoots");
+    //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage").setTextureName("sausage");
+    //public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog").setTextureName("hotdog");
+
+    //public static final Item hoeBoots = new ItemHoeBoots(ItemArmor.ArmorMaterial.CLOTH, 0, 3).setUnlocalizedName("hoeBoots").setTextureName("hoeBoots");
 
     //Seeds
 
@@ -105,6 +108,8 @@ public class ModItems
         GameRegistry.registerItem(squidRing, "squidRing");
         GameRegistry.registerItem(squidRingCooked, "squidRingCooked");
         GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
+        GameRegistry.registerItem(fish, "fish");
+        GameRegistry.registerItem(cooked_fish, "cooked_fish");
         GameRegistry.registerItem(beetRaw, "beetRaw");
         GameRegistry.registerItem(beetSoup, "beetSoup");
         GameRegistry.registerItem(pieceOfCake, "pieceOfCake");

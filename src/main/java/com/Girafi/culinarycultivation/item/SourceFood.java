@@ -22,6 +22,10 @@ public class SourceFood extends ItemFood {
         //OreDictionary.registerOre("food" + WordUtils.capitalizeFully(getUnwrappedUnlocalizedName(super.getUnlocalizedName())).replace("_", ""), new ItemStack(this));
     }
 
+    public SourceFood(int fish, boolean cooked)
+    {
+        this(fish, 0.6F, cooked);
+    }
 
     @Override
     public String getUnlocalizedName() {
