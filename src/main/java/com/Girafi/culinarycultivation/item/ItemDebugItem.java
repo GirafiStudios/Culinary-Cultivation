@@ -2,12 +2,11 @@ package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
-import com.Girafi.culinarycultivation.network.PacketDebugItemMode;
+import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
+import com.Girafi.culinarycultivation.network.packet.PacketSetFoodLevelOnServer;
 import com.Girafi.culinarycultivation.reference.Reference;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -15,6 +14,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -31,7 +31,7 @@ public class ItemDebugItem extends Item {
     private boolean alwaysEdible;
 
     @SideOnly(Side.CLIENT)
-    private IIcon debug, hungerMinus, hungerPlus, bonemealer, hoe;
+    private IIcon debug, hunger, hungerPlus, fertilizer, hoe;
 
     public ItemDebugItem() {
         super();
@@ -43,11 +43,11 @@ public class ItemDebugItem extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iIconRegister) {
-        debug = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugItem");
-        hungerMinus = iIconRegister.registerIcon("rotten_flesh");
-        hungerPlus = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "hotdog");
-        bonemealer = iIconRegister.registerIcon("dye_powder_white");
-        hoe = iIconRegister.registerIcon("stone_hoe");
+        debug = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugDefault");
+        hunger = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugHunger");
+        hungerPlus = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugHungerPlus");
+        fertilizer = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugFertilizer");
+        hoe = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugHoe");
     }
 
     @Override
@@ -60,11 +60,11 @@ public class ItemDebugItem extends Item {
         if (stack.getItemDamage() == 0)
             return debug;
         if (stack.getItemDamage() == 1)
-            return hungerMinus;
+            return hunger;
         if (stack.getItemDamage() == 2)
             return hungerPlus;
         if (stack.getItemDamage() == 3)
-            return bonemealer;
+            return fertilizer;
         if (stack.getItemDamage() == 4)
             return hoe;
 
@@ -75,14 +75,11 @@ public class ItemDebugItem extends Item {
     public String getUnlocalizedName(ItemStack stack) {
 
         return super.getUnlocalizedName(stack)
-                + (stack.getItemDamage() == 0 ? ".debug" : (stack.getItemDamage() == 1 ? ".hungerMinus" : (stack.getItemDamage() == 2 ? ".hungerPlus" :
-                (stack.getItemDamage() == 3 ? ".bonemealer" : (stack.getItemDamage() == 4 ? ".hoe" : "")))));
+                + (stack.getItemDamage() == 0 ? ".debug" : (stack.getItemDamage() == 1 ? ".hunger" : (stack.getItemDamage() == 2 ? ".hungerPlus" :
+                (stack.getItemDamage() == 3 ? ".fertilizer" : (stack.getItemDamage() == 4 ? ".hoe" : "")))));
     }
 
 
-    //Mode 0
-
-    //Mode 1 & 2
     @Override
     public EnumAction getItemUseAction(ItemStack stack) {
         if (stack.getItemDamage() == 1) {
@@ -98,7 +95,10 @@ public class ItemDebugItem extends Item {
     @Override
     public ItemStack onEaten(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.getItemDamage() == 1) {
-            playerIn.getFoodStats().addStats(-20, 0F);
+            playerIn.getFoodStats().addExhaustion(40F);
+            if (playerIn.getFoodStats().getFoodLevel() >= 0) {
+                playerIn.getFoodStats().addStats(-20, 0F);
+            }
         }
         if (stack.getItemDamage() == 2) {
             playerIn.getFoodStats().addStats(10000, 0F);
@@ -111,7 +111,9 @@ public class ItemDebugItem extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.getItemDamage() == 0) {
+            if (!worldIn.isRemote) {
                 playerIn.addChatComponentMessage(new ChatComponentText("This mode is not implemented yet. Switch mode by shift + scrolling"));
+            }
         }
         if (stack.getItemDamage() == 1) {
             if (playerIn.canEat(this.alwaysEdible)) {
@@ -137,7 +139,7 @@ public class ItemDebugItem extends Item {
         return this;
     }
 
-    //Mode 3 and 4 //TODO Make it bonemeal on a larger area, when used on crops
+    //TODO Make it bonemeal on a larger area, when used on crops
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, int x, int y, int z, int side, float par8, float par9, float par10) {
         if (stack.getItemDamage() == 3) {
