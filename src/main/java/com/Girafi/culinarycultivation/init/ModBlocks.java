@@ -11,11 +11,15 @@ public class ModBlocks {
 
     //Testing crop stuff
     public static Block beet = new BlockBeet().setBlockName(Reference.MOD_ID.toLowerCase() + ":" + "beets").setBlockTextureName("beet");
+    public static Block blackPepper = new BlockBlackPepper().setBlockName(Reference.MOD_ID.toLowerCase() + ":" + "blackPepper").setBlockTextureName("pepper");
+    public static Block blackPepper2 = new BlockBlackPepperStep2().setBlockName(Reference.MOD_ID.toLowerCase() + ":" + "blackPepperStep2").setBlockTextureName("pepper_step2");
     //Figure out a good way to add a lot of crops
 
 
     public static void init() //Will show up in this order in NEI and Creative Tab
     {
         GameRegistry.registerBlock(beet, "beet");
+        GameRegistry.registerBlock(blackPepper, "blackPepper");
+        GameRegistry.registerBlock(blackPepper2, "blackPepper2");
     }
 }
