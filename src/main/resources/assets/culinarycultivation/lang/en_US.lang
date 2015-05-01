@@ -4,6 +4,7 @@ item.culinarycultivation:baconRaw.name=Raw Bacon
 item.culinarycultivation:beet.name=Beet
 item.culinarycultivation:beetSeed.name=Beet Seeds
 item.culinarycultivation:beetSoup.name=Beet Soup
+item.culinarycultivation:blackPepperDrupe.name=Black Pepper Drupe
 item.culinarycultivation:bucketRennet.name=Rennet Bucket
 item.culinarycultivation:cakeKnife.name=Cake Knife
 item.culinarycultivation:chickenNuggetCooked.name=Chicken Nugget
@@ -12,14 +13,25 @@ item.culinarycultivation:chickenWingCooked.name=Chicken Wings
 item.culinarycultivation:chickenWingHot.name=Hot Wings
 item.culinarycultivation:chickenWingRaw.name=Raw Chicken Wings
 item.culinarycultivation:clownfishCooked.name=Cooked Clownfish
-item.culinarycultivation:debugItem.bonemealer.name=Debug Item (Bone Meal) [WIP]
 item.culinarycultivation:debugItem.debug.name=Debug Item [WIP]
+item.culinarycultivation:debugItem.fertilizer.name=Debug Item (Bone Meal) [WIP]
 item.culinarycultivation:debugItem.hoe.name=Debug Item (Hoe 9x9)
-item.culinarycultivation:debugItem.hungerMinus.name=Debug Item (Set Food Level to 0)
+item.culinarycultivation:debugItem.hunger.name=Debug Item (Set Food Level to 0)
 item.culinarycultivation:debugItem.hungerPlus.name=Debug Item (Set Food Level to 20)
 item.culinarycultivation:drumstickCooked.name=Cooked Drumstick
 item.culinarycultivation:drumstickRaw.name=Raw Drumstick
 item.culinarycultivation:emptyStorageJar.name=Storage Jar (Empty)
+item.culinarycultivation:fish.herring.cooked.name=Cooked Herring
+item.culinarycultivation:fish.herring.raw.name=Raw Herring
+item.culinarycultivation:fish.mackerel.cooked.name=Cooked Mackerel
+item.culinarycultivation:fish.mackerel.raw.name=Raw Mackerel
+item.culinarycultivation:fish.plaice.cooked.name=Cooked Plaice
+item.culinarycultivation:fish.plaice.raw.name=Raw Plaice
+item.culinarycultivation:fish.smallSquid.raw.name=Raw Small Squid
+item.culinarycultivation:fish.trout.cooked.name=Cooked Trout
+item.culinarycultivation:fish.trout.raw.name=Raw Trout
+item.culinarycultivation:fish.tuna.cooked.name=Cooked Tuna
+item.culinarycultivation:fish.tuna.raw.name=Raw Tuna
 item.culinarycultivation:hamCooked.name=Cooked Ham
 item.culinarycultivation:hamRaw.name=Raw Ham
 item.culinarycultivation:hotdog.name=Hotdog
@@ -50,9 +62,9 @@ item.culinarycultivation:toolHandle.name=Tool Handle
 item.culinarycultivation:vealCooked.name=Cooked Veal
 item.culinarycultivation:vealRaw.name=Raw Veal
 
-
 #Blocks
 tile.culinarycultivation:beets.name=Beets
+tile.culinarycultivation:blackPepper.name=Black Pepper
 
 #Other
 itemGroup.culinarycultivation=Culinary Cultivation

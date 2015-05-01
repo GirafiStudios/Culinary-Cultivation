@@ -69,6 +69,7 @@ public class ModItems
     //public static final Item hoeBoots = new ItemHoeBoots(ItemArmor.ArmorMaterial.CLOTH, 0, 3).setUnlocalizedName("hoeBoots").setTextureName("hoeBoots");
 
     //Seeds
+    public static final Item blackPepperDrupe = new SourceSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName("blackPepperDrupe").setTextureName("blackPepperDrupe");
 
     public static void init() //Will show up in this order in NEI and Creative Tab
     {
@@ -107,11 +108,12 @@ public class ModItems
         GameRegistry.registerItem(squidTentacleCooked, "squidTentacleCooked");
         GameRegistry.registerItem(squidRing, "squidRing");
         GameRegistry.registerItem(squidRingCooked, "squidRingCooked");
-        GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
+        GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
         GameRegistry.registerItem(beetRaw, "beetRaw");
         GameRegistry.registerItem(beetSoup, "beetSoup");
+        GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
         GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
         GameRegistry.registerItem(toolHandle, "toolHandle");
         GameRegistry.registerItem(knife, "knife");
