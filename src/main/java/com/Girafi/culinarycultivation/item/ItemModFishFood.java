@@ -104,8 +104,7 @@ public class ItemModFishFood extends SourceFood {
             this.haveCookedFish = true;
         }
 
-        private FishType(int metaData, String textureName, int healAmountRaw, float saturationAmountRaw)
-        {
+        private FishType(int metaData, String textureName, int healAmountRaw, float saturationAmountRaw) {
             this.metaData = metaData;
             this.textureName = textureName;
             this.healAmountRaw = healAmountRaw;

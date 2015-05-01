@@ -18,9 +18,9 @@ public class SquidDropsEvent {
 
                 if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
-                    if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() != ModItems.meatCleaver) {
+                    if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
                         if (dropsEvent.entityLiving instanceof EntitySquid) {
-                            if (rand > 0.90D) {
+                            if (rand < 0.1D) {
                                 dropsEvent.entityLiving.dropItem(ModItems.squidMantle, 1);
                             }
                                 if (rand > 0.05D) {

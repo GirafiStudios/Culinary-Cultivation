@@ -27,7 +27,7 @@ public class ChickenDropsEvent {
                                 dropsEvent.entityLiving.dropItem(ModItems.chickenWingRaw, 1);
                             }
                         }
-                        if (rand > 0.5D) {
+                        if (rand > 0.7D) {
                             if (dropsEvent.entityLiving.isBurning()) {
                                 dropsEvent.entityLiving.dropItem(ModItems.chickenWingCooked, 1);
                             } else {

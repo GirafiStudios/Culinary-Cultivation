@@ -31,6 +31,7 @@ public class CulinaryCultivation
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
         ModBlocks.init();
         ModItems.init();
+        FishingLoot.init();
         NetworkHandler.init();
         proxy.registerRenders();
         LogHelper.info("Culinary Cultivation Pre Initialization Complete.");

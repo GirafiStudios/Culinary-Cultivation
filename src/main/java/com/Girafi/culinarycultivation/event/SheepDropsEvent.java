@@ -44,14 +44,14 @@ public class SheepDropsEvent {
                 EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
                     if (dropsEvent.entityLiving instanceof EntitySheep & !dropsEvent.entityLiving.isChild()) {
-                        if (rand > 0.1D) {
+                        if (rand > 0.3D) {
                             if (dropsEvent.entityLiving.isBurning()) {
                                 dropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
                             } else {
                                 dropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
                             }
                         }
-                        if (rand > 0.6D) {
+                        if (rand > 0.9D) {
                             if (dropsEvent.entityLiving.isBurning()) {
                                 dropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
                             } else {
