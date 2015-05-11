@@ -4,30 +4,26 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
+import java.util.Random;
+
 public class ChickenDropsEvent {
+    private static Random random = new Random();
 
-    private static double rand;
-
+    /**
+     * Drop 1-2 items of this living's type
+     */
     public static class ChickenWingDropsEvent {
         @SubscribeEvent
         public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
-
-            rand = Math.random();
-
             if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (dropsEvent.entityLiving instanceof EntityChicken &! dropsEvent.entityLiving.isChild()) {
-                        if (rand > 0.1D) {
-                            if (dropsEvent.entityLiving.isBurning()) {
-                                dropsEvent.entityLiving.dropItem(ModItems.chickenWingCooked, 1);
-                            } else {
-                                dropsEvent.entityLiving.dropItem(ModItems.chickenWingRaw, 1);
-                            }
-                        }
-                        if (rand > 0.7D) {
+                    if (dropsEvent.entityLiving instanceof EntityChicken & !dropsEvent.entityLiving.isChild()) {
+                        int j = random.nextInt(2) + 1 + random.nextInt(1 + dropsEvent.lootingLevel);
+                        for (int k = 0; k < j; ++k) {
                             if (dropsEvent.entityLiving.isBurning()) {
                                 dropsEvent.entityLiving.dropItem(ModItems.chickenWingCooked, 1);
                             } else {
@@ -40,4 +36,3 @@ public class ChickenDropsEvent {
         }
     }
 }
-
