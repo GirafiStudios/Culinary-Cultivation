@@ -7,5 +7,5 @@ public class Reference
     public static final String MOD_VERSION = "@VERSION@";
     public static final String CLIENT_PROXY_CLASS = "com.Girafi.culinarycultivation.proxy.ClientProxy";
     public static final String SERVER_PROXY_ClASS = "com.Girafi.culinarycultivation.proxy.ServerProxy";
-    public static final String DEPENDENCIES = "required-after:Forge@[10.13.2.1291,)";
+    public static final String DEPENDENCIES = "required-after:Forge@[10.13.3,)";
 }

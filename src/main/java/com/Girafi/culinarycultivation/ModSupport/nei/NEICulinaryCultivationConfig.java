@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.nei;
+package com.Girafi.culinarycultivation.ModSupport.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
@@ -22,5 +22,6 @@ public class NEICulinaryCultivationConfig implements IConfigureNEI {
     public void loadConfig() {
         API.hideItem(new ItemStack(ModBlocks.beet));
         API.hideItem(new ItemStack(ModBlocks.blackPepper));
+        API.hideItem(new ItemStack(ModBlocks.blackPepper2));
     }
 }
