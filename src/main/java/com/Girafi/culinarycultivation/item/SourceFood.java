@@ -19,7 +19,6 @@ public class SourceFood extends ItemFood {
     public SourceFood(int amount, float saturation, boolean isWolfFood) {
         super(amount, saturation, isWolfFood);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-        //OreDictionary.registerOre("food" + WordUtils.capitalizeFully(getUnwrappedUnlocalizedName(super.getUnlocalizedName())).replace("_", ""), new ItemStack(this));
     }
 
     public SourceFood(int fish, boolean cooked) { this(fish, 0.6F, cooked); }
@@ -40,7 +39,7 @@ public class SourceFood extends ItemFood {
         itemIcon = iconRegister.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1));
     }
 
-    public static String getUnwrappedUnlocalizedName(String unlocalizedName) {
+    protected String getUnwrappedUnlocalizedName(String unlocalizedName) {
         return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
 }
