@@ -12,7 +12,7 @@ public class CreativeTab
         @Override
         public Item getTabIconItem()
         {
-            return ModItems.knife;
+            return ModItems.meatCleaver;
         }
 
     };

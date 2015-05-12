@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.init;
 
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
+import com.Girafi.culinarycultivation.item.ItemModMeatFood;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.init.Blocks;
@@ -45,10 +46,10 @@ public class Recipes {
         GameRegistry.addSmelting(chickenWingRaw, new ItemStack(chickenWingCooked), 0.35F);
         GameRegistry.addSmelting(drumstickRaw, new ItemStack(drumstickCooked), 0.35F);
         GameRegistry.addSmelting(hamRaw, new ItemStack(hamCooked), 0.35F);
-        GameRegistry.addSmelting(lamb, new ItemStack(cookedLamb), 0.35F);
+        GameRegistry.addSmelting(new ItemStack(ModItems.meat, ItemModMeatFood.MeatType.LAMB.getMetaData()), new ItemStack(ModItems.meat_cooked, ItemModMeatFood.MeatType.LAMB.getMetaData()), 0.35F);
         GameRegistry.addSmelting(legSheepRaw, new ItemStack(legSheepCooked), 0.35F);
         GameRegistry.addSmelting(mutton, new ItemStack(cookedMutton), 0.35F);
-        GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cookedClownfish), 0.35F);
+        GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cooked_fish, 1 ,ItemModFishFood.FishType.CLOWNFISH.getMetaData()), 0.35F);
         GameRegistry.addSmelting(pattyRaw, new ItemStack(pattyCooked), 0.35F);
         GameRegistry.addSmelting(ribsBeefRaw, new ItemStack(ribsCooked), 0.35F);
         GameRegistry.addSmelting(ribsPorkRaw, new ItemStack(ribsCooked), 0.35F);
@@ -62,7 +63,7 @@ public class Recipes {
         int i = afishtype.length;
         for (int j = 0; j < i; ++j) {
             ItemModFishFood.FishType fishtype = afishtype[j];
-            if (fishtype.isCookedFish()) {
+            if (fishtype.isHaveCookedFish() && fishtype.isHaveRawFish()) {
                 GameRegistry.addSmelting(new ItemStack(ModItems.fish, 1, fishtype.getMetaData()), new ItemStack(ModItems.cooked_fish, 1, fishtype.getMetaData()), 0.35F);
             }
         }

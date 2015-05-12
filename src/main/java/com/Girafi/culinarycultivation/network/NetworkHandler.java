@@ -1,11 +1,15 @@
 package com.Girafi.culinarycultivation.network;
 
+import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
+import com.Girafi.culinarycultivation.network.packet.PacketSetFoodLevelOnServer;
+import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.entity.player.EntityPlayerMP;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.network.Packet;
 
 public class NetworkHandler {
     public static final NetworkHandler instance = new NetworkHandler(Reference.MOD_ID);
@@ -19,6 +23,7 @@ public class NetworkHandler {
 
     public static void init() {
         instance.registerPacket(PacketDebugItemMode.class, Side.SERVER);
+        instance.registerPacket(PacketUpdateFoodOnClient.class, Side.CLIENT);
     }
 
     public void registerPacket(Class packetHandler, Class packetType, Side side) {networkWrapper.registerMessage(packetHandler, packetType, lastDiscriminator++, side);}

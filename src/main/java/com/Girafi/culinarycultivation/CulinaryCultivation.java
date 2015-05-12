@@ -4,7 +4,7 @@ import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.handler.CraftingHandler;
 import com.Girafi.culinarycultivation.init.*;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
-import com.Girafi.culinarycultivation.ModSupport.ModSupport;
+import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.utility.LogHelper;
@@ -26,16 +26,16 @@ public class CulinaryCultivation {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-        Events.init();
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
+        ModSupport.instance().modSupportIndex();
+        Events.init();
         ModBlocks.init();
         ModItems.init();
-        ModSupport.instance().modSupportIndex();
         FishingLoot.init();
         NetworkHandler.init();
         proxy.registerRenders();
         ModSupport.instance().preInit();
-        LogHelper.info("Culinary Cultivation Pre Initialization Complete.");
+        LogHelper.info(Reference.MOD_NAME_ + "Pre Initialization Complete.");
     }
 
     @Mod.EventHandler
@@ -45,12 +45,12 @@ public class CulinaryCultivation {
         Recipes.init();
         OreDictionaryRegistration.init();
         ModSupport.instance().init();
-        LogHelper.info("Culinary Cultivation Initialization Complete.");
+        LogHelper.info(Reference.MOD_NAME_ + "Initialization Complete.");
     }
 
     @Mod.EventHandler
     public void init (FMLPostInitializationEvent event) {
         ModSupport.instance().postInit();
-        LogHelper.info("Culinary Cultivation Post Initialization Complete.");
+        LogHelper.info(Reference.MOD_NAME_ + "Post Initialization Complete.");
     }
 }

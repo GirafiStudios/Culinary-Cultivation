@@ -33,7 +33,7 @@ public class CraftingHandler {
 
         final IInventory cakeKnifeCrafting = null;
         ItemStack stackCakeKnife = itemCraftedEvent.crafting;
-        if (stackCakeKnife != null && stackKnife.getItem() == ModItems.cakeKnife) {
+        if (stackCakeKnife != null && stackCakeKnife.getItem() == ModItems.cakeKnife) {
         } else {
             for (int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++) {
                 ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);
@@ -50,7 +50,7 @@ public class CraftingHandler {
 
         final IInventory meatCleaverCrafting = null;
         ItemStack stackMeatCleaver = itemCraftedEvent.crafting;
-        if (stackMeatCleaver != null && stackKnife.getItem() == ModItems.meatCleaver) {
+        if (stackMeatCleaver != null && stackCakeKnife.getItem() == ModItems.meatCleaver) {
         } else {
             for (int i = 0; i < itemCraftedEvent.craftMatrix.getSizeInventory(); i++) {
                 ItemStack stack = itemCraftedEvent.craftMatrix.getStackInSlot(i);

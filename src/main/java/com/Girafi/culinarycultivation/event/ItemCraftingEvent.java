@@ -21,8 +21,8 @@ public class ItemCraftingEvent {
 
     public static class AchievementTriggerEvent {
         @SubscribeEvent
-        public void ClownFishTriggersFishAchievement(ItemSmeltedEvent smeltedEvent) {
-            if (smeltedEvent.smelting.getItem() != null && smeltedEvent.smelting.getItem() instanceof ItemModFishFood || smeltedEvent.smelting.getItem() != null && smeltedEvent.smelting.getItem() == ModItems.cookedClownfish) {
+        public void ModFishTriggersFishAchievement(ItemSmeltedEvent smeltedEvent) {
+            if (smeltedEvent.smelting.getItem() != null && smeltedEvent.smelting.getItem() instanceof ItemModFishFood) {
                 smeltedEvent.player.triggerAchievement(AchievementList.cookFish);
             }
         }

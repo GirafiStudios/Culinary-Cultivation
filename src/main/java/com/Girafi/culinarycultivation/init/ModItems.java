@@ -10,9 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
-public class ModItems
-{
-
+public class ModItems {
     public static final Item debugItem = new ItemDebugItem();
     //public static final Item emptyStorageJar = new ItemStorageJar().setUnlocalizedName("emptyStorageJar").setTextureName("emptyStorageJar");
     public  static final Item toolHandle = new SourceItem().setUnlocalizedName("toolHandle").setTextureName("toolHandle");
@@ -31,16 +29,12 @@ public class ModItems
     public static final Item chickenNuggetRaw = new SourceFood(1, 0.3F, true).setPotionEffect(Potion.hunger.id, 8, 0, 0.3F).setUnlocalizedName("chickenNuggetRaw").setTextureName("chickenNuggetRaw");
     public static final Item chickenWingCooked = new SourceFood(5, 0.5F, true).setUnlocalizedName("chickenWingCooked").setTextureName("chickenWingCooked");
     public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot").setTextureName("chickenWingHot");
-    public static final Item chickenWingRaw = new SourceFood(2, 0.3F, true).setPotionEffect(Potion.hunger.id, 22, 0, 0.3F).setUnlocalizedName("chickenWingRaw").setTextureName("chickenWingRaw");
-    public static final Item cookedClownfish = new SourceFood(3, 0.2F, false).setPotionEffect(Potion.poison.id, 3, 0, 0.001F).setPotionEffect(Potion.confusion.id, 8, 0, 0.08F).setUnlocalizedName("clownfishCooked").setTextureName("clownfishCooked");
-    public static final Item cookedLamb = new SourceFood(5, 1.1F, true).setUnlocalizedName("lambCooked").setTextureName("lambCooked");
-    public static final Item cookedMutton = new SourceFood(6, 0.8F, true).setUnlocalizedName("muttonCooked").setTextureName("muttonCooked");
+    public static final Item chickenWingRaw = new SourceFood(2, 0.3F, true).setPotionEffect(Potion.hunger.id, 22, 0, 0.3F).setUnlocalizedName("chickenWingRaw").setTextureName("chickenWingRaw");public static final Item cookedMutton = new SourceFood(6, 0.8F, true).setUnlocalizedName("muttonCooked").setTextureName("muttonCooked");
     public static final Item cookedVeal = new SourceFood(7, 1.0F, true).setUnlocalizedName("vealCooked").setTextureName("vealCooked");
     public static final Item drumstickCooked = new SourceFood(5, 0.6F, true).setUnlocalizedName("drumstickCooked").setTextureName("drumstickCooked");
     public static final Item drumstickRaw = new SourceFood(2, 0.3F, true).setPotionEffect(Potion.hunger.id, 16, 0, 0.3F).setUnlocalizedName("drumstickRaw").setTextureName("drumstickRaw");
     public static final Item hamCooked = new SourceFood(8, 0.8F, true).setUnlocalizedName("hamCooked").setTextureName("hamCooked");
     public static final Item hamRaw = new SourceFood(3, 0.3F, true).setUnlocalizedName("hamRaw").setTextureName("hamRaw");
-    public static final Item lamb = new SourceFood(2, 0.3F, true).setUnlocalizedName("lambRaw").setTextureName("lambRaw");
     public static final Item legSheepCooked = new SourceFood(7, 0.6F, true).setUnlocalizedName("legSheepCooked").setTextureName("legSheepCooked");
     public static final Item legSheepRaw = new SourceFood(2, 0.3F, true).setUnlocalizedName("legSheepRaw").setTextureName("legSheepRaw");
     public static final Item mutton = new SourceFood(2, 0.3F, true).setUnlocalizedName("muttonRaw").setTextureName("muttonRaw");
@@ -62,6 +56,8 @@ public class ModItems
 
     public static final Item fish = new ItemModFishFood(false).setUnlocalizedName("fish").setTextureName("fish_raw").setHasSubtypes(true);
     public static final Item cooked_fish = new ItemModFishFood(true).setUnlocalizedName("fish").setTextureName("fish_cooked").setHasSubtypes(true);
+    public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
+    public static final Item meat_cooked = new ItemModMeatFood(true).setHasSubtypes(true);
 
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage").setTextureName("sausage");
     //public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog").setTextureName("hotdog");
@@ -71,13 +67,12 @@ public class ModItems
     //Seeds
     public static final Item blackPepperDrupe = new SourceSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName("blackPepperDrupe").setTextureName("blackPepperDrupe");
 
-    public static void init() //Will show up in this order in NEI and Creative Tab
-    {
+    public static void init() { //Will show up in this order in NEI and Creative Tab
         //GameRegistry.registerItem(emptyStorageJar, "emptyStorageJar");
         GameRegistry.registerItem(mutton, "mutton");
         GameRegistry.registerItem(cookedMutton, "cookedMutton");
-        GameRegistry.registerItem(lamb , "lamb");
-        GameRegistry.registerItem(cookedLamb, "cookedLamb");
+        GameRegistry.registerItem(meat, "meat");
+        GameRegistry.registerItem(meat_cooked, "meat_cooked");
         GameRegistry.registerItem(veal, "veal");
         GameRegistry.registerItem(cookedVeal, "cookedVeal");
         GameRegistry.registerItem(legSheepRaw, "legSheepRaw");
@@ -110,7 +105,6 @@ public class ModItems
         GameRegistry.registerItem(squidRingCooked, "squidRingCooked");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
-        GameRegistry.registerItem(cookedClownfish, "cookedClownfish");
         GameRegistry.registerItem(beetRaw, "beetRaw");
         GameRegistry.registerItem(beetSoup, "beetSoup");
         GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");

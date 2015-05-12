@@ -18,7 +18,5 @@ public class FishingLoot {
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.PLAICE.getMetaData()), 18));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.SMALLSQUID.getMetaData()), 8));
         FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 8).func_150709_a(0.25F));
-
-        //COD = 60 , SALMON = 25, CLOWNFISH = 2, PUFFERFISH = 13
     }
 }

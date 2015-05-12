@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.ModSupport.nei;
+package com.Girafi.culinarycultivation.modSupport.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
