@@ -51,17 +51,17 @@ public class CakeDropsEvent {
         }
     }
 
-    public static class CakeLeftClickEvent { //TODO Play around with this on server and client-side, does sometimes remove more hunger, than it should (visual bug)
+    public static class CakeLeftClickEvent {
         @SubscribeEvent
         public void CakeLeftClick(PlayerInteractEvent iEvent) {
-            if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
-                EntityPlayer player = iEvent.entityPlayer;
-                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife) {
-                    if (iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) instanceof BlockCake && iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) == Blocks.cake) {
-                        int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);
-
+            EntityPlayer player = iEvent.entityPlayer;
+            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife) {
+                if (iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) instanceof BlockCake && iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) == Blocks.cake) {
+                    int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);
+                    boolean b = player.onGround && player.isSneaking();
+                    if (b && iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
                         if (player.getFoodStats().needFood()) {
-                            NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-2, -0.1F), (EntityPlayerMP) player); //TODO Fix that it removes visual hunger more than once, if spam clicked cakes
+                            NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-2, -0.1F), (EntityPlayerMP) player);
                         }
                         iEvent.world.setBlockToAir(iEvent.x, iEvent.y, iEvent.z);
                         if (meta == 0) {
