@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation.event;
 
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
+import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.*;
 import net.minecraft.item.ItemStack;
@@ -12,9 +13,9 @@ public class ItemCraftingEvent {
     public static class DrumstickCraftingEvent {
         @SubscribeEvent
         public void ItemCraftedEvent(ItemCraftedEvent craftedEvent) {
-                ItemStack stack = craftedEvent.crafting;
-                    if (stack != null && stack.getItem() == ModItems.chickenNuggetRaw) {
-                        craftedEvent.player.inventory.addItemStackToInventory(new ItemStack(ModItems.drumstickRaw, 2));
+            ItemStack stack = craftedEvent.crafting;
+            if (stack != null && stack.getItem() == ModItems.meat && stack.getItemDamage() == MeatType.CHICKENNUGGET.getMetaData()) {
+                craftedEvent.player.inventory.addItemStackToInventory(new ItemStack(ModItems.meat, 2, MeatType.DRUMSTICK.getMetaData()));
             }
         }
     }

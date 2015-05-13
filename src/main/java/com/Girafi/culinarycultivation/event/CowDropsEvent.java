@@ -1,9 +1,11 @@
 package com.Girafi.culinarycultivation.event;
 
 import com.Girafi.culinarycultivation.init.ModItems;
+import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import java.util.Random;
@@ -11,6 +13,7 @@ import java.util.Random;
 public class CowDropsEvent {
 
     private static Random random = new Random();
+
     /**
      * Drop 1-3 items of this living's type
      */
@@ -20,13 +23,13 @@ public class CowDropsEvent {
             if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (dropsEvent.entityLiving instanceof EntityCow &! dropsEvent.entityLiving.isChild()) {
+                    if (dropsEvent.entityLiving instanceof EntityCow & !dropsEvent.entityLiving.isChild()) {
                         int j = random.nextInt(3) + 1 + random.nextInt(1 + dropsEvent.lootingLevel);
                         for (int k = 0; k < j; ++k) {
                             if (dropsEvent.entityLiving.isBurning()) {
-                                dropsEvent.entityLiving.dropItem(ModItems.ribsCooked, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.cooked_meat, 1, MeatType.RIBS.getMetaData()), 1F);
                             } else {
-                                dropsEvent.entityLiving.dropItem(ModItems.ribsBeefRaw, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.meat, 1, MeatType.RIBSBEEF.getMetaData()), 1F);
                             }
                         }
                     }
@@ -34,6 +37,7 @@ public class CowDropsEvent {
             }
         }
     }
+
     /**
      * Drop 0-1 items of this living's type
      */
@@ -43,13 +47,13 @@ public class CowDropsEvent {
             if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
-                    if (dropsEvent.entityLiving instanceof EntityCow &! dropsEvent.entityLiving.isChild()) {
+                    if (dropsEvent.entityLiving instanceof EntityCow & !dropsEvent.entityLiving.isChild()) {
                         int j = random.nextInt(2 + dropsEvent.lootingLevel);
                         for (int k = 0; k < j; ++k) {
                             if (dropsEvent.entityLiving.isBurning()) {
-                                dropsEvent.entityLiving.dropItem(ModItems.roastCooked, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.cooked_meat, 1, MeatType.ROAST.getMetaData()), 1F);
                             } else {
-                                dropsEvent.entityLiving.dropItem(ModItems.roastRaw, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.meat, 1, MeatType.ROAST.getMetaData()), 1F);
                             }
                         }
                     }
@@ -57,6 +61,7 @@ public class CowDropsEvent {
             }
         }
     }
+
     /**
      * Drop 1-3 items of this living's type
      */
@@ -70,9 +75,9 @@ public class CowDropsEvent {
                         int j = random.nextInt(3) + 1 + random.nextInt(1 + dropsEvent.lootingLevel);
                         for (int k = 0; k < j; ++k) {
                             if (dropsEvent.entityLiving.isBurning()) {
-                                dropsEvent.entityLiving.dropItem(ModItems.cookedVeal, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.cooked_meat, 1, MeatType.VEAL.getMetaData()), 1F);
                             } else {
-                                dropsEvent.entityLiving.dropItem(ModItems.veal, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.meat, 1, MeatType.VEAL.getMetaData()), 1F);
                             }
                         }
                     }

@@ -13,6 +13,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
@@ -20,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemModFishFood extends SourceFood {
-
     private final boolean isCooked;
+    private static double potionEffectProbability;
 
     public ItemModFishFood(boolean cooked) {
         super(0, 0.0F, false);
@@ -56,6 +58,17 @@ public class ItemModFishFood extends SourceFood {
     }
 
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
+        FishType fishType = FishType.getFishType(stack);
+        potionEffectProbability = Math.random();
+
+        if (fishType == FishType.CLOWNFISH) {
+            if (potionEffectProbability <= 0.001F) {
+                player.addPotionEffect(new PotionEffect(Potion.poison.id, 60));
+            }
+            if (potionEffectProbability <= 0.08F) {
+                player.addPotionEffect(new PotionEffect(Potion.confusion.id, 160));
+            }
+        }
         super.onFoodEaten(stack, world, player);
     }
 
@@ -65,7 +78,7 @@ public class ItemModFishFood extends SourceFood {
         if (fishtype.isHaveRawFish()) {
             return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
         } else
-            return fishtype.isHaveCookedFish() &! fishtype.isHaveRawFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
+            return fishtype.isHaveCookedFish() & !fishtype.isHaveRawFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
     }
 
     @SideOnly(Side.CLIENT)
@@ -75,11 +88,11 @@ public class ItemModFishFood extends SourceFood {
 
         for (int j = 0; j < i; ++j) {
             FishType fishtype = afishtype[j];
-            if (!fishtype.haveRawFish && this.isCooked && fishtype.isHaveCookedFish()) {
+            if (!fishtype.isHaveRawFish() && this.isCooked && fishtype.isHaveCookedFish()) {
                 list.add(new ItemStack(this, 1, fishtype.getMetaData()));
             }
             if (fishtype.haveRawFish) {
-                if (!this.isCooked || fishtype.isHaveCookedFish() && fishtype.haveRawFish) {
+                if (!this.isCooked || fishtype.isHaveCookedFish()) {
                     list.add(new ItemStack(this, 1, fishtype.getMetaData()));
                 }
             }

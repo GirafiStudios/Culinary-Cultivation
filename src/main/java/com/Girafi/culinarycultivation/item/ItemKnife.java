@@ -45,7 +45,7 @@ public class ItemKnife extends ItemTool
     }
 
     @Override
-    public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel(); //Might want to find another way, to make it not enchantable. Works for now.
+    public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel();
     }
 
     @SideOnly(Side.CLIENT)

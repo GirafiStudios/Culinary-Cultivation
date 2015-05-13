@@ -3,7 +3,6 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
-import com.Girafi.culinarycultivation.network.packet.PacketSetFoodLevelOnServer;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

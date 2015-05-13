@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.item.ItemModFishFood;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood;
+import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
+import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -11,28 +11,33 @@ public class OreDictionaryRegistration {
 
     public static void init() {
 
-        ItemModFishFood.FishType[] fish = ItemModFishFood.FishType.values();
+        FishType[] fish = FishType.values();
         int i = fish.length;
         for (int j = 0; j < i; ++j) {
-            ItemModFishFood.FishType fishtype = fish[j];
-                OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Raw", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
-                OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Cooked", new ItemStack(ModItems.cooked_fish, 1, fishtype.getMetaData()));
+            FishType fishtype = fish[j];
+            OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Raw", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
+            OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Cooked", new ItemStack(ModItems.cooked_fish, 1, fishtype.getMetaData()));
+        }
+        MeatType[] meat = MeatType.values();
+        int iMeat = meat.length;
+        for (int j = 0; j < iMeat; ++j) {
+            MeatType meatType = meat[j];
+            OreDictionary.registerOre("food" + WordUtils.capitalize(meatType.getTextureName()) + "Raw", new ItemStack(ModItems.meat, 1, meatType.getMetaData()));
+            OreDictionary.registerOre("food" + WordUtils.capitalize(meatType.getTextureName()) + "Cooked", new ItemStack(ModItems.cooked_meat, 1, meatType.getMetaData()));
         }
 
-        OreDictionary.registerOre("foodSquidRingCooked", ModItems.squidRingCooked);
-        OreDictionary.registerOre("foodSquidRingRaw", ModItems.squidRing);
-        OreDictionary.registerOre("foodSquidTentacleCooked", ModItems.squidTentacleCooked);
-        OreDictionary.registerOre("foodSquidTentacleRaw", ModItems.squidTentacle);
-        OreDictionary.registerOre("foodVealCooked", ModItems.cookedVeal);
-        OreDictionary.registerOre("foodVealRaw", ModItems.veal);
+        OreDictionary.registerOre("foodRibsRaw", new ItemStack(ModItems.meat, 1, MeatType.RIBSBEEF.getMetaData()));
+        OreDictionary.registerOre("foodRibsPorkRaw", new ItemStack(ModItems.meat, 1, MeatType.RIBS.getMetaData()));
+        OreDictionary.registerOre("foodMuttonRaw", ModItems.mutton);
+        OreDictionary.registerOre("foodMuttonCooked", ModItems.cookedMutton);
 
         //Minced Meat recipe
         OreDictionary.registerOre("foodMincedMeat", Items.beef);
         OreDictionary.registerOre("foodMincedMeat", Items.porkchop);
-        OreDictionary.registerOre("foodMincedMeat", ModItems.hamRaw);
+        OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.HAM.getMetaData()));
         OreDictionary.registerOre("foodMincedMeat", ModItems.mutton);
-        OreDictionary.registerOre("foodMincedMeat", ModItems.roastRaw);
-        OreDictionary.registerOre("foodMincedMeat", ModItems.veal);
-        OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, ItemModMeatFood.MeatType.LAMB.getMetaData()));
+        OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.ROAST.getMetaData()));
+        OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1,  MeatType.VEAL.getMetaData()));
+        OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.LAMB.getMetaData()));
     }
 }

@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.event;
 
 import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood;
+import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,9 +44,9 @@ public class SheepDropsEvent {
                         int j = random.nextInt(3 + dropsEvent.lootingLevel);
                         for (int k = 0; k < j; ++k) {
                             if (dropsEvent.entityLiving.isBurning()) {
-                                dropsEvent.entityLiving.dropItem(ModItems.legSheepCooked, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.cooked_meat, 1, MeatType.LEGSHEEP.getMetaData()), 1F);
                             } else {
-                                dropsEvent.entityLiving.dropItem(ModItems.legSheepRaw, 1);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.meat, 1, MeatType.LEGSHEEP.getMetaData()), 1F);
                             }
                         }
                     }
@@ -67,9 +67,9 @@ public class SheepDropsEvent {
                         int j = random.nextInt(2) + 1 + random.nextInt(1 + dropsEvent.lootingLevel);
                         for (int k = 0; k < j; ++k) {
                             if (dropsEvent.entityLiving.isBurning()) {
-                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.meat_cooked, 1, ItemModMeatFood.MeatType.LAMB.getMetaData()), 1F);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.cooked_meat, 1, MeatType.LAMB.getMetaData()), 1F);
                             } else {
-                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.meat, 1, ItemModMeatFood.MeatType.LAMB.getMetaData()), 1F);
+                                dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.meat, 1, MeatType.LAMB.getMetaData()), 1F);
                             }
                         }
                     }

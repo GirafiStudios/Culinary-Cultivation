@@ -21,8 +21,8 @@ public class ItemMeatCleaver extends ItemSword {
     }
 
     @Override
-    public void addInformation(ItemStack stackIn, EntityPlayer playerIn, List list, boolean par4)
-    {
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stackIn, EntityPlayer playerIn, List list, boolean par4) {
         list.add("A finer way to cleave meat");
     }
 

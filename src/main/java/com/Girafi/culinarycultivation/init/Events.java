@@ -26,7 +26,6 @@ public class Events {
         if (ShouldSquidDropSquidMantle) {MinecraftForge.EVENT_BUS.register(new SquidMantleDropsEvent()); }
         if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
         MinecraftForge.EVENT_BUS.register(new CakeLeftClickEvent());
-        MinecraftForge.EVENT_BUS.register(new CakePickupEvent());
         MinecraftForge.EVENT_BUS.register(new CakeRightClickEvent());
         FMLCommonHandler.instance().bus().register(new DrumstickCraftingEvent());
         FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
