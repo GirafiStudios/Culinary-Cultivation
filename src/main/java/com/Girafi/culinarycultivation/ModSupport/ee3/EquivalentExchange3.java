@@ -7,7 +7,7 @@ import com.Girafi.culinarycultivation.modSupport.IModSupport;
 import com.pahimar.ee3.api.exchange.EnergyValueRegistryProxy;
 import net.minecraft.item.ItemStack;
 
-public class EE3 implements IModSupport {
+public class EquivalentExchange3 implements IModSupport {
 
     private static final int BASIC_FOOD_VALUE = 24;
 

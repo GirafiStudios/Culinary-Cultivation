@@ -1,19 +1,23 @@
 package com.Girafi.culinarycultivation.event;
 
+import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
+import com.Girafi.culinarycultivation.item.ItemStorageJar.*;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.BlockCake;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public class CakeDropsEvent {
+public class InteractEvents {
 
     public static class CakeLeftClickEvent {
         @SubscribeEvent
@@ -81,6 +85,31 @@ public class CakeDropsEvent {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    public static class CauldronTransformation { //Works for now?
+        @SubscribeEvent
+        public void CauldronTransformation(PlayerInteractEvent iEvent) {
+            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                EntityPlayer player = iEvent.entityPlayer;
+                int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);
+                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.milk_bucket) //Or Rennet bucket! {
+                    if (iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) == Blocks.cauldron && meta <= 0) {
+                        iEvent.world.setBlock(iEvent.x, iEvent.y, iEvent.z, ModBlocks.cauldron);
+                    }
+            }
+        }
+    }
+
+    public static class StorageJarMilkFillEvent {
+        @SubscribeEvent
+        public void StorageJarMiliFillEvent(EntityInteractEvent iEvent) {
+            if (iEvent.entityPlayer.getCurrentEquippedItem() != null && iEvent.entityPlayer.getCurrentEquippedItem() == new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData())) {
+                if (iEvent.target instanceof EntityCow &! iEvent.entityLiving.isChild()) {
+
                 }
             }
         }

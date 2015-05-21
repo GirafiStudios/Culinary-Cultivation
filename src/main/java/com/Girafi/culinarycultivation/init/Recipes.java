@@ -2,8 +2,8 @@ package com.Girafi.culinarycultivation.init;
 
 import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
+import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -11,16 +11,13 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.Girafi.culinarycultivation.init.ModItems.*;
 
 public class Recipes {
 
     public static void init() {
         //Tools and other stuff
-        //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.emptyStorageJar), "   ", "PSP", " P ", 'P', new ItemStack(Blocks.glass_pane), 'S', "slabWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cakeKnife), true, "   ", "  H", "II ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knife), true, "  I", " I ", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(meatCleaver), true, " II", " II", "H  ", 'H', toolHandle, 'I', "ingotIron"));

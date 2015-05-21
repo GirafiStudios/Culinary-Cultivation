@@ -3,7 +3,7 @@ package com.Girafi.culinarycultivation.init;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraftforge.common.MinecraftForge;
 
-import static com.Girafi.culinarycultivation.event.CakeDropsEvent.*;
+import static com.Girafi.culinarycultivation.event.InteractEvents.*;
 import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.CowDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.*;
@@ -25,9 +25,10 @@ public class Events {
         if (ShouldSheepDropMutton) {MinecraftForge.EVENT_BUS.register(new SheepMuttonDropsEvent()); }
         if (ShouldSquidDropSquidMantle) {MinecraftForge.EVENT_BUS.register(new SquidMantleDropsEvent()); }
         if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
+        FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
+        FMLCommonHandler.instance().bus().register(new DrumstickCraftingEvent());
         MinecraftForge.EVENT_BUS.register(new CakeLeftClickEvent());
         MinecraftForge.EVENT_BUS.register(new CakeRightClickEvent());
-        FMLCommonHandler.instance().bus().register(new DrumstickCraftingEvent());
-        FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
+        MinecraftForge.EVENT_BUS.register(new CauldronTransformation());
     }
 }

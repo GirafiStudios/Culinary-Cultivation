@@ -19,7 +19,10 @@ item.culinarycultivation:debugItem.hunger.name=Debug Item (Set Food Level to 0)
 item.culinarycultivation:debugItem.hungerPlus.name=Debug Item (Set Food Level to 20)
 item.culinarycultivation:drumstickCooked.name=Cooked Drumstick
 item.culinarycultivation:drumstickRaw.name=Raw Drumstick
-item.culinarycultivation:emptyStorageJar.name=Storage Jar (Empty)
+item.culinarycultivation:storageJar_empty.name=Storage Jar (Empty)
+item.culinarycultivation:storageJar_milk.name=Storage Jar (Milk)
+item.culinarycultivation:storageJar_rennet.name=Storage Jar (Rennet)
+item.culinarycultivation:storageJar_water.name=Storage Jar (Water)
 item.culinarycultivation:fish.clownfish.cooked.name=Cooked Clownfish
 item.culinarycultivation:fish.herring.cooked.name=Cooked Herring
 item.culinarycultivation:fish.herring.raw.name=Raw Herring
@@ -48,6 +51,7 @@ item.culinarycultivation:pattyRaw.name=Minced Meat
 item.culinarycultivation:pieceOfCake.name=Cake Slice
 item.culinarycultivation:ribsBeefRaw.name=Raw Beef Ribs
 item.culinarycultivation:ribsCooked.name=Cooked Ribs
+item.culinarycultivation:ribsCooked.name=Cooked Ribs
 item.culinarycultivation:ribsRaw.name=Raw Pork Ribs
 item.culinarycultivation:roastCooked.name=Cooked Roast
 item.culinarycultivation:roastRaw.name=Raw Roast
@@ -65,6 +69,8 @@ item.culinarycultivation:vealRaw.name=Raw Veal
 #Blocks
 tile.culinarycultivation:beets.name=Beets
 tile.culinarycultivation:blackPepper.name=Black Pepper
+tile.culinarycultivation:cheese.name=Cheese
+
 
 #Other
 itemGroup.culinarycultivation=Culinary Cultivation

@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.modSupport;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import com.Girafi.culinarycultivation.modSupport.ee3.EE3;
+import com.Girafi.culinarycultivation.modSupport.ee3.EquivalentExchange3;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.reference.SupportedModIDs;
 import com.Girafi.culinarycultivation.utility.LogHelper;
@@ -24,7 +24,7 @@ public class ModSupport {
 
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
-        modSupportClasses.put(SupportedModIDs.EE3, EE3.class);
+        modSupportClasses.put(SupportedModIDs.EE3, EquivalentExchange3.class);
 
 
         List<String> enabledModSupport = new ArrayList<String>();

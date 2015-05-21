@@ -1,53 +1,220 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
+import com.Girafi.culinarycultivation.init.ModItems;
+import com.Girafi.culinarycultivation.reference.Reference;
+import com.google.common.collect.Maps;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import java.awt.Color;
+import java.util.*;
+import java.util.List;
+
 public class ItemStorageJar extends SourceItem {
+    @SideOnly(Side.CLIENT)
+    public static IIcon defaultIcon;
+    @SideOnly(Side.CLIENT)
+    public static IIcon overlayIcon;
 
     public ItemStorageJar() {
+        setHasSubtypes(true);
+        setMaxDamage(0);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     }
 
-    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
+    public static enum StorageJarType { //TODO Look into adding a new storage jar for all liquid (Get liquid color), which is not hoter than lava
+        STORAGEJAR(0, "empty"),
+        WATER(1, "water", setColor(52,95,218).getRGB()),
+        MILK(2, "milk", setColor(255,255,255).getRGB()),
+        RENNET(3, "rennet", setColor(184,185,151).getRGB());
 
-        if (movingobjectposition == null) {
-            return itemStackIn;
-        } else {
-            if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                int i = movingobjectposition.blockX;
-                int j = movingobjectposition.blockY;
-                int k = movingobjectposition.blockZ;
+        private static final Map StorageJarTypeMap = Maps.newHashMap();
+        private final int metaData;
+        private final String textureName;
+        private final int colorNumber;
 
-                if (!worldIn.canMineBlock(playerIn, i, j, k)) {
-                    return itemStackIn;
+        private StorageJarType(int metaData, String textureName) {
+            this.metaData = metaData;
+            this.textureName = textureName;
+            this.colorNumber = 0;
+        }
+
+        private StorageJarType(int metaData, String textureName, int colorNumber) {
+            this.metaData = metaData;
+            this.textureName = textureName;
+            this.colorNumber = colorNumber;
+        }
+
+        public int getMetaData() {
+            return this.metaData;
+        }
+
+        public String getTextureName() {
+            return this.textureName;
+        }
+
+        public int getColorNumber() {
+            return this.colorNumber;
+        }
+
+        public static StorageJarType getStorageJarTypeList(int storageJar) {
+            StorageJarType storageJarType = (StorageJarType)StorageJarTypeMap.get(Integer.valueOf(storageJar));
+            return storageJarType == null ? STORAGEJAR : storageJarType;
+        }
+
+        public static StorageJarType getStorageJarType(ItemStack stack) {
+            return stack.getItem() instanceof ItemStorageJar ? getStorageJarTypeList(stack.getItemDamage()) : STORAGEJAR;
+        } static {
+            StorageJarType[] var0 = values();
+            int var1 = var0.length;
+            for (int var2 = 0; var2 < var1; ++var2) {
+                StorageJarType var3 = var0[var2];
+                StorageJarTypeMap.put(Integer.valueOf(var3.getMetaData()), var3);
+            }
+        }
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack stack)
+    {
+        return 32;
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        if (stack.getItemDamage() == 0) {
+            return EnumAction.none;
+        }
+            return EnumAction.drink;
+    }
+
+    @Override
+    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) { //TODO Add support for milk
+        if (stack.getItemDamage() != 0) {
+            if (!player.capabilities.isCreativeMode) {
+                --stack.stackSize;
+            }
+            if (!player.capabilities.isCreativeMode) {
+                if (stack.stackSize <= 0) {
+                    return new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData());
                 }
-
-                if (!playerIn.canPlayerEdit(i, j, k, movingobjectposition.sideHit, itemStackIn)) {
-                    return itemStackIn;
+                if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData()))) {
+                    player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData()), false);
                 }
+            }
+        }
+        return stack;
+    }
 
-                if (worldIn.getBlock(i, j, k).getMaterial() == Material.water) {
-                    --itemStackIn.stackSize;
-
-                    if (itemStackIn.stackSize <= 0) {
-                        return new ItemStack(Items.potionitem);
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        if (stack.getItemDamage() == StorageJarType.STORAGEJAR.getMetaData()) {
+            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
+            if (movingobjectposition == null) {
+                return stack;
+            } else {
+                if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+                    int i = movingobjectposition.blockX;
+                    int j = movingobjectposition.blockY;
+                    int k = movingobjectposition.blockZ;
+                    if (!world.canMineBlock(player, i, j, k)) {
+                        return stack;
+                    }
+                    if (!player.canPlayerEdit(i, j, k, movingobjectposition.sideHit, stack)) {
+                        return stack;
                     }
 
-                    if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.potionitem))) {
-                        playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.potionitem, 1, 0), false);
+                    if (world.getBlock(i, j, k).getMaterial() == Material.water) {
+                        --stack.stackSize;
+                        if (stack.stackSize <= 0) {
+                            return new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData());
+                        }
+                        if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()))) {
+                            player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()), false);
+                        }
                     }
                 }
             }
-
-            return itemStackIn;
         }
+        player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        return stack;
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int damage) {
+        return this.defaultIcon;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
+        if (damage != 0) {
+            return renderPass == 0 ? this.overlayIcon : super.getIconFromDamageForRenderPass(damage, renderPass);
+        } else
+            return this.getIconFromDamage(damage);
+    }
+
+    public static Color setColor (int r, int g, int b){
+        Color c = new Color(r,g,b);
+        return c;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack stack, int color) {
+        StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
+        if (stack.getItemDamage() != 0) {
+            return color > 0 ? 16777215 : storageJarType.getColorNumber();
+        } else
+            return 16777215;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean requiresMultipleRenderPasses() {
+        return true;
+    }
+
+    public String getItemStackDisplayName(ItemStack stack) {
+        StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
+        return StatCollector.translateToLocal("item." + Reference.MOD_ID.toLowerCase() + ":" + "storageJar_" + storageJarType.getTextureName() + ".name").trim();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
+        super.getSubItems(item, creativeTab, list);
+        StorageJarType[] astorageJar = StorageJarType.values();
+        int i = astorageJar.length;
+        for (int j = 0; j < i; ++j) {
+            StorageJarType storageJarType = astorageJar[j];
+            if (storageJarType.getMetaData() != 0) {
+                list.add(new ItemStack(this, 1, storageJarType.getMetaData()));
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister register) {
+        this.defaultIcon = register.registerIcon(Reference.MOD_ID + ":" + this.getIconString() + "_" + "default");
+        this.overlayIcon = register.registerIcon(Reference.MOD_ID + ":" + this.getIconString() + "_" + "overlay");
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static IIcon func_94589_d(String string) {
+        return string.equals("default") ? defaultIcon : (string.equals("overlay") ? overlayIcon : null);
     }
 }

@@ -21,7 +21,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import java.util.List;
 import java.util.Map;
 
-public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with seasoned meat too. Don't add that to NEI.
+public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with seasoned meat too. Don't add that to NEI. (MAYBE)
     private final boolean isCooked;
     private static double potionEffectProbability;
 
