@@ -26,8 +26,8 @@ public class CulinaryCultivation {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-        ModSupport.instance().modSupportIndex();
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
+        ModSupport.instance().modSupportIndex();
         ModBlocks.init();
         ModItems.init();
         FishingLoot.init();
