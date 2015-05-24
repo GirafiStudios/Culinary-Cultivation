@@ -1,4 +1,8 @@
+
+
+#Blocks
 #Items
+#Other
 item.culinarycultivation:baconCooked.name=Bacon
 item.culinarycultivation:baconRaw.name=Raw Bacon
 item.culinarycultivation:beet.name=Beet
@@ -20,6 +24,8 @@ item.culinarycultivation:debugItem.hungerPlus.name=Debug Item (Set Food Level to
 item.culinarycultivation:drumstickCooked.name=Cooked Drumstick
 item.culinarycultivation:drumstickRaw.name=Raw Drumstick
 item.culinarycultivation:fish.clownfish.cooked.name=Cooked Clownfish
+item.culinarycultivation:fish.fillet.cooked.name=Cooked Fillet
+item.culinarycultivation:fish.fillet.raw.name=Raw Fillet
 item.culinarycultivation:fish.herring.cooked.name=Cooked Herring
 item.culinarycultivation:fish.herring.raw.name=Raw Herring
 item.culinarycultivation:fish.mackerel.cooked.name=Cooked Mackerel
@@ -65,11 +71,7 @@ item.culinarycultivation:storageJar_water.name=Storage Jar (Water)
 item.culinarycultivation:toolHandle.name=Tool Handle
 item.culinarycultivation:vealCooked.name=Cooked Veal
 item.culinarycultivation:vealRaw.name=Raw Veal
-
-#Blocks
+itemGroup.culinarycultivation=Culinary Cultivation
 tile.culinarycultivation:beets.name=Beets
 tile.culinarycultivation:blackPepper.name=Black Pepper
 tile.culinarycultivation:cheese.name=Cheese
-
-#Other
-itemGroup.culinarycultivation=Culinary Cultivation

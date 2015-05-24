@@ -20,7 +20,7 @@ public class InteractEvents {
 
     public static class CakeKnifeEvent {
         @SubscribeEvent
-        public void CakeKnifeEvent(PlayerInteractEvent iEvent) {
+        public void CakeKnifeInteractionEvent(PlayerInteractEvent iEvent) {
             EntityPlayer player = iEvent.entityPlayer;
             int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);
             boolean b = player.onGround && player.isSneaking();
@@ -77,7 +77,7 @@ public class InteractEvents {
 
     public static class CauldronTransformation { //Works for now?
         @SubscribeEvent
-        public void CauldronTransformation(PlayerInteractEvent iEvent) {
+        public void CauldronTransformationEvent(PlayerInteractEvent iEvent) {
             if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                 EntityPlayer player = iEvent.entityPlayer;
                 int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);

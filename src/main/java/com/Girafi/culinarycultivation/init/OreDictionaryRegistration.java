@@ -17,6 +17,9 @@ public class OreDictionaryRegistration {
             FishType fishtype = fish[j];
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Raw", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Cooked", new ItemStack(ModItems.cooked_fish, 1, fishtype.getMetaData()));
+            if (fishtype.isHaveRawFish() && fishtype.getMetaData() != FishType.FILLET.getMetaData() && fishtype.getMetaData() != FishType.SMALLSQUID.getMetaData()) {
+                OreDictionary.registerOre("fish" , new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
+            }
         }
         MeatType[] meat = MeatType.values();
         int iMeat = meat.length;
