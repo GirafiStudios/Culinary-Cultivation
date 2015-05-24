@@ -27,8 +27,7 @@ public class Events {
         if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
         FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
         FMLCommonHandler.instance().bus().register(new DrumstickCraftingEvent());
-        MinecraftForge.EVENT_BUS.register(new CakeLeftClickEvent());
-        MinecraftForge.EVENT_BUS.register(new CakeRightClickEvent());
+        MinecraftForge.EVENT_BUS.register(new CakeKnifeEvent());
         MinecraftForge.EVENT_BUS.register(new CauldronTransformation());
         MinecraftForge.EVENT_BUS.register(new StorageJarMilkFill());
     }
