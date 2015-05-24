@@ -30,5 +30,6 @@ public class Events {
         MinecraftForge.EVENT_BUS.register(new CakeLeftClickEvent());
         MinecraftForge.EVENT_BUS.register(new CakeRightClickEvent());
         MinecraftForge.EVENT_BUS.register(new CauldronTransformation());
+        MinecraftForge.EVENT_BUS.register(new StorageJarMilkFill());
     }
 }

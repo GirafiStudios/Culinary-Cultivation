@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,11 +35,11 @@ public class ItemStorageJar extends SourceItem {
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     }
 
-    public static enum StorageJarType { //TODO Look into adding a new storage jar for all liquid (Get liquid color), which is not hoter than lava
-        STORAGEJAR(0, "empty"),
-        WATER(1, "water", setColor(52,95,218).getRGB()),
-        MILK(2, "milk", setColor(255,255,255).getRGB()),
-        RENNET(3, "rennet", setColor(184,185,151).getRGB());
+    public static enum StorageJarType { //TODO Look into adding a new storage jar for all liquid, which is not hoter than lava
+        EMPTY(0, "empty"),
+        WATER(1, "water", setColor(52, 95, 218).getRGB()),
+        MILK(2, "milk", setColor(255, 255, 255).getRGB()),
+        RENNET(3, "rennet", setColor(184, 185, 151).getRGB());
 
         private static final Map StorageJarTypeMap = Maps.newHashMap();
         private final int metaData;
@@ -70,13 +71,15 @@ public class ItemStorageJar extends SourceItem {
         }
 
         public static StorageJarType getStorageJarTypeList(int storageJar) {
-            StorageJarType storageJarType = (StorageJarType)StorageJarTypeMap.get(Integer.valueOf(storageJar));
-            return storageJarType == null ? STORAGEJAR : storageJarType;
+            StorageJarType storageJarType = (StorageJarType) StorageJarTypeMap.get(Integer.valueOf(storageJar));
+            return storageJarType == null ? EMPTY : storageJarType;
         }
 
         public static StorageJarType getStorageJarType(ItemStack stack) {
-            return stack.getItem() instanceof ItemStorageJar ? getStorageJarTypeList(stack.getItemDamage()) : STORAGEJAR;
-        } static {
+            return stack.getItem() instanceof ItemStorageJar ? getStorageJarTypeList(stack.getItemDamage()) : EMPTY;
+        }
+
+        static {
             StorageJarType[] var0 = values();
             int var1 = var0.length;
             for (int var2 = 0; var2 < var1; ++var2) {
@@ -86,9 +89,21 @@ public class ItemStorageJar extends SourceItem {
         }
     }
 
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
+        super.getSubItems(item, creativeTab, list);
+        StorageJarType[] astorageJar = StorageJarType.values();
+        int i = astorageJar.length;
+        for (int j = 0; j < i; ++j) {
+            StorageJarType storageJarType = astorageJar[j];
+            if (storageJarType.getMetaData() != 0) {
+                list.add(new ItemStack(this, 1, storageJarType.getMetaData()));
+            }
+        }
+    }
+
     @Override
-    public int getMaxItemUseDuration(ItemStack stack)
-    {
+    public int getMaxItemUseDuration(ItemStack stack) {
         return 32;
     }
 
@@ -97,30 +112,31 @@ public class ItemStorageJar extends SourceItem {
         if (stack.getItemDamage() == 0) {
             return EnumAction.none;
         }
-            return EnumAction.drink;
+        return EnumAction.drink;
     }
 
     @Override
-    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) { //TODO Add support for milk
-        if (stack.getItemDamage() != 0) {
-            if (!player.capabilities.isCreativeMode) {
-                --stack.stackSize;
+    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+        if (!player.capabilities.isCreativeMode) {
+            --stack.stackSize;
+        }
+        if (!player.capabilities.isCreativeMode) {
+            if (stack.stackSize <= 0) {
+                return new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
             }
-            if (!player.capabilities.isCreativeMode) {
-                if (stack.stackSize <= 0) {
-                    return new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData());
-                }
-                if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData()))) {
-                    player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData()), false);
-                }
+            if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()))) {
+                player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), false);
             }
+        }
+        if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
+            player.curePotionEffects(new ItemStack(Items.milk_bucket));
         }
         return stack;
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (stack.getItemDamage() == StorageJarType.STORAGEJAR.getMetaData()) {
+        if (stack.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
             MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
             if (movingobjectposition == null) {
                 return stack;
@@ -170,8 +186,8 @@ public class ItemStorageJar extends SourceItem {
             return this.getIconFromDamage(damage);
     }
 
-    public static Color setColor (int r, int g, int b){
-        Color c = new Color(r,g,b);
+    public static Color setColor(int r, int g, int b) {
+        Color c = new Color(r, g, b);
         return c;
     }
 
@@ -195,26 +211,8 @@ public class ItemStorageJar extends SourceItem {
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
-        super.getSubItems(item, creativeTab, list);
-        StorageJarType[] astorageJar = StorageJarType.values();
-        int i = astorageJar.length;
-        for (int j = 0; j < i; ++j) {
-            StorageJarType storageJarType = astorageJar[j];
-            if (storageJarType.getMetaData() != 0) {
-                list.add(new ItemStack(this, 1, storageJarType.getMetaData()));
-            }
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
         this.defaultIcon = register.registerIcon(Reference.MOD_ID + ":" + this.getIconString() + "_" + "default");
         this.overlayIcon = register.registerIcon(Reference.MOD_ID + ":" + this.getIconString() + "_" + "overlay");
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static IIcon func_94589_d(String string) {
-        return string.equals("default") ? defaultIcon : (string.equals("overlay") ? overlayIcon : null);
     }
 }

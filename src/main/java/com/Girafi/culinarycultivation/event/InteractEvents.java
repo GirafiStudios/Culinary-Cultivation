@@ -104,12 +104,17 @@ public class InteractEvents {
         }
     }
 
-    public static class StorageJarMilkFillEvent {
+    public static class StorageJarMilkFill {
         @SubscribeEvent
         public void StorageJarMiliFillEvent(EntityInteractEvent iEvent) {
-            if (iEvent.entityPlayer.getCurrentEquippedItem() != null && iEvent.entityPlayer.getCurrentEquippedItem() == new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData())) {
-                if (iEvent.target instanceof EntityCow &! iEvent.entityLiving.isChild()) {
-
+            ItemStack stack = iEvent.entityPlayer.inventory.getCurrentItem();
+            if (iEvent.target instanceof EntityCow & !iEvent.entityLiving.isChild()) {
+                if (stack != null && stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.EMPTY.getMetaData() && !iEvent.entityPlayer.capabilities.isCreativeMode) {
+                    if (stack.stackSize-- == 1) {
+                        iEvent.entityPlayer.inventory.setInventorySlotContents(iEvent.entityPlayer.inventory.currentItem, new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()));
+                    } else if (!iEvent.entityPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()))) {
+                        iEvent.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()), false);
+                    }
                 }
             }
         }

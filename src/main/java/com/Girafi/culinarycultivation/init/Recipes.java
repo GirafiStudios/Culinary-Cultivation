@@ -17,7 +17,7 @@ public class Recipes {
 
     public static void init() {
         //Tools and other stuff
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.storageJar, 1, StorageJarType.STORAGEJAR.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cakeKnife), true, "   ", "  H", "II ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knife), true, "  I", " I ", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(meatCleaver), true, " II", " II", "H  ", 'H', toolHandle, 'I', "ingotIron"));

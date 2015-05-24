@@ -19,10 +19,6 @@ item.culinarycultivation:debugItem.hunger.name=Debug Item (Set Food Level to 0)
 item.culinarycultivation:debugItem.hungerPlus.name=Debug Item (Set Food Level to 20)
 item.culinarycultivation:drumstickCooked.name=Cooked Drumstick
 item.culinarycultivation:drumstickRaw.name=Raw Drumstick
-item.culinarycultivation:storageJar_empty.name=Storage Jar (Empty)
-item.culinarycultivation:storageJar_milk.name=Storage Jar (Milk)
-item.culinarycultivation:storageJar_rennet.name=Storage Jar (Rennet)
-item.culinarycultivation:storageJar_water.name=Storage Jar (Water)
 item.culinarycultivation:fish.clownfish.cooked.name=Cooked Clownfish
 item.culinarycultivation:fish.herring.cooked.name=Cooked Herring
 item.culinarycultivation:fish.herring.raw.name=Raw Herring
@@ -62,6 +58,10 @@ item.culinarycultivation:squidRingCooked.name=Calamari
 item.culinarycultivation:squidRingRaw.name=Squid Ring
 item.culinarycultivation:squidTentacleCooked.name=Cooked Squid Tentacle
 item.culinarycultivation:squidTentacleRaw.name=Squid Tentacle
+item.culinarycultivation:storageJar_empty.name=Storage Jar (Empty)
+item.culinarycultivation:storageJar_milk.name=Storage Jar (Milk)
+item.culinarycultivation:storageJar_rennet.name=Storage Jar (Rennet)
+item.culinarycultivation:storageJar_water.name=Storage Jar (Water)
 item.culinarycultivation:toolHandle.name=Tool Handle
 item.culinarycultivation:vealCooked.name=Cooked Veal
 item.culinarycultivation:vealRaw.name=Raw Veal
@@ -70,7 +70,6 @@ item.culinarycultivation:vealRaw.name=Raw Veal
 tile.culinarycultivation:beets.name=Beets
 tile.culinarycultivation:blackPepper.name=Black Pepper
 tile.culinarycultivation:cheese.name=Cheese
-
 
 #Other
 itemGroup.culinarycultivation=Culinary Cultivation
