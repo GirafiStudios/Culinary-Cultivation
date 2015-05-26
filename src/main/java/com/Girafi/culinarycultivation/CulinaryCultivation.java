@@ -49,7 +49,7 @@ public class CulinaryCultivation {
     }
 
     @Mod.EventHandler
-    public void init (FMLPostInitializationEvent event) {
+    public void postInit (FMLPostInitializationEvent event) {
         ModSupport.instance().postInit();
         LogHelper.info(Reference.MOD_NAME_ + "Post Initialization Complete.");
     }

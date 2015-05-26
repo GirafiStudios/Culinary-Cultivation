@@ -6,13 +6,19 @@ import com.Girafi.culinarycultivation.item.ItemStorageJar.*;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCauldron;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -75,16 +81,47 @@ public class InteractEvents {
         }
     }
 
-    public static class CauldronTransformation { //Works for now?
+    public static class CauldronTransformation {
         @SubscribeEvent
         public void CauldronTransformationEvent(PlayerInteractEvent iEvent) {
-            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                EntityPlayer player = iEvent.entityPlayer;
+            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.getCurrentEquippedItem() != null) {
+                ItemStack equipped = iEvent.entityPlayer.getCurrentEquippedItem();
+                boolean nullCheck = equipped.getItem() != null;
                 int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);
-                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.milk_bucket) //Or Rennet storage jar! {
-                    if (iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) == Blocks.cauldron && meta <= 0) {
+                int j1 = func_150027_b(meta);
+                Block getBlock = iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z);
+
+                if (getBlock == Blocks.cauldron) {
+                    if (nullCheck && equipped.getItem() == ModItems.storageJar && equipped.getItemDamage() == StorageJarType.EMPTY.getMetaData() || nullCheck && equipped.getItem() == ModItems.storageJar && equipped.getItemDamage() == StorageJarType.WATER.getMetaData() || nullCheck && equipped.getItem() == Items.bucket) {
                         iEvent.world.setBlock(iEvent.x, iEvent.y, iEvent.z, ModBlocks.cauldron);
+                        changeWater(iEvent.world, iEvent.x, iEvent.y, iEvent.z, j1);
                     }
+                }
+            }
+        }
+
+        public void changeWater(World world, int x, int y, int z, int p_150024_5_) {
+            world.setBlockMetadataWithNotify(x, y, z, MathHelper.clamp_int(p_150024_5_, 0, 3), 2);
+            world.func_147453_f(x, y, z, ModBlocks.cauldron);
+        }
+
+        public static int func_150027_b(int var1) {
+            return var1;
+        }
+    }
+
+    public static class DebugItemEvent {
+        @SubscribeEvent
+        public void DebugItem(PlayerInteractEvent iEvent) {
+            EntityPlayer player = iEvent.entityPlayer;
+            ItemStack stack = iEvent.entityPlayer.inventory.getCurrentItem();
+            if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
+                if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
+                    if (!iEvent.world.isRemote) {
+                        player.addChatComponentMessage(new ChatComponentText(iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z).getLocalizedName() + " | " + "Metadata: " + iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z)));
+                    }
+                    iEvent.setCanceled(true);
+                }
             }
         }
     }

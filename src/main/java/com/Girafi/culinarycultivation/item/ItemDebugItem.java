@@ -111,7 +111,7 @@ public class ItemDebugItem extends Item {
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.getItemDamage() == 0) {
             if (!worldIn.isRemote) {
-                playerIn.addChatComponentMessage(new ChatComponentText("This mode is not implemented yet. Switch mode by shift + scrolling"));
+                playerIn.addChatComponentMessage(new ChatComponentText("Switch mode by shift + scrolling"));
             }
         }
         if (stack.getItemDamage() == 1) {
