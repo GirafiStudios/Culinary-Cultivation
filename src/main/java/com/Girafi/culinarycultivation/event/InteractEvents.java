@@ -115,12 +115,25 @@ public class InteractEvents {
         public void DebugItem(PlayerInteractEvent iEvent) {
             EntityPlayer player = iEvent.entityPlayer;
             ItemStack stack = iEvent.entityPlayer.inventory.getCurrentItem();
+            boolean b = player.onGround && player.isSneaking();
             if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
                 if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
                     if (!iEvent.world.isRemote) {
                         player.addChatComponentMessage(new ChatComponentText(iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z).getLocalizedName() + " | " + "Metadata: " + iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z)));
                     }
                     iEvent.setCanceled(true);
+                }
+            }
+            if (!b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
+                    int l = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z) + 1;
+                    iEvent.world.setBlockMetadataWithNotify(iEvent.x, iEvent.y, iEvent.z, l, 2);
+                }
+            }
+            if (b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
+                    int l = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z) - 1;
+                    iEvent.world.setBlockMetadataWithNotify(iEvent.x, iEvent.y, iEvent.z, l, 2);
                 }
             }
         }

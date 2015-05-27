@@ -12,8 +12,8 @@ public class OreDictionaryRegistration {
     public static void init() {
 
         FishType[] fish = FishType.values();
-        int i = fish.length;
-        for (int j = 0; j < i; ++j) {
+        int iFish = fish.length;
+        for (int j = 0; j < iFish; ++j) {
             FishType fishtype = fish[j];
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Raw", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getTextureName()) + "Cooked", new ItemStack(ModItems.cooked_fish, 1, fishtype.getMetaData()));
