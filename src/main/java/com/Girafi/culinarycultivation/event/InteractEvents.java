@@ -90,7 +90,7 @@ public class InteractEvents {
                 Block getBlock = iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z);
 
                 if (getBlock == Blocks.cauldron) {
-                    if (nullCheck && equipped.getItem() == ModItems.storageJar && equipped.getItemDamage() == StorageJarType.EMPTY.getMetaData() || nullCheck && equipped.getItem() == ModItems.storageJar && equipped.getItemDamage() == StorageJarType.WATER.getMetaData() || nullCheck && equipped.getItem() == Items.bucket) {
+                    if (nullCheck && equipped.getItem() == ModItems.storageJar || nullCheck && equipped.getItem() == Items.bucket || nullCheck && equipped.getItem() == Items.milk_bucket) {
                         iEvent.world.setBlock(iEvent.x, iEvent.y, iEvent.z, ModBlocks.cauldron);
                         changeWater(iEvent.world, iEvent.x, iEvent.y, iEvent.z, j1);
                     }

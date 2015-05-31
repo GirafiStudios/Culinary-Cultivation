@@ -2,8 +2,10 @@ package com.Girafi.culinarycultivation.block;
 
 import com.Girafi.culinarycultivation.CulinaryCultivation;
 import com.Girafi.culinarycultivation.client.render.block.RenderCauldron;
+import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.tileentity.TileEntityCauldron;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,13 +28,19 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
-public class BlockModCauldron extends SourceBlockTileEntity{
+public class BlockModCauldron extends SourceBlockTileEntity {
     @SideOnly(Side.CLIENT)
     public static IIcon iconInner;
     @SideOnly(Side.CLIENT)
     public static IIcon iconTop;
     @SideOnly(Side.CLIENT)
     public static IIcon iconBottom;
+    @SideOnly(Side.CLIENT)
+    public static IIcon iconMilk;
+    @SideOnly(Side.CLIENT)
+    public static IIcon iconRennet;
+    @SideOnly(Side.CLIENT)
+    public static IIcon iconCheeseMass;
 
     public BlockModCauldron() {
         super();
@@ -59,33 +67,37 @@ public class BlockModCauldron extends SourceBlockTileEntity{
 
     @SideOnly(Side.CLIENT)
     @Override
-    public IIcon getIcon(int side, int meta) {
-        return side == 1 ? this.iconTop : (side == 0 ? this.iconBottom : this.blockIcon);
+    public IIcon getIcon(int meta, int side) {
+        return meta == 1 ? iconTop : (meta == 0 ? iconBottom : blockIcon);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister register) {
-        this.iconInner = register.registerIcon(this.getTextureName() + "_" + "inner");
-        this.iconTop = register.registerIcon(this.getTextureName() + "_top");
-        this.iconBottom = register.registerIcon(this.getTextureName() + "_" + "bottom");
-        this.blockIcon = register.registerIcon(this.getTextureName() + "_side");
+        iconInner = register.registerIcon(getTextureName() + "_" + "inner");
+        iconTop = register.registerIcon(getTextureName() + "_top");
+        iconBottom = register.registerIcon(getTextureName() + "_" + "bottom");
+        blockIcon = register.registerIcon(getTextureName() + "_side");
+
+        iconMilk = register.registerIcon(Reference.MOD_ID + ":" + "milk_still");
+        iconRennet = register.registerIcon(Reference.MOD_ID + ":" + "rennet_still");
+        iconCheeseMass = register.registerIcon(Reference.MOD_ID + ":" + "cheeseMass_still");
     }
 
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB mask, List list, Entity entity) {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3125F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3125F, 1.0F);
         super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
         float f = 0.125F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
         super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
         super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
-        this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
-        this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
         super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
-        this.setBlockBoundsForItemRender();
+        setBlockBoundsForItemRender();
     }
 
     @SideOnly(Side.CLIENT)
@@ -94,7 +106,7 @@ public class BlockModCauldron extends SourceBlockTileEntity{
     }
 
     public void setBlockBoundsForItemRender() {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public boolean isOpaqueCube() {
@@ -109,34 +121,72 @@ public class BlockModCauldron extends SourceBlockTileEntity{
         int l = func_150027_b(world.getBlockMetadata(x, y, z));
         float f = (float) y + (6.0F + (float) (3 * l)) / 16.0F;
 
-        if (!world.isRemote && entity.isBurning() && l > 0 && entity.boundingBox.minY <= (double) f) {
+        if (!world.isRemote && entity.isBurning() && l > 0 && l < 15 && entity.boundingBox.minY <= (double) f) {
             entity.extinguish();
-            this.changeWater(world, x, y, z, l - 1);
+            world.setBlock(x, y, z, ModBlocks.cauldron);
         }
     }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+        int meta = world.getBlockMetadata(x, y, z);
+        ItemStack stack = player.inventory.getCurrentItem();
+        int j1 = func_150027_b(meta);
+
+        if (meta == 15) {
+            if (!player.capabilities.isCreativeMode) {
+                ItemStack cheese = new ItemStack(ModBlocks.cheese);
+                if (!player.inventory.addItemStackToInventory(cheese)) {
+                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, cheese));
+                } else if (player instanceof EntityPlayerMP) {
+                    ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+                }
+                world.setBlock(x, y, z, ModBlocks.cauldron);
+                return true;
+            }
+        }
+
         if (world.isRemote) {
             return true;
         } else {
-            ItemStack stack = player.inventory.getCurrentItem();
             if (stack == null) {
                 return true;
             } else {
-                int meta = world.getBlockMetadata(x, y, z);
-                int j1 = func_150027_b(meta);
                 if (stack.getItem() == Items.water_bucket) {
-                    if (j1 < 3) {
+                    if (j1 < 3 && meta <= 3) {
                         if (!player.capabilities.isCreativeMode) {
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
                         }
-                        this.changeWater(world, x, y, z, 3);
+                        changeWater(world, x, y, z, 3);
+                    }
+                    return true;
+                }
+                if (stack.getItem() == Items.bucket) {
+                    if (j1 > 0 && meta == 3) {
+                        if (!player.capabilities.isCreativeMode) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.water_bucket));
+                        }
+                        changeWater(world, x, y, z, -3);
+                    }
+                    if (j1 > 0 && meta == 6) {
+                        if (!player.capabilities.isCreativeMode) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.milk_bucket));
+                        }
+                        world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+                    }
+                    return true;
+                }
+                if (stack.getItem() == Items.milk_bucket) {
+                    if (meta == 0) {
+                        if (!player.capabilities.isCreativeMode) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
+                        }
+                        world.setBlockMetadataWithNotify(x, y, z, 6, 2);
                     }
                     return true;
                 } else {
                     if (stack.getItem() == Items.glass_bottle) {
-                        if (j1 > 0) {
+                        if (j1 > 0 && meta <= 3) {
                             if (!player.capabilities.isCreativeMode) {
                                 ItemStack itemstack1 = new ItemStack(Items.potionitem, 1, 0);
 
@@ -150,11 +200,11 @@ public class BlockModCauldron extends SourceBlockTileEntity{
                                     player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                                 }
                             }
-                            this.changeWater(world, x, y, z, j1 - 1);
+                            changeWater(world, x, y, z, j1 - 1);
                         }
                     }
-                    if (stack.getItem() == ModItems.storageJar) {
-                        if (j1 > 0) {
+                    if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
+                        if (j1 > 0 && meta <= 3) {
                             if (!player.capabilities.isCreativeMode) {
                                 ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData());
 
@@ -168,16 +218,64 @@ public class BlockModCauldron extends SourceBlockTileEntity{
                                     player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                                 }
                             }
-                            this.changeWater(world, x, y, z, j1 - 1);
+                            changeWater(world, x, y, z, j1 - 1);
+                        }
+                        if (j1 > 0 && meta >= 4 && meta <= 6) {
+                            if (!player.capabilities.isCreativeMode) {
+                                ItemStack stackStorageJarMilk = new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData());
+
+                                if (!player.inventory.addItemStackToInventory(stackStorageJarMilk)) {
+                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJarMilk));
+                                } else if (player instanceof EntityPlayerMP) {
+                                    ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+                                }
+                                --stack.stackSize;
+                                if (stack.stackSize <= 0) {
+                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                                }
+                            }
+                            if (meta == 4) {
+                                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+                            }
+                            if (meta == 5) {
+                                world.setBlockMetadataWithNotify(x, y, z, 6 - 2, 2);
+                            }
+                            if (meta == 6) {
+                                world.setBlockMetadataWithNotify(x, y, z, 6 - 1, 2);
+                            }
+                        }
+                        if (j1 > 0 && meta >= 7 && meta <= 9) {
+                            if (!player.capabilities.isCreativeMode) {
+                                ItemStack stackStorageJarRennet = new ItemStack(ModItems.storageJar, 1, StorageJarType.RENNET.getMetaData());
+
+                                if (!player.inventory.addItemStackToInventory(stackStorageJarRennet)) {
+                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJarRennet));
+                                } else if (player instanceof EntityPlayerMP) {
+                                    ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+                                }
+                                --stack.stackSize;
+                                if (stack.stackSize <= 0) {
+                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                                }
+                            }
+                            if (meta == 7) {
+                                world.setBlockMetadataWithNotify(x, y, z, 0, 2);
+                            }
+                            if (meta == 8) {
+                                world.setBlockMetadataWithNotify(x, y, z, 9 - 2, 2);
+                            }
+                            if (meta == 9) {
+                                world.setBlockMetadataWithNotify(x, y, z, 9 - 1, 2);
+                            }
                         }
                     }
                     if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.WATER.getMetaData()) {
-                        if (j1 > 0 || j1 == 0) {
+                        if (j1 > 0 && meta <= 3 || j1 == 0) {
                             if (!player.capabilities.isCreativeMode) {
-                                ItemStack stackStorageJarWater = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+                                ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
 
-                                if (!player.inventory.addItemStackToInventory(stackStorageJarWater)) {
-                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJarWater));
+                                if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
+                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJar));
                                 } else if (player instanceof EntityPlayerMP) {
                                     ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                                 }
@@ -187,22 +285,23 @@ public class BlockModCauldron extends SourceBlockTileEntity{
                                 }
                             }
                             if (meta == 0) {
-                                this.changeWater(world, x, y, z, j1 + 1);
+                                changeWater(world, x, y, z, j1 + 1);
                             }
                             if (meta == 1 || meta == 2) {
-                                this.changeWater(world, x, y, z, j1 + 1);
+                                changeWater(world, x, y, z, j1 + 1);
                             }
                             if (meta == 3) {
-                                this.changeWater(world, x, y, z, j1);
+                                changeWater(world, x, y, z, j1);
                             }
                         }
                     }
-                    if (stack.getItem() == Items.bucket) {
-                        if (j1 > 0 && meta == 3) {
+                    if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
+                        if (j1 > 0 && meta >= 4 && meta <= 6 || meta == 0) {
                             if (!player.capabilities.isCreativeMode) {
-                                ItemStack bucket = new ItemStack(Items.water_bucket);
-                                if (!player.inventory.addItemStackToInventory(bucket)) {
-                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, bucket));
+                                ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+
+                                if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
+                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJar));
                                 } else if (player instanceof EntityPlayerMP) {
                                     ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                                 }
@@ -211,12 +310,93 @@ public class BlockModCauldron extends SourceBlockTileEntity{
                                     player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                                 }
                             }
-                            this.changeWater(world, x, y, z, j1 - 3);
+                            if (meta == 0) {
+                                world.setBlockMetadataWithNotify(x, y, z, 4, 2);
+                            }
+                            if (meta == 4) {
+                                world.setBlockMetadataWithNotify(x, y, z, 4 + 1, 2);
+                            }
+                            if (meta == 5 || meta == 6) {
+                                world.setBlockMetadataWithNotify(x, y, z, 4 + 2, 2);
+                            }
                         }
-                    } else if (j1 > 0 && stack.getItem() instanceof ItemArmor && ((ItemArmor) stack.getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.CLOTH) {
+                    }
+                    if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
+                        if (j1 > 0 && meta >= 7 && meta <= 9 || meta == 0) {
+                            if (!player.capabilities.isCreativeMode) {
+                                ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+
+                                if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
+                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJar));
+                                } else if (player instanceof EntityPlayerMP) {
+                                    ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+                                }
+                                --stack.stackSize;
+                                if (stack.stackSize <= 0) {
+                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                                }
+                            }
+                            if (meta == 0) {
+                                world.setBlockMetadataWithNotify(x, y, z, 7, 2);
+                            }
+                            if (meta == 7) {
+                                world.setBlockMetadataWithNotify(x, y, z, 7 + 1, 2);
+                            }
+                            if (meta == 8 || meta == 9) {
+                                world.setBlockMetadataWithNotify(x, y, z, 7 + 2, 2);
+                            }
+                        }
+                    }
+                    // CheeseMass starts here \\
+                    if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
+                        if (j1 > 0 && meta == 4 || meta == 5) {
+                            if (!player.capabilities.isCreativeMode) {
+                                ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+
+                                if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
+                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJar));
+                                } else if (player instanceof EntityPlayerMP) {
+                                    ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+                                }
+                                --stack.stackSize;
+                                if (stack.stackSize <= 0) {
+                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                                }
+                            }
+                            if (meta == 4) {
+                                world.setBlockMetadataWithNotify(x, y, z, 13, 2);
+                            }
+                            if (meta == 5) {
+                                world.setBlockMetadataWithNotify(x, y, z, 14, 2);
+                            }
+                        }
+                    }
+                    if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
+                        if (j1 > 0 && meta == 7 || meta == 13) {
+                            if (!player.capabilities.isCreativeMode) {
+                                ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+
+                                if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
+                                    world.spawnEntityInWorld(new EntityItem(world, (double) x + 0.5D, (double) y + 1.5D, (double) z + 0.5D, stackStorageJar));
+                                } else if (player instanceof EntityPlayerMP) {
+                                    ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+                                }
+                                --stack.stackSize;
+                                if (stack.stackSize <= 0) {
+                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                                }
+                            }
+                            if (meta == 7) {
+                                world.setBlockMetadataWithNotify(x, y, z, 13, 2);
+                            }
+                            if (meta == 13) {
+                                world.setBlockMetadataWithNotify(x, y, z, 14, 2);
+                            }
+                        }
+                    } else if (j1 > 0 && meta <= 3 && stack.getItem() instanceof ItemArmor && ((ItemArmor) stack.getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.CLOTH) {
                         ItemArmor itemarmor = (ItemArmor) stack.getItem();
                         itemarmor.removeColor(stack);
-                        this.changeWater(world, x, y, z, j1 - 1);
+                        changeWater(world, x, y, z, j1 - 1);
                         return true;
                     }
                     return false;
@@ -265,5 +445,22 @@ public class BlockModCauldron extends SourceBlockTileEntity{
     public static float getRenderLiquidLevel(int i) {
         int j = MathHelper.clamp_int(i, 0, 3);
         return (float) (6 + 3 * j) / 16.0F;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static float getRenderMilkLevel(int i) {
+        int j = MathHelper.clamp_int(i, 4, 6);
+        return (float) (6 + 3 * j - 9) / 16.0F;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static float getRenderRennetLevel(int i) {
+        int j = MathHelper.clamp_int(i, 7, 9);
+        return (float) (6 + 3 * j - 18) / 16.0F;
+    }
+    @SideOnly(Side.CLIENT)
+    public static float getRenderCheeseMassLevel(int i) {
+        int j = MathHelper.clamp_int(i, 13, 14);
+        return (float) (6 + 3 * j - 33) / 16.0F;
     }
 }

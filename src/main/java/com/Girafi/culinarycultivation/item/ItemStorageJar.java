@@ -3,6 +3,7 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.utility.Utils;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -37,9 +38,9 @@ public class ItemStorageJar extends SourceItem {
 
     public static enum StorageJarType { //TODO Look into adding a new storage jar for all liquid, which is not hoter than lava
         EMPTY(0, "empty"),
-        WATER(1, "water", setColor(52, 95, 218).getRGB()),
-        MILK(2, "milk", setColor(255, 255, 255).getRGB()),
-        RENNET(3, "rennet", setColor(184, 185, 151).getRGB());
+        WATER(1, "water", Utils.setColor(52, 95, 218).getRGB()),
+        MILK(2, "milk", Utils.setColor(255, 255, 255).getRGB()),
+        RENNET(3, "rennet", Utils.setColor(184, 185, 151).getRGB());
 
         private static final Map StorageJarTypeMap = Maps.newHashMap();
         private final int metaData;
@@ -184,11 +185,6 @@ public class ItemStorageJar extends SourceItem {
             return renderPass == 0 ? this.overlayIcon : super.getIconFromDamageForRenderPass(damage, renderPass);
         } else
             return this.getIconFromDamage(damage);
-    }
-
-    public static Color setColor(int r, int g, int b) {
-        Color c = new Color(r, g, b);
-        return c;
     }
 
     @SideOnly(Side.CLIENT)

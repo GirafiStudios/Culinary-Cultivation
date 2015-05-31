@@ -1,6 +1,11 @@
 package com.Girafi.culinarycultivation.client.render.block;
 
+import com.Girafi.culinarycultivation.block.BlockCheese;
 import com.Girafi.culinarycultivation.block.BlockModCauldron;
+import com.Girafi.culinarycultivation.item.ItemStorageJar;
+import com.Girafi.culinarycultivation.utility.Utils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -9,7 +14,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-public class RenderCauldron extends SourceBlockRenderHandler{
+public class RenderCauldron extends SourceBlockRenderHandler {
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks render) {
@@ -40,12 +45,29 @@ public class RenderCauldron extends SourceBlockRenderHandler{
         IIcon iicon2 = BlockModCauldron.getCauldronIcon("inner");
         render.renderFaceYPos(block, (double) x, (double) ((float) y - 1.0F + 0.25F), (double) z, iicon2);
         render.renderFaceYNeg(block, (double) x, (double) ((float) y + 1.0F - 0.75F), (double) z, iicon2);
-        int i1 = render.blockAccess.getBlockMetadata(x, y, z);
+        int meta = render.blockAccess.getBlockMetadata(x, y, z);
 
-        if (i1 > 0) {
+        if (meta > 0 && meta <= 3) {
             IIcon iicon = BlockLiquid.getLiquidIcon("water_still");
-            render.renderFaceYPos(block, (double) x, (double) ((float) y - 1.0F + BlockModCauldron.getRenderLiquidLevel(i1)), (double) z, iicon);
+            render.renderFaceYPos(block, (double) x, (double) ((float) y - 1.0F + BlockModCauldron.getRenderLiquidLevel(meta)), (double) z, iicon);
+        }
+        if (meta > 3 && meta <= 6) {
+            IIcon milk = BlockModCauldron.iconMilk;
+            render.renderFaceYPos(block, (double) x, (double) ((float) y - 1.0F + BlockModCauldron.getRenderMilkLevel(meta)), (double) z, milk);
+        }
+        if (meta > 6 && meta <= 9) {
+            IIcon rennet = BlockModCauldron.iconRennet;
+            render.renderFaceYPos(block, (double) x, (double) ((float) y - 1.0F + BlockModCauldron.getRenderRennetLevel(meta)), (double) z, rennet);
+        }
+        if (meta > 12 && meta <= 14) {
+            IIcon cheeseMass = BlockModCauldron.iconCheeseMass;
+            render.renderFaceYPos(block, (double) x, (double) ((float) y - 1.0F + BlockModCauldron.getRenderCheeseMassLevel(meta)), (double) z, cheeseMass);
+        }
+        if (meta == 15) {
+            IIcon cheese = BlockCheese.iconTop;
+            render.renderFaceYPos(block, (double) x, (double) ((float) y - 1.0F + BlockModCauldron.getRenderLiquidLevel(meta)), (double) z, cheese);
         }
         return true;
     }
+
 }
