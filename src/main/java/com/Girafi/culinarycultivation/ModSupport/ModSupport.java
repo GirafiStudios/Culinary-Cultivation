@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation.modSupport;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.modSupport.ee3.EquivalentExchange3;
+import com.Girafi.culinarycultivation.modSupport.thaumcraft.Thaumcraft;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.reference.SupportedModIDs;
 import com.Girafi.culinarycultivation.utility.LogHelper;
@@ -19,12 +20,15 @@ public class ModSupport {
 
     private static ModSupport INSTANCE = new ModSupport();
     private final List<IModSupport> modSupportMods = new ArrayList<IModSupport>();
+    private final List<IModSupport> modSupportModsNoConfig = new ArrayList<IModSupport>();
 
     public static ModSupport instance() { return INSTANCE; }
 
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
+        Map<String, Class<? extends IModSupport>> modSupportClassesNoConfig = new HashMap<String, Class<? extends IModSupport>>();
         modSupportClasses.put(SupportedModIDs.EE3, EquivalentExchange3.class);
+        modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
 
 
         List<String> enabledModSupport = new ArrayList<String>();
@@ -39,6 +43,17 @@ public class ModSupport {
             if (enabledModSupport.contains(entry.getKey()) && Loader.isModLoaded(entry.getKey())) {
                 try {
                     modSupportMods.add(entry.getValue().newInstance());
+                } catch (Exception e) {
+                    LogHelper.error("Failed to load mod support handler");
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        for (Map.Entry<String, Class<? extends IModSupport>> entryNoConfig : modSupportClassesNoConfig.entrySet()) {
+            if (enabledModSupport.contains(entryNoConfig.getKey()) && Loader.isModLoaded(entryNoConfig.getKey())) {
+                try {
+                    modSupportMods.add(entryNoConfig.getValue().newInstance());
                 } catch (Exception e) {
                     LogHelper.error("Failed to load mod support handler");
                     e.printStackTrace();
