@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation.block;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModBlocks;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCheese extends BlockCake { //TODO The hitbox might be a little off //TODO Change food you get from eating it
+public class BlockCheese extends BlockCake { //TODO Change hunger you get from eating it
     @SideOnly(Side.CLIENT)
     public static IIcon iconTop;
     @SideOnly(Side.CLIENT)
@@ -21,8 +22,8 @@ public class BlockCheese extends BlockCake { //TODO The hitbox might be a little
 
     public BlockCheese() {
         super();
-        setBlockName(Reference.MOD_ID.toLowerCase() + ":" + "cheese");
-        setBlockTextureName(Reference.MOD_ID.toLowerCase() + ":" + "cheese");
+        setBlockName(Paths.ModAssets + "cheese");
+        setBlockTextureName(Paths.ModAssets + "cheese");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         setHardness(0.5F);
         setStepSound(soundTypeCloth);
@@ -49,5 +50,5 @@ public class BlockCheese extends BlockCake { //TODO The hitbox might be a little
 
     @SideOnly(Side.CLIENT)
     @Override
-    public String getItemIconName() { return Reference.MOD_ID + ":" + "cheeseWheel"; }
+    public String getItemIconName() { return Paths.ModAssets + "cheeseWheel"; }
 }

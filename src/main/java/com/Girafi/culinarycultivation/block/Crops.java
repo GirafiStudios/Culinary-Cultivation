@@ -53,7 +53,7 @@ public class Crops {
             this.iicon = new IIcon[4];
 
             for (int i = 0; i < this.iicon.length; ++i) {
-                this.iicon[i] = iIconRegister.registerIcon(Reference.MOD_ID + ":" + this.getTextureName() + "_stage_" + i);
+                this.iicon[i] = iIconRegister.registerIcon(this.getTextureName() + "_stage_" + i);
             }
         }
     }
@@ -123,7 +123,7 @@ public class Crops {
             this.iicon = new IIcon[4];
 
             for (int i = 0; i < this.iicon.length; ++i) {
-                this.iicon[i] = iIconRegister.registerIcon(Reference.MOD_ID + ":" + this.getTextureName() + "_stage_" + i);
+                this.iicon[i] = iIconRegister.registerIcon(this.getTextureName() + "_stage_" + i);
             }
         }
     }
@@ -160,7 +160,7 @@ public class Crops {
             this.iicon = new IIcon[4];
 
             for (int i = 0; i < this.iicon.length; ++i) {
-                this.iicon[i] = iIconRegister.registerIcon(Reference.MOD_ID + ":" + this.getTextureName() + "_stage_" + i);
+                this.iicon[i] = iIconRegister.registerIcon(this.getTextureName() + "_stage_" + i);
             }
         }
     }

@@ -18,7 +18,6 @@ public class ConfigurationHandler
     public static Configuration config;
     public static String CATEGORY_MODSUPPORT_ENABLING = "mod support";
     public static String CATEGORY_MOB_DROPS = "mob drops";
-    public static String [] ORDER = new String[]{CATEGORY_MODSUPPORT_ENABLING, CATEGORY_MOB_DROPS};
     public static boolean ShouldBabyCowDropVeal;
     public static boolean ShouldBabySheepDropLamb;
     public static boolean ShouldChickensDropChickenWings;

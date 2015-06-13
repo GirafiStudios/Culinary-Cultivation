@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.init.ModItems;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
@@ -103,9 +104,9 @@ public class ItemModFishFood extends SourceFood {
     public String getUnlocalizedName(ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
-            return this.getUnlocalizedName() + "." + fishtype.getTextureName() + "." + (this.isCooked && fishtype.isHaveCookedFish() ? "cooked" : "raw");
+            return "item." + Paths.ModAssets + "fish" + "." + fishtype.getTextureName() + "." + (this.isCooked && fishtype.isHaveCookedFish() ? "cooked" : "raw");
         } else
-            return this.getUnlocalizedName() + "." + fishtype.getTextureName() + "." + (this.isCooked && fishtype.isHaveCookedFish() ? "cooked" : "cooked");
+            return "item." + Paths.ModAssets + "fish" + "." + fishtype.getTextureName() + "." + (this.isCooked && fishtype.isHaveCookedFish() ? "cooked" : "cooked");
     }
 
     public static enum FishType { //TODO Look at fish values!
@@ -179,10 +180,10 @@ public class ItemModFishFood extends SourceFood {
         @SideOnly(Side.CLIENT)
         public void getIcon(IIconRegister register) {
             if (this.haveRawFish) {
-                this.textureRaw = register.registerIcon(Reference.MOD_ID + ":" + "fish_" + this.textureName + "_raw");
+                this.textureRaw = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_raw");
             }
             if (this.haveCookedFish) {
-                this.textureCooked = register.registerIcon(Reference.MOD_ID + ":" + "fish_" + this.textureName + "_cooked");
+                this.textureCooked = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_cooked");
             }
         }
 

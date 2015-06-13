@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.init.ModItems;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
@@ -117,7 +118,7 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
 
     public String getUnlocalizedName(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
-        return "item." + Reference.MOD_ID.toLowerCase() + ":" + meattype.getTextureName() + WordUtils.capitalize(this.isCooked && meattype.isHaveCookedMeat() ? "cooked" : "raw");
+        return "item." + Paths.ModAssets + meattype.getTextureName() + WordUtils.capitalize(this.isCooked && meattype.isHaveCookedMeat() ? "cooked" : "raw");
     }
 
     public static enum MeatType {
@@ -209,10 +210,10 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
 
         @SideOnly(Side.CLIENT)
         public void getIcon(IIconRegister register) {
-            this.textureRaw = register.registerIcon(Reference.MOD_ID + ":" + this.textureName + "Raw");
+            this.textureRaw = register.registerIcon(Paths.ModAssets + this.textureName + "Raw");
 
             if (this.haveCookedMeat) {
-                this.textureCooked = register.registerIcon(Reference.MOD_ID + ":" + this.textureName + "Cooked");
+                this.textureCooked = register.registerIcon(Paths.ModAssets + this.textureName + "Cooked");
             }
         }
 

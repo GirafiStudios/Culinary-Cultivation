@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -19,13 +20,13 @@ public class SourceSeedFood extends ItemSeedFood {
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("item.%s%s", Reference.MOD_ID.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("item.%s%s", Paths.ModAssets, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s", Reference.MOD_ID.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("item.%s%s", Paths.ModAssets, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override

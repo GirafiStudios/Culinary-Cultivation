@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation.init;
 
 import com.Girafi.culinarycultivation.block.BlockCheese;
 import com.Girafi.culinarycultivation.block.BlockModCauldron;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -13,9 +14,9 @@ public class ModBlocks {
 
     //Testing crop stuff
     //Figure out a good way to add a lot of crops
-    public static Block beet = new BlockBeet().setBlockName(Reference.MOD_ID.toLowerCase() + ":" + "beets").setBlockTextureName("beet");
-    public static Block blackPepper = new BlockBlackPepper().setBlockName(Reference.MOD_ID.toLowerCase() + ":" + "blackPepper").setBlockTextureName("pepper");
-    public static Block blackPepper2 = new BlockBlackPepperStep2().setBlockName(Reference.MOD_ID.toLowerCase() + ":" + "blackPepperStep2").setBlockTextureName("pepper_step2");
+    public static Block beet = new BlockBeet().setBlockName(Paths.ModAssets + "beets").setBlockTextureName(Paths.ModAssets + "beet");
+    public static Block blackPepper = new BlockBlackPepper().setBlockName(Paths.ModAssets + "blackPepper").setBlockTextureName(Paths.ModAssets + "pepper");
+    public static Block blackPepper2 = new BlockBlackPepperStep2().setBlockName(Paths.ModAssets + "blackPepperStep2").setBlockTextureName(Paths.ModAssets +"pepper_step2");
 
     public static Block cheese = new BlockCheese();
     public static Block cauldron = new BlockModCauldron();
@@ -25,7 +26,7 @@ public class ModBlocks {
         GameRegistry.registerBlock(beet, "beet");
         GameRegistry.registerBlock(blackPepper, "blackPepper");
         GameRegistry.registerBlock(blackPepper2, "blackPepper2");
-        GameRegistry.registerBlock(cauldron, "cauldron"); //TODO Make it looks like it's a vanilla block in for example Waila and NEI (If Possible)
+        GameRegistry.registerBlock(cauldron, "cauldron");
         GameRegistry.registerBlock(cheese, "cheese");
     }
 }

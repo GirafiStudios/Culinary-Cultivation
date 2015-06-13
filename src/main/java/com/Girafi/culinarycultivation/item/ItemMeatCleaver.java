@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,8 +15,8 @@ public class ItemMeatCleaver extends ItemSword {
 
     public ItemMeatCleaver(ToolMaterial material) {
         super(material);
-        setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "meatCleaver");
-        setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "meatCleaver");
+        setUnlocalizedName(Paths.ModAssets + "meatCleaver");
+        setTextureName(Paths.ModAssets + "meatCleaver");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
     }

@@ -3,12 +3,14 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
 import net.minecraft.block.IGrowable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,7 +36,7 @@ public class ItemDebugItem extends Item {
 
     public ItemDebugItem() {
         super();
-        setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "debugItem");
+        setUnlocalizedName(Paths.ModAssets + "debugItem");
         maxStackSize = 1;
         setAlwaysEdible();
     }
@@ -42,11 +44,11 @@ public class ItemDebugItem extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iIconRegister) {
-        debug = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugDefault");
-        hunger = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugHunger");
-        hungerPlus = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugHungerPlus");
-        fertilizer = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugFertilizer");
-        hoe = iIconRegister.registerIcon(Reference.MOD_ID + ":" + "debugHoe");
+        debug = iIconRegister.registerIcon(Paths.ModAssets + "debugDefault");
+        hunger = iIconRegister.registerIcon(Paths.ModAssets + "debugHunger");
+        hungerPlus = iIconRegister.registerIcon(Paths.ModAssets + "debugHungerPlus");
+        fertilizer = iIconRegister.registerIcon(Paths.ModAssets + "debugFertilizer");
+        hoe = iIconRegister.registerIcon(Paths.ModAssets + "debugHoe");
     }
 
     @Override
@@ -138,13 +140,46 @@ public class ItemDebugItem extends Item {
         return this;
     }
 
-    //TODO Make it bonemeal on a larger area, when used on crops
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, int x, int y, int z, int side, float par8, float par9, float par10) {
         if (stack.getItemDamage() == 3) {
             if (applyBonemeal(stack, worldIn, x, y, z, playerIn)) {
                 if (!worldIn.isRemote) {
                     worldIn.playAuxSFX(2005, x, y, z, 0);
+                }
+            }
+            if (playerIn.isSneaking()) {
+                if (worldIn.getBlock(x, y, z) instanceof BlockCrops && applyBonemeal(stack, worldIn, x, y, z, playerIn)) {
+                    if (!worldIn.isRemote) {
+                        worldIn.playAuxSFX(2005, x, y, z, 0);
+                        if (applyBonemeal(stack, worldIn, x + 1, y, z, playerIn)) {
+                            worldIn.playAuxSFX(2005, x + 1, y, z, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x - 1, y, z, playerIn)) {
+                            worldIn.playAuxSFX(2005, x - 1, y, z, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x + 1, y, z + 1, playerIn)) {
+                            worldIn.playAuxSFX(2005, x + 1, y, z + 1, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x + 1, y - 1, z, playerIn)) {
+                            worldIn.playAuxSFX(2005, x + 1, y, z - 1, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x - 1, y, z + 1, playerIn)) {
+                            worldIn.playAuxSFX(2005, x - 1, y, z + 1, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x , y, z + 1, playerIn)) {
+                            worldIn.playAuxSFX(2005, x , y, z + 1, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x , y, z - 1, playerIn)) {
+                            worldIn.playAuxSFX(2005, x , y, z - 1, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x - 1, y, z - 1, playerIn)) {
+                            worldIn.playAuxSFX(2005, x - 1, y, z - 1, 0);
+                        }
+                        if (applyBonemeal(stack, worldIn, x + 1, y, z - 1, playerIn)) {
+                            worldIn.playAuxSFX(2005, x + 1, y, z - 1, 0);
+                        }
+                    }
                 }
             }
         }
@@ -172,93 +207,93 @@ public class ItemDebugItem extends Item {
                         return true;
                     } else {
                         //3 x 3
-                            worldIn.setBlock(x, y, z, block1);
-                            worldIn.setBlock(x + 1, y, z + 1, block1);
-                            worldIn.setBlock(x + 1, y, z - 1, block1);
-                            worldIn.setBlock(x + 1, y, z, block1);
-                            worldIn.setBlock(x - 1, y, z + 1, block1);
-                            worldIn.setBlock(x - 1, y, z - 1, block1);
-                            worldIn.setBlock(x - 1, y, z, block1);
-                            worldIn.setBlock(x, y, z + 1, block1);
-                            worldIn.setBlock(x, y, z - 1, block1);
-                            //4 x 4?
-                            worldIn.setBlock(x + 1, y, z + 2, block1);
-                            worldIn.setBlock(x + 1, y, z - 2, block1);
-                            worldIn.setBlock(x + 2, y, z + 1, block1);
-                            worldIn.setBlock(x + 2, y, z + 2, block1);
-                            worldIn.setBlock(x + 2, y, z - 1, block1);
-                            worldIn.setBlock(x + 2, y, z - 2, block1);
-                            worldIn.setBlock(x + 2, y, z, block1);
-                            worldIn.setBlock(x - 1, y, z + 2, block1);
-                            worldIn.setBlock(x - 1, y, z - 2, block1);
-                            worldIn.setBlock(x - 2, y, z + 1, block1);
-                            worldIn.setBlock(x - 2, y, z + 2, block1);
-                            worldIn.setBlock(x - 2, y, z - 1, block1);
-                            worldIn.setBlock(x - 2, y, z - 2, block1);
-                            worldIn.setBlock(x - 2, y, z, block1);
-                            worldIn.setBlock(x, y, z + 2, block1);
-                            worldIn.setBlock(x, y, z - 2, block1);
-                            //7 x 7
-                            worldIn.setBlock(x + 1, y, z + 3, block1);
-                            worldIn.setBlock(x + 1, y, z - 3, block1);
-                            worldIn.setBlock(x + 2, y, z + 3, block1);
-                            worldIn.setBlock(x + 2, y, z - 3, block1);
-                            worldIn.setBlock(x + 3, y, z + 1, block1);
-                            worldIn.setBlock(x + 3, y, z + 2, block1);
-                            worldIn.setBlock(x + 3, y, z + 3, block1);
-                            worldIn.setBlock(x + 3, y, z - 1, block1);
-                            worldIn.setBlock(x + 3, y, z - 2, block1);
-                            worldIn.setBlock(x + 3, y, z - 3, block1);
-                            worldIn.setBlock(x + 3, y, z, block1);
-                            worldIn.setBlock(x + 3, y, z, block1);
-                            worldIn.setBlock(x - 1, y, z + 3, block1);
-                            worldIn.setBlock(x - 1, y, z - 3, block1);
-                            worldIn.setBlock(x - 2, y, z + 3, block1);
-                            worldIn.setBlock(x - 2, y, z - 3, block1);
-                            worldIn.setBlock(x - 3, y, z + 1, block1);
-                            worldIn.setBlock(x - 3, y, z + 2, block1);
-                            worldIn.setBlock(x - 3, y, z + 3, block1);
-                            worldIn.setBlock(x - 3, y, z - 1, block1);
-                            worldIn.setBlock(x - 3, y, z - 2, block1);
-                            worldIn.setBlock(x - 3, y, z - 3, block1);
-                            worldIn.setBlock(x - 3, y, z, block1);
-                            worldIn.setBlock(x, y, z + 3, block1);
-                            worldIn.setBlock(x, y, z - 3, block1);
-                            //9x9
-                            worldIn.setBlock(x + 1, y, z + 4, block1);
-                            worldIn.setBlock(x + 1, y, z - 4, block1);
-                            worldIn.setBlock(x + 2, y, z + 4, block1);
-                            worldIn.setBlock(x + 2, y, z - 4, block1);
-                            worldIn.setBlock(x + 3, y, z + 4, block1);
-                            worldIn.setBlock(x + 3, y, z - 4, block1);
-                            worldIn.setBlock(x + 4, y, z + 1, block1);
-                            worldIn.setBlock(x + 4, y, z + 2, block1);
-                            worldIn.setBlock(x + 4, y, z + 3, block1);
-                            worldIn.setBlock(x + 4, y, z + 4, block1);
-                            worldIn.setBlock(x + 4, y, z - 1, block1);
-                            worldIn.setBlock(x + 4, y, z - 2, block1);
-                            worldIn.setBlock(x + 4, y, z - 3, block1);
-                            worldIn.setBlock(x + 4, y, z - 4, block1);
-                            worldIn.setBlock(x + 4, y, z, block1);
-                            worldIn.setBlock(x + 4, y, z, block1);
-                            worldIn.setBlock(x - 1, y, z + 4, block1);
-                            worldIn.setBlock(x - 1, y, z - 4, block1);
-                            worldIn.setBlock(x - 2, y, z + 4, block1);
-                            worldIn.setBlock(x - 2, y, z - 4, block1);
-                            worldIn.setBlock(x - 3, y, z + 4, block1);
-                            worldIn.setBlock(x - 3, y, z - 4, block1);
-                            worldIn.setBlock(x - 4, y, z + 1, block1);
-                            worldIn.setBlock(x - 4, y, z + 2, block1);
-                            worldIn.setBlock(x - 4, y, z + 3, block1);
-                            worldIn.setBlock(x - 4, y, z + 4, block1);
-                            worldIn.setBlock(x - 4, y, z - 1, block1);
-                            worldIn.setBlock(x - 4, y, z - 2, block1);
-                            worldIn.setBlock(x - 4, y, z - 3, block1);
-                            worldIn.setBlock(x - 4, y, z - 4, block1);
-                            worldIn.setBlock(x - 4, y, z, block1);
-                            worldIn.setBlock(x, y, z + 4, block1);
-                            worldIn.setBlock(x, y, z - 4, block1);
-                            return true;
+                        worldIn.setBlock(x, y, z, block1);
+                        worldIn.setBlock(x + 1, y, z + 1, block1);
+                        worldIn.setBlock(x + 1, y, z - 1, block1);
+                        worldIn.setBlock(x + 1, y, z, block1);
+                        worldIn.setBlock(x - 1, y, z + 1, block1);
+                        worldIn.setBlock(x - 1, y, z - 1, block1);
+                        worldIn.setBlock(x - 1, y, z, block1);
+                        worldIn.setBlock(x, y, z + 1, block1);
+                        worldIn.setBlock(x, y, z - 1, block1);
+                        //4 x 4?
+                        worldIn.setBlock(x + 1, y, z + 2, block1);
+                        worldIn.setBlock(x + 1, y, z - 2, block1);
+                        worldIn.setBlock(x + 2, y, z + 1, block1);
+                        worldIn.setBlock(x + 2, y, z + 2, block1);
+                        worldIn.setBlock(x + 2, y, z - 1, block1);
+                        worldIn.setBlock(x + 2, y, z - 2, block1);
+                        worldIn.setBlock(x + 2, y, z, block1);
+                        worldIn.setBlock(x - 1, y, z + 2, block1);
+                        worldIn.setBlock(x - 1, y, z - 2, block1);
+                        worldIn.setBlock(x - 2, y, z + 1, block1);
+                        worldIn.setBlock(x - 2, y, z + 2, block1);
+                        worldIn.setBlock(x - 2, y, z - 1, block1);
+                        worldIn.setBlock(x - 2, y, z - 2, block1);
+                        worldIn.setBlock(x - 2, y, z, block1);
+                        worldIn.setBlock(x, y, z + 2, block1);
+                        worldIn.setBlock(x, y, z - 2, block1);
+                        //7 x 7
+                        worldIn.setBlock(x + 1, y, z + 3, block1);
+                        worldIn.setBlock(x + 1, y, z - 3, block1);
+                        worldIn.setBlock(x + 2, y, z + 3, block1);
+                        worldIn.setBlock(x + 2, y, z - 3, block1);
+                        worldIn.setBlock(x + 3, y, z + 1, block1);
+                        worldIn.setBlock(x + 3, y, z + 2, block1);
+                        worldIn.setBlock(x + 3, y, z + 3, block1);
+                        worldIn.setBlock(x + 3, y, z - 1, block1);
+                        worldIn.setBlock(x + 3, y, z - 2, block1);
+                        worldIn.setBlock(x + 3, y, z - 3, block1);
+                        worldIn.setBlock(x + 3, y, z, block1);
+                        worldIn.setBlock(x + 3, y, z, block1);
+                        worldIn.setBlock(x - 1, y, z + 3, block1);
+                        worldIn.setBlock(x - 1, y, z - 3, block1);
+                        worldIn.setBlock(x - 2, y, z + 3, block1);
+                        worldIn.setBlock(x - 2, y, z - 3, block1);
+                        worldIn.setBlock(x - 3, y, z + 1, block1);
+                        worldIn.setBlock(x - 3, y, z + 2, block1);
+                        worldIn.setBlock(x - 3, y, z + 3, block1);
+                        worldIn.setBlock(x - 3, y, z - 1, block1);
+                        worldIn.setBlock(x - 3, y, z - 2, block1);
+                        worldIn.setBlock(x - 3, y, z - 3, block1);
+                        worldIn.setBlock(x - 3, y, z, block1);
+                        worldIn.setBlock(x, y, z + 3, block1);
+                        worldIn.setBlock(x, y, z - 3, block1);
+                        //9x9
+                        worldIn.setBlock(x + 1, y, z + 4, block1);
+                        worldIn.setBlock(x + 1, y, z - 4, block1);
+                        worldIn.setBlock(x + 2, y, z + 4, block1);
+                        worldIn.setBlock(x + 2, y, z - 4, block1);
+                        worldIn.setBlock(x + 3, y, z + 4, block1);
+                        worldIn.setBlock(x + 3, y, z - 4, block1);
+                        worldIn.setBlock(x + 4, y, z + 1, block1);
+                        worldIn.setBlock(x + 4, y, z + 2, block1);
+                        worldIn.setBlock(x + 4, y, z + 3, block1);
+                        worldIn.setBlock(x + 4, y, z + 4, block1);
+                        worldIn.setBlock(x + 4, y, z - 1, block1);
+                        worldIn.setBlock(x + 4, y, z - 2, block1);
+                        worldIn.setBlock(x + 4, y, z - 3, block1);
+                        worldIn.setBlock(x + 4, y, z - 4, block1);
+                        worldIn.setBlock(x + 4, y, z, block1);
+                        worldIn.setBlock(x + 4, y, z, block1);
+                        worldIn.setBlock(x - 1, y, z + 4, block1);
+                        worldIn.setBlock(x - 1, y, z - 4, block1);
+                        worldIn.setBlock(x - 2, y, z + 4, block1);
+                        worldIn.setBlock(x - 2, y, z - 4, block1);
+                        worldIn.setBlock(x - 3, y, z + 4, block1);
+                        worldIn.setBlock(x - 3, y, z - 4, block1);
+                        worldIn.setBlock(x - 4, y, z + 1, block1);
+                        worldIn.setBlock(x - 4, y, z + 2, block1);
+                        worldIn.setBlock(x - 4, y, z + 3, block1);
+                        worldIn.setBlock(x - 4, y, z + 4, block1);
+                        worldIn.setBlock(x - 4, y, z - 1, block1);
+                        worldIn.setBlock(x - 4, y, z - 2, block1);
+                        worldIn.setBlock(x - 4, y, z - 3, block1);
+                        worldIn.setBlock(x - 4, y, z - 4, block1);
+                        worldIn.setBlock(x - 4, y, z, block1);
+                        worldIn.setBlock(x, y, z + 4, block1);
+                        worldIn.setBlock(x, y, z - 4, block1);
+                        return true;
                     }
                 } else {
                     return false;
@@ -268,8 +303,7 @@ public class ItemDebugItem extends Item {
         return true;
     }
 
-    public static boolean applyBonemeal(ItemStack stack, World worldIn, int x, int y, int z, EntityPlayer playerIn)
-    {
+    public static boolean applyBonemeal(ItemStack stack, World worldIn, int x, int y, int z, EntityPlayer playerIn) {
         Block block = worldIn.getBlock(x, y, z);
 
         BonemealEvent event = new BonemealEvent(playerIn, worldIn, block, x, y, z);
@@ -278,18 +312,16 @@ public class ItemDebugItem extends Item {
         }
 
         if (event.getResult() == Event.Result.ALLOW) {
-            if (!worldIn.isRemote) {}
+            if (!worldIn.isRemote) {
+            }
             return true;
         }
 
         if (block instanceof IGrowable) {
-            IGrowable igrowable = (IGrowable)block;
-            if (igrowable.func_149851_a(worldIn, x, y, z, worldIn.isRemote))
-            {
-                if (!worldIn.isRemote)
-                {
-                    if (igrowable.func_149852_a(worldIn, worldIn.rand, x, y, z))
-                    {
+            IGrowable igrowable = (IGrowable) block;
+            if (igrowable.func_149851_a(worldIn, x, y, z, worldIn.isRemote)) {
+                if (!worldIn.isRemote) {
+                    if (igrowable.func_149852_a(worldIn, worldIn.rand, x, y, z)) {
                         igrowable.func_149853_b(worldIn, worldIn.rand, x, y, z);
                     }
                 }

@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.block;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
-import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import cpw.mods.fml.relauncher.Side;
@@ -26,7 +26,7 @@ public class SourceBlock extends Block
     @Override
     public String getUnlocalizedName()
     {
-        return String.format("tile.%s%s", Reference.MOD_ID.toLowerCase() + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String.format("tile.%s%s", Paths.ModAssets, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override

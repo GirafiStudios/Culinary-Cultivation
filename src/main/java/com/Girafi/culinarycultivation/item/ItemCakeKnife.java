@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -18,8 +19,8 @@ public class ItemCakeKnife extends ItemTool {
 
     public ItemCakeKnife(Item.ToolMaterial material) {
         super(-2.0F, material, EFFECTIVE_ON);
-        setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ":" + "cakeKnife");
-        setTextureName(Reference.MOD_ID.toLowerCase() + ":" + "cakeKnife");
+        setUnlocalizedName(Paths.ModAssets + "cakeKnife");
+        setTextureName(Paths.ModAssets + "cakeKnife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
     }

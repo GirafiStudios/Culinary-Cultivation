@@ -7,7 +7,6 @@ import com.Girafi.culinarycultivation.item.ItemModMeatFood.*;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.*;
 import com.Girafi.culinarycultivation.modSupport.IModSupport;
 import com.Girafi.culinarycultivation.reference.Reference;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;

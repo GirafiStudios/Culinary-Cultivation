@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.utility.Utils;
 import com.google.common.collect.Maps;
@@ -34,9 +35,10 @@ public class ItemStorageJar extends SourceItem {
         setHasSubtypes(true);
         setMaxDamage(0);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
+        setTextureName("storageJar");
     }
 
-    public static enum StorageJarType { //TODO Look into adding a new storage jar for all liquid, which is not hoter than lava
+    public static enum StorageJarType {
         EMPTY(0, "empty"),
         WATER(1, "water", Utils.setColor(52, 95, 218).getRGB()),
         MILK(2, "milk", Utils.setColor(255, 255, 255).getRGB()),
@@ -203,12 +205,12 @@ public class ItemStorageJar extends SourceItem {
 
     public String getItemStackDisplayName(ItemStack stack) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
-        return StatCollector.translateToLocal("item." + Reference.MOD_ID.toLowerCase() + ":" + "storageJar_" + storageJarType.getTextureName() + ".name").trim();
+        return StatCollector.translateToLocal("item." + Paths.ModAssets + "storageJar_" + storageJarType.getTextureName() + ".name").trim();
     }
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
-        this.defaultIcon = register.registerIcon(Reference.MOD_ID + ":" + this.getIconString() + "_" + "default");
-        this.overlayIcon = register.registerIcon(Reference.MOD_ID + ":" + this.getIconString() + "_" + "overlay");
+        this.defaultIcon = register.registerIcon(Paths.ModAssets + this.getIconString() + "_" + "default");
+        this.overlayIcon = register.registerIcon(Paths.ModAssets + this.getIconString() + "_" + "overlay");
     }
 }

@@ -5,7 +5,7 @@ import com.Girafi.culinarycultivation.client.render.block.RenderCauldron;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
-import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.tileentity.TileEntityCauldron;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -79,9 +79,9 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         iconBottom = register.registerIcon(getTextureName() + "_" + "bottom");
         blockIcon = register.registerIcon(getTextureName() + "_side");
 
-        iconMilk = register.registerIcon(Reference.MOD_ID + ":" + "milk_still");
-        iconRennet = register.registerIcon(Reference.MOD_ID + ":" + "rennet_still");
-        iconCheeseMass = register.registerIcon(Reference.MOD_ID + ":" + "cheeseMass_still");
+        iconMilk = register.registerIcon(Paths.ModAssets + "milk_still");
+        iconRennet = register.registerIcon(Paths.ModAssets + "rennet_still");
+        iconCheeseMass = register.registerIcon(Paths.ModAssets + "cheeseMass_still");
     }
 
     @Override
