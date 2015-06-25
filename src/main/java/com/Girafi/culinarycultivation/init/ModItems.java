@@ -12,10 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 public class ModItems {
     public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
     public static final Item debugItem = new ItemDebugItem();
+    public static final Item farmerBoots = new ItemFarmerBoots();
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
-    public static final Item sugarCaneHarvester = new ItemSugarCaneHarvester(Item.ToolMaterial.STONE);
     public static final Item storageJar = new ItemStorageJar();
+    public static final Item sugarCaneHarvester = new ItemSugarCaneHarvester(Item.ToolMaterial.STONE);
     public static final Item toolHandle = new SourceItem().setUnlocalizedName("toolHandle").setTextureName("toolHandle");
 
     ////Food
@@ -34,7 +35,6 @@ public class ModItems {
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage").setTextureName("sausage");
     //public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog").setTextureName("hotdog");
 
-    public static final Item farmerBoots = new ItemFarmerBoots();
 
     //Seeds
     public static final Item blackPepperDrupe = new SourceSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName("blackPepperDrupe").setTextureName("blackPepperDrupe");
@@ -55,7 +55,7 @@ public class ModItems {
         GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
         GameRegistry.registerItem(storageJar, "storageJar");
         GameRegistry.registerItem(toolHandle, "toolHandle");
-        GameRegistry.registerItem(sugarCaneHarvester, "sugarCaneHarvester");
+        //GameRegistry.registerItem(sugarCaneHarvester, "sugarCaneHarvester");
         GameRegistry.registerItem(knife, "knife");
         GameRegistry.registerItem(meatCleaver, "meatCleaver");
         GameRegistry.registerItem(cakeKnife, "cakeKnife");

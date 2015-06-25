@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.reference.Reference;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;

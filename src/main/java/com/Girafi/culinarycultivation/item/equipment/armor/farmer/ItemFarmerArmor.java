@@ -1,10 +1,7 @@
 package com.Girafi.culinarycultivation.item.equipment.armor.farmer;
 
-import com.Girafi.culinarycultivation.CulinaryCultivation;
-import com.Girafi.culinarycultivation.client.render.block.RenderCauldron;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;

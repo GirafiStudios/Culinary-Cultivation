@@ -3,7 +3,6 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.utility.Utils;
 import com.google.common.collect.Maps;
 import cpw.mods.fml.relauncher.Side;
@@ -21,7 +20,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import java.awt.Color;
 import java.util.*;
 import java.util.List;
 
