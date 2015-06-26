@@ -17,6 +17,6 @@ public class FishingLoot {
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.HERRING.getMetaData()), 30));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.PLAICE.getMetaData()), 18));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.SMALLSQUID.getMetaData()), 8));
-        FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 8).func_150709_a(0.25F));
+        FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 8).setMaxDamagePercent(0.25F));
     }
 }

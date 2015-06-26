@@ -5,7 +5,10 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.*;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import com.Girafi.culinarycultivation.utility.Utils;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
@@ -26,33 +29,37 @@ public class InteractEvents {
         @SubscribeEvent
         public void CakeKnifeInteractionEvent(PlayerInteractEvent iEvent) {
             EntityPlayer player = iEvent.entityPlayer;
-            int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);
+            int x = iEvent.pos.getX();
+            int y = iEvent.pos.getY();
+            int z = iEvent.pos.getZ();
+            int meta = Utils.getBlockMetadata();
+
             boolean b = player.onGround && player.isSneaking();
             if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife) {
-                if (iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z) == Blocks.cake) {
+                if (iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cake) {
                     if (player.getFoodStats().needFood() && iEvent.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                         NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-2, -0.1F), (EntityPlayerMP) player);
                     }
                     if (b && iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                        iEvent.world.setBlockToAir(iEvent.x, iEvent.y, iEvent.z);
+                        iEvent.world.setBlockToAir(iEvent.pos);
                         if (!iEvent.world.isRemote) {
                             if (meta == 0) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(Items.cake)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(Items.cake)));
                             }
                             if (meta == 1) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake, 5)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 5)));
                             }
                             if (meta == 2) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake, 4)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 4)));
                             }
                             if (meta == 3) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake, 3)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 3)));
                             }
                             if (meta == 4) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake, 2)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 2)));
                             }
                             if (meta == 5) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake, 1)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 1)));
                             }
                         }
                     }
@@ -60,17 +67,17 @@ public class InteractEvents {
                         if (player.canEat(false)) {
                             player.getFoodStats().addStats(-2, 0.0F);
                             if (!iEvent.world.isRemote) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
                             }
                         } else {
                             if (!iEvent.world.isRemote) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, iEvent.x, iEvent.y, iEvent.z, new ItemStack(ModItems.pieceOfCake)));
-                                int l = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z) + 1;
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
+                                int l = Utils.getBlockMetadata() + 1;
                                 if (l >= 6) {
-                                    iEvent.world.setBlockToAir(iEvent.x, iEvent.y, iEvent.z);
-                                } else {
+                                    iEvent.world.setBlockToAir(iEvent.pos);
+                                } /*else {
                                     iEvent.world.setBlockMetadataWithNotify(iEvent.x, iEvent.y, iEvent.z, l, 2);
-                                }
+                                }*/
                             }
                         }
                     }
@@ -79,13 +86,13 @@ public class InteractEvents {
         }
     }
 
-    public static class CauldronTransformation {
+    /*public static class CauldronTransformation {
         @SubscribeEvent
         public void CauldronTransformationEvent(PlayerInteractEvent iEvent) {
             if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.getCurrentEquippedItem() != null) {
                 ItemStack equipped = iEvent.entityPlayer.getCurrentEquippedItem();
                 boolean nullCheck = equipped.getItem() != null;
-                int meta = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z);
+                int meta = Utils.getBlockMetadata();
                 int j1 = func_150027_b(meta);
                 Block getBlock = iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z);
 
@@ -98,15 +105,15 @@ public class InteractEvents {
             }
         }
 
-        public void changeWater(World world, int x, int y, int z, int p_150024_5_) {
-            world.setBlockMetadataWithNotify(x, y, z, MathHelper.clamp_int(p_150024_5_, 0, 3), 2);
-            world.func_147453_f(x, y, z, ModBlocks.cauldron);
+        public void changeWater(World worldIn, BlockPos pos, IBlockState state, int side) {
+            worldIn.setBlockState(pos, state.withProperty(propertyInteger, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
+            worldIn.updateComparatorOutputLevel(pos, this);
         }
 
         public static int func_150027_b(int var1) {
             return var1;
         }
-    }
+    }*/
 
     public static class DebugItemEvent {
         @SubscribeEvent
@@ -117,12 +124,12 @@ public class InteractEvents {
             if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
                 if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
                     if (!iEvent.world.isRemote) {
-                        player.addChatComponentMessage(new ChatComponentText(iEvent.world.getBlock(iEvent.x, iEvent.y, iEvent.z).getLocalizedName() + " | " + "Metadata: " + iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z)));
+                        player.addChatComponentMessage(new ChatComponentText(iEvent.world.getBlockState(iEvent.pos).getBlock().getLocalizedName() + " | " + "Metadata: " + Utils.getBlockMetadata()));
                     }
                     iEvent.setCanceled(true);
                 }
             }
-            if (!b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+            /*if (!b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                 if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
                     int l = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z) + 1;
                     iEvent.world.setBlockMetadataWithNotify(iEvent.x, iEvent.y, iEvent.z, l, 2);
@@ -133,7 +140,7 @@ public class InteractEvents {
                     int l = iEvent.world.getBlockMetadata(iEvent.x, iEvent.y, iEvent.z) - 1;
                     iEvent.world.setBlockMetadataWithNotify(iEvent.x, iEvent.y, iEvent.z, l, 2);
                 }
-            }
+            }*/
         }
     }
 

@@ -4,15 +4,15 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemCakeKnife;
 import com.Girafi.culinarycultivation.item.ItemKnife;
 import com.Girafi.culinarycultivation.item.ItemMeatCleaver;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class CraftingHandler {
 
     @SubscribeEvent
-    public void onCrafting(ItemCraftedEvent itemCraftedEvent) {
+    public void onCrafting(PlayerEvent.ItemCraftedEvent itemCraftedEvent) {
 
         final IInventory knifeCrafting = null;
         ItemStack stackKnife = itemCraftedEvent.crafting;

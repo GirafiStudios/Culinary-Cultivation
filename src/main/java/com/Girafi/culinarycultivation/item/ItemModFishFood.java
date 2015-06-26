@@ -2,24 +2,21 @@ package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Maps;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Map;
 
 public class ItemModFishFood extends SourceFood {
-    private final boolean isCooked;
+    private final boolean isCooked; //TODO change to cooked
     private static double potionEffectProbability;
 
     public ItemModFishFood(boolean cooked) {
@@ -27,7 +24,7 @@ public class ItemModFishFood extends SourceFood {
         this.isCooked = cooked;
     }
 
-    public int func_150905_g(ItemStack stack) {
+    public int getHealAmount(ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
             return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getHealAmountCooked() : fishtype.getHealAmountRaw();
@@ -35,7 +32,7 @@ public class ItemModFishFood extends SourceFood {
             return fishtype.isHaveCookedFish() &! fishtype.isHaveRawFish() ? fishtype.getHealAmountCooked() : fishtype.getHealAmountRaw();
     }
 
-    public float func_150906_h(ItemStack stack) {
+    public float getSaturationModifier(ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
             return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getSaturationAmountCooked() : fishtype.getSaturationAmountRaw();
@@ -43,16 +40,16 @@ public class ItemModFishFood extends SourceFood {
             return fishtype.isHaveCookedFish() &! fishtype.isHaveRawFish() ? fishtype.getSaturationAmountCooked() : fishtype.getSaturationAmountRaw();
     }
 
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister register) {
-        FishType[] afishtype = FishType.values();
-        int i = afishtype.length;
-
-        for (int j = 0; j < i; ++j) {
-            FishType fishtype = afishtype[j];
-            fishtype.getIcon(register);
-        }
-    }
+//    @SideOnly(Side.CLIENT)
+//    public void registerIcons(IIconRegister register) {
+//        FishType[] afishtype = FishType.values();
+//        int i = afishtype.length;
+//
+//        for (int j = 0; j < i; ++j) {
+//            FishType fishtype = afishtype[j];
+//            fishtype.getIcon(register);
+//        }
+//    }
 
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         FishType fishType = FishType.getFishType(stack);
@@ -69,14 +66,14 @@ public class ItemModFishFood extends SourceFood {
         super.onFoodEaten(stack, world, player);
     }
 
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int damage) {
-        FishType fishtype = FishType.getFishTypeList(damage);
-        if (fishtype.isHaveRawFish()) {
-            return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
-        } else
-            return fishtype.isHaveCookedFish() & !fishtype.isHaveRawFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
-    }
+//    @SideOnly(Side.CLIENT)
+//    public IIcon getIconFromDamage(int damage) {
+//        FishType fishtype = FishType.getFishTypeList(damage);
+//        if (fishtype.isHaveRawFish()) {
+//            return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
+//        } else
+//            return fishtype.isHaveCookedFish() & !fishtype.isHaveRawFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
+//    }
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
@@ -117,10 +114,10 @@ public class ItemModFishFood extends SourceFood {
         private static final Map FishTypeMap = Maps.newHashMap();
         private final int metaData;
         private final String textureName;
-        @SideOnly(Side.CLIENT)
-        private IIcon textureRaw;
-        @SideOnly(Side.CLIENT)
-        private IIcon textureCooked;
+//        @SideOnly(Side.CLIENT)
+//        private IIcon textureRaw;
+//        @SideOnly(Side.CLIENT)
+//        private IIcon textureCooked;
         private final int healAmountRaw;
         private final float saturationAmountRaw;
         private final int healAmountCooked;
@@ -173,21 +170,21 @@ public class ItemModFishFood extends SourceFood {
 
         public float getSaturationAmountCooked() { return this.saturationAmountCooked; }
 
-        @SideOnly(Side.CLIENT)
-        public void getIcon(IIconRegister register) {
-            if (this.haveRawFish) {
-                this.textureRaw = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_raw");
-            }
-            if (this.haveCookedFish) {
-                this.textureCooked = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_cooked");
-            }
-        }
-
-        @SideOnly(Side.CLIENT)
-        public IIcon getTextureRaw() { return this.textureRaw; }
-
-        @SideOnly(Side.CLIENT)
-        public IIcon getTextureCooked() { return this.textureCooked; }
+//        @SideOnly(Side.CLIENT)
+//        public void getIcon(IIconRegister register) {
+//            if (this.haveRawFish) {
+//                this.textureRaw = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_raw");
+//            }
+//            if (this.haveCookedFish) {
+//                this.textureCooked = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_cooked");
+//            }
+//        }
+//
+//        @SideOnly(Side.CLIENT)
+//        public IIcon getTextureRaw() { return this.textureRaw; }
+//
+//        @SideOnly(Side.CLIENT)
+//        public IIcon getTextureCooked() { return this.textureCooked; }
 
         public boolean isHaveCookedFish() { return this.haveCookedFish; }
 

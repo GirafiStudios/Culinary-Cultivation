@@ -3,8 +3,8 @@ package com.Girafi.culinarycultivation.event;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.*;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.AchievementList;
 

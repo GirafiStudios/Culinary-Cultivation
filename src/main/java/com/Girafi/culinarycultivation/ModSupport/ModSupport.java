@@ -1,12 +1,10 @@
 package com.Girafi.culinarycultivation.modSupport;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import com.Girafi.culinarycultivation.modSupport.ee3.EquivalentExchange3;
-import com.Girafi.culinarycultivation.modSupport.thaumcraft.Thaumcraft;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.reference.SupportedModIDs;
 import com.Girafi.culinarycultivation.utility.LogHelper;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +25,8 @@ public class ModSupport {
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
         Map<String, Class<? extends IModSupport>> modSupportClassesNoConfig = new HashMap<String, Class<? extends IModSupport>>();
-        modSupportClasses.put(SupportedModIDs.EE3, EquivalentExchange3.class);
-        modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
+        //modSupportClasses.put(SupportedModIDs.EE3, EquivalentExchange3.class);
+        //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
 
 
         List<String> enabledModSupport = new ArrayList<String>();

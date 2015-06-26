@@ -3,17 +3,15 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Maps;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.List;
@@ -44,16 +42,16 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
             return meattype.isHaveCookedMeat() & !meattype.isHaveRawMeat() ? meattype.getSaturationAmountCooked() : meattype.getSaturationAmountRaw();
     }
 
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister register) {
-        MeatType[] ameattype = MeatType.values();
-        int i = ameattype.length;
-
-        for (int j = 0; j < i; ++j) {
-            MeatType meattype = ameattype[j];
-            meattype.getIcon(register);
-        }
-    }
+//    @SideOnly(Side.CLIENT)
+//    public void registerIcons(IIconRegister register) {
+//        MeatType[] ameattype = MeatType.values();
+//        int i = ameattype.length;
+//
+//        for (int j = 0; j < i; ++j) {
+//            MeatType meattype = ameattype[j];
+//            meattype.getIcon(register);
+//        }
+//    }
 
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         MeatType meatType = MeatType.getMeatType(stack);
@@ -86,14 +84,14 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int damage) {
         MeatType meattype = MeatType.getMeatTypeList(damage);
         if (meattype.isHaveRawMeat()) {
             return this.isCooked && meattype.isHaveCookedMeat() ? meattype.getTextureCooked() : meattype.getTextureRaw();
         } else
             return meattype.isHaveCookedMeat() &! meattype.isHaveRawMeat() ? meattype.getTextureCooked() : meattype.getTextureRaw();
-    }
+    }*/
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
@@ -138,10 +136,10 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
         private static final Map MeatTypeMap = Maps.newHashMap();
         private final int metaData;
         private final String textureName;
-        @SideOnly(Side.CLIENT)
-        private IIcon textureRaw;
-        @SideOnly(Side.CLIENT)
-        private IIcon textureCooked;
+//        @SideOnly(Side.CLIENT)
+//        private IIcon textureRaw;
+//        @SideOnly(Side.CLIENT)
+//        private IIcon textureCooked;
         private final int healAmountRaw;
         private final float saturationAmountRaw;
         private final int healAmountCooked;
@@ -205,20 +203,20 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
 
         public float getSaturationAmountCooked() { return this.saturationAmountCooked; }
 
-        @SideOnly(Side.CLIENT)
-        public void getIcon(IIconRegister register) {
-            this.textureRaw = register.registerIcon(Paths.ModAssets + this.textureName + "Raw");
+//        @SideOnly(Side.CLIENT)
+//        public void getIcon(IIconRegister register) {
+//            this.textureRaw = register.registerIcon(Paths.ModAssets + this.textureName + "Raw");
+//
+//            if (this.haveCookedMeat) {
+//                this.textureCooked = register.registerIcon(Paths.ModAssets + this.textureName + "Cooked");
+//            }
+//        }
 
-            if (this.haveCookedMeat) {
-                this.textureCooked = register.registerIcon(Paths.ModAssets + this.textureName + "Cooked");
-            }
-        }
+//        @SideOnly(Side.CLIENT)
+//        public IIcon getTextureRaw() { return this.textureRaw; }
 
-        @SideOnly(Side.CLIENT)
-        public IIcon getTextureRaw() { return this.textureRaw; }
-
-        @SideOnly(Side.CLIENT)
-        public IIcon getTextureCooked() { return this.textureCooked; }
+//        @SideOnly(Side.CLIENT)
+//        public IIcon getTextureCooked() { return this.textureCooked; }
 
         public boolean isHaveCookedMeat() { return this.haveCookedMeat; }
 

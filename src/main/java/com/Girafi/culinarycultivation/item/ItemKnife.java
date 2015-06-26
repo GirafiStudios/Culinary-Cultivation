@@ -3,8 +3,9 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Sets;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
@@ -14,16 +15,12 @@ import net.minecraft.world.World;
 
 import java.util.Set;
 
-public class ItemKnife extends ItemTool
-{
-
+public class ItemKnife extends ItemTool {
     private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{});
 
-    public ItemKnife(Item.ToolMaterial material)
-    {
+    public ItemKnife(Item.ToolMaterial material) {
         super(3.0F, material, EFFECTIVE_ON);
         setUnlocalizedName(Paths.ModAssets + "knife");
-        setTextureName(Paths.ModAssets + "knife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
     }
@@ -35,11 +32,10 @@ public class ItemKnife extends ItemTool
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, int x, int y, int z, EntityLivingBase playerIn) {
-        if ((double) blockIn.getBlockHardness(worldIn, x, y, z) != 0.0D) {
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+        if ((double) blockIn.getBlockHardness(worldIn, pos) != 0.0D) {
             stack.damageItem(2, playerIn);
         }
-
         return true;
     }
 

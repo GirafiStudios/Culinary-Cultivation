@@ -21,9 +21,9 @@ public class OreDictionaryRegistration {
                 OreDictionary.registerOre("fish", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
             }
         }
-        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.COD.func_150976_a()));
-        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.SALMON.func_150976_a()));
-        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.CLOWNFISH.func_150976_a()));
+        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.COD.getItemDamage()));
+        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.SALMON.getItemDamage()));
+        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.CLOWNFISH.getItemDamage()));
 
         MeatType[] meat = MeatType.values();
         int iMeat = meat.length;

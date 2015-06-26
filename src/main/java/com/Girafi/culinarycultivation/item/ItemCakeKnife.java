@@ -19,7 +19,6 @@ public class ItemCakeKnife extends ItemTool {
     public ItemCakeKnife(Item.ToolMaterial material) {
         super(-2.0F, material, EFFECTIVE_ON);
         setUnlocalizedName(Paths.ModAssets + "cakeKnife");
-        setTextureName(Paths.ModAssets + "cakeKnife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;
     }
