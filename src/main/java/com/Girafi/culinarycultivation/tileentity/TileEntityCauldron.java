@@ -2,7 +2,6 @@ package com.Girafi.culinarycultivation.tileentity;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -11,7 +10,7 @@ public class TileEntityCauldron extends SourceTileEntity {
 
     @Override
     public void updateContainingBlockInfo() {
-        Block block = (Block) worldObj.getBlockState(pos);
+        Block block = worldObj.getBlockState(pos).getBlock();
         IBlockState state = worldObj.getBlockState(pos);
         if (block == ModBlocks.cauldron && getBlockMetadata() == 14) {
         if (timer > 0) timer--;

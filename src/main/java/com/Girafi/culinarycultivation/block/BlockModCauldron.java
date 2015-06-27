@@ -34,11 +34,11 @@ import java.util.Random;
 
 public class BlockModCauldron extends SourceBlockTileEntity {
 
-    public static final PropertyInteger propertyInteger = PropertyInteger.create("level", 0, 3);
+    public static final PropertyInteger level = PropertyInteger.create("level", 0, 15);
 
     public BlockModCauldron() {
         super(Material.iron);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(propertyInteger, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(level, Integer.valueOf(0)));
         this.setUnlocalizedName("cauldron");
         setHardness(2.0F);
     }
@@ -108,7 +108,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     public boolean isFullCube() {return false;}
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        int i = ((Integer)state.getValue(propertyInteger)).intValue();
+        int i = ((Integer)state.getValue(level)).intValue();
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
 
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && i < 15 && entityIn.getEntityBoundingBox().minY <= (double)f)
@@ -122,7 +122,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack stack = playerIn.inventory.getCurrentItem();
-        int j1 = ((Integer) state.getValue(propertyInteger)).intValue();
+        int j1 = ((Integer) state.getValue(level)).intValue();
 
         if (j1 == 15) {
             if (!playerIn.capabilities.isCreativeMode) {
@@ -427,7 +427,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public void changeWater(World worldIn, BlockPos pos, IBlockState state, int side) {
-        worldIn.setBlockState(pos, state.withProperty(propertyInteger, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
+        worldIn.setBlockState(pos, state.withProperty(level, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
@@ -435,8 +435,8 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         if (worldIn.rand.nextInt(20) == 1) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
-            if (((Integer)iblockstate.getValue(propertyInteger)).intValue() < 3) {
-                worldIn.setBlockState(pos, iblockstate.cycleProperty(propertyInteger), 2);
+            if (((Integer)iblockstate.getValue(level)).intValue() < 3) {
+                worldIn.setBlockState(pos, iblockstate.cycleProperty(level), 2);
             }
         }
     }
@@ -455,21 +455,21 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
-        return ((Integer)worldIn.getBlockState(pos).getValue(propertyInteger)).intValue();
+        return ((Integer)worldIn.getBlockState(pos).getValue(level)).intValue();
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(propertyInteger, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(level, Integer.valueOf(meta));
     }
 
     public int getMetaFromState(IBlockState state)
     {
-        return ((Integer)state.getValue(propertyInteger)).intValue();
+        return ((Integer)state.getValue(level)).intValue();
     }
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {propertyInteger});
+        return new BlockState(this, new IProperty[] {level});
     }
 
     @SideOnly(Side.CLIENT)

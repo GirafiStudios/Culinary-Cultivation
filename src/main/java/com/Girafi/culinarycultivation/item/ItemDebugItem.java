@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.item;
 
+import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
@@ -32,6 +33,7 @@ public class ItemDebugItem extends Item {
 
     public ItemDebugItem() {
         super();
+        this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         setUnlocalizedName(Paths.ModAssets + "debugItem");
         maxStackSize = 1;
         setAlwaysEdible();
@@ -108,7 +110,7 @@ public class ItemDebugItem extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.getItemDamage() == 0) {
-            if (!worldIn.isRemote) {
+            if (!worldIn.isRemote) { //TODO Make it not show, when you click a block
                 playerIn.addChatComponentMessage(new ChatComponentText("Switch mode by shift + scrolling"));
             }
         }
@@ -348,7 +350,6 @@ public class ItemDebugItem extends Item {
                     if (igrowable.canUseBonemeal(worldIn, worldIn.rand, pos, iblockstate)) {
                         igrowable.grow(worldIn, worldIn.rand, pos, iblockstate);
                     }
-                    --stack.stackSize;
                 }
                 return true;
             }

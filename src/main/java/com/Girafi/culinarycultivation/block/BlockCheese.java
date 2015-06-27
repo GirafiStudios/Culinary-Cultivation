@@ -11,12 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class BlockCheese extends BlockCake { //TODO Change hunger you get from eating it
-//    @SideOnly(Side.CLIENT)
-//    public static IIcon iconTop;
-//    @SideOnly(Side.CLIENT)
-//    public static IIcon iconBottom;
-//    @SideOnly(Side.CLIENT)
-//    public static IIcon iconInner;
 
     public BlockCheese() {
         super();
@@ -26,19 +20,6 @@ public class BlockCheese extends BlockCake { //TODO Change hunger you get from e
         setStepSound(soundTypeCloth);
         disableStats();
     }
-
-//    @SideOnly(Side.CLIENT)
-//    public IIcon getIcon(int meta, int side) {
-//        return meta == 1 ? this.iconTop : (meta == 0 ? this.iconBottom : (side > 0 && meta == 4 ? iconInner : this.blockIcon));
-//    }
-//
-//    @SideOnly(Side.CLIENT)
-//    public void registerBlockIcons(IIconRegister p_149651_1_) {
-//        this.blockIcon = p_149651_1_.registerIcon(this.getTextureName() + "_side");
-//        iconInner = p_149651_1_.registerIcon(this.getTextureName() + "_inner");
-//        iconTop = p_149651_1_.registerIcon(this.getTextureName() + "_top");
-//        iconBottom = p_149651_1_.registerIcon(this.getTextureName() + "_bottom");
-//    }
 
     @SideOnly(Side.CLIENT)
     @Override
