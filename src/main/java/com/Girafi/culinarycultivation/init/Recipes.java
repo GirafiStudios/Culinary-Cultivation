@@ -26,13 +26,13 @@ public class Recipes {
 
         //Food
         //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), "   ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), " C ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fish, 1 , FishType.FILLET.getMetaData()), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), "fish"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 1 , MeatType.PATTY.getMetaData()), new ItemStack(meatCleaver, 1,OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.BACON.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.porkchop)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.CHICKENNUGGET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.chicken)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(meat, 1 , MeatType.SQUIDMANTLE.getMetaData())));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));  //TODO Minecraft 1.8 : Change cake slices from 6 to 7
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 7), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));
 
         //Furnace recipes
         GameRegistry.addSmelting(mutton, new ItemStack(cookedMutton), 0.35F);

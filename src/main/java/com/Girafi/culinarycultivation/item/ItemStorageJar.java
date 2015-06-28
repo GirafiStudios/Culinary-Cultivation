@@ -142,11 +142,11 @@ public class ItemStorageJar extends SourceItem {
                 return stack;
             } else {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    BlockPos pos = movingobjectposition.func_178782_a();
+                    BlockPos pos = movingobjectposition.getBlockPos();
                     if (!worldIn.isBlockModifiable(playerIn, pos)) {
                         return stack;
                     }
-                    if (!playerIn.func_175151_a(pos.offset(movingobjectposition.field_178784_b), movingobjectposition.field_178784_b, stack)) {
+                    if (!playerIn.canPlayerEdit(pos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, stack)) {
                         return stack;
                     }
 

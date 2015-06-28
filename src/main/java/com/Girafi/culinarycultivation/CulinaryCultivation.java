@@ -8,6 +8,7 @@ import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.utility.LogHelper;
+import net.minecraft.nbt.JsonToNBT;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;

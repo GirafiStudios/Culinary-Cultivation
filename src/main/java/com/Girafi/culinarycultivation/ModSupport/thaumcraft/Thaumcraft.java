@@ -1,6 +1,6 @@
 package com.Girafi.culinarycultivation.modSupport.thaumcraft;
 
-/*import com.Girafi.culinarycultivation.init.ModBlocks;
+import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemModFishFood.*;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.*;
@@ -44,10 +44,6 @@ public class Thaumcraft implements IModSupport {
                 ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.storageJar, 1, jarType.getMetaData()), new AspectList().add(Aspect.CRYSTAL, 1));
             }
         }
-
-
-        Raw chicken = 3 Corpus, 2 life, 1 bestia
-        Cooked chicken = 4 Corpus, 3 fames, 1 fabrico
 
         MeatType[] ameattype = MeatType.values(); //TODO Figure out to do with squid meat
         int imeat = ameattype.length;
@@ -93,4 +89,4 @@ public class Thaumcraft implements IModSupport {
     @Override
     public void clientInit() {
     }
-}*/
+}

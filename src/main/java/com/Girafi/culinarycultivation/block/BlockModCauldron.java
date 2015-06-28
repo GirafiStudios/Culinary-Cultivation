@@ -394,10 +394,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         }
                     }
                     ItemStack itemstack1;
-                    if (j1 > 0 && stack.getItem() instanceof ItemBanner && TileEntityBanner.func_175113_c(stack) > 0) {
+                    if (j1 > 0 && stack.getItem() instanceof ItemBanner && TileEntityBanner.getPatterns(stack) > 0) {
                         itemstack1 = stack.copy();
                         itemstack1.stackSize = 1;
-                        TileEntityBanner.func_175117_e(itemstack1);
+                        TileEntityBanner.removeBannerData(itemstack1);
 
                         if (stack.stackSize <= 1 && !playerIn.capabilities.isCreativeMode) {
                             playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, itemstack1);

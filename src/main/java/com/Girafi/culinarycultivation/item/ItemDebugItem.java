@@ -185,8 +185,7 @@ public class ItemDebugItem extends Item {
             }
         }
         if (stack.getItemDamage() == 4)
-            if (!playerIn.func_175151_a(pos.offset(side), side, stack))
-            {
+            if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
                 return false;
             }
             else
@@ -197,7 +196,7 @@ public class ItemDebugItem extends Item {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
                 Block block = iblockstate.getBlock();
 
-                if (side != EnumFacing.DOWN && worldIn.isAirBlock(pos.offsetUp()))
+                if (side != EnumFacing.DOWN && worldIn.isAirBlock(pos.offset(EnumFacing.UP)))
                 {
                     if (block == Blocks.grass) {
                         return this.func_179232_a(stack, playerIn, worldIn, pos, Blocks.farmland.getDefaultState());
@@ -345,7 +344,7 @@ public class ItemDebugItem extends Item {
         if (iblockstate.getBlock() instanceof IGrowable) {
             IGrowable igrowable = (IGrowable) iblockstate.getBlock();
 
-            if (igrowable.isStillGrowing(worldIn, pos, iblockstate, worldIn.isRemote)) {
+            if (igrowable.canGrow(worldIn, pos, iblockstate, worldIn.isRemote)) {
                 if (!worldIn.isRemote) {
                     if (igrowable.canUseBonemeal(worldIn, worldIn.rand, pos, iblockstate)) {
                         igrowable.grow(worldIn, worldIn.rand, pos, iblockstate);

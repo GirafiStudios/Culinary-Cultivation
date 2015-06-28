@@ -16,10 +16,10 @@ buildscript {
 }
 
 repositories {
-    //maven {
-    //    name 'CB Repo'
-    //    url "http://chickenbones.net/maven/"
-    //}
+	maven {
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
 }
 
 apply plugin: 'forge'
@@ -35,6 +35,7 @@ archivesBaseName = "CulinaryCultivation"
 
 minecraft {
     version = "${minecraft_version}-${forge_version}"
+	mappings = "snapshot_nodoc_20141130"
     runDir = "eclipse"
 
     replace "@VERSION@", project.mod_version
@@ -42,9 +43,9 @@ minecraft {
 }
 
 dependencies {
-	//compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
-    //compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
-    //compile "codechicken:NotEnoughItems:1.8-1.0.5.104:dev"
+	compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
+    compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
+    compile "codechicken:NotEnoughItems:1.8-1.0.5.82:dev"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
