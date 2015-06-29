@@ -35,7 +35,6 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 7), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));
 
         //Furnace recipes
-        GameRegistry.addSmelting(mutton, new ItemStack(cookedMutton), 0.35F);
         GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cooked_fish, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);
         GameRegistry.addSmelting(new ItemStack(meat, 1, MeatType.RIBSBEEF.getMetaData()), new ItemStack(cooked_meat, 1, MeatType.RIBS.getMetaData()), 0.35F);
 

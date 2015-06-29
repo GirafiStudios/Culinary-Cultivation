@@ -35,14 +35,12 @@ public class OreDictionaryRegistration {
 
         OreDictionary.registerOre("foodRibsRaw", new ItemStack(ModItems.meat, 1, MeatType.RIBSBEEF.getMetaData()));
         OreDictionary.registerOre("foodRibsPorkRaw", new ItemStack(ModItems.meat, 1, MeatType.RIBS.getMetaData()));
-        OreDictionary.registerOre("foodMuttonRaw", ModItems.mutton);
-        OreDictionary.registerOre("foodMuttonCooked", ModItems.cookedMutton);
 
         //Minced Meat recipe
         OreDictionary.registerOre("foodMincedMeat", Items.beef);
         OreDictionary.registerOre("foodMincedMeat", Items.porkchop);
         OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.HAM.getMetaData()));
-        OreDictionary.registerOre("foodMincedMeat", ModItems.mutton);
+        OreDictionary.registerOre("foodMincedMeat", Items.mutton);
         OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.ROAST.getMetaData()));
         OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.VEAL.getMetaData()));
         OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.LAMB.getMetaData()));

@@ -70,8 +70,6 @@ public class Thaumcraft implements IModSupport {
             ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.meat, 1, meattype.PATTY.getMetaData()), new AspectList().add(Aspect.BEAST, 1).add(Aspect.HUNGER, 1));
             ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.cooked_meat, 1, meattype.PATTY.getMetaData()), new AspectList().add(Aspect.LIFE, 1).add(Aspect.CRAFT, 2));
         }
-        ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.mutton), new AspectList().add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.EARTH, 1));
-        ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.cookedMutton), new AspectList().add(Aspect.HUNGER, 2).add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1));
 
         //ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.toolHandle), new AspectList().add(Aspect.TREE, 2));
         //TODO Add cheese & crops aspects when done

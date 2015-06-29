@@ -24,10 +24,4 @@ public class ItemMeatCleaver extends ItemSword {
     public void addInformation(ItemStack stackIn, EntityPlayer playerIn, List list, boolean par4) {
         list.add("A finer way to cleave meat");
     }
-
-    @SideOnly(Side.CLIENT)
-    public boolean shouldRotateAroundWhenRendering()
-    {
-        return true;
-    }
 }

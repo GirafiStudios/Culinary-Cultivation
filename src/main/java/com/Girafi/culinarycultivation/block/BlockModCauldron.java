@@ -34,11 +34,11 @@ import java.util.Random;
 
 public class BlockModCauldron extends SourceBlockTileEntity {
 
-    public static final PropertyInteger level = PropertyInteger.create("level", 0, 15);
+    public static final PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);
 
     public BlockModCauldron() {
         super(Material.iron);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(level, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
         this.setUnlocalizedName("cauldron");
         setHardness(2.0F);
     }
@@ -108,7 +108,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     public boolean isFullCube() {return false;}
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        int i = ((Integer)state.getValue(level)).intValue();
+        int i = ((Integer)state.getValue(LEVEL)).intValue();
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
 
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && i < 15 && entityIn.getEntityBoundingBox().minY <= (double)f)
@@ -122,7 +122,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack stack = playerIn.inventory.getCurrentItem();
-        int j1 = ((Integer) state.getValue(level)).intValue();
+        int j1 = ((Integer) state.getValue(LEVEL)).intValue();
 
         if (j1 == 15) {
             if (!playerIn.capabilities.isCreativeMode) {
@@ -163,7 +163,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         if (!playerIn.capabilities.isCreativeMode) {
                             playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, new ItemStack(Items.milk_bucket));
                         }
-                        worldIn.setBlockState(pos, state, 0);
+                        worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getDefaultState(), 2);
                     }
                     return true;
                 }
@@ -172,7 +172,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         if (!playerIn.capabilities.isCreativeMode) {
                             playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, new ItemStack(Items.bucket));
                         }
-                        worldIn.setBlockState(pos, state, 6);
+                        worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(6));
                     }
                     return true;
                 } else {
@@ -226,13 +226,14 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 }
                             }
                             if (j1 == 4) {
-                                worldIn.setBlockState(pos, state, 0);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getDefaultState(), 2);
                             }
                             if (j1 == 5) {
-                                worldIn.setBlockState(pos, state, 6 - 2);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(6 - 2));
                             }
                             if (j1 == 6) {
-                                worldIn.setBlockState(pos, state, 6 - 1);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(6 - 1));
+
                             }
                         }
                         if (j1 > 0 && j1 >= 7 && j1 <= 9) {
@@ -250,13 +251,13 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 }
                             }
                             if (j1 == 7) {
-                                worldIn.setBlockState(pos, state, 0);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getDefaultState(), 2);
                             }
                             if (j1 == 8) {
-                                worldIn.setBlockState(pos, state, 9 - 2);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(9 - 2));
                             }
                             if (j1 == 9) {
-                                worldIn.setBlockState(pos, state, 9 - 1);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(9 - 1));
                             }
                         }
                     }
@@ -302,13 +303,13 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 }
                             }
                             if (j1 == 0) {
-                                worldIn.setBlockState(pos, state, 4);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(4));
                             }
                             if (j1 == 4) {
-                                worldIn.setBlockState(pos, state, 4 + 1);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(4 + 1));
                             }
                             if (j1 == 5 || j1 == 6) {
-                                worldIn.setBlockState(pos, state, 4 + 2);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(4 + 2));
                             }
                         }
                     }
@@ -328,13 +329,13 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 }
                             }
                             if (j1 == 0) {
-                                worldIn.setBlockState(pos, state, 7);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(7));
                             }
                             if (j1 == 7) {
-                                worldIn.setBlockState(pos, state, 7 + 1);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(7 + 1));
                             }
                             if (j1 == 8 || j1 == 9) {
-                                worldIn.setBlockState(pos, state, 7 + 2);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(7 + 2));
                             }
                         }
                     }
@@ -355,10 +356,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 }
                             }
                             if (j1 == 4) {
-                                worldIn.setBlockState(pos, state, 13);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(13));
                             }
                             if (j1 == 5) {
-                                worldIn.setBlockState(pos, state, 14);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(14));
                             }
                         }
                     }
@@ -378,11 +379,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 }
                             }
                             if (j1 == 7) {
-                                worldIn.setBlockState(pos, state, 13);
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(13));
                             }
                             if (j1 == 13) {
-                                worldIn.setBlockState(pos, state, 14);
-
+                                worldIn.setBlockState(pos, worldIn.getBlockState(pos).getBlock().getStateFromMeta(14));
                             }
                         }
                     } else if (j1 > 0 && stack.getItem() instanceof ItemArmor) { //TODO Add check that metadata is under 3
@@ -427,7 +427,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public void changeWater(World worldIn, BlockPos pos, IBlockState state, int side) {
-        worldIn.setBlockState(pos, state.withProperty(level, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
+        worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
@@ -435,8 +435,8 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         if (worldIn.rand.nextInt(20) == 1) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
-            if (((Integer)iblockstate.getValue(level)).intValue() < 3) {
-                worldIn.setBlockState(pos, iblockstate.cycleProperty(level), 2);
+            if (((Integer)iblockstate.getValue(LEVEL)).intValue() < 3) {
+                worldIn.setBlockState(pos, iblockstate.cycleProperty(LEVEL), 2);
             }
         }
     }
@@ -455,43 +455,42 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
-        return ((Integer)worldIn.getBlockState(pos).getValue(level)).intValue();
+        return ((Integer)worldIn.getBlockState(pos).getValue(LEVEL)).intValue();
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(level, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(meta));
     }
 
     public int getMetaFromState(IBlockState state)
     {
-        return ((Integer)state.getValue(level)).intValue();
+        return ((Integer)state.getValue(LEVEL)).intValue();
     }
 
-    protected BlockState createBlockState()
-    {
-        return new BlockState(this, new IProperty[] {level});
+    protected BlockState createBlockState() {
+        return new BlockState(this, new IProperty[] {LEVEL});
     }
 
-    @SideOnly(Side.CLIENT)
-    public static float getRenderLiquidLevel(int i) {
-        int j = MathHelper.clamp_int(i, 0, 3);
-        return (float) (6 + 3 * j) / 16.0F;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static float getRenderMilkLevel(int i) {
-        int j = MathHelper.clamp_int(i, 4, 6);
-        return (float) (6 + 3 * j - 9) / 16.0F;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static float getRenderRennetLevel(int i) {
-        int j = MathHelper.clamp_int(i, 7, 9);
-        return (float) (6 + 3 * j - 18) / 16.0F;
-    }
-    @SideOnly(Side.CLIENT)
-    public static float getRenderCheeseMassLevel(int i) {
-        int j = MathHelper.clamp_int(i, 13, 14);
-        return (float) (6 + 3 * j - 33) / 16.0F;
-    }
+//    @SideOnly(Side.CLIENT)
+//    public static float getRenderLiquidLevel(int i) {
+//        int j = MathHelper.clamp_int(i, 0, 3);
+//        return (float) (6 + 3 * j) / 16.0F;
+//    }
+//
+//    @SideOnly(Side.CLIENT)
+//    public static float getRenderMilkLevel(int i) {
+//        int j = MathHelper.clamp_int(i, 4, 6);
+//        return (float) (6 + 3 * j - 9) / 16.0F;
+//    }
+//
+//    @SideOnly(Side.CLIENT)
+//    public static float getRenderRennetLevel(int i) {
+//        int j = MathHelper.clamp_int(i, 7, 9);
+//        return (float) (6 + 3 * j - 18) / 16.0F;
+//    }
+//    @SideOnly(Side.CLIENT)
+//    public static float getRenderCheeseMassLevel(int i) {
+//        int j = MathHelper.clamp_int(i, 13, 14);
+//        return (float) (6 + 3 * j - 33) / 16.0F;
+//    }
 }

@@ -3,12 +3,11 @@ package com.Girafi.culinarycultivation;
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.handler.CraftingHandler;
 import com.Girafi.culinarycultivation.init.*;
-import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.modSupport.ModSupport;
+import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.utility.LogHelper;
-import net.minecraft.nbt.JsonToNBT;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -34,7 +33,6 @@ public class CulinaryCultivation {
         FishingLoot.init();
         Events.init();
         NetworkHandler.init();
-        proxy.registerRenders();
         ModSupport.instance().preInit();
         LogHelper.info(Reference.MOD_NAME_ + "Pre Initialization Complete.");
     }
@@ -42,6 +40,7 @@ public class CulinaryCultivation {
     @Mod.EventHandler
     public void init (FMLInitializationEvent event) {
         //Register GUIs
+        proxy.registerRenders();
         ModTileEntities.init();
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
         Recipes.init();

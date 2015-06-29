@@ -42,11 +42,4 @@ public class ItemKnife extends ItemTool {
     @Override
     public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel();
     }
-
-    @SideOnly(Side.CLIENT)
-    public boolean shouldRotateAroundWhenRendering()
-    {
-        return true;
-    }
-
 }

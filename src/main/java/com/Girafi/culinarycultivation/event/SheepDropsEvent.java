@@ -13,25 +13,6 @@ import java.util.Random;
 public class SheepDropsEvent {
     private static Random random = new Random();
     /**
-     * Drop 1-2 items of this living's type
-     */
-    public static class SheepMuttonDropsEvent {
-        @SubscribeEvent
-        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
-            if (dropsEvent.entityLiving instanceof EntitySheep & !dropsEvent.entityLiving.isChild()) {
-                int j = random.nextInt(2) + 1 + random.nextInt(1 + dropsEvent.lootingLevel);
-                for (int k = 0; k < j; ++k) {
-                    if (dropsEvent.entityLiving.isBurning()) {
-                        dropsEvent.entityLiving.dropItem(ModItems.cookedMutton, 1);
-                    } else {
-                        dropsEvent.entityLiving.dropItem(ModItems.mutton, 1);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Drop 0-2 items of this living's type
      */
     public static class SheepLegOfSheepDropsEvent {

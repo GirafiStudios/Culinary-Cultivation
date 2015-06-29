@@ -1,11 +1,9 @@
 package com.Girafi.culinarycultivation.proxy;
 
+import net.minecraft.item.Item;
+
 public abstract class CommonProxy {
-    public int RENDER_VALUE;
 
     public void registerRenders(){
-    }
-    public int getRenderIdForRenderer(Class classs){
-        return 0;
     }
 }

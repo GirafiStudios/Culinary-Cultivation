@@ -1,21 +1,20 @@
 package com.Girafi.culinarycultivation.tileentity;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import com.Girafi.culinarycultivation.utility.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
-public class TileEntityCauldron extends SourceTileEntity {
+public class TileEntityCauldron extends SourceTileEntity implements IUpdatePlayerListBox {
     private int timer = 2400;
 
     @Override
-    public void updateContainingBlockInfo() {
-        Block block = worldObj.getBlockState(pos).getBlock();
-        IBlockState state = worldObj.getBlockState(pos);
-        if (block == ModBlocks.cauldron && getBlockMetadata() == 14) {
-        if (timer > 0) timer--;
-        if (timer == 0 && !worldObj.isRemote) {
-                worldObj.setBlockState(pos, state); //ModBlocks.cauldron, 15, 2
+    public void update() {
+        if (worldObj.getBlockState(pos).getBlock() == ModBlocks.cauldron && getBlockMetadata() == 14) {
+            LogHelper.debug(timer);
+            if (timer > 0) timer--;
+            if (timer == 0 && !worldObj.isRemote) {
+                worldObj.setBlockState(pos, worldObj.getBlockState(pos).getBlock().getStateFromMeta(15), 2);
             }
         }
     }

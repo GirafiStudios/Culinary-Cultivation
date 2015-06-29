@@ -22,7 +22,6 @@ public class Events {
         if (ShouldPigsDropHam) {MinecraftForge.EVENT_BUS.register(new PigHamDropsEvent()); }
         if (ShouldPigsDropPorkRibs) {MinecraftForge.EVENT_BUS.register(new PigRibsPorkDropsEvent()); }
         if (ShouldSheepDropLegOfSheep) {MinecraftForge.EVENT_BUS.register(new SheepLegOfSheepDropsEvent()); }
-        if (ShouldSheepDropMutton) {MinecraftForge.EVENT_BUS.register(new SheepMuttonDropsEvent()); }
         if (ShouldSquidDropSquidMantle) {MinecraftForge.EVENT_BUS.register(new SquidMantleDropsEvent()); }
         if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
         FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());

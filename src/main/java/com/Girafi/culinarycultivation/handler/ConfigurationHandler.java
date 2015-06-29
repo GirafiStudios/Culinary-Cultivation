@@ -20,7 +20,6 @@ public class ConfigurationHandler
     public static boolean ShouldPigsDropHam;
     public static boolean ShouldPigsDropPorkRibs;
     public static boolean ShouldSheepDropLegOfSheep;
-    public static boolean ShouldSheepDropMutton;
     public static boolean ShouldSquidDropSquidMantle;
     public static boolean ShouldSquidDropSquidTentacle;
 
@@ -42,7 +41,6 @@ public class ConfigurationHandler
         ShouldPigsDropHam = config.get(CATEGORY_MOB_DROPS, "Should pigs drop ham?", true).getBoolean(true);
         ShouldPigsDropPorkRibs = config.get(CATEGORY_MOB_DROPS, "Should pigs drop pork ribs?", true).getBoolean(true);
         ShouldSheepDropLegOfSheep = config.get(CATEGORY_MOB_DROPS, "Should sheep drop leg of sheep?", true).getBoolean(true);
-        ShouldSheepDropMutton = config.get(CATEGORY_MOB_DROPS, "Should sheep drop mutton?", true).getBoolean(true);
         ShouldSquidDropSquidMantle = config.get(CATEGORY_MOB_DROPS, "Should squid drop squid mantle?", true).getBoolean(true);
         ShouldSquidDropSquidTentacle = config.get(CATEGORY_MOB_DROPS, "Should squid drop squid tentacle?", true).getBoolean(true);
 

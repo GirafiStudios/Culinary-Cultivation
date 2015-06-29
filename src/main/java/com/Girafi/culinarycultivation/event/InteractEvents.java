@@ -6,8 +6,17 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
+import com.Girafi.culinarycultivation.utility.Utils;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableTable;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyHelper;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
@@ -23,6 +32,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InteractEvents {
 
@@ -79,7 +91,6 @@ public class InteractEvents {
                         if (!iEvent.world.isRemote) {
                             iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
                             if (i >= 5) {
-                                //iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getStateFromMeta(l), 2);
                                 iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).withProperty(BlockCake.BITES, Integer.valueOf(i + 1)), 3);
                             }
                             if (i == 6) {
@@ -113,14 +124,15 @@ public class InteractEvents {
         }
 
         public void changeWater(World worldIn, BlockPos pos, IBlockState state, int side) {
-            worldIn.setBlockState(pos, state.withProperty(BlockModCauldron.level, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
+            worldIn.setBlockState(pos, state.withProperty(BlockModCauldron.LEVEL, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
             worldIn.updateComparatorOutputLevel(pos, ModBlocks.cauldron);
         }
     }
 
     public static class DebugItemEvent {
         @SubscribeEvent
-        public void DebugItem(PlayerInteractEvent iEvent) { //TODO Make check that the variant is valid
+        public void DebugItem(PlayerInteractEvent iEvent) {
+
             EntityPlayer player = iEvent.entityPlayer;
             ItemStack stack = player.inventory.getCurrentItem();
             boolean b = player.onGround && player.isSneaking();
@@ -132,16 +144,21 @@ public class InteractEvents {
                     iEvent.setCanceled(true);
                 }
             }
-            if (!b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
+            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
+                BlockState state = iEvent.world.getBlockState(iEvent.pos).getBlock().getBlockState();
+                if (!b) {
                     int l = iEvent.world.getBlockState(iEvent.pos).getBlock().getMetaFromState(iEvent.world.getBlockState(iEvent.pos)) + 1;
-                    iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getStateFromMeta(l), 2);
+                    if (l >= state.getValidStates().size()) {
+                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getDefaultState(), 2);
+                    } else
+                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getStateFromMeta(l), 2);
                 }
-            }
-            if (b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                if (stack != null && player.getCurrentEquippedItem().getItem() == ModItems.debugItem && player.getCurrentEquippedItem().getItemDamage() == 0) {
+                if (b) {
                     int l = iEvent.world.getBlockState(iEvent.pos).getBlock().getMetaFromState(iEvent.world.getBlockState(iEvent.pos)) - 1;
-                    iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getStateFromMeta(l), 2);
+                    if (l < 0) {
+                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getDefaultState(), 2);
+                    } else
+                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getStateFromMeta(l), 2);
                 }
             }
         }
