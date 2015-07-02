@@ -3,6 +3,7 @@ package com.Girafi.culinarycultivation;
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.handler.CraftingHandler;
 import com.Girafi.culinarycultivation.init.*;
+import com.Girafi.culinarycultivation.item.ItemModFishFood;
 import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;

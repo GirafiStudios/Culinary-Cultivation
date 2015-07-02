@@ -48,35 +48,11 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         return new TileEntityCauldron();
     }
 
-//    @Override
-//    public int getRenderType() {
-//        return CulinaryCultivation.proxy.getRenderIdForRenderer(RenderCauldron.class);
-//    }
-
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         worldIn.removeTileEntity(pos);
     }
-
-//    @SideOnly(Side.CLIENT)
-//    @Override
-//    public IIcon getIcon(int meta, int side) {
-//        return meta == 1 ? iconTop : (meta == 0 ? iconBottom : blockIcon);
-//    }
-
-//    @SideOnly(Side.CLIENT)
-//    @Override
-//    public void registerBlockIcons(IIconRegister register) {
-//        iconInner = register.registerIcon(getTextureName() + "_" + "inner");
-//        iconTop = register.registerIcon(getTextureName() + "_top");
-//        iconBottom = register.registerIcon(getTextureName() + "_" + "bottom");
-//        blockIcon = register.registerIcon(getTextureName() + "_side");
-//
-//        iconMilk = register.registerIcon(Paths.ModAssets + "milk_still");
-//        iconRennet = register.registerIcon(Paths.ModAssets + "rennet_still");
-//        iconCheeseMass = register.registerIcon(Paths.ModAssets + "cheeseMass_still");
-//    }
 
     @Override
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity) {
@@ -94,11 +70,6 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         this.setBlockBoundsForItemRender();
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public static IIcon getCauldronIcon(String s) {
-//        return s.equals("inner") ? iconInner : (s.equals("bottom") ? iconBottom : null);
-//    }
-
     public void setBlockBoundsForItemRender() {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
@@ -114,8 +85,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && i < 15 && entityIn.getEntityBoundingBox().minY <= (double)f)
         {
             entityIn.extinguish();
-            worldIn.setBlockState(pos, (IBlockState) ModBlocks.cauldron); //TODO Check if this works
-            //world.setBlock(x, y, z, ModBlocks.cauldron);
+            worldIn.setBlockState(pos, ModBlocks.cauldron.getDefaultState());
         }
     }
 
@@ -471,26 +441,4 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         return new BlockState(this, new IProperty[] {LEVEL});
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public static float getRenderLiquidLevel(int i) {
-//        int j = MathHelper.clamp_int(i, 0, 3);
-//        return (float) (6 + 3 * j) / 16.0F;
-//    }
-//
-//    @SideOnly(Side.CLIENT)
-//    public static float getRenderMilkLevel(int i) {
-//        int j = MathHelper.clamp_int(i, 4, 6);
-//        return (float) (6 + 3 * j - 9) / 16.0F;
-//    }
-//
-//    @SideOnly(Side.CLIENT)
-//    public static float getRenderRennetLevel(int i) {
-//        int j = MathHelper.clamp_int(i, 7, 9);
-//        return (float) (6 + 3 * j - 18) / 16.0F;
-//    }
-//    @SideOnly(Side.CLIENT)
-//    public static float getRenderCheeseMassLevel(int i) {
-//        int j = MathHelper.clamp_int(i, 13, 14);
-//        return (float) (6 + 3 * j - 33) / 16.0F;
-//    }
 }

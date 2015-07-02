@@ -18,40 +18,29 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with seasoned meat too. Don't add that to NEI. (MAYBE)
-    private final boolean isCooked;
+    private final boolean cooked;
     private static double potionEffectProbability;
 
     public ItemModMeatFood(boolean cooked) {
         super(0, 0.0F, true); //TODO Fix what Food wolves can eat
-        this.isCooked = cooked;
+        this.cooked = cooked;
     }
 
-    public int func_150905_g(ItemStack stack) {
+    public int getHealAmount(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (meattype.isHaveRawMeat()) {
-            return this.isCooked && meattype.isHaveCookedMeat() ? meattype.getHealAmountCooked() : meattype.getHealAmountRaw();
+            return this.cooked && meattype.isHaveCookedMeat() ? meattype.getHealAmountCooked() : meattype.getHealAmountRaw();
         } else
             return meattype.isHaveCookedMeat() & !meattype.isHaveRawMeat() ? meattype.getHealAmountCooked() : meattype.getHealAmountRaw();
     }
 
-    public float func_150906_h(ItemStack stack) {
+    public float getSaturationModifier(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (meattype.isHaveRawMeat()) {
-            return this.isCooked && meattype.isHaveCookedMeat() ? meattype.getSaturationAmountCooked() : meattype.getSaturationAmountRaw();
+            return this.cooked && meattype.isHaveCookedMeat() ? meattype.getSaturationAmountCooked() : meattype.getSaturationAmountRaw();
         } else
             return meattype.isHaveCookedMeat() & !meattype.isHaveRawMeat() ? meattype.getSaturationAmountCooked() : meattype.getSaturationAmountRaw();
     }
-
-//    @SideOnly(Side.CLIENT)
-//    public void registerIcons(IIconRegister register) {
-//        MeatType[] ameattype = MeatType.values();
-//        int i = ameattype.length;
-//
-//        for (int j = 0; j < i; ++j) {
-//            MeatType meattype = ameattype[j];
-//            meattype.getIcon(register);
-//        }
-//    }
 
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         MeatType meatType = MeatType.getMeatType(stack);
@@ -84,15 +73,6 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
         }
     }
 
-    /*@SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int damage) {
-        MeatType meattype = MeatType.getMeatTypeList(damage);
-        if (meattype.isHaveRawMeat()) {
-            return this.isCooked && meattype.isHaveCookedMeat() ? meattype.getTextureCooked() : meattype.getTextureRaw();
-        } else
-            return meattype.isHaveCookedMeat() &! meattype.isHaveRawMeat() ? meattype.getTextureCooked() : meattype.getTextureRaw();
-    }*/
-
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
         MeatType[] ameattype = MeatType.values();
@@ -100,11 +80,11 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
 
         for (int j = 0; j < i; ++j) {
             MeatType meattype = ameattype[j];
-            if (!meattype.isHaveRawMeat() && this.isCooked && meattype.isHaveCookedMeat()) {
+            if (!meattype.isHaveRawMeat() && this.cooked && meattype.isHaveCookedMeat()) {
                 list.add(new ItemStack(this, 1, meattype.getMetaData()));
             }
             if (meattype.isHaveRawMeat()) {
-                if (!this.isCooked || meattype.isHaveCookedMeat()) {
+                if (!this.cooked || meattype.isHaveCookedMeat()) {
                     list.add(new ItemStack(this, 1, meattype.getMetaData()));
                 }
             }
@@ -113,8 +93,8 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
 
     public String getUnlocalizedName(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
-        return "item." + Paths.ModAssets + meattype.getTextureName() + WordUtils.capitalize(this.isCooked && meattype.isHaveCookedMeat() ? "cooked" : "raw");
-    }
+        return "item." + Paths.ModAssets + meattype.getUnlocalizedName() + WordUtils.capitalize(this.cooked && meattype.isHaveCookedMeat() ? "cooked" : "raw");
+}
 
     public static enum MeatType {
         LAMB(0, "lamb", 2, 0.3F, 5, 1.1F),
@@ -133,13 +113,9 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
         SQUIDMANTLE(13, "squidMantle", 2, 0.3F, 5, 0.4F),
         SQUIDRING(14, "squidRing", 1, 0.1F, 2, 0.2F);
 
-        private static final Map MeatTypeMap = Maps.newHashMap();
+        private static final Map META_LOOKUP = Maps.newHashMap();
         private final int metaData;
-        private final String textureName;
-//        @SideOnly(Side.CLIENT)
-//        private IIcon textureRaw;
-//        @SideOnly(Side.CLIENT)
-//        private IIcon textureCooked;
+        private final String unlocalizedName;
         private final int healAmountRaw;
         private final float saturationAmountRaw;
         private final int healAmountCooked;
@@ -147,9 +123,9 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
         private boolean haveRawMeat = false;
         private boolean haveCookedMeat = false;
 
-        private MeatType(int metaData, String textureName, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+        private MeatType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = healAmountCooked;
@@ -158,9 +134,9 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
             this.haveCookedMeat = true;
         }
 
-        private MeatType(int metaData, String textureName, int healAmountRaw, float saturationAmountRaw) {
+        private MeatType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = 0;
@@ -169,9 +145,9 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
             this.haveCookedMeat = false;
         }
 
-        private MeatType(int metaData, String textureName, float saturationAmountCooked, int healAmountCooked) {
+        private MeatType(int metaData, String unlocalizedName, float saturationAmountCooked, int healAmountCooked) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = 0;
             this.saturationAmountRaw = 0.0F;
             this.healAmountCooked = healAmountCooked;
@@ -180,9 +156,9 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
             this.haveCookedMeat = true;
         }
 
-        /*private MeatType(int metaData, String textureName, Item item , int healAmountSeasoned, float saturationAmountSeasoned) { //WIP Seasoned MeatType maybe?
+        /*private MeatType(int metaData, String unlocalizedName, Item item , int healAmountSeasoned, float saturationAmountSeasoned) { //WIP Seasoned MeatType maybe?
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = healAmountCooked;
@@ -193,7 +169,7 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
 
         public int getMetaData() { return this.metaData;}
 
-        public String getTextureName() { return this.textureName; }
+        public String getUnlocalizedName() { return this.unlocalizedName; }
 
         public int getHealAmountRaw() { return this.healAmountRaw; }
 
@@ -203,27 +179,12 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
 
         public float getSaturationAmountCooked() { return this.saturationAmountCooked; }
 
-//        @SideOnly(Side.CLIENT)
-//        public void getIcon(IIconRegister register) {
-//            this.textureRaw = register.registerIcon(Paths.ModAssets + this.textureName + "Raw");
-//
-//            if (this.haveCookedMeat) {
-//                this.textureCooked = register.registerIcon(Paths.ModAssets + this.textureName + "Cooked");
-//            }
-//        }
-
-//        @SideOnly(Side.CLIENT)
-//        public IIcon getTextureRaw() { return this.textureRaw; }
-
-//        @SideOnly(Side.CLIENT)
-//        public IIcon getTextureCooked() { return this.textureCooked; }
-
         public boolean isHaveCookedMeat() { return this.haveCookedMeat; }
 
         public boolean isHaveRawMeat() { return this.haveRawMeat; }
 
         public static MeatType getMeatTypeList(int meat) {
-            MeatType meattype = (MeatType)MeatTypeMap.get(Integer.valueOf(meat));
+            MeatType meattype = (MeatType)META_LOOKUP.get(Integer.valueOf(meat));
             return meattype == null ? LAMB : meattype;
         }
 
@@ -234,7 +195,7 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
             int var1 = var0.length;
             for (int var2 = 0; var2 < var1; ++var2) {
                 MeatType var3 = var0[var2];
-                MeatTypeMap.put(Integer.valueOf(var3.getMetaData()), var3);
+                META_LOOKUP.put(Integer.valueOf(var3.getMetaData()), var3);
             }
         }
     }

@@ -25,8 +25,4 @@ public class BlockCheese extends BlockCake { //TODO Change hunger you get from e
     @Override
     public Item getItem(World world, BlockPos pos) {
         return Item.getItemFromBlock(ModBlocks.cheese); }
-
-//    @SideOnly(Side.CLIENT)
-//    @Override
-//    public String getItemIconName() { return Paths.ModAssets + "cheeseWheel"; }
 }

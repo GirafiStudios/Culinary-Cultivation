@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.reference.Paths;
+import com.Girafi.culinarycultivation.utility.LogHelper;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,18 +17,19 @@ import java.util.List;
 import java.util.Map;
 
 public class ItemModFishFood extends SourceFood {
-    private final boolean isCooked; //TODO change to cooked
+    private final boolean cooked;
     private static double potionEffectProbability;
 
     public ItemModFishFood(boolean cooked) {
         super(0, 0.0F, false);
-        this.isCooked = cooked;
+        this.cooked = cooked;
+        setUnlocalizedName("fish");
     }
 
     public int getHealAmount(ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
-            return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getHealAmountCooked() : fishtype.getHealAmountRaw();
+            return this.cooked && fishtype.isHaveCookedFish() ? fishtype.getHealAmountCooked() : fishtype.getHealAmountRaw();
         } else
             return fishtype.isHaveCookedFish() &! fishtype.isHaveRawFish() ? fishtype.getHealAmountCooked() : fishtype.getHealAmountRaw();
     }
@@ -35,21 +37,10 @@ public class ItemModFishFood extends SourceFood {
     public float getSaturationModifier(ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
-            return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getSaturationAmountCooked() : fishtype.getSaturationAmountRaw();
+            return this.cooked && fishtype.isHaveCookedFish() ? fishtype.getSaturationAmountCooked() : fishtype.getSaturationAmountRaw();
         } else
             return fishtype.isHaveCookedFish() &! fishtype.isHaveRawFish() ? fishtype.getSaturationAmountCooked() : fishtype.getSaturationAmountRaw();
     }
-
-//    @SideOnly(Side.CLIENT)
-//    public void registerIcons(IIconRegister register) {
-//        FishType[] afishtype = FishType.values();
-//        int i = afishtype.length;
-//
-//        for (int j = 0; j < i; ++j) {
-//            FishType fishtype = afishtype[j];
-//            fishtype.getIcon(register);
-//        }
-//    }
 
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         FishType fishType = FishType.getFishType(stack);
@@ -66,28 +57,19 @@ public class ItemModFishFood extends SourceFood {
         super.onFoodEaten(stack, world, player);
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public IIcon getIconFromDamage(int damage) {
-//        FishType fishtype = FishType.getFishTypeList(damage);
-//        if (fishtype.isHaveRawFish()) {
-//            return this.isCooked && fishtype.isHaveCookedFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
-//        } else
-//            return fishtype.isHaveCookedFish() & !fishtype.isHaveRawFish() ? fishtype.getTextureCooked() : fishtype.getTextureRaw();
-//    }
-
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List subItems) {
         FishType[] afishtype = FishType.values();
         int i = afishtype.length;
 
         for (int j = 0; j < i; ++j) {
             FishType fishtype = afishtype[j];
-            if (!fishtype.isHaveRawFish() && this.isCooked && fishtype.isHaveCookedFish()) {
-                list.add(new ItemStack(this, 1, fishtype.getMetaData()));
+            if (!fishtype.isHaveRawFish() && this.cooked && fishtype.isHaveCookedFish()) {
+                subItems.add(new ItemStack(this, 1, fishtype.getMetaData()));
             }
             if (fishtype.haveRawFish) {
-                if (!this.isCooked || fishtype.isHaveCookedFish()) {
-                    list.add(new ItemStack(this, 1, fishtype.getMetaData()));
+                if (!this.cooked || fishtype.isHaveCookedFish()) {
+                    subItems.add(new ItemStack(this, 1, fishtype.getMetaData()));
                 }
             }
 
@@ -97,9 +79,9 @@ public class ItemModFishFood extends SourceFood {
     public String getUnlocalizedName(ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
-            return "item." + Paths.ModAssets + "fish" + "." + fishtype.getTextureName() + "." + (this.isCooked && fishtype.isHaveCookedFish() ? "cooked" : "raw");
+            return this.getUnlocalizedName() + "." + fishtype.getUnlocalizedName() + "." + (this.cooked && fishtype.isHaveCookedFish() ? "cooked" : "raw");
         } else
-            return "item." + Paths.ModAssets + "fish" + "." + fishtype.getTextureName() + "." + (this.isCooked && fishtype.isHaveCookedFish() ? "cooked" : "cooked");
+            return this.getUnlocalizedName() + "." + fishtype.getUnlocalizedName() + "." + (this.cooked && fishtype.isHaveCookedFish() ? "cooked" : "cooked");
     }
 
     public static enum FishType { //TODO Look at fish values!
@@ -111,13 +93,9 @@ public class ItemModFishFood extends SourceFood {
         SMALLSQUID(5, "smallSquid", 2, 0.3F),
         CLOWNFISH(6, "clownfish", 0.2F, 3),
         FILLET(7, "fillet", 2, 0.3F, 5, 0.6F);
-        private static final Map FishTypeMap = Maps.newHashMap();
+        private static final Map META_LOOKUP = Maps.newHashMap();
         private final int metaData;
-        private final String textureName;
-//        @SideOnly(Side.CLIENT)
-//        private IIcon textureRaw;
-//        @SideOnly(Side.CLIENT)
-//        private IIcon textureCooked;
+        private final String unlocalizedName;
         private final int healAmountRaw;
         private final float saturationAmountRaw;
         private final int healAmountCooked;
@@ -125,9 +103,9 @@ public class ItemModFishFood extends SourceFood {
         private boolean haveRawFish = false;
         private boolean haveCookedFish = false;
 
-        private FishType(int metaData, String textureName, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+        private FishType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = healAmountCooked;
@@ -136,9 +114,9 @@ public class ItemModFishFood extends SourceFood {
             this.haveCookedFish = true;
         }
 
-        private FishType(int metaData, String textureName, int healAmountRaw, float saturationAmountRaw) {
+        private FishType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = 0;
@@ -147,9 +125,9 @@ public class ItemModFishFood extends SourceFood {
             this.haveCookedFish = false;
         }
 
-        private FishType(int metaData, String textureName, float saturationAmountCooked, int healAmountCooked) {
+        private FishType(int metaData, String unlocalizedName, float saturationAmountCooked, int healAmountCooked) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = 0;
             this.saturationAmountRaw = 0.0F;
             this.healAmountCooked = healAmountCooked;
@@ -160,7 +138,7 @@ public class ItemModFishFood extends SourceFood {
 
         public int getMetaData() { return this.metaData;}
 
-        public String getTextureName() { return this.textureName; }
+        public String getUnlocalizedName() { return this.unlocalizedName; }
 
         public int getHealAmountRaw() { return this.healAmountRaw; }
 
@@ -170,28 +148,12 @@ public class ItemModFishFood extends SourceFood {
 
         public float getSaturationAmountCooked() { return this.saturationAmountCooked; }
 
-//        @SideOnly(Side.CLIENT)
-//        public void getIcon(IIconRegister register) {
-//            if (this.haveRawFish) {
-//                this.textureRaw = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_raw");
-//            }
-//            if (this.haveCookedFish) {
-//                this.textureCooked = register.registerIcon(Paths.ModAssets + "fish_" + this.textureName + "_cooked");
-//            }
-//        }
-//
-//        @SideOnly(Side.CLIENT)
-//        public IIcon getTextureRaw() { return this.textureRaw; }
-//
-//        @SideOnly(Side.CLIENT)
-//        public IIcon getTextureCooked() { return this.textureCooked; }
-
         public boolean isHaveCookedFish() { return this.haveCookedFish; }
 
         public boolean isHaveRawFish() { return this.haveRawFish; }
 
         public static FishType getFishTypeList(int fishType) {
-            FishType fishtype = (FishType)FishTypeMap.get(Integer.valueOf(fishType));
+            FishType fishtype = (FishType)META_LOOKUP.get(Integer.valueOf(fishType));
             return fishtype == null ? MACKEREL : fishtype;
         }
 
@@ -202,7 +164,7 @@ public class ItemModFishFood extends SourceFood {
             int var1 = var0.length;
             for (int var2 = 0; var2 < var1; ++var2) {
                 FishType var3 = var0[var2];
-                FishTypeMap.put(Integer.valueOf(var3.getMetaData()), var3);
+                META_LOOKUP.put(Integer.valueOf(var3.getMetaData()), var3);
             }
         }
     }
