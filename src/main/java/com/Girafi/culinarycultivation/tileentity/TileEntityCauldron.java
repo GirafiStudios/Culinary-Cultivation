@@ -10,11 +10,11 @@ public class TileEntityCauldron extends SourceTileEntity implements IUpdatePlaye
 
     @Override
     public void update() {
-        if (worldObj.getBlockState(pos).getBlock() == ModBlocks.cauldron && getBlockMetadata() == 14) {
+        if (worldObj.getBlockState(pos).getBlock() == ModBlocks.cauldron && getBlockMetadata() == 12) {
             LogHelper.debug(timer);
             if (timer > 0) timer--;
             if (timer == 0 && !worldObj.isRemote) {
-                worldObj.setBlockState(pos, worldObj.getBlockState(pos).getBlock().getStateFromMeta(15), 2);
+                worldObj.setBlockState(pos, worldObj.getBlockState(pos).getBlock().getStateFromMeta(13), 2);
             }
         }
     }

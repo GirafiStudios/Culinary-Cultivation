@@ -6,7 +6,7 @@
         "bottom": "blocks/cauldron_bottom",
         "side": "blocks/cauldron_side",
         "inside": "blocks/cauldron_inner",
-        "water": "blocks/water_still"
+        "rennet": "culinarycultivation:blocks/rennet_still"
     },
     "elements": [
         {   "from": [ 0, 3, 0 ],
@@ -155,7 +155,7 @@
         {   "from": [ 2, 15, 2 ],
             "to": [ 14, 15, 14 ],
             "faces": {
-                "up": { "uv": [ 2, 2, 14, 14 ], "texture": "#water" }
+                "up": { "uv": [ 2, 2, 14, 14 ], "texture": "#rennet" }
             }
         }
     ]

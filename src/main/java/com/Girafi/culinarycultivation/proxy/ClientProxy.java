@@ -23,12 +23,13 @@ public class ClientProxy extends CommonProxy {
     public void registerRenders() {
         registerItemRender(cakeKnife);
         registerItemRender(debugItem);
-        registerItemRender(farmerBoots);
+        //registerItemRender(farmerBoots);
         registerItemRender(knife);
         registerItemRender(meatCleaver);
         registerItemRender(pieceOfCake);
         registerItemRender(toolHandle);
         registerItemRender(ModBlocks.cheese);
+        registerItemRender(ModBlocks.cauldron);
 
         ItemModFishFood.FishType[] afish = ItemModFishFood.FishType.values();
         int ifish = afish.length;

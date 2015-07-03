@@ -21,6 +21,7 @@ public class ItemModFishFood extends SourceFood {
     public ItemModFishFood(boolean cooked) {
         super(0, 0.0F, false);
         this.cooked = cooked;
+        setUnlocalizedName("fish");
     }
 
     public int getHealAmount(ItemStack stack) {

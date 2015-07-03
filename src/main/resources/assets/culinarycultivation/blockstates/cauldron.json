@@ -11,10 +11,8 @@
         "level=8": { "model": "culinarycultivation:cauldron_level8" },
         "level=9": { "model": "culinarycultivation:cauldron_level9" },
         "level=10": { "model": "culinarycultivation:cauldron_level10" },
-        "level=10": { "model": "culinarycultivation:cauldron_level11" },
-        "level=10": { "model": "culinarycultivation:cauldron_level12" },
-        "level=10": { "model": "culinarycultivation:cauldron_level13" },
-        "level=10": { "model": "culinarycultivation:cauldron_level14" },
-        "level=10": { "model": "culinarycultivation:cauldron_level15" }
+        "level=11": { "model": "culinarycultivation:cauldron_level11" },
+        "level=12": { "model": "culinarycultivation:cauldron_level12" },
+        "level=13": { "model": "culinarycultivation:cauldron_level13" }
     }
 }

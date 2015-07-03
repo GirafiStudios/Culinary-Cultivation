@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModItems {
     public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
     public static final Item debugItem = new ItemDebugItem();
-    public static final Item farmerBoots = new ItemFarmerBoots();
+    //public static final Item farmerBoots = new ItemFarmerBoots();
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
     public static final Item storageJar = new ItemStorageJar();
@@ -60,7 +60,7 @@ public class ModItems {
         GameRegistry.registerItem(meatCleaver, "meatCleaver");
         GameRegistry.registerItem(cakeKnife, "cakeKnife");
         GameRegistry.registerItem(debugItem, "debugItem");
-        GameRegistry.registerItem(farmerBoots, "farmerBoots");
+        //GameRegistry.registerItem(farmerBoots, "farmerBoots");
         MinecraftForge.EVENT_BUS.register(new ItemDebugItem());
     }
 }

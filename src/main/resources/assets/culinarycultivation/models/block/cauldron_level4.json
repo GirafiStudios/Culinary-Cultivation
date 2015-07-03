@@ -6,7 +6,7 @@
         "bottom": "blocks/cauldron_bottom",
         "side": "blocks/cauldron_side",
         "inside": "blocks/cauldron_inner",
-        "water": "blocks/water_still"
+        "milk": "culinarycultivation:blocks/milk_still"
     },
     "elements": [
         {   "from": [ 0, 3, 0 ],
@@ -152,10 +152,10 @@
                 "east":  { "uv": [ 14, 13, 12, 16 ], "texture": "#side" }
             }
         },
-        {   "from": [ 2, 15, 2 ],
-            "to": [ 14, 15, 14 ],
+        {   "from": [ 2, 9, 2 ],
+            "to": [ 14, 9, 14 ],
             "faces": {
-                "up": { "uv": [ 2, 2, 14, 14 ], "texture": "#water" }
+                "up": { "uv": [ 2, 2, 14, 14 ], "texture": "#milk" }
             }
         }
     ]
