@@ -24,15 +24,12 @@ import java.util.*;
 import java.util.List;
 
 public class ItemStorageJar extends SourceItem {
-//    @SideOnly(Side.CLIENT)
-//    public static IIcon defaultIcon;
-//    @SideOnly(Side.CLIENT)
-//    public static IIcon overlayIcon;
 
     public ItemStorageJar() {
         setHasSubtypes(true);
         setMaxDamage(0);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
+        setUnlocalizedName("storageJar");
     }
 
     public static enum StorageJarType {
@@ -43,18 +40,18 @@ public class ItemStorageJar extends SourceItem {
 
         private static final Map StorageJarTypeMap = Maps.newHashMap();
         private final int metaData;
-        private final String textureName;
+        private final String unlocalizedName;
         private final int colorNumber;
 
-        private StorageJarType(int metaData, String textureName) {
+        private StorageJarType(int metaData, String unlocalizedName) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.colorNumber = 0;
         }
 
-        private StorageJarType(int metaData, String textureName, int colorNumber) {
+        private StorageJarType(int metaData, String unlocalizedName, int colorNumber) {
             this.metaData = metaData;
-            this.textureName = textureName;
+            this.unlocalizedName = unlocalizedName;
             this.colorNumber = colorNumber;
         }
 
@@ -62,8 +59,8 @@ public class ItemStorageJar extends SourceItem {
             return this.metaData;
         }
 
-        public String getTextureName() {
-            return this.textureName;
+        public String getUnlocalizedName() {
+            return this.unlocalizedName;
         }
 
         public int getColorNumber() {
@@ -171,19 +168,6 @@ public class ItemStorageJar extends SourceItem {
         return false;
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public IIcon getIconFromDamage(int damage) {
-//        return this.defaultIcon;
-//    }
-
-//    @SideOnly(Side.CLIENT)
-//    public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
-//        if (damage != 0) {
-//            return renderPass == 0 ? this.overlayIcon : super.getIconFromDamageForRenderPass(damage, renderPass);
-//        } else
-//            return this.getIconFromDamage(damage);
-//    }
-
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int color) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
@@ -193,19 +177,8 @@ public class ItemStorageJar extends SourceItem {
             return 16777215;
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public boolean requiresMultipleRenderPasses() {
-//        return true;
-//    }
-
     public String getItemStackDisplayName(ItemStack stack) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
-        return StatCollector.translateToLocal("item." + Paths.ModAssets + "storageJar_" + storageJarType.getTextureName() + ".name").trim();
+        return StatCollector.translateToLocal("item." + Paths.ModAssets + "storageJar_" + storageJarType.getUnlocalizedName() + ".name").trim();
     }
-
-//    @SideOnly(Side.CLIENT)
-//    public void registerIcons(IIconRegister register) {
-//        this.defaultIcon = register.registerIcon(Paths.ModAssets + this.getIconString() + "_" + "default");
-//        this.overlayIcon = register.registerIcon(Paths.ModAssets + this.getIconString() + "_" + "overlay");
-//    }
 }

@@ -1,6 +1,7 @@
 {
-  "parent": "CulinaryCultivation:item/default",
+  "parent": "culinarycultivation:item/default",
   "textures": {
-    "layer0": "CulinaryCultivation:items/storageJar_default"
+    "layer0": "culinarycultivation:items/storageJar_overlay",
+    "layer1": "culinarycultivation:items/storageJar_default"
   }
 }

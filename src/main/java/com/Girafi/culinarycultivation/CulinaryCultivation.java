@@ -41,11 +41,11 @@ public class CulinaryCultivation {
     @Mod.EventHandler
     public void init (FMLInitializationEvent event) {
         //Register GUIs
-        proxy.registerRenders();
         ModTileEntities.init();
         FMLCommonHandler.instance().bus().register(new CraftingHandler());
         Recipes.init();
         OreDictionaryRegistration.init();
+        proxy.registerRenders();
         ModSupport.instance().init();
         LogHelper.info(Reference.MOD_NAME_ + "Initialization Complete.");
     }

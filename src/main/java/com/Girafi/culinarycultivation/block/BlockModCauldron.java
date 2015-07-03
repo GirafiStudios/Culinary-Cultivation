@@ -38,8 +38,8 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     public BlockModCauldron() {
         super(Material.iron);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
-        this.setUnlocalizedName("cauldron");
+        setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
+        setUnlocalizedName("cauldron");
         setHardness(2.0F);
     }
 
@@ -440,5 +440,4 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     protected BlockState createBlockState() {
         return new BlockState(this, new IProperty[] {LEVEL});
     }
-
 }

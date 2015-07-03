@@ -1,7 +1,5 @@
 package com.Girafi.culinarycultivation.item;
 
-import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.utility.LogHelper;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +21,6 @@ public class ItemModFishFood extends SourceFood {
     public ItemModFishFood(boolean cooked) {
         super(0, 0.0F, false);
         this.cooked = cooked;
-        setUnlocalizedName("fish");
     }
 
     public int getHealAmount(ItemStack stack) {

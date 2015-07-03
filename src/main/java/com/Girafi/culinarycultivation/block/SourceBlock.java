@@ -5,10 +5,8 @@ import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class SourceBlock extends Block
-{
-    public SourceBlock(Material material)
-    {
+public class SourceBlock extends Block {
+    public SourceBlock(Material material) {
 
         super(material);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
@@ -21,19 +19,11 @@ public class SourceBlock extends Block
     }
 
     @Override
-    public String getUnlocalizedName()
-    {
+    public String getUnlocalizedName() {
         return String.format("tile.%s%s", Paths.ModAssets, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public void registerBlockIcons(IIconRegister iconRegister) {
-//        blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
-//    }
-
-    protected String getUnwrappedUnlocalizedName(String unlocalizedName)
-    {
+    protected String getUnwrappedUnlocalizedName(String unlocalizedName) {
         return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
 }

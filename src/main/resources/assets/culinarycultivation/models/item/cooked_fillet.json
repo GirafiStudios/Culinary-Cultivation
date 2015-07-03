@@ -1,0 +1,6 @@
+{
+  "parent": "culinarycultivation:item/default",
+  "textures": {
+    "layer0": "culinarycultivation:items/fish_fillet_cooked"
+  }
+}

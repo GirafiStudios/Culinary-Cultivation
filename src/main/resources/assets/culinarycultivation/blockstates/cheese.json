@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "culinarycultivation:cheese_uneaten" },
+        "bites=1": { "model": "culinarycultivation:cheese_slice1" },
+        "bites=2": { "model": "culinarycultivation:cheese_slice2" },
+        "bites=3": { "model": "culinarycultivation:cheese_slice3" },
+        "bites=4": { "model": "culinarycultivation:cheese_slice4" },
+        "bites=5": { "model": "culinarycultivation:cheese_slice5" },
+        "bites=6": { "model": "culinarycultivation:cheese_slice6" }
+    }
+}
