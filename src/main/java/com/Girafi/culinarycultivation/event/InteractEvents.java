@@ -27,67 +27,67 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class InteractEvents {
 
-    public static class CakeKnifeEvent { //TODO Fix it, mostly broken
+    public static class CakeKnifeEvent {
         @SubscribeEvent
         public void CakeKnifeInteractionEvent(PlayerInteractEvent iEvent) {
-            EntityPlayer player = iEvent.entityPlayer;
-            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cake) {
-                int x = (int) iEvent.entityPlayer.posX;
-                int y = (int) iEvent.entityPlayer.posY;
-                int z = (int) iEvent.entityPlayer.posZ;
-                boolean b = player.isSneaking();
-                int bites = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCake.BITES)).intValue();
+            if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                EntityPlayer player = iEvent.entityPlayer;
+                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cake) {
+                    int x = (int) iEvent.entityPlayer.posX;
+                    int y = (int) iEvent.entityPlayer.posY;
+                    int z = (int) iEvent.entityPlayer.posZ;
+                    boolean b = player.isSneaking();
+                    int bites = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCake.BITES)).intValue();
 
-                if (player.getFoodStats().needFood() && iEvent.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                    NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-2, -0.1F), (EntityPlayerMP) player);
-                }
-                if (b && iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) { // || b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK
-                    iEvent.world.setBlockToAir(iEvent.pos);
-                    if (!iEvent.world.isRemote) {
-                        if (bites == 0) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(Items.cake)));
-                        }
-                        if (bites == 1) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 6)));
-                        }
-                        if (bites == 2) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 5)));
-                        }
-                        if (bites == 3) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 4)));
-                        }
-                        if (bites == 4) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 3)));
-                        }
-                        if (bites == 5) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 2)));
-                        }
-                        if (bites == 6) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 1)));
-                        }
+                    if (player.getFoodStats().needFood() && iEvent.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                        NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-2, -0.1F), (EntityPlayerMP) player);
                     }
-                }
-                if (!b && iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || !b && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                    int i = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCake.BITES)).intValue();
-                    if (player.getFoodStats().needFood()) {
-                        player.getFoodStats().addStats(-2, 0.0F);
-
+                    if (b) {
+                        iEvent.world.setBlockToAir(iEvent.pos);
                         if (!iEvent.world.isRemote) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
-                        }
-                    }
-                    if (!player.getFoodStats().needFood()) {
-                        if (!iEvent.world.isRemote) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
-                            if (i >= 5) {
-                                iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).withProperty(BlockCake.BITES, Integer.valueOf(i + 1)), 3);
+                            if (bites == 0) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(Items.cake)));
                             }
-                            if (i == 6) {
-                                iEvent.world.setBlockToAir(iEvent.pos);
-                            } else {
-                                iEvent.world.setBlockToAir(iEvent.pos);
+                            if (bites == 1) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 6)));
+                            }
+                            if (bites == 2) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 5)));
+                            }
+                            if (bites == 3) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 4)));
+                            }
+                            if (bites == 4) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 3)));
+                            }
+                            if (bites == 5) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 2)));
+                            }
+                            if (bites == 6) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 1)));
                             }
                         }
+                    }
+                    if (!b) {
+                        int i = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCake.BITES)).intValue();
+                        if (player.getFoodStats().needFood()) {
+                            player.getFoodStats().addStats(-2, 0.0F);
+
+                            if (!iEvent.world.isRemote) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
+                            }
+                        }
+                        if (!player.getFoodStats().needFood()) {
+                            if (!iEvent.world.isRemote) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
+                                if (i < 6) {
+                                    iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).withProperty(BlockCake.BITES, Integer.valueOf(i + 1)), 3);
+                                } else {
+                                    iEvent.world.setBlockToAir(iEvent.pos);
+                                }
+                            }
+                        }
+                        iEvent.setCanceled(true);
                     }
                 }
             }
@@ -152,6 +152,7 @@ public class InteractEvents {
             }
         }
     }
+
 
     public static class StorageJarMilkFill {
         @SubscribeEvent
