@@ -70,23 +70,22 @@ public class InteractEvents {
                     }
                     if (!b) {
                         int i = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCake.BITES)).intValue();
-                        if (player.getFoodStats().needFood()) {
+                        if (player.getFoodStats().needFood() && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                             player.getFoodStats().addStats(-2, 0.0F);
 
                             if (!iEvent.world.isRemote) {
                                 iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
                             }
-                        }
-                        if (!player.getFoodStats().needFood()) {
-                            if (!iEvent.world.isRemote) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
-                                if (i < 6) {
-                                    iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).withProperty(BlockCake.BITES, Integer.valueOf(i + 1)), 3);
-                                } else {
-                                    iEvent.world.setBlockToAir(iEvent.pos);
-                                }
+                        } else if (!iEvent.world.isRemote) {
+                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
+                            if (i < 6) {
+                                iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).withProperty(BlockCake.BITES, Integer.valueOf(i + 1)), 3);
+                            } else {
+                                iEvent.world.setBlockToAir(iEvent.pos);
                             }
                         }
+                    }
+                    if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
                         iEvent.setCanceled(true);
                     }
                 }

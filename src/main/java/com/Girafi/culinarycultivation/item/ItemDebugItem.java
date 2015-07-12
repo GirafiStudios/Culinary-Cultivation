@@ -11,6 +11,7 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
@@ -25,11 +26,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDebugItem extends Item {
-
     private boolean alwaysEdible;
-
-//    @SideOnly(Side.CLIENT)
-//    private IIcon debug, hunger, hungerPlus, fertilizer, hoe;
 
     public ItemDebugItem() {
         super();
@@ -39,36 +36,21 @@ public class ItemDebugItem extends Item {
         setAlwaysEdible();
     }
 
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public void registerIcons(IIconRegister iIconRegister) {
-//        debug = iIconRegister.registerIcon(Paths.ModAssets + "debugDefault");
-//        hunger = iIconRegister.registerIcon(Paths.ModAssets + "debugHunger");
-//        hungerPlus = iIconRegister.registerIcon(Paths.ModAssets + "debugHungerPlus");
-//        fertilizer = iIconRegister.registerIcon(Paths.ModAssets + "debugFertilizer");
-//        hoe = iIconRegister.registerIcon(Paths.ModAssets + "debugHoe");
-//    }
-
-//    @Override
-//    public IIcon getIcon(ItemStack stack, int pass) {
-//        return debug;
-//    }
-//
-//    @Override
-//    public IIcon getIconIndex(ItemStack stack) {
-//        if (stack.getItemDamage() == 0)
-//            return debug;
-//        if (stack.getItemDamage() == 1)
-//            return hunger;
-//        if (stack.getItemDamage() == 2)
-//            return hungerPlus;
-//        if (stack.getItemDamage() == 3)
-//            return fertilizer;
-//        if (stack.getItemDamage() == 4)
-//            return hoe;
-//
-//        return super.getIconIndex(stack);
-//    }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
+        if (stack.getItemDamage() == 0)
+            return new ModelResourceLocation(Paths.ModAssets + "debugDefault", "inventory");
+        if (stack.getItemDamage() == 1)
+            return new ModelResourceLocation(Paths.ModAssets + "debugHunger", "inventory");
+        if (stack.getItemDamage() == 2)
+            return new ModelResourceLocation(Paths.ModAssets + "debugHungerPlus", "inventory");
+        if (stack.getItemDamage() == 3)
+            return new ModelResourceLocation(Paths.ModAssets + "debugFertilizer", "inventory");
+        if (stack.getItemDamage() == 4)
+            return new ModelResourceLocation(Paths.ModAssets + "debugHoe", "inventory");
+        else return new ModelResourceLocation(Paths.ModAssets + "debugDefault", "inventory");
+    }
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
@@ -76,7 +58,6 @@ public class ItemDebugItem extends Item {
                 + (stack.getItemDamage() == 0 ? ".debug" : (stack.getItemDamage() == 1 ? ".hunger" : (stack.getItemDamage() == 2 ? ".hungerPlus" :
                 (stack.getItemDamage() == 3 ? ".fertilizer" : (stack.getItemDamage() == 4 ? ".hoe" : "")))));
     }
-
 
     @Override
     public EnumAction getItemUseAction(ItemStack stack) {
@@ -109,8 +90,8 @@ public class ItemDebugItem extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn) {
         if (stack.getItemDamage() == 0) {
-            if (!worldIn.isRemote && !playerIn.isSneaking()) { //TODO Fix
-                playerIn.addChatComponentMessage(new ChatComponentText("Switch mode by shift + scrolling"));
+            if (!worldIn.isRemote && !playerIn.isSneaking()) {
+                //playerIn.addChatComponentMessage(new ChatComponentText("Switch mode by shift + scrolling")); /TODO Fix
             }
         }
         if (stack.getItemDamage() == 1) {
