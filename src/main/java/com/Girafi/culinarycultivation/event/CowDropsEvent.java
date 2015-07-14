@@ -85,4 +85,23 @@ public class CowDropsEvent {
             }
         }
     }
+    /**
+     * Drop 0-1 items of this living's type
+     */
+    public static class BabyCowCalfBellyDropsEvent {
+        @SubscribeEvent
+        public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
+            if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
+                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
+                    if (dropsEvent.entityLiving instanceof EntityCow && dropsEvent.entityLiving.isChild()) {
+                        int j = random.nextInt(2 + dropsEvent.lootingLevel);
+                        for (int k = 0; k < j; ++k) {
+                            dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.calfBelly, 1, 200), 1F);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

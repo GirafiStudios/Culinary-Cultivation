@@ -34,6 +34,7 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(meat, 1 , MeatType.SQUIDMANTLE.getMetaData())));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 2 , MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(fish, 1 , FishType.SMALLSQUID.getMetaData())));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 7), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(cheeseSlice, 7), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.cheese));
 
         //Furnace recipes
         GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cooked_fish, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);

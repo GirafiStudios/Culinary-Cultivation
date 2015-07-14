@@ -7,9 +7,11 @@ import com.Girafi.culinarycultivation.item.ItemStorageJar;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.utility.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -21,15 +23,32 @@ public class ClientProxy extends CommonProxy {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerRenders() {
-        registerItemRender(cakeKnife);
-        registerItemRender(debugItem);
         //registerItemRender(farmerBoots);
+        registerItemRender(cakeKnife);
+        registerItemRender(cheeseSlice);
         registerItemRender(knife);
         registerItemRender(meatCleaver);
         registerItemRender(pieceOfCake);
         registerItemRender(toolHandle);
-        registerItemRender(ModBlocks.cheese);
         registerItemRender(ModBlocks.cauldron);
+        registerItemRender(ModBlocks.cheese);
+
+        Utils.getMesher().register(calfBelly, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(calfBelly).toString(), "inventory");
+            }
+        });
+        addVariantName(debugItem, "debugDefault");
+        addVariantName(debugItem, "debugHunger");
+        addVariantName(debugItem, "debugHungerPlus");
+        addVariantName(debugItem, "debugFertilizer");
+        addVariantName(debugItem, "debugHoe");
+        Utils.getMesher().register(debugItem, 0, new ModelResourceLocation(Paths.ModAssets + "debugDefault", "inventory"));
+        Utils.getMesher().register(debugItem, 1, new ModelResourceLocation(Paths.ModAssets + "debugHunger", "inventory"));
+        Utils.getMesher().register(debugItem, 2, new ModelResourceLocation(Paths.ModAssets + "debugHungerPlus", "inventory"));
+        Utils.getMesher().register(debugItem, 3, new ModelResourceLocation(Paths.ModAssets + "debugFertilizer", "inventory"));
+        Utils.getMesher().register(debugItem, 4, new ModelResourceLocation(Paths.ModAssets + "debugHoe", "inventory"));
 
         ItemModFishFood.FishType[] afish = ItemModFishFood.FishType.values();
         int ifish = afish.length;
@@ -61,8 +80,12 @@ public class ClientProxy extends CommonProxy {
         int ijar = ajar.length;
         for (int j = 0; j < ijar; ++j) {
             ItemStorageJar.StorageJarType jarType = ajar[j];
-            addVariantName(storageJar, "storageJar_" + jarType.getUnlocalizedName());
-            Utils.getMesher().register(storageJar, jarType.getMetaData(), new ModelResourceLocation(Paths.ModAssets + "storageJar_" + jarType.getUnlocalizedName(), "inventory"));
+            addVariantName(storageJar, "storageJar");
+            addVariantName(storageJar, "storageJar_empty");
+            if (jarType.getMetaData() == 0) {
+                Utils.getMesher().register(storageJar, jarType.getMetaData(), new ModelResourceLocation(Paths.ModAssets + "storageJar_empty", "inventory"));
+            } else
+            Utils.getMesher().register(storageJar, jarType.getMetaData(), new ModelResourceLocation(Paths.ModAssets + "storageJar", "inventory"));
         }
     }
 

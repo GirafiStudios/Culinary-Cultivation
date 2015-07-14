@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
@@ -27,59 +28,58 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class InteractEvents {
 
-    public static class CakeKnifeEvent {
+    public static class ToolOnBlockInteractionEvent {
         @SubscribeEvent
         public void CakeKnifeInteractionEvent(PlayerInteractEvent iEvent) {
             if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                 EntityPlayer player = iEvent.entityPlayer;
-                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.cakeKnife && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cake) {
+                if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == equippedItem() && iEvent.world.getBlockState(iEvent.pos).getBlock() == baseBlock()) {
                     int x = (int) iEvent.entityPlayer.posX;
                     int y = (int) iEvent.entityPlayer.posY;
                     int z = (int) iEvent.entityPlayer.posZ;
                     boolean b = player.isSneaking();
-                    int bites = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCake.BITES)).intValue();
+                    int state = state(iEvent.world, iEvent.pos);
 
                     if (player.getFoodStats().needFood() && iEvent.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                        NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-2, -0.1F), (EntityPlayerMP) player);
+                        NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-hungerAmount(), -saturationAmount()), (EntityPlayerMP) player);
                     }
                     if (b) {
                         iEvent.world.setBlockToAir(iEvent.pos);
                         if (!iEvent.world.isRemote) {
-                            if (bites == 0) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(Items.cake)));
+                            if (state == 0) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(baseItem())));
                             }
-                            if (bites == 1) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 6)));
+                            if (state == 1) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 6)));
                             }
-                            if (bites == 2) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 5)));
+                            if (state == 2) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 5)));
                             }
-                            if (bites == 3) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 4)));
+                            if (state == 3) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 4)));
                             }
-                            if (bites == 4) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 3)));
+                            if (state == 4) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 3)));
                             }
-                            if (bites == 5) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 2)));
+                            if (state == 5) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 2)));
                             }
-                            if (bites == 6) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake, 1)));
+                            if (state == 6) {
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 1)));
                             }
                         }
                     }
                     if (!b) {
-                        int i = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCake.BITES)).intValue();
                         if (player.getFoodStats().needFood() && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                            player.getFoodStats().addStats(-2, 0.0F);
+                            player.getFoodStats().addStats(-hungerAmount(), -saturationAmount());
 
                             if (!iEvent.world.isRemote) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
+                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem())));
                             }
                         } else if (!iEvent.world.isRemote) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(ModItems.pieceOfCake)));
-                            if (i < 6) {
-                                iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).withProperty(BlockCake.BITES, Integer.valueOf(i + 1)), 3);
+                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem())));
+                            if (state < 6) {
+                                iEvent.world.setBlockState(iEvent.pos, stateWithProperty(iEvent.world, iEvent.pos), 3);
                             } else {
                                 iEvent.world.setBlockToAir(iEvent.pos);
                             }
@@ -90,6 +90,61 @@ public class InteractEvents {
                     }
                 }
             }
+        }
+        public Item equippedItem() {
+            return ModItems.cakeKnife;
+        }
+
+        public Item sliceItem() {
+            return ModItems.pieceOfCake;
+        }
+
+        public Item baseItem() {
+            return Items.cake;
+        }
+
+        public Block baseBlock() {
+            return Blocks.cake;
+        }
+
+        public int state(World world, BlockPos pos) {
+            return ((Integer) world.getBlockState(pos).getValue(BlockCake.BITES)).intValue();
+        }
+
+        public IBlockState stateWithProperty(World world, BlockPos pos) {
+            return world.getBlockState(pos).withProperty(BlockCake.BITES, Integer.valueOf(state(world, pos) + 1));
+        }
+
+        public int hungerAmount() {
+            return 2;
+        }
+
+        public float saturationAmount() {
+            return 0.1F;
+        }
+    }
+
+    public static class CakeInteractionEvent extends ToolOnBlockInteractionEvent {}
+
+    public static class CheeseInteractionEvent extends ToolOnBlockInteractionEvent {
+        public Item equippedItem() {
+            return ModItems.knife;
+        }
+
+        public Item sliceItem() {
+            return ModItems.cheeseSlice;
+        }
+
+        public Item baseItem() {
+            return Item.getItemFromBlock(ModBlocks.cheese);
+        }
+
+        public Block baseBlock() {
+            return ModBlocks.cheese;
+        }
+
+        public float saturationAmount() {
+            return 0.4F;
         }
     }
 

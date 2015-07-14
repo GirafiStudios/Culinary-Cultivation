@@ -1,7 +1,6 @@
 {
   "parent": "culinarycultivation:item/default",
   "textures": {
-    "layer0": "culinarycultivation:items/debugDefault"
-
+    "layer0": "culinarycultivation:items/calfBelly"
   }
 }

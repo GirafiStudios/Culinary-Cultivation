@@ -28,11 +28,13 @@ public class ModItems {
     //public static final Item beetRaw = new SourceSeedFood(1, 0.3F, ModBlocks.beet, Blocks.farmland).setUnlocalizedName("beet");
     //public static final Item beetSoup = new SourceSoup(8).setUnlocalizedName("beetSoup");
     //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
+    public static final Item cheeseSlice = new SourceFood(2, 0.4F, false).setUnlocalizedName("cheeseSlice");
     public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
     public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
+    public static final Item calfBelly = new ItemCalfBelly();
 
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
     //public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog");
@@ -42,6 +44,9 @@ public class ModItems {
     //public static final Item blackPepperDrupe = new SourceSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName("blackPepperDrupe");
 
     public static void init() { //Will show up in this order in NEI and Creative Tab
+        GameRegistry.registerItem(cheeseSlice, "cheeseSlice");
+        GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
+        GameRegistry.registerItem(calfBelly, "calfBelly");
         GameRegistry.registerItem(meat, "meat");
         GameRegistry.registerItem(cooked_meat, "cooked_meat");
         //GameRegistry.registerItem(sausage, "sausage");
@@ -49,10 +54,9 @@ public class ModItems {
         //GameRegistry.registerItem(chickenWingHot, "chickenWingHot");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
-//        GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
-//        GameRegistry.registerItem(beetRaw, "beetRaw");
+        //GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
+       //GameRegistry.registerItem(beetRaw, "beetRaw");
         //GameRegistry.registerItem(beetSoup, "beetSoup");
-        GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
         GameRegistry.registerItem(storageJar, "storageJar");
         GameRegistry.registerItem(toolHandle, "toolHandle");
         //GameRegistry.registerItem(sugarCaneHarvester, "sugarCaneHarvester");
