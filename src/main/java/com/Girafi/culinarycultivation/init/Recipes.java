@@ -3,10 +3,9 @@ package com.Girafi.culinarycultivation.init;
 import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -27,14 +26,15 @@ public class Recipes {
         //Food
         //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), " C ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fish, 1 , FishType.FILLET.getMetaData()), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), "fish"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 1 , MeatType.PATTY.getMetaData()), new ItemStack(meatCleaver, 1,OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.BACON.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.porkchop)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.CHICKENNUGGET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.chicken)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(meat, 1 , MeatType.SQUIDMANTLE.getMetaData())));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 2 , MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(fish, 1 , FishType.SMALLSQUID.getMetaData())));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fish, 1, FishType.FILLET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), "fish"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 1, MeatType.PATTY.getMetaData()), new ItemStack(meatCleaver, 1, OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3, MeatType.BACON.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.porkchop)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3, MeatType.CHICKENNUGGET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.chicken)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3, MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(meat, 1, MeatType.SQUIDMANTLE.getMetaData())));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 2, MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(fish, 1, FishType.SMALLSQUID.getMetaData())));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 7), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(cheeseSlice, 7), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.cheese));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(storageJar, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(calfBelly), storageJar, storageJar, storageJar, Items.water_bucket));
 
         //Furnace recipes
         GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cooked_fish, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);

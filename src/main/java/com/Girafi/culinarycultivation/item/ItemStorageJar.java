@@ -28,6 +28,7 @@ public class ItemStorageJar extends SourceItem {
     public ItemStorageJar() {
         setHasSubtypes(true);
         setMaxDamage(0);
+        setContainerItem(this);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         setUnlocalizedName("storageJar");
     }
@@ -97,6 +98,14 @@ public class ItemStorageJar extends SourceItem {
                 list.add(new ItemStack(this, 1, storageJarType.getMetaData()));
             }
         }
+    }
+
+    @Override
+    public ItemStack getContainerItem(ItemStack itemStack) {
+        if (!hasContainerItem(itemStack) || itemStack.getItemDamage() == 0) {
+            return null;
+        }
+        return new ItemStack(getContainerItem());
     }
 
     @Override

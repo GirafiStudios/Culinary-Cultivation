@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import com.Girafi.culinarycultivation.handler.CraftingHandler;
 import com.Girafi.culinarycultivation.init.*;
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
 import com.Girafi.culinarycultivation.modSupport.ModSupport;
@@ -42,7 +41,6 @@ public class CulinaryCultivation {
     public void init (FMLInitializationEvent event) {
         //Register GUIs
         ModTileEntities.init();
-        FMLCommonHandler.instance().bus().register(new CraftingHandler());
         Recipes.init();
         OreDictionaryRegistration.init();
         proxy.registerRenders();

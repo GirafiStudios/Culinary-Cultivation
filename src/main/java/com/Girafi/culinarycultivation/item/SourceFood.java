@@ -3,7 +3,6 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 
 public class SourceFood extends ItemFood {

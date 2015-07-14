@@ -3,17 +3,13 @@ package com.Girafi.culinarycultivation.init;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.ChickenWingDropsEvent;
+import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.CowDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.InteractEvents.*;
-import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.AchievementTriggerEvent;
-import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.DrumstickCraftingEvent;
-import static com.Girafi.culinarycultivation.event.PigDropsEvent.PigHamDropsEvent;
-import static com.Girafi.culinarycultivation.event.PigDropsEvent.PigRibsPorkDropsEvent;
-import static com.Girafi.culinarycultivation.event.SheepDropsEvent.BabySheepLambDropsEvent;
-import static com.Girafi.culinarycultivation.event.SheepDropsEvent.SheepLegOfSheepDropsEvent;
-import static com.Girafi.culinarycultivation.event.SquidDropsEvent.SquidMantleDropsEvent;
-import static com.Girafi.culinarycultivation.event.SquidDropsEvent.SquidTentacleDropsEvent;
+import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.*;
+import static com.Girafi.culinarycultivation.event.PigDropsEvent.*;
+import static com.Girafi.culinarycultivation.event.SheepDropsEvent.*;
+import static com.Girafi.culinarycultivation.event.SquidDropsEvent.*;
 import static com.Girafi.culinarycultivation.handler.ConfigurationHandler.*;
 
 public class Events {
@@ -28,9 +24,9 @@ public class Events {
         if (ShouldSheepDropLegOfSheep) {MinecraftForge.EVENT_BUS.register(new SheepLegOfSheepDropsEvent()); }
         if (ShouldSquidDropSquidMantle) {MinecraftForge.EVENT_BUS.register(new SquidMantleDropsEvent()); }
         if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
-        //MinecraftForge.EVENT_BUS.register(new BabyCowCalfBellyDropsEvent());
+        MinecraftForge.EVENT_BUS.register(new BabyCowCalfBellyDropsEvent());
         FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
-        FMLCommonHandler.instance().bus().register(new DrumstickCraftingEvent());
+        FMLCommonHandler.instance().bus().register(new CraftedEvent());
         MinecraftForge.EVENT_BUS.register(new CakeInteractionEvent());
         MinecraftForge.EVENT_BUS.register(new CheeseInteractionEvent());
         MinecraftForge.EVENT_BUS.register(new CauldronTransformation());

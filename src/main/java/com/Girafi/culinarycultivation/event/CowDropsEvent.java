@@ -97,7 +97,7 @@ public class CowDropsEvent {
                     if (dropsEvent.entityLiving instanceof EntityCow && dropsEvent.entityLiving.isChild()) {
                         int j = random.nextInt(2 + dropsEvent.lootingLevel);
                         for (int k = 0; k < j; ++k) {
-                            dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.calfBelly, 1, 200), 1F);
+                            dropsEvent.entityLiving.entityDropItem(new ItemStack(ModItems.calfBelly), 1F);
                         }
                     }
                 }

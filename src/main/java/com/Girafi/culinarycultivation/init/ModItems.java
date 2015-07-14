@@ -34,11 +34,9 @@ public class ModItems {
     public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
-    public static final Item calfBelly = new ItemCalfBelly();
+    public static final Item calfBelly = new SourceItem().setUnlocalizedName("calfBelly").setMaxStackSize(1);
 
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
-    //public static final Item hotdog = new SourceFood(0, 0.0F, false).setUnlocalizedName("hotdog");
-
 
     //Seeds
     //public static final Item blackPepperDrupe = new SourceSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName("blackPepperDrupe");
@@ -50,7 +48,6 @@ public class ModItems {
         GameRegistry.registerItem(meat, "meat");
         GameRegistry.registerItem(cooked_meat, "cooked_meat");
         //GameRegistry.registerItem(sausage, "sausage");
-        //GameRegistry.registerItem(hotdog, "hotdog");
         //GameRegistry.registerItem(chickenWingHot, "chickenWingHot");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
