@@ -4,7 +4,6 @@ import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -22,20 +21,19 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knife), true, "  I", " I ", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(meatCleaver), true, " II", " II", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolHandle), true, "   ", " S ", " S ", 'S', "stickWood"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), new ItemStack(beetRaw)));
+        //GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), new ItemStack(beetRaw)));
 
         //Food
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
+        //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), "   ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fish, 1 , FishType.FILLET.getMetaData()), new ItemStack(knife, 1,OreDictionary.WILDCARD_VALUE), "fish"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 1 , MeatType.PATTY.getMetaData()), new ItemStack(meatCleaver, 1,OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.BACON.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.porkchop)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.CHICKENNUGGET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.chicken)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3 , MeatType.SQUIDRING.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(meat, 1 , MeatType.SQUIDMANTLE.getMetaData())));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));  //TODO Minecraft 1.8 : Change cake slices from 6 to 7
-
-        //Temporary recipes
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(beetRaw), new ItemStack(Blocks.tallgrass, 1, 1)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 6), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(cheeseSlice, 6), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.cheese));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(storageJar, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(calfBelly), storageJar, storageJar, storageJar, Items.water_bucket));
 
         //Furnace recipes
         GameRegistry.addSmelting(mutton, new ItemStack(cookedMutton), 0.35F);

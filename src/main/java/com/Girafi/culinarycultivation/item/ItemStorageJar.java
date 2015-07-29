@@ -32,7 +32,8 @@ public class ItemStorageJar extends SourceItem {
     public ItemStorageJar() {
         setHasSubtypes(true);
         setMaxDamage(0);
-        this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
+        setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
+        setContainerItem(this);
         setTextureName("storageJar");
     }
 
@@ -101,6 +102,14 @@ public class ItemStorageJar extends SourceItem {
                 list.add(new ItemStack(this, 1, storageJarType.getMetaData()));
             }
         }
+    }
+
+    @Override
+        public ItemStack getContainerItem(ItemStack itemStack) {
+        if (!hasContainerItem(itemStack) || itemStack.getItemDamage() == 0) {
+            return null;
+        }
+        return new ItemStack(getContainerItem());
     }
 
     @Override

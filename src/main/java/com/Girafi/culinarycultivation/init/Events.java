@@ -25,9 +25,11 @@ public class Events {
         if (ShouldSheepDropMutton) {MinecraftForge.EVENT_BUS.register(new SheepMuttonDropsEvent()); }
         if (ShouldSquidDropSquidMantle) {MinecraftForge.EVENT_BUS.register(new SquidMantleDropsEvent()); }
         if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
+        MinecraftForge.EVENT_BUS.register(new BabyCowCalfBellyDropsEvent());
         FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
         FMLCommonHandler.instance().bus().register(new DrumstickCraftingEvent());
-        MinecraftForge.EVENT_BUS.register(new CakeKnifeEvent());
+        MinecraftForge.EVENT_BUS.register(new CakeInteractionEvent());
+        MinecraftForge.EVENT_BUS.register(new CheeseInteractionEvent());
         MinecraftForge.EVENT_BUS.register(new CauldronTransformation());
         MinecraftForge.EVENT_BUS.register(new DebugItemEvent());
         MinecraftForge.EVENT_BUS.register(new StorageJarMilkFill());
