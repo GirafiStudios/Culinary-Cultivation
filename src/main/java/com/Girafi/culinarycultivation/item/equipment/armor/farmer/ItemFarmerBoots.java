@@ -6,35 +6,28 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemFarmerBoots extends ItemFarmerArmor { //TODO Figure out what do on sneak, and what not to do (Maybe switch mode on sneak?)
+import java.util.Random;
+
+public class ItemFarmerBoots extends ItemFarmerArmor {
 
     public ItemFarmerBoots() {
         super(3, "farmerBoots");
     }
 
-    /*@Override
+    @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-        Block playerStandingOnBlock = player.worldObj.getBlock(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.getBoundingBox().minY) - 1, MathHelper.floor_double(player.posZ));
-        int x = (int) player.posX;
-        int y = (int) player.posY;
-        int z = (int) player.posZ;
+        Block playerStandingOnBlock = player.worldObj.getBlockState(player.getPosition().down()).getBlock();
 
         if (player.onGround) {
             if (player.isSneaking()) {
-                if (playerStandingOnBlock == Blocks.dirt || playerStandingOnBlock == Blocks.grass) {
-                    world.playSoundEffect((double) (x + 0.5F), (double) (y + 0.5F), (double) (z + 0.5F), Blocks.farmland.stepSound.getStepSound(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.farmland.stepSound.getFrequency() * 0.8F);
-                    if (!world.isRemote) {
-                        world.setBlock(x, y - 1, z, Blocks.farmland);
-                    }
-                }
-            }
-            if (!player.isSneaking()) {
                 if (playerStandingOnBlock == Blocks.farmland) {
+                    world.playSoundEffect((player.posX + 0.5F), (player.posY + 0.5F), (player.posZ + 0.5F), Blocks.dirt.stepSound.getStepSound(), (Blocks.dirt.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.dirt.stepSound.getFrequency() * 0.8F);
                     if (!world.isRemote) {
-                        world.setBlock(x, y - 1, z, Blocks.dirt);
+                        world.setBlockState(player.getPosition().down(), Blocks.dirt.getDefaultState());
                     }
+                    stack.attemptDamageItem(1, new Random(5));
                 }
             }
         }
-    }*/
+    }
 }

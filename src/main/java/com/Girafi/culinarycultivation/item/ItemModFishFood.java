@@ -82,7 +82,7 @@ public class ItemModFishFood extends SourceFood {
             return this.getUnlocalizedName() + "." + fishtype.getUnlocalizedName() + "." + (this.cooked && fishtype.isHaveCookedFish() ? "cooked" : "cooked");
     }
 
-    public static enum FishType { //TODO Look at fish values!
+    public static enum FishType {
         MACKEREL(0, "mackerel", 2, 0.1F, 6, 0.7F),
         TUNA(1, "tuna", 3, 0.2F, 6, 0.6F),
         TROUT(2, "trout", 2, 0.1F, 6, 0.4F),

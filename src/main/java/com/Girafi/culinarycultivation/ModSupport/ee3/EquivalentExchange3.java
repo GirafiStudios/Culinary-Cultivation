@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.modSupport.ee3;
 
+import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemModFishFood.*;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.*;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemStack;
 //public class EquivalentExchange3 implements IModSupport {
 //
 //    private static final int BASIC_FOOD_VALUE = 24;
+//    private static final int SLICE_VALUE = 61;
 //
 //    @Override
 //    public void preInit() {
@@ -24,6 +26,13 @@ import net.minecraft.item.ItemStack;
 //        int imeat = meat.length;
 //        for (int j = 0; j < imeat; ++j) {
 //            MeatType meatType = meat[j];
+//            int meatMeta = meatType.getMetaData();
+//            if (meatMeta == MeatType.CHICKENNUGGET.getMetaData() || meatMeta == MeatType.DRUMSTICK.getMetaData()) {
+//                EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.meat, 1, MeatType.CHICKENNUGGET.getMetaData()), 4.8F);
+//                EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.cooked_meat, 1, MeatType.CHICKENNUGGET.getMetaData()), 4.8F);
+//                EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.meat, 1, MeatType.DRUMSTICK.getMetaData()), 4.8F);
+//                EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.cooked_meat, 1, MeatType.DRUMSTICK.getMetaData()), 4.8F);
+//            } else {
 //            EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.meat, 1, meatType.getMetaData()), BASIC_FOOD_VALUE);
 //            EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.cooked_meat, 1, meatType.getMetaData()), BASIC_FOOD_VALUE);
 //        }
@@ -39,6 +48,9 @@ import net.minecraft.item.ItemStack;
 //        }
 //
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.pieceOfCake), 61);
+//        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.pieceOfCake), SLICE_VALUE);
+//        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModBlocks.cheese), 360);
+//        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.cheeseSlice), SLICE_VALUE);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.beetRaw), BASIC_FOOD_VALUE);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.blackPepperDrupe), BASIC_FOOD_VALUE);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.mutton), BASIC_FOOD_VALUE);
