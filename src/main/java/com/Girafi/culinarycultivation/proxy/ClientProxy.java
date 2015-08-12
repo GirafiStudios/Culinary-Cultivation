@@ -24,6 +24,8 @@ public class ClientProxy extends CommonProxy {
     @SideOnly(Side.CLIENT)
     public void registerRenders() {
         //registerItemRender(farmerBoots);
+        registerItemRender(blackPepperDrupe);
+        registerItemRender(calfBelly);
         registerItemRender(cakeKnife);
         registerItemRender(cheeseSlice);
         registerItemRender(knife);
@@ -31,14 +33,9 @@ public class ClientProxy extends CommonProxy {
         registerItemRender(pieceOfCake);
         registerItemRender(toolHandle);
         registerItemRender(ModBlocks.cauldron);
-        registerItemRender(ModBlocks.cheese);
+        registerItemRenderIgnoreMeta(ModBlocks.cheese);
 
-        Utils.getMesher().register(calfBelly, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(calfBelly).toString(), "inventory");
-            }
-        });
+
         addVariantName(debugItem, "debugDefault");
         addVariantName(debugItem, "debugHunger");
         addVariantName(debugItem, "debugHungerPlus");
@@ -95,6 +92,24 @@ public class ClientProxy extends CommonProxy {
 
     public static void registerItemRender(Block block) {
         Utils.getMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(block).toString(), "inventory"));
+    }
+
+    public static void registerItemRenderIgnoreMeta(final Item item) {
+        Utils.getMesher().register(item, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(item).toString(), "inventory");
+            }
+        });
+    }
+
+    public static void registerItemRenderIgnoreMeta(final Block block) {
+        Utils.getMesher().register(Item.getItemFromBlock(block), new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(block).toString(), "inventory");
+            }
+        });
     }
 
     public static void addVariantName(Item item, String name) {

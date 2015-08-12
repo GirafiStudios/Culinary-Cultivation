@@ -1,16 +1,11 @@
 package com.Girafi.culinarycultivation.init;
 
 import com.Girafi.culinarycultivation.item.*;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerBoots;
-import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
@@ -25,9 +20,6 @@ public class ModItems {
 
     ////Food
     //HealAmount, Saturation, isWolfFood
-    //public static final Item beetRaw = new SourceSeedFood(1, 0.3F, ModBlocks.beet, Blocks.farmland).setUnlocalizedName("beet");
-    //public static final Item beetSoup = new SourceSoup(8).setUnlocalizedName("beetSoup");
-    //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     public static final Item cheeseSlice = new SourceFood(2, 0.4F, false).setUnlocalizedName("cheeseSlice");
     public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
@@ -36,10 +28,11 @@ public class ModItems {
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
     public static final Item calfBelly = new SourceItem().setUnlocalizedName("calfBelly").setMaxStackSize(1);
 
+    //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
 
     //Seeds
-    //public static final Item blackPepperDrupe = new SourceSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName("blackPepperDrupe");
+    public static final Item blackPepperDrupe = new SourceSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName("blackPepperDrupe");
 
     public static void init() { //Will show up in this order in NEI and Creative Tab
         GameRegistry.registerItem(cheeseSlice, "cheeseSlice");
@@ -51,9 +44,7 @@ public class ModItems {
         //GameRegistry.registerItem(chickenWingHot, "chickenWingHot");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
-        //GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
-       //GameRegistry.registerItem(beetRaw, "beetRaw");
-        //GameRegistry.registerItem(beetSoup, "beetSoup");
+        GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
         GameRegistry.registerItem(storageJar, "storageJar");
         GameRegistry.registerItem(toolHandle, "toolHandle");
         //GameRegistry.registerItem(sugarCaneHarvester, "sugarCaneHarvester");

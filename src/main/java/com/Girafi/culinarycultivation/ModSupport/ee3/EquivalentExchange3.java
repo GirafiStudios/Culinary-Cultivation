@@ -51,7 +51,6 @@ import net.minecraft.item.ItemStack;
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.pieceOfCake), SLICE_VALUE);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModBlocks.cheese), 360);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.cheeseSlice), SLICE_VALUE);
-//        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.beetRaw), BASIC_FOOD_VALUE);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.blackPepperDrupe), BASIC_FOOD_VALUE);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.mutton), BASIC_FOOD_VALUE);
 //        EnergyValueRegistryProxy.addPreAssignedEnergyValue(new ItemStack(ModItems.cookedMutton), BASIC_FOOD_VALUE);

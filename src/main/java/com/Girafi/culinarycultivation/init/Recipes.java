@@ -21,10 +21,8 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knife), true, "  I", " I ", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(meatCleaver), true, " II", " II", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolHandle), true, "   ", " S ", " S ", 'S', "stickWood"));
-        //GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), new ItemStack(beetRaw)));
 
         //Food
-        //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetSoup), "BBB", "BBB", " C ", 'B', beetRaw, 'C', Items.bowl));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), " C ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fish, 1, FishType.FILLET.getMetaData()), new ItemStack(knife, 1, OreDictionary.WILDCARD_VALUE), "fish"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 1, MeatType.PATTY.getMetaData()), new ItemStack(meatCleaver, 1, OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));

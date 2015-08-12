@@ -1,9 +1,6 @@
 #Items
 item.culinarycultivation:baconCooked.name=Bacon
 item.culinarycultivation:baconRaw.name=Raw Bacon
-item.culinarycultivation:beet.name=Beet
-item.culinarycultivation:beetSeed.name=Beet Seeds
-item.culinarycultivation:beetSoup.name=Beet Soup
 item.culinarycultivation:blackPepperDrupe.name=Black Pepper Drupe
 item.culinarycultivation:bucketRennet.name=Rennet Bucket
 item.culinarycultivation:cakeKnife.name=Cake Knife
@@ -72,7 +69,6 @@ item.culinarycultivation:vealCooked.name=Cooked Veal
 item.culinarycultivation:vealRaw.name=Raw Veal
 
 #Blocks
-tile.culinarycultivation:beets.name=Beets
 tile.culinarycultivation:blackPepper.name=Black Pepper
 tile.culinarycultivation:cheese.name=Cheese
 

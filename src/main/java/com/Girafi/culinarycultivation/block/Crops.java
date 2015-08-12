@@ -5,159 +5,80 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockFarmland;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-/*public class Crops {
+public class Crops {
 
-
-    public static class BlockBeet extends BlockCrops {
-
-        @SideOnly(Side.CLIENT)
-        private IIcon[] iicon;
-
-        @SideOnly(Side.CLIENT)
-        public IIcon getIcon(int side, int meta) {
-            if (meta < 7) {
-                if (meta == 6) {
-                    meta = 5;
-                }
-                return this.iicon[meta >> 1];
-            }else {
-                return this.iicon[3];
-            }
-        }
-
-        protected Item func_149866_i()
-        {
-            return ModItems.beetRaw;
-        }
-
-        protected Item func_149865_P()
-        {
-            return ModItems.beetRaw;
-        }
-
-        @SideOnly(Side.CLIENT)
-        public void registerBlockIcons(IIconRegister iIconRegister) {
-            this.iicon = new IIcon[4];
-
-            for (int i = 0; i < this.iicon.length; ++i) {
-                this.iicon[i] = iIconRegister.registerIcon(this.getTextureName() + "_stage_" + i);
-            }
-        }
-    }
-
-    public static class BlockBlackPepper extends BlockCrops { //TODO Might need to extend BlockBush and implement IGrowable
-        //Highly inspired by BP Flax seeds, just to try find a way to get it working
-        //TODO Make 1 block instead of 2, but still two high!
+    public static class BlockBlackPepper extends BlockCrops {
 
         @Override
-        public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-
-            int l = world.getBlockMetadata(x, y, z);
-            if (l <= 2) {
-                this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
-            } else if (l <= 4) {
-                this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-            } else if (l <= 6) {
-                this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-            } else {
-                this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-            }
+        protected boolean canPlaceBlockOn(Block ground) {
+            return ground == Blocks.farmland || ground == ModBlocks.blackPepper;
         }
 
         @Override
-        public void updateTick(World worldin, int x, int y, int z, Random rand) { //TODO Need to do a lot of work here!
+        public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+            if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
+                int i = ((Integer) state.getValue(AGE)).intValue();
+                float f = getGrowthChance(this, worldIn, pos);
 
-            if (worldin.getBlockLightValue(x, y + 1, z) >= 9) {
-                int l = worldin.getBlockMetadata(x, y, z);
-
-                if ((l < 7) && (worldin.getBlock(x, y -1, z) instanceof BlockFarmland)) {
-                    if (rand.nextInt(30) == 0) {
-                        worldin.setBlockMetadataWithNotify(x, y, z, l + 1, 2);
+                if (rand.nextInt((int) (25.0F / f) + 1) == 0) {
+                    if (i == 3 && worldIn.getBlockState(pos.up()) == Blocks.air) {
+                        worldIn.setBlockState(pos.up(), state.withProperty(AGE, Integer.valueOf(i + 1)), 2);
                     }
+                    if (i == 3 && worldIn.getBlockState(pos.up()) instanceof BlockAir) {
+                        worldIn.setBlockState(pos.up(), state.withProperty(AGE, Integer.valueOf(i + 1)), 2);
+                    }
+                    if (i == 3 && worldIn.getBlockState(pos.up()) == state.getBlock().getStateFromMeta(5)) {
+                        worldIn.setBlockState(pos, state.withProperty(AGE, 6), 2);
+                        worldIn.setBlockState(pos.up(), state.withProperty(AGE, 7), 2);
+                    } else if (i < 5 && i != 3)
+                        worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i + 1)), 2);
                 }
-                if ((l == 7) && (worldin.getBlock(x, y - 1, z) instanceof BlockFarmland) && (worldin.getBlock(x, y + 1, z) instanceof BlockAir)) {
-                    worldin.setBlock(x, y + 1, z, ModBlocks.blackPepper2, 0, 2);
-                }
-
             }
         }
-
-        @SideOnly(Side.CLIENT)
-        private IIcon[] iicon;
-
-        @SideOnly(Side.CLIENT)
-        public IIcon getIcon(int side, int meta) {
-            if (meta < 7) {
-                if (meta == 6) {
-                    meta = 5;
-                }
-                return this.iicon[meta >> 1];
-            } else {
-                return this.iicon[3];
-            }
-        }
-
-        protected Item func_149866_i() {
-            return ModItems.beetRaw;
-        }
-
-        protected Item func_149865_P() {
-            return ModItems.beetRaw;
-        }
-
-        @SideOnly(Side.CLIENT)
-        public void registerBlockIcons(IIconRegister iIconRegister) {
-            this.iicon = new IIcon[4];
-
-            for (int i = 0; i < this.iicon.length; ++i) {
-                this.iicon[i] = iIconRegister.registerIcon(this.getTextureName() + "_stage_" + i);
-            }
-        }
-    }
-
-    public static class BlockBlackPepperStep2 extends BlockCrops {
 
         @Override
-        protected boolean canPlaceBlockOn(Block block)
-        {
-            return block == ModBlocks.blackPepper;
+        public void grow(World worldIn, BlockPos pos, IBlockState state) {
+            int i = ((Integer) state.getValue(AGE)).intValue() + MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 1);
+            int meta = ((Integer) state.getValue(AGE)).intValue();
+
+            if (i > 7) {
+                i = 7;
+            }
+
+            if (meta == 3) {
+                worldIn.setBlockState(pos.up(), state.withProperty(AGE, 4), 2);
+            }
+            if (meta == 5 && worldIn.getBlockState(pos.down()) == state.getBlock().getStateFromMeta(3)) {
+                worldIn.setBlockState(pos.down(), state.withProperty(AGE, 6), 2);
+                worldIn.setBlockState(pos, state.withProperty(AGE, 7), 2);
+            } else
+                worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i)), 2);
         }
 
-        @SideOnly(Side.CLIENT)
-        private IIcon[] iicon;
-
-        @SideOnly(Side.CLIENT)
-        public IIcon getIcon(int side, int meta) {
-            if (meta < 7) {
-                if (meta == 6) {
-                    meta = 5;
-                }
-                return this.iicon[meta >> 1];
-            } else {
-                return this.iicon[3];
-            }
+        @Override
+        public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+            int meta = ((Integer) state.getValue(AGE)).intValue();
+            if (meta == 3 && worldIn.getBlockState(pos.up()) == state.getBlock().getStateFromMeta(4) || meta == 6) {
+                return false;
+            } else
+                return meta < 7;
         }
 
-        protected Item func_149866_i() { return ModItems.beetRaw; }
+        protected Item getSeed() {
+            return ModItems.blackPepperDrupe;
+        }
 
-        protected Item func_149865_P() { return ModItems.beetRaw; }
-
-        @SideOnly(Side.CLIENT)
-        public void registerBlockIcons(IIconRegister iIconRegister) {
-            this.iicon = new IIcon[4];
-
-            for (int i = 0; i < this.iicon.length; ++i) {
-                this.iicon[i] = iIconRegister.registerIcon(this.getTextureName() + "_stage_" + i);
-            }
+        protected Item getCrop() {
+            return ModItems.toolHandle;
         }
     }
-}*/
+}
