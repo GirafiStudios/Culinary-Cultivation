@@ -70,6 +70,7 @@ item.culinarycultivation:vealRaw.name=Raw Veal
 
 #Blocks
 tile.culinarycultivation:blackPepper.name=Black Pepper
+tile.culinarycultivation:cucumber.name=Cucumbers
 tile.culinarycultivation:cheese.name=Cheese
 
 #Other
