@@ -14,6 +14,10 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
         super(3, "farmerBoots");
     }
 
+    public String armorModelFile() {
+        return "farmerArmorBoots.png";
+    }
+
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         Block playerStandingOnBlock = player.worldObj.getBlockState(player.getPosition().down()).getBlock();

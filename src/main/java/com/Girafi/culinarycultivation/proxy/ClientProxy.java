@@ -7,6 +7,7 @@ import com.Girafi.culinarycultivation.item.ItemStorageJar;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.utility.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -23,10 +24,14 @@ public class ClientProxy extends CommonProxy {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerRenders() {
-        //registerItemRender(farmerBoots);
+        registerItemRender(farmerStrawhat);
+        registerItemRender(farmerOveralls);
+        registerItemRender(farmerBoots);
+        registerItemRender(beetRoot);
+        registerItemRender(beetRootSeeds);
         registerItemRender(blackPepperDrupe);
-        registerItemRender(calfBelly);
         registerItemRender(cakeKnife);
+        registerItemRender(calfBelly);
         registerItemRender(cheeseSlice);
         registerItemRender(knife);
         registerItemRender(meatCleaver);
@@ -34,6 +39,7 @@ public class ClientProxy extends CommonProxy {
         registerItemRender(toolHandle);
         registerItemRender(ModBlocks.cauldron);
         registerItemRenderIgnoreMeta(ModBlocks.cheese);
+
 
 
         addVariantName(debugItem, "debugDefault");
