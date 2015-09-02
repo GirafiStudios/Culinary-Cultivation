@@ -22,13 +22,12 @@ public class ModItems {
     public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
     public static final Item storageJar = new ItemStorageJar();
-    //public static final Item sugarCaneHarvester = new ItemSugarCaneHarvester(Item.ToolMaterial.STONE);
+    public static final Item caneKnife = new ItemCaneKnife(Item.ToolMaterial.STONE);
     public static final Item toolHandle = new SourceItem().setUnlocalizedName("toolHandle");
 
     ////Food
     //HealAmount, Saturation, isWolfFood
     public static final Item beetRoot = new SourceFood(1, 0.1F, false).setUnlocalizedName("beetRoot");
-    public static final Item beetRootSeeds = new ItemSeeds(ModBlocks.beetRoots, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "beetRootSeeds");
     public static final Item cheeseSlice = new SourceFood(2, 0.4F, false).setUnlocalizedName("cheeseSlice");
     public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
@@ -42,6 +41,7 @@ public class ModItems {
 
     //Seeds
     public static final Item blackPepperDrupe = new ItemSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "blackPepperDrupe");
+    public static final Item beetRootSeeds = new ItemSeeds(ModBlocks.beetRoots, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "beetRootSeeds");
 
     public static void init() { //Will show up in this order in NEI and Creative Tab
         GameRegistry.registerItem(cheeseSlice, "cheeseSlice");
@@ -50,7 +50,6 @@ public class ModItems {
         GameRegistry.registerItem(meat, "meat");
         GameRegistry.registerItem(cooked_meat, "cooked_meat");
         //GameRegistry.registerItem(sausage, "sausage");
-        //GameRegistry.registerItem(chickenWingHot, "chickenWingHot");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
         GameRegistry.registerItem(beetRootSeeds, "beetRootSeeds");
@@ -58,10 +57,10 @@ public class ModItems {
         GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
         GameRegistry.registerItem(storageJar, "storageJar");
         GameRegistry.registerItem(toolHandle, "toolHandle");
-        //GameRegistry.registerItem(sugarCaneHarvester, "sugarCaneHarvester");
         GameRegistry.registerItem(knife, "knife");
-        GameRegistry.registerItem(meatCleaver, "meatCleaver");
         GameRegistry.registerItem(cakeKnife, "cakeKnife");
+        GameRegistry.registerItem(meatCleaver, "meatCleaver");
+        GameRegistry.registerItem(caneKnife, "caneKnife");
         GameRegistry.registerItem(debugItem, "debugItem");
         GameRegistry.registerItem(farmerStrawhat, "farmerStrawhat");
         GameRegistry.registerItem(farmerOveralls, "farmerOveralls");

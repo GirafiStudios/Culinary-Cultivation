@@ -24,6 +24,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class InteractEvents {
@@ -91,6 +92,7 @@ public class InteractEvents {
                 }
             }
         }
+
         public Item equippedItem() {
             return ModItems.cakeKnife;
         }
@@ -124,7 +126,8 @@ public class InteractEvents {
         }
     }
 
-    public static class CakeInteractionEvent extends ToolOnBlockInteractionEvent {}
+    public static class CakeInteractionEvent extends ToolOnBlockInteractionEvent {
+    }
 
     public static class CheeseInteractionEvent extends ToolOnBlockInteractionEvent {
         public Item equippedItem() {
@@ -219,6 +222,24 @@ public class InteractEvents {
                     } else if (!iEvent.entityPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()))) {
                         iEvent.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()), false);
                     }
+                }
+            }
+        }
+    }
+
+    public static class CaneKnife {
+        @SubscribeEvent
+        public void CaneKnife(BlockEvent.BreakEvent breakEvent) {
+            if (breakEvent.getPlayer().getCurrentEquippedItem() != null && breakEvent.getPlayer().getCurrentEquippedItem().getItem() == ModItems.caneKnife) {
+                if (breakEvent.world.getBlockState(breakEvent.pos).getBlock() == Blocks.reeds) {
+                    Block block = breakEvent.world.getBlockState(breakEvent.pos).getBlock();
+                    if (breakEvent.world.getBlockState(breakEvent.pos.down()).getBlock() == Blocks.grass) {
+                        breakEvent.setCanceled(true);
+                        block.breakBlock(breakEvent.world, breakEvent.pos.up(), breakEvent.world.getBlockState(breakEvent.pos));
+                        block.breakBlock(breakEvent.world, breakEvent.pos.up(2), breakEvent.world.getBlockState(breakEvent.pos));
+                    }
+
+
                 }
             }
         }

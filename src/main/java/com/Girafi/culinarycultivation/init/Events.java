@@ -28,8 +28,9 @@ public class Events {
         FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
         FMLCommonHandler.instance().bus().register(new CraftedEvent());
         MinecraftForge.EVENT_BUS.register(new CakeInteractionEvent());
-        MinecraftForge.EVENT_BUS.register(new CheeseInteractionEvent());
+        MinecraftForge.EVENT_BUS.register(new CaneKnife());
         MinecraftForge.EVENT_BUS.register(new CauldronTransformation());
+        MinecraftForge.EVENT_BUS.register(new CheeseInteractionEvent());
         MinecraftForge.EVENT_BUS.register(new DebugItemEvent());
         MinecraftForge.EVENT_BUS.register(new StorageJarMilkFill());
     }

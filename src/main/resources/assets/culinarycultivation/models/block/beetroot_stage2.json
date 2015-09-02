@@ -1,0 +1,6 @@
+{
+    "parent": "block/crop",
+    "textures": {
+        "crop": "culinarycultivation:blocks/beetroot_stage_2"
+    }
+}
