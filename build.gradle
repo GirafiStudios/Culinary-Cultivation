@@ -1,18 +1,5 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-    }
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.0.1"
 }
 
 repositories {
@@ -22,7 +9,7 @@ repositories {
     }
 }
 
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 ext.buildnumber=""
 if (System.getenv().BUILD_NUMBER) {
@@ -36,7 +23,7 @@ archivesBaseName = "CulinaryCultivation"
 minecraft {
     version = "${minecraft_version}-${forge_version}"
 	mappings = "snapshot_20141130"
-    runDir = "eclipse"
+    runDir = "run"
 
     replace "@VERSION@", project.mod_version
     replaceIn "Reference.java"
@@ -68,18 +55,18 @@ processResources {
 
 jar {
     manifest {
-        attributes 'FMLAT': 'enchiridion_at.cfg'
+        attributes 'FMLAT': 'culinarycultivation_at.cfg'
     }
 }
 
-task sourceJar(type: Jar) {
+/*task sourceJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'src'
-}
+}*/
 
 task deobfJar(type: Jar) {
     manifest {
-        attributes 'FMLAT': 'enchiridion_at.cfg'
+        attributes 'FMLAT': 'culinarycultivation_at.cfg'
     }
     from sourceSets.main.output
     classifier = 'dev'
