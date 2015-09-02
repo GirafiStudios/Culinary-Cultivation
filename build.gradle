@@ -53,26 +53,11 @@ processResources {
     }
 }
 
-jar {
-    manifest {
-        attributes 'FMLAT': 'culinarycultivation_at.cfg'
-    }
-}
-
-/*task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'src'
-}*/
-
 task deobfJar(type: Jar) {
-    manifest {
-        attributes 'FMLAT': 'culinarycultivation_at.cfg'
-    }
     from sourceSets.main.output
     classifier = 'dev'
 }
 
 artifacts {
     archives deobfJar
-    archives sourceJar
 }
