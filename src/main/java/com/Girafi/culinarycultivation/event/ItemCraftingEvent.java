@@ -1,9 +1,9 @@
 package com.Girafi.culinarycultivation.event;
 
 import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemCakeKnife;
-import com.Girafi.culinarycultivation.item.ItemKnife;
-import com.Girafi.culinarycultivation.item.ItemMeatCleaver;
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemCakeKnife;
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemKnife;
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemMeatCleaver;
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import net.minecraft.inventory.IInventory;

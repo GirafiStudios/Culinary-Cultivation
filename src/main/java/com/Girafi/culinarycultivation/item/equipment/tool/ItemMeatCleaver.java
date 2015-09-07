@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.item;
+package com.Girafi.culinarycultivation.item.equipment.tool;
 
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Paths;

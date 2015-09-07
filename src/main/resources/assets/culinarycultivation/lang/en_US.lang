@@ -79,5 +79,11 @@ tile.culinarycultivation:blackPepper.name=Black Pepper
 tile.culinarycultivation:cheese.name=Cheese
 tile.culinarycultivation:cucumber.name=Cucumbers
 
-#Other
+#Misc
+culinarycultivation.misc.shift=Press &3&oShift&r&7 for info
 itemGroup.culinarycultivation=Culinary Cultivation
+
+#Armor
+culinarycultivation.armorset.farmer.desc=(Per piece) 2% less exhaustion
+culinarycultivation.armorset.farmer.descFull=(Full set) 15% less exhaustion
+culinarycultivation.armorset.farmer.name=&6Farmer Armor

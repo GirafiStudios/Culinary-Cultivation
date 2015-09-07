@@ -233,13 +233,13 @@ public class InteractEvents {
             if (breakEvent.getPlayer().getCurrentEquippedItem() != null && breakEvent.getPlayer().getCurrentEquippedItem().getItem() == ModItems.caneKnife) {
                 if (breakEvent.world.getBlockState(breakEvent.pos).getBlock() == Blocks.reeds) {
                     Block block = breakEvent.world.getBlockState(breakEvent.pos).getBlock();
-                    if (breakEvent.world.getBlockState(breakEvent.pos.down()).getBlock() == Blocks.grass) {
-                        breakEvent.setCanceled(true);
-                        block.breakBlock(breakEvent.world, breakEvent.pos.up(), breakEvent.world.getBlockState(breakEvent.pos));
-                        block.breakBlock(breakEvent.world, breakEvent.pos.up(2), breakEvent.world.getBlockState(breakEvent.pos));
+                    if (breakEvent.world.getBlockState(breakEvent.pos.down()).getBlock() != Blocks.reeds) {
+                        if (breakEvent.world.getBlockState(breakEvent.pos).getBlock() == Blocks.reeds) {
+                            block.breakBlock(breakEvent.world, breakEvent.pos.up(), breakEvent.world.getBlockState(breakEvent.pos));
+                            block.breakBlock(breakEvent.world, breakEvent.pos.up(2), breakEvent.world.getBlockState(breakEvent.pos));
+                            breakEvent.setCanceled(true);
+                        }
                     }
-
-
                 }
             }
         }

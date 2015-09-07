@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.item;
+package com.Girafi.culinarycultivation.item.equipment.tool;
 
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Sets;

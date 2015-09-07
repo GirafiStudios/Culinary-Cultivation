@@ -7,7 +7,7 @@ import java.io.IOException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import com.Girafi.culinarycultivation.item.ItemDebugItem;
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
 
 public class PacketDebugItemMode extends Packet<PacketDebugItemMode> {
 
