@@ -19,7 +19,7 @@ public class ItemKnife extends ItemTool {
     private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{});
 
     public ItemKnife(Item.ToolMaterial material) {
-        super(3.0F, material, EFFECTIVE_ON);
+        super(1.5F, material, EFFECTIVE_ON);
         setUnlocalizedName(Paths.ModAssets + "knife");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         maxStackSize=1;

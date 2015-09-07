@@ -229,15 +229,37 @@ public class InteractEvents {
 
     public static class CaneKnife {
         @SubscribeEvent
-        public void CaneKnife(BlockEvent.BreakEvent breakEvent) {
+        public void CaneKnifeOnSugarCane(BlockEvent.BreakEvent breakEvent) {
             if (breakEvent.getPlayer().getCurrentEquippedItem() != null && breakEvent.getPlayer().getCurrentEquippedItem().getItem() == ModItems.caneKnife) {
-                if (breakEvent.world.getBlockState(breakEvent.pos).getBlock() == Blocks.reeds) {
-                    Block block = breakEvent.world.getBlockState(breakEvent.pos).getBlock();
-                    if (breakEvent.world.getBlockState(breakEvent.pos.down()).getBlock() != Blocks.reeds) {
-                        if (breakEvent.world.getBlockState(breakEvent.pos).getBlock() == Blocks.reeds) {
-                            block.breakBlock(breakEvent.world, breakEvent.pos.up(), breakEvent.world.getBlockState(breakEvent.pos));
-                            block.breakBlock(breakEvent.world, breakEvent.pos.up(2), breakEvent.world.getBlockState(breakEvent.pos));
-                            breakEvent.setCanceled(true);
+                World world = breakEvent.world;
+                BlockPos pos = breakEvent.pos;
+                Block block = world.getBlockState(pos).getBlock();
+                if (block == Blocks.reeds) {
+                    //4 Tall
+                    if (world.getBlockState(pos.up()).getBlock() != Blocks.reeds) {
+                        if (world.getBlockState(pos.down(4)) != Blocks.reeds && world.getBlockState(pos.down(3)).getBlock() == Blocks.reeds) {
+                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            world.setBlockToAir(pos.down(2));
+                        }
+                        //3 Tall
+                        if (world.getBlockState(pos.down(3)) != Blocks.reeds && world.getBlockState(pos.down(2)).getBlock() == Blocks.reeds) {
+                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            world.setBlockToAir(pos.down());
+                        }
+                    }
+                    //4 Tall, 3th block
+                    if (world.getBlockState(pos.down()).getBlock() == Blocks.reeds && world.getBlockState(pos.up()).getBlock() == Blocks.reeds && world.getBlockState(pos.up(2)).getBlock() != Blocks.reeds) {
+                        if (world.getBlockState(pos.down(2)).getBlock() == Blocks.reeds) {
+                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            world.setBlockToAir(pos.down());
+                        }
+                    }
+                    //Harvesting bottom block
+                    if (world.getBlockState(pos.down()).getBlock() != Blocks.reeds) {
+                        breakEvent.setCanceled(true);
+                        if (world.getBlockState(pos.up()).getBlock() == Blocks.reeds) {
+                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            world.setBlockToAir(pos.up());
                         }
                     }
                 }
