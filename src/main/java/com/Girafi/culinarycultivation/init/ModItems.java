@@ -34,6 +34,7 @@ public class ModItems {
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
     public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
+    //public static final Item seasoned_meat = new ItemModMeatFood(true, true).setHasSubtypes(true);
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
     public static final Item calfBelly = new SourceItem().setUnlocalizedName("calfBelly").setMaxStackSize(1);
 
@@ -50,7 +51,7 @@ public class ModItems {
         GameRegistry.registerItem(calfBelly, "calfBelly");
         GameRegistry.registerItem(meat, "meat");
         GameRegistry.registerItem(cooked_meat, "cooked_meat");
-        //GameRegistry.registerItem(sausage, "sausage");
+        //GameRegistry.registerItem(seasoned_meat, "seasoned_meat");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
         GameRegistry.registerItem(beetRootSeeds, "beetRootSeeds");

@@ -88,11 +88,6 @@ public class ItemDebugItem extends Item {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-        if (stack.getItemDamage() == 0) {
-            if (!worldIn.isRemote && !playerIn.isSneaking()) {
-                //playerIn.addChatComponentMessage(new ChatComponentText("Switch mode by shift + scrolling")); /TODO Fix
-            }
-        }
         if (stack.getItemDamage() == 1) {
             if (playerIn.canEat(alwaysEdible)) {
                 playerIn.setItemInUse(stack, this.getMaxItemUseDuration(stack));

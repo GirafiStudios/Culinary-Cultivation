@@ -156,7 +156,7 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
             this.haveCookedMeat = true;
         }
 
-        /*private MeatType(int metaData, String unlocalizedName, Item item , int healAmountSeasoned, float saturationAmountSeasoned) { //WIP Seasoned MeatType maybe?
+/*        private MeatType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
             this.metaData = metaData;
             this.unlocalizedName = unlocalizedName;
             this.healAmountRaw = healAmountRaw;

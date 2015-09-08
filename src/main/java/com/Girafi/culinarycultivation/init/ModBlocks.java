@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModBlocks {
 
     public static Block blackPepper = new BlockBlackPepper().setUnlocalizedName(Paths.ModAssets + "blackPepper");
-    public static Block cucumber = new BlockCrop(); //Test drop
-    public static Block beetRoots = new BlockCrop().setModCrop(new ItemStack(ModItems.beetRoot), 1, 1).setModSeed(ModItems.beetRootSeeds); //On 45 crops, 44 beets, 35 beetroots seeds
+    public static Block cucumber = new BlockCrop().setModCrop(new ItemStack(ModItems.cheeseSlice), 0, 2); //Test drop
+    public static Block beetRoots = new BlockCrop().setModCrop(new ItemStack(ModItems.beetRoot), 1, 1).setModSeed(new ItemStack(ModItems.beetRootSeeds), 0, 1); //On 45 crops, 44 beets, 35 beetroots seeds
 
     public static Block cheese = new BlockCheese();
     public static Block cauldron = new BlockModCauldron();

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockCrop extends BlockCrops {
     public ItemStack itemCrop;
-    public Item itemSeed;
+    public ItemStack itemSeed;
     private int minDropValueCrop;
     private int maxDropValueCrop;
     private int minDropValueSeed;
@@ -27,7 +27,7 @@ public class BlockCrop extends BlockCrops {
 
     @SideOnly(Side.CLIENT)
     public Item getItem(World worldIn, BlockPos pos) {
-        return itemSeed;
+        return itemSeed.getItem();
     }
 
     public BlockCrop setModCrop(ItemStack item, int minDropValue, int maxDropValue) {
@@ -37,14 +37,16 @@ public class BlockCrop extends BlockCrops {
         return this;
     }
 
-    public Block setModSeed(Item item) {
-        this.itemSeed = item;
+    public Block setModSeed(ItemStack stack, int minDropValue, int maxDropValue) {
+        this.itemSeed = stack;
+        this.minDropValueSeed = minDropValue;
+        this.minDropValueCrop = maxDropValue;
         return this;
     }
 
     @Override
     protected Item getSeed() {
-        return itemSeed;
+        return itemSeed.getItem();
     }
 
     @Override

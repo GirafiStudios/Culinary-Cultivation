@@ -27,8 +27,8 @@ public class CulinaryCultivation {
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
         FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
         ModSupport.instance().modSupportIndex();
-        ModBlocks.init();
         ModItems.init();
+        ModBlocks.init();
         FishingLoot.init();
         Events.init();
         NetworkHandler.init();
