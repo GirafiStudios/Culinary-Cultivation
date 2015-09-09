@@ -1,4 +1,4 @@
 package com.Girafi.culinarycultivation.block;
 
-public class BlockDoubleCrop {
+public class BlockDoubleCrop extends BlockCrop {
 }
