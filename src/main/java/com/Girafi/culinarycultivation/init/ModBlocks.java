@@ -15,13 +15,13 @@ public class ModBlocks {
 
     public static Block blackPepper = new BlockBlackPepper().setUnlocalizedName(Paths.ModAssets + "blackPepper");
     public static BlockCrop cucumber = new BlockCrop();
-    public static BlockCrop beetRoots = new BlockCrop();
+    public static BlockCrop beetroots = new BlockCrop();
 
     public static Block cheese = new BlockCheese();
     public static Block cauldron = new BlockModCauldron();
 
     public static void init() { //Will show up in this order in NEI and Creative Tab
-        GameRegistry.registerBlock(beetRoots, "beetRoots");
+        GameRegistry.registerBlock(beetroots, "beetRoots");
         GameRegistry.registerBlock(cucumber, "cucumber");
         GameRegistry.registerBlock(blackPepper, "blackPepper");
         GameRegistry.registerBlock(cauldron, "cauldron");
@@ -30,6 +30,6 @@ public class ModBlocks {
 
     public static void setup() {
         cucumber.setModCrop(new ItemStack(ModItems.cheeseSlice), 0, 2);
-        beetRoots.setModCrop(new ItemStack(ModItems.beetRoot), 1, 1).setModSeed(new ItemStack(ModItems.beetRootSeeds), 0, 1); //On 45 crops, 44 beets, 35 beetroots seeds
+        beetroots.setModCrop(new ItemStack(ModItems.beetroot), 1, 1).setModSeed(new ItemStack(ModItems.beetrootSeeds), 0, 1);
     }
 }

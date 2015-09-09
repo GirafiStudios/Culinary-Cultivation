@@ -45,58 +45,66 @@ public class BlockCrop extends BlockCrops {
     }
 
     public BlockCrop setModCrop(ItemStack item, int minDropValue, int maxDropValue) {
-        this.itemCrop = item;
-        this.minDropValueCrop = minDropValue;
-        this.maxDropValueCrop = maxDropValue;
+        itemCrop = item;
+        minDropValueCrop = minDropValue;
+        maxDropValueCrop = maxDropValue;
         return this;
     }
 
     public BlockCrop setModSeed(ItemStack stack, int minDropValue, int maxDropValue) {
-        this.itemSeed = stack;
-        this.minDropValueSeed = minDropValue;
-        this.minDropValueCrop = maxDropValue;
+        itemSeed = stack;
+        minDropValueSeed = minDropValue;
+        maxDropValueSeed = maxDropValue;
         return this;
     }
 
-    @Override
-    protected Item getSeed() {
-        return itemSeed.getItem();
-    }
-
-    @Override
-    protected Item getCrop() {
-        return itemCrop.getItem();
-    }
-
-    protected Item notGrownDrop() {
+    protected ItemStack notGrownDrop() {
         if (itemSeed == null) {
-            return itemCrop.getItem();
+            return itemCrop;
         }
-        return itemSeed.getItem();
-    }
-
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return ((Integer) state.getValue(AGE)).intValue() == 7 ? this.getCrop() : this.notGrownDrop();
+        return itemSeed;
     }
 
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) { //TODO Finish work on custom drops
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return ((Integer) state.getValue(AGE)).intValue() == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
+    }
+
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
         int age = ((Integer) state.getValue(AGE)).intValue();
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
         if (age >= 7) {
             int cropDrop = MathHelper.getRandomIntegerInRange(rand, minDropValueCrop, maxDropValueCrop);
+            if (cropDrop == 0) {
+                if (rand.nextInt(100) >= 50) {
+                    ret.add(itemCrop.copy());
+                }
+            }
             for (int i = 0; i < cropDrop + fortune; ++i) {
-                ret.add(new ItemStack(this.getCrop(), 1, 0));
+                ret.add(itemCrop.copy());
             }
 
-            int seedDrop = MathHelper.getRandomIntegerInRange(rand, minDropValueSeed, maxDropValueSeed);
-            for (int i = 0; i < seedDrop + fortune; ++i) {
-                ret.add(new ItemStack(this.getSeed(), 1, 0));
+            if (itemSeed != null) {
+                int seedDrop = MathHelper.getRandomIntegerInRange(rand, minDropValueSeed, maxDropValueSeed);
+                if (seedDrop == 0) {
+                    if (rand.nextInt(100) >= 25) {
+                        ret.add(itemSeed.copy());
+                    }
+                }
+                for (int i = 0; i < seedDrop + fortune; ++i) {
+                    ret.add(itemSeed.copy());
+                }
             }
         }
 
+        if (age <= 6) {
+            if (notGrownDrop() != null) {
+                ret.add(notGrownDrop().copy());
+            }
+        }
         return ret;
     }
 }

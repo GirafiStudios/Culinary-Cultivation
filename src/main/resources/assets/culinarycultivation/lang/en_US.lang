@@ -1,8 +1,9 @@
 #Items
 item.culinarycultivation:baconCooked.name=Bacon
 item.culinarycultivation:baconRaw.name=Raw Bacon
-item.culinarycultivation:beetRoot.name=Beetroot
-item.culinarycultivation:beetRootSeeds.name=Beetroot Seeds
+item.culinarycultivation:beetroot.name=Beetroot
+item.culinarycultivation:beetrootSeeds.name=Beetroot Seeds
+item.culinarycultivation:beetrootSoup.name=Beetroot Soup
 item.culinarycultivation:blackPepperDrupe.name=Black Pepper Drupe
 item.culinarycultivation:bucketRennet.name=Rennet Bucket
 item.culinarycultivation:cakeKnife.name=Cake Knife

@@ -21,7 +21,7 @@ public class NEICulinaryCultivationConfig implements IConfigureNEI {
     @Override
     public void loadConfig() {
         API.hideItem(new ItemStack(ModBlocks.blackPepper));
-        API.hideItem(new ItemStack(ModBlocks.beetRoots));
+        API.hideItem(new ItemStack(ModBlocks.beetroots));
         API.hideItem(new ItemStack(ModBlocks.cauldron));
     }
 }

@@ -28,7 +28,8 @@ public class ModItems {
 
     ////Food
     //HealAmount, Saturation, isWolfFood
-    public static final Item beetRoot = new SourceFood(1, 0.1F, false).setUnlocalizedName("beetRoot");
+    public static final Item beetroot = new SourceFood(1, 0.1F, false).setUnlocalizedName("beetroot");
+    public static final Item beetrootSoup = new SourceSoup(8).setUnlocalizedName("beetrootSoup");
     public static final Item cheeseSlice = new SourceFood(2, 0.4F, false).setUnlocalizedName("cheeseSlice");
     public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
@@ -43,7 +44,7 @@ public class ModItems {
 
     //Seeds
     public static final Item blackPepperDrupe = new ItemSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "blackPepperDrupe");
-    public static final Item beetRootSeeds = new ItemSeeds(ModBlocks.beetRoots, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "beetRootSeeds");
+    public static final Item beetrootSeeds = new ItemSeeds(ModBlocks.beetroots, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "beetrootSeeds");
 
     public static void init() { //Will show up in this order in NEI and Creative Tab
         GameRegistry.registerItem(cheeseSlice, "cheeseSlice");
@@ -54,8 +55,9 @@ public class ModItems {
         //GameRegistry.registerItem(seasoned_meat, "seasoned_meat");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
-        GameRegistry.registerItem(beetRootSeeds, "beetRootSeeds");
-        GameRegistry.registerItem(beetRoot, "beetRoot");
+        GameRegistry.registerItem(beetrootSeeds, "beetRootSeeds");
+        GameRegistry.registerItem(beetroot, "beetroot");
+        GameRegistry.registerItem(beetrootSoup, "beetRootSoup");
         GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
         GameRegistry.registerItem(storageJar, "storageJar");
         GameRegistry.registerItem(toolHandle, "toolHandle");
