@@ -39,9 +39,8 @@ public class ClientProxy extends CommonProxy {
         registerItemRender(toolHandle);
         registerItemRender(ModBlocks.cauldron);
         registerItemRenderIgnoreMeta(ModBlocks.beetroots);
+        registerItemRenderIgnoreMeta(ModBlocks.blackPepper);
         registerItemRenderIgnoreMeta(ModBlocks.cheese);
-
-
 
         addVariantName(debugItem, "debugDefault");
         addVariantName(debugItem, "debugHunger");

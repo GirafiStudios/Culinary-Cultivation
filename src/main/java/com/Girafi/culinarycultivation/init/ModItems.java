@@ -10,6 +10,9 @@ import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomFishable;
+import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -70,5 +73,15 @@ public class ModItems {
         GameRegistry.registerItem(farmerOveralls, "farmerOveralls");
         GameRegistry.registerItem(farmerBoots, "farmerBoots");
         MinecraftForge.EVENT_BUS.register(new ItemDebugItem());
+    }
+
+    public static void setup() {
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.MACKEREL.getMetaData()), 55));
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.TUNA.getMetaData()), 40));
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.TROUT.getMetaData()), 25));
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.HERRING.getMetaData()), 30));
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.PLAICE.getMetaData()), 18));
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.SMALLSQUID.getMetaData()), 8));
+        FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 8).setMaxDamagePercent(0.25F));
     }
 }

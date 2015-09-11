@@ -29,8 +29,8 @@ public class CulinaryCultivation {
         ModSupport.instance().modSupportIndex();
         ModItems.init();
         ModBlocks.init();
+        ModItems.setup();
         ModBlocks.setup();
-        FishingLoot.init();
         Events.init();
         NetworkHandler.init();
         ModSupport.instance().preInit();
