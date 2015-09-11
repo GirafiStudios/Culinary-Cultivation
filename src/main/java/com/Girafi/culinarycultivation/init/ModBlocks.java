@@ -30,6 +30,6 @@ public class ModBlocks {
     public static void setup() {
         cucumber.setModCrop(new ItemStack(ModItems.cheeseSlice), 0, 2);
         beetroots.setModCrop(new ItemStack(ModItems.beetroot), 1, 1).setModSeed(new ItemStack(ModItems.beetrootSeeds), 0, 1);
-        blackPepper.setModCrop(new ItemStack(ModItems.toolHandle), 1, 1).setModSeed(new ItemStack(ModItems.blackPepperDrupe), 1, 4);
+        blackPepper.setModCrop(new ItemStack(ModItems.blackPepperDrupe), 1, 5);
     }
 }
