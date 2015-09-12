@@ -28,6 +28,7 @@ public class ModItems {
     public static final Item storageJar = new ItemStorageJar();
     public static final Item caneKnife = new ItemCaneKnife(Item.ToolMaterial.STONE);
     public static final Item toolHandle = new SourceItem().setUnlocalizedName("toolHandle");
+    public static final Item wooden_largeHoe = new ItemLargeHoe(Item.ToolMaterial.WOOD).setUnlocalizedName(Paths.ModAssets + "hoeLargeWood");
 
     ////Food
     //HealAmount, Saturation, isWolfFood
@@ -68,6 +69,7 @@ public class ModItems {
         GameRegistry.registerItem(cakeKnife, "cakeKnife");
         GameRegistry.registerItem(meatCleaver, "meatCleaver");
         GameRegistry.registerItem(caneKnife, "caneKnife");
+        GameRegistry.registerItem(wooden_largeHoe, "wooden_largeHoe");
         GameRegistry.registerItem(debugItem, "debugItem");
         GameRegistry.registerItem(farmerStrawhat, "farmerStrawhat");
         GameRegistry.registerItem(farmerOveralls, "farmerOveralls");
