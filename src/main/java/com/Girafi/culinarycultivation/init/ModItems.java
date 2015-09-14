@@ -78,7 +78,7 @@ public class ModItems {
     }
 
     public static void setup() {
-        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.MACKEREL.getMetaData()), 55));
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.MACKEREL.getMetaData()), 48));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.TUNA.getMetaData()), 40));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.TROUT.getMetaData()), 25));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.HERRING.getMetaData()), 30));

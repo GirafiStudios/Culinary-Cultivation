@@ -37,12 +37,21 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public BlockDoubleCrop() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
         this.setTickRandomly(true);
-        float f = 0.5F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
         this.setCreativeTab((CreativeTabs) null);
         this.setHardness(0.0F);
         this.setStepSound(soundTypeGrass);
         this.disableStats();
+    }
+
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) { //Might need to tweak this later on
+        int age = ((Integer) worldIn.getBlockState(pos).getValue(AGE)).intValue();
+        if (age <= 7) {
+            this.setBlockBounds(0F, 0F, 0F, 1.0F, age == 0 ? 0.25F : age == 1 || age == 2 ? 0.5F : age == 3 || age == 4 ? 0.8F : 1.0F, 1.0F);
+        }
+        if (age >= 8) {
+            this.setBlockBounds(0F, 0F, 0F, 1.0F, age == 8 || age == 9 || age == 10 ? 0.35F : 1.0F, 1.0F);
+        }
     }
 
     @Override

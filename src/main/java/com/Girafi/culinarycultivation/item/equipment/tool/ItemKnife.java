@@ -3,14 +3,12 @@ package com.Girafi.culinarycultivation.item.equipment.tool;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Sets;
-import net.minecraft.util.BlockPos;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Set;

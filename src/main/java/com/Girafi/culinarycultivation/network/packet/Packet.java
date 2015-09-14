@@ -3,11 +3,6 @@ package com.Girafi.culinarycultivation.network.packet;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
-
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -15,6 +10,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
 
 public abstract  class Packet<REQ extends Packet<REQ>> implements IMessage, IMessageHandler<REQ, REQ> {
 

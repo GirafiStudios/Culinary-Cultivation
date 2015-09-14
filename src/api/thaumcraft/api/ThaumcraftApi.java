@@ -1,11 +1,5 @@
 package thaumcraft.api;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,19 +9,17 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.crafting.CrucibleRecipe;
-import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
-import thaumcraft.api.crafting.InfusionRecipe;
-import thaumcraft.api.crafting.ShapedArcaneRecipe;
-import thaumcraft.api.crafting.ShapelessArcaneRecipe;
+import thaumcraft.api.crafting.*;
 import thaumcraft.api.internal.DummyInternalMethodHandler;
 import thaumcraft.api.internal.IInternalMethodHandler;
 import thaumcraft.api.internal.WeightedRandomLoot;
-import thaumcraft.api.research.IScanEventHandler;
-import thaumcraft.api.research.ResearchCategories;
-import thaumcraft.api.research.ResearchCategoryList;
-import thaumcraft.api.research.ResearchItem;
-import thaumcraft.api.research.ResearchPage;
+import thaumcraft.api.research.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**

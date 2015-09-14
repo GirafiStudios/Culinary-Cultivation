@@ -1,13 +1,5 @@
 package com.Girafi.culinarycultivation.modSupport.ee3;
 
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemModFishFood.*;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood.*;
-import com.Girafi.culinarycultivation.item.ItemStorageJar.*;
-import com.Girafi.culinarycultivation.modSupport.IModSupport;
-import net.minecraft.item.ItemStack;
-
 //public class EquivalentExchange3 implements IModSupport {
 //
 //    private static final int BASIC_FOOD_VALUE = 24;

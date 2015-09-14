@@ -3,13 +3,17 @@ package com.Girafi.culinarycultivation.init;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.*;
+import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.ChickenWingDropsEvent;
 import static com.Girafi.culinarycultivation.event.CowDropsEvent.*;
 import static com.Girafi.culinarycultivation.event.InteractEvents.*;
-import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.*;
-import static com.Girafi.culinarycultivation.event.PigDropsEvent.*;
-import static com.Girafi.culinarycultivation.event.SheepDropsEvent.*;
-import static com.Girafi.culinarycultivation.event.SquidDropsEvent.*;
+import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.AchievementTriggerEvent;
+import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.CraftedEvent;
+import static com.Girafi.culinarycultivation.event.PigDropsEvent.PigHamDropsEvent;
+import static com.Girafi.culinarycultivation.event.PigDropsEvent.PigRibsPorkDropsEvent;
+import static com.Girafi.culinarycultivation.event.SheepDropsEvent.BabySheepLambDropsEvent;
+import static com.Girafi.culinarycultivation.event.SheepDropsEvent.SheepLegOfSheepDropsEvent;
+import static com.Girafi.culinarycultivation.event.SquidDropsEvent.SquidMantleDropsEvent;
+import static com.Girafi.culinarycultivation.event.SquidDropsEvent.SquidTentacleDropsEvent;
 import static com.Girafi.culinarycultivation.handler.ConfigurationHandler.*;
 
 public class Events {

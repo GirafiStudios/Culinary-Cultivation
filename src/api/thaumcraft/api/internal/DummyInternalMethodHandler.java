@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
 public class DummyInternalMethodHandler implements IInternalMethodHandler {

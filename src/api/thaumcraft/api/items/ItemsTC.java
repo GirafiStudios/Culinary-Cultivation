@@ -1,8 +1,5 @@
 package thaumcraft.api.items;
 
-import thaumcraft.api.wands.WandCap;
-import thaumcraft.api.wands.WandRod;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
 public class ItemsTC {

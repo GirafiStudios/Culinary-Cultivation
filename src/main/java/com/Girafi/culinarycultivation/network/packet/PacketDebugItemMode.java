@@ -1,13 +1,12 @@
 package com.Girafi.culinarycultivation.network.packet;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
 
 public class PacketDebugItemMode extends Packet<PacketDebugItemMode> {
 

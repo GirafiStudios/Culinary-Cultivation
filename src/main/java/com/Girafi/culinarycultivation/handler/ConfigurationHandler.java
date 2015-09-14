@@ -1,9 +1,9 @@
 package com.Girafi.culinarycultivation.handler;
 
 import com.Girafi.culinarycultivation.reference.Reference;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 

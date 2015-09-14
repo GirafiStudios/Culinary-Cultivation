@@ -1,9 +1,5 @@
 package thaumcraft.api.crafting;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 public class InfusionEnchantmentRecipe
 {

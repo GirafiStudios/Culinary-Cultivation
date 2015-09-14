@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.creativetab;
 
-import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.init.ModItems;
+import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 

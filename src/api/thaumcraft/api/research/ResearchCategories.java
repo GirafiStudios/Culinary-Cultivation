@@ -1,13 +1,12 @@
 package thaumcraft.api.research;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.common.FMLLog;
-
 import org.apache.logging.log4j.Level;
+
+import java.util.Collection;
+import java.util.LinkedHashMap;
 
 public class ResearchCategories {
 	

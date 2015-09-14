@@ -2,11 +2,11 @@ package com.Girafi.culinarycultivation.event;
 
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
 
