@@ -5,10 +5,10 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-		maven {
-			name = "sonatype"
-			url = "https://oss.sonatype.org/content/repositories/snapshots/"
-		}
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
@@ -37,7 +37,7 @@ minecraft {
 }
 
 dependencies {
-	compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
+    compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
     compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
     compile "codechicken:NotEnoughItems:1.8-1.0.5.82:dev"
     compile fileTree(dir: 'libs', include: '*.jar')
