@@ -18,6 +18,7 @@ import static com.Girafi.culinarycultivation.handler.ConfigurationHandler.*;
 
 public class Events {
     public static void init() {
+        if (CanRightClickHarvestVanillaCrops) {MinecraftForge.EVENT_BUS.register(new VanillaCrops()); }
         if (ShouldBabyCowDropVeal) {MinecraftForge.EVENT_BUS.register(new BabyCowVealDropsEvent()); }
         if (ShouldBabySheepDropLamb) {MinecraftForge.EVENT_BUS.register(new BabySheepLambDropsEvent()); }
         if (ShouldChickensDropChickenWings) {MinecraftForge.EVENT_BUS.register(new ChickenWingDropsEvent()); }

@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.event;
 
+import com.Girafi.culinarycultivation.block.BlockCrop;
 import com.Girafi.culinarycultivation.block.BlockModCauldron;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
@@ -8,6 +9,7 @@ import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
+import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -178,7 +180,6 @@ public class InteractEvents {
     public static class DebugItemEvent {
         @SubscribeEvent
         public void DebugItem(PlayerInteractEvent iEvent) {
-
             EntityPlayer player = iEvent.entityPlayer;
             ItemStack stack = player.inventory.getCurrentItem();
             boolean b = player.onGround && player.isSneaking();
@@ -261,6 +262,26 @@ public class InteractEvents {
                             block.dropBlockAsItem(world, pos, breakEvent.state, 0);
                             world.setBlockToAir(pos.up());
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    public static class VanillaCrops {
+        @SubscribeEvent
+        public void VanillaRightClickCropsHarvesting(PlayerInteractEvent iEvent) {
+            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                World world = iEvent.world;
+                BlockPos pos = iEvent.pos;
+                IBlockState state = iEvent.world.getBlockState(pos);
+                Block block = world.getBlockState(pos).getBlock();
+
+                if (block instanceof BlockCrops && !(block instanceof BlockCrop)) {
+                    int age = ((Integer) state.getValue(BlockCrops.AGE)).intValue();
+                    if (age >= 7) {
+                        block.dropBlockAsItem(world, pos, state, 0);
+                        world.setBlockState(pos, state.withProperty(BlockCrop.AGE, 0), 2);
                     }
                 }
             }

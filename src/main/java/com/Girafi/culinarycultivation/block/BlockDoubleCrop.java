@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
+import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
@@ -10,10 +11,12 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -33,6 +36,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     private int maxDropValueCrop;
     private int minDropValueSeed;
     private int maxDropValueSeed;
+    private boolean canRightClickHarvest;
 
     public BlockDoubleCrop() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
@@ -76,6 +80,36 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     @Override
     protected boolean canPlaceBlockOn(Block ground) {
         return ground == Blocks.farmland || ground instanceof BlockDoubleCrop;
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+        int age = ((Integer) state.getValue(AGE)).intValue();
+        if (age == 14 || age == 7) {
+            if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
+                this.rightClickHarvest(world, pos, state);
+            } else if (canRightClickHarvest && ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationDoubleCrops) {
+                this.rightClickHarvest(world, pos, state);
+            }
+        }
+        return super.onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
+    }
+
+    public boolean rightClickHarvest (World world, BlockPos pos, IBlockState state) {
+        int age = ((Integer) state.getValue(AGE)).intValue();
+        if (age == 7) {
+            super.dropBlockAsItem(world, pos.up(), world.getBlockState(pos.up()), 0);
+            world.setBlockState(pos, state.withProperty(AGE, 6), 2);
+            world.setBlockState(pos.up(), state.withProperty(AGE, 11), 2);
+            return true;
+        }
+        if (age >= 14) {
+            super.dropBlockAsItem(world, pos, state, 0);
+            world.setBlockState(pos.down(), state.withProperty(AGE, 6), 2);
+            world.setBlockState(pos, state.withProperty(AGE, 11), 2);
+            return true;
+        }
+        return true;
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
@@ -190,16 +224,32 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-        return ((Integer) state.getValue(AGE)).intValue() < 14;
+        int age = ((Integer) state.getValue(AGE)).intValue();
+        return age < 14 && age != 7;
     }
 
     @Override
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) { //TODO If you bonemeal the bottom block and it's fully grown, bonemeal the top block. Fix bonemealing if the bottom block is state 6 and the bottom is 13
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
         int age = ((Integer) worldIn.getBlockState(pos).getValue(AGE)).intValue();
-        if (age < 14 && age != 7) {
+        if (age < 14) {
+            if (age == 13 && worldIn.getBlockState(pos.down()).getBlock() instanceof BlockDoubleCrop) {
+                if (((Integer) worldIn.getBlockState(pos.down()).getValue(AGE)).intValue() == 6) {
+                    worldIn.playAuxSFX(2005, new BlockPos(pos.down()), 0);
+                    worldIn.setBlockState(pos.down(), state.withProperty(AGE, Integer.valueOf(((Integer) worldIn.getBlockState(pos.down()).getValue(AGE)).intValue() + 1)), 2);
+                    worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(age + 1)), 2);
+                    return true;
+                }
+            }
+            if (age == 6 && worldIn.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop) {
+                if (((Integer) worldIn.getBlockState(pos.up()).getValue(AGE)).intValue() >= 8) {
+                    worldIn.playAuxSFX(2005, new BlockPos(pos.up()), 0);
+                    worldIn.setBlockState(pos.up(), state.withProperty(AGE, Integer.valueOf(((Integer) worldIn.getBlockState(pos.up()).getValue(AGE)).intValue() + 1)), 2);
+                    return true;
+                }
+            }
             return true;
         } else
-            return false;
+        return false;
     }
 
     @Override
@@ -229,6 +279,11 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         minDropValueSeed = minDropValue;
         maxDropValueSeed = maxDropValue;
         return this;
+    }
+
+    public boolean setRightClickHarvest () {
+        this.canRightClickHarvest = true;
+        return canRightClickHarvest;
     }
 
     protected ItemStack notGrownDrop() {

@@ -35,7 +35,7 @@ public class ModSupport {
 
         List<String> enabledModSupport = new ArrayList<String>();
         for (String modid : modSupportClasses.keySet()) {
-            if (ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MODSUPPORT_ENABLING, modid, true).getBoolean()) {
+            if (ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MOD_SUPPORT_ENABLING, modid, true).getBoolean()) {
                 enabledModSupport.add(modid);
             }
         }

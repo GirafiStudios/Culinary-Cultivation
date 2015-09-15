@@ -1,11 +1,14 @@
 package com.Girafi.culinarycultivation.block;
 
+import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -24,6 +27,7 @@ public class BlockCrop extends BlockCrops {
     private int maxDropValueCrop;
     private int minDropValueSeed;
     private int maxDropValueSeed;
+    private boolean canRightClickHarvest;
 
     @Override
     public String getUnlocalizedName() {
@@ -44,6 +48,26 @@ public class BlockCrop extends BlockCrops {
         return EnumPlantType.Crop;
     }
 
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
+            this.rightClickHarvest(world, pos, state);
+        } else if (canRightClickHarvest && ConfigurationHandler.CanRightClickHarvestCulinaryCultivationCrops) {
+            this.rightClickHarvest(world, pos, state);
+        }
+        return super.onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
+    }
+
+    public boolean rightClickHarvest (World world, BlockPos pos, IBlockState state) {
+        int age = ((Integer) state.getValue(AGE)).intValue();
+        if (age >= 7) {
+            super.dropBlockAsItem(world, pos, state, 0);
+            world.setBlockState(pos, state.withProperty(AGE, 0), 2);
+            return true;
+        }
+        return true;
+    }
+
     public BlockCrop setModCrop(ItemStack item, int minDropValue, int maxDropValue) {
         itemCrop = item;
         minDropValueCrop = minDropValue;
@@ -56,6 +80,11 @@ public class BlockCrop extends BlockCrops {
         minDropValueSeed = minDropValue;
         maxDropValueSeed = maxDropValue;
         return this;
+    }
+
+    public boolean setRightClickHarvest () {
+        this.canRightClickHarvest = true;
+        return canRightClickHarvest;
     }
 
     protected ItemStack notGrownDrop() {
