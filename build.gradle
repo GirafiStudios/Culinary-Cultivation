@@ -14,10 +14,11 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 repositories {
-	maven {
+    maven {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
@@ -50,7 +51,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
         include '**/*.properties'
-
         expand 'version': project.mod_version, 'mcversion': project.minecraft.version
     }
 

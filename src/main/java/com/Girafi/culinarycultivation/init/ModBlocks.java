@@ -19,7 +19,7 @@ public class ModBlocks {
     public static Block cheese = new BlockCheese();
     public static Block cauldron = new BlockModCauldron();
 
-    public static void init() { //Will show up in this order in NEI and Creative Tab
+    public static void init() {
         GameRegistry.registerBlock(beetroots, "beetRoots");
         GameRegistry.registerBlock(cucumber, "cucumber");
         GameRegistry.registerBlock(blackPepper, "blackPepper");

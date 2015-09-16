@@ -31,7 +31,6 @@ public class ModItems {
     public static final Item wooden_largeHoe = new ItemLargeHoe(Item.ToolMaterial.WOOD).setUnlocalizedName(Paths.ModAssets + "hoeLargeWood");
 
     ////Food
-    //HealAmount, Saturation, isWolfFood
     public static final Item beetroot = new SourceFood(1, 0.1F, false).setUnlocalizedName("beetroot");
     public static final Item beetrootSoup = new SourceSoup(8).setUnlocalizedName("beetrootSoup");
     public static final Item cheeseSlice = new SourceFood(2, 0.4F, false).setUnlocalizedName("cheeseSlice");

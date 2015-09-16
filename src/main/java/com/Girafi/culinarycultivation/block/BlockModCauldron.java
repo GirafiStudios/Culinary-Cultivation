@@ -308,7 +308,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             }
                         }
                     }
-                    // CheeseMass starts here \\
+                    /* CheeseMass starts here */
                     if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
                         if (j1 > 0 && j1 == 4 || j1 == 5) {
                             if (!playerIn.capabilities.isCreativeMode) {
