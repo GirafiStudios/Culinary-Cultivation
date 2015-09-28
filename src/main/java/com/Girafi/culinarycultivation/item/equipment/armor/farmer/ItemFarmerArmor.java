@@ -39,7 +39,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     public String armorModelFile() {
-        return "farmerArmorTest.png";
+        return "farmerArmorBoots.png";
     }
 
     @Override
@@ -77,21 +77,20 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
         tooltip.add(s.replaceAll("&", "\u00a7"));
     }
 
-    static ItemStack[] armorset;
+    static ItemStack[] armorSet;
 
     public ItemStack[] getArmorSetStacks() {
-        if (armorset == null)
-            armorset = new ItemStack[]{
+        if (armorSet == null)
+            armorSet = new ItemStack[]{
                     new ItemStack(ModItems.farmerStrawhat),
-                    new ItemStack(Items.leather_chestplate), //Placeholder
+                    new ItemStack(ModItems.farmerShirt),
                     new ItemStack(ModItems.farmerOveralls),
                     new ItemStack(ModItems.farmerBoots)
             };
-
-        return armorset;
+        return armorSet;
     }
 
-    public boolean hasArmorFullSet(EntityPlayer player) {
+    public boolean hasFullArmorSet(EntityPlayer player) {
         return hasArmorSetPiece(player, 0) && hasArmorSetPiece(player, 1) && hasArmorSetPiece(player, 2) && hasArmorSetPiece(player, 3);
     }
 
@@ -104,7 +103,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
             case 0:
                 return stack.getItem() == ModItems.farmerStrawhat;
             case 1:
-                return stack.getItem() == Items.leather_chestplate; //Placeholder
+                return stack.getItem() == ModItems.farmerShirt;
             case 2:
                 return stack.getItem() == ModItems.farmerOveralls;
             case 3:

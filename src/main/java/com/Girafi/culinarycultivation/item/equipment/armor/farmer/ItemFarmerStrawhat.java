@@ -6,6 +6,7 @@ public class ItemFarmerStrawhat extends ItemFarmerArmor {
         super(0, "farmerStrawhat");
     }
 
+    @Override
     public String armorModelFile() {
         return "farmerArmorStrawhat.png";
     }

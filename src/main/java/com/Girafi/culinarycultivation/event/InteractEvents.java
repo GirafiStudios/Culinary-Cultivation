@@ -133,7 +133,7 @@ public class InteractEvents {
 
     public static class CheeseInteractionEvent extends ToolOnBlockInteractionEvent {
         public Item equippedItem() {
-            return ModItems.knife;
+            return ModItems.kitchenKnife;
         }
 
         public Item sliceItem() {

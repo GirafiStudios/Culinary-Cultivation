@@ -20,12 +20,12 @@ public class ItemCraftingEvent {
         public void CraftingHandler(ItemCraftedEvent craftedEvent) {
             final IInventory knifeCrafting = null;
             ItemStack stackKnife = craftedEvent.crafting;
-            if (stackKnife != null && stackKnife.getItem() == ModItems.knife) {
+            if (stackKnife != null && stackKnife.getItem() == ModItems.kitchenKnife) {
             } else {
                 for (int i = 0; i < craftedEvent.craftMatrix.getSizeInventory(); i++) {
                     ItemStack stack = craftedEvent.craftMatrix.getStackInSlot(i);
                     if (stack != null && stack.getItem() instanceof ItemKnife) {
-                        ItemStack itemKnife = new ItemStack(ModItems.knife, 2, stack.getItemDamage() + 1);
+                        ItemStack itemKnife = new ItemStack(ModItems.kitchenKnife, 2, stack.getItemDamage() + 1);
 
                         if (itemKnife.getItemDamage() >= itemKnife.getMaxDamage()) {
                             itemKnife.stackSize--;

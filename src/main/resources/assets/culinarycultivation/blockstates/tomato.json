@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "age=0": { "model": "culinarycultivation:tomato_stage0" },
+        "age=1": { "model": "culinarycultivation:tomato_stage0" },
+        "age=2": { "model": "culinarycultivation:tomato_stage1" },
+        "age=3": { "model": "culinarycultivation:tomato_stage1" },
+        "age=4": { "model": "culinarycultivation:tomato_stage2" },
+        "age=5": { "model": "culinarycultivation:tomato_stage2" },
+        "age=6": { "model": "culinarycultivation:tomato_stage2" },
+        "age=7": { "model": "culinarycultivation:tomato_stage3" }
+    }
+}

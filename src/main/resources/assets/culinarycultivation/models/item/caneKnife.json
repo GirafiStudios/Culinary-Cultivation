@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "culinarycultivation:items/knife"
+    "layer0": "culinarycultivation:items/caneKnife"
   },
   "display": {
     "thirdperson": {

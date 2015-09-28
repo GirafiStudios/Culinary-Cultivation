@@ -1,8 +1,10 @@
 package com.Girafi.culinarycultivation.init;
 
+import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.item.*;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerBoots;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOveralls;
+import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerStrawhat;
 import com.Girafi.culinarycultivation.item.equipment.tool.*;
 import com.Girafi.culinarycultivation.reference.Paths;
@@ -10,6 +12,7 @@ import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraftforge.common.FishingHooks;
@@ -19,28 +22,30 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
     public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
+    public static final Item caneKnife = new ItemCaneKnife(Item.ToolMaterial.STONE);
     public static final Item debugItem = new ItemDebugItem();
-    public static final Item farmerStrawhat = new ItemFarmerStrawhat();
     public static final Item farmerBoots = new ItemFarmerBoots();
     public static final Item farmerOveralls = new ItemFarmerOveralls();
-    public static final Item knife = new ItemKnife(Item.ToolMaterial.IRON);
+    public static final Item farmerShirt = new ItemFarmerShirt();
+    public static final Item farmerStrawhat = new ItemFarmerStrawhat();
+    public static final Item kitchenKnife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
     public static final Item storageJar = new ItemStorageJar();
-    public static final Item caneKnife = new ItemCaneKnife(Item.ToolMaterial.STONE);
-    public static final Item toolHandle = new SourceItem().setUnlocalizedName("toolHandle");
+    public static final Item toolHandle = new Item().setUnlocalizedName(Paths.ModAssets + "toolHandle");
     public static final Item wooden_largeHoe = new ItemLargeHoe(Item.ToolMaterial.WOOD).setUnlocalizedName(Paths.ModAssets + "hoeLargeWood");
 
     ////Food
     public static final Item beetroot = new SourceFood(1, 0.1F, false).setUnlocalizedName("beetroot");
-    public static final Item beetrootSoup = new SourceSoup(8).setUnlocalizedName("beetrootSoup");
+    public static final Item beetrootSoup = new ItemSoup(8).setUnlocalizedName(Paths.ModAssets + "beetrootSoup").setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     public static final Item cheeseSlice = new SourceFood(2, 0.4F, false).setUnlocalizedName("cheeseSlice");
     public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
     public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
+    public static final Item crop = new ItemCropFood().setHasSubtypes(true);
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
     //public static final Item seasoned_meat = new ItemModMeatFood(true, true).setHasSubtypes(true);
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
-    public static final Item calfBelly = new SourceItem().setUnlocalizedName("calfBelly").setMaxStackSize(1);
+    public static final Item calfBelly = new Item().setUnlocalizedName(Paths.ModAssets + "calfBelly").setMaxStackSize(1);
 
     //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
@@ -61,18 +66,20 @@ public class ModItems {
         GameRegistry.registerItem(beetrootSeeds, "beetRootSeeds");
         GameRegistry.registerItem(beetroot, "beetroot");
         GameRegistry.registerItem(beetrootSoup, "beetRootSoup");
+        GameRegistry.registerItem(crop, "crop");
         GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
         GameRegistry.registerItem(storageJar, "storageJar");
         GameRegistry.registerItem(toolHandle, "toolHandle");
-        GameRegistry.registerItem(knife, "knife");
+        GameRegistry.registerItem(kitchenKnife, "kitchenKnife");
         GameRegistry.registerItem(cakeKnife, "cakeKnife");
         GameRegistry.registerItem(meatCleaver, "meatCleaver");
         GameRegistry.registerItem(caneKnife, "caneKnife");
         GameRegistry.registerItem(wooden_largeHoe, "wooden_largeHoe");
         GameRegistry.registerItem(debugItem, "debugItem");
-        GameRegistry.registerItem(farmerStrawhat, "farmerStrawhat");
-        GameRegistry.registerItem(farmerOveralls, "farmerOveralls");
         GameRegistry.registerItem(farmerBoots, "farmerBoots");
+        GameRegistry.registerItem(farmerShirt, "farmerShirt");
+        GameRegistry.registerItem(farmerOveralls, "farmerOveralls");
+        GameRegistry.registerItem(farmerStrawhat, "farmerStrawhat");
         MinecraftForge.EVENT_BUS.register(new ItemDebugItem());
     }
 

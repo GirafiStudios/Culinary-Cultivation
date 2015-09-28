@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.proxy;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
+import com.Girafi.culinarycultivation.item.ItemCropFood;
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood;
 import com.Girafi.culinarycultivation.item.ItemStorageJar;
@@ -23,17 +24,19 @@ public class ClientProxy extends CommonProxy {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerRenders() {
-        registerItemRender(farmerStrawhat);
-        registerItemRender(farmerOveralls);
-        registerItemRender(farmerBoots);
         registerItemRender(beetroot);
         registerItemRender(beetrootSeeds);
         registerItemRender(beetrootSoup);
         registerItemRender(blackPepperDrupe);
         registerItemRender(cakeKnife);
         registerItemRender(calfBelly);
+        registerItemRender(caneKnife);
         registerItemRender(cheeseSlice);
-        registerItemRender(knife);
+        registerItemRender(farmerBoots);
+        registerItemRender(farmerOveralls);
+        registerItemRender(farmerShirt);
+        registerItemRender(farmerStrawhat);
+        registerItemRender(kitchenKnife);
         registerItemRender(meatCleaver);
         registerItemRender(pieceOfCake);
         registerItemRender(toolHandle);
@@ -88,7 +91,14 @@ public class ClientProxy extends CommonProxy {
             if (jarType.getMetaData() == 0) {
                 Utils.getMesher().register(storageJar, jarType.getMetaData(), new ModelResourceLocation(Paths.ModAssets + "storageJar_empty", "inventory"));
             } else
-            Utils.getMesher().register(storageJar, jarType.getMetaData(), new ModelResourceLocation(Paths.ModAssets + "storageJar", "inventory"));
+                Utils.getMesher().register(storageJar, jarType.getMetaData(), new ModelResourceLocation(Paths.ModAssets + "storageJar", "inventory"));
+        }
+        ItemCropFood.CropType[] aCropType = ItemCropFood.CropType.values();
+        int iCropType = aCropType.length;
+        for (int j = 0; j < iCropType; ++j) {
+            ItemCropFood.CropType cropType = aCropType[j];
+            addVariantName(crop, cropType.getUnlocalizedName());
+            Utils.getMesher().register(crop, cropType.getMetadata(), new ModelResourceLocation(Paths.ModAssets + cropType.getUnlocalizedName(), "inventory"));
         }
     }
 

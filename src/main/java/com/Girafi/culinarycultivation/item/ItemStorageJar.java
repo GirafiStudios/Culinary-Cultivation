@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Map;
 
-public class ItemStorageJar extends SourceItem {
+public class ItemStorageJar extends Item {
 
     public ItemStorageJar() {
         setHasSubtypes(true);
