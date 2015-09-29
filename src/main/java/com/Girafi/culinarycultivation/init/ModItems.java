@@ -41,7 +41,8 @@ public class ModItems {
     public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
     public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
-    public static final Item crop = new ItemCropFood().setHasSubtypes(true);
+    public static final Item cropFood = new ItemCropFood().setHasSubtypes(true);
+    public static final Item cropSeeds = new ItemCropSeeds().setHasSubtypes(true);
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
     //public static final Item seasoned_meat = new ItemModMeatFood(true, true).setHasSubtypes(true);
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
@@ -51,7 +52,6 @@ public class ModItems {
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
 
     //Seeds
-    public static final Item blackPepperDrupe = new ItemSeeds(ModBlocks.blackPepper, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "blackPepperDrupe");
     public static final Item beetrootSeeds = new ItemSeeds(ModBlocks.beetroots, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "beetrootSeeds");
 
     public static void init() { //Will show up in this order in NEI and Creative Tab
@@ -66,8 +66,8 @@ public class ModItems {
         GameRegistry.registerItem(beetrootSeeds, "beetRootSeeds");
         GameRegistry.registerItem(beetroot, "beetroot");
         GameRegistry.registerItem(beetrootSoup, "beetRootSoup");
-        GameRegistry.registerItem(crop, "crop");
-        GameRegistry.registerItem(blackPepperDrupe, "blackPepperDrupe");
+        GameRegistry.registerItem(cropFood, "cropFood");
+        GameRegistry.registerItem(cropSeeds, "cropSeeds");
         GameRegistry.registerItem(storageJar, "storageJar");
         GameRegistry.registerItem(toolHandle, "toolHandle");
         GameRegistry.registerItem(kitchenKnife, "kitchenKnife");

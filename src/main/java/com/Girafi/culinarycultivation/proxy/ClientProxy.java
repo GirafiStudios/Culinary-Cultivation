@@ -1,10 +1,7 @@
 package com.Girafi.culinarycultivation.proxy;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.item.ItemCropFood;
-import com.Girafi.culinarycultivation.item.ItemModFishFood;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood;
-import com.Girafi.culinarycultivation.item.ItemStorageJar;
+import com.Girafi.culinarycultivation.item.*;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.utility.Utils;
 import net.minecraft.block.Block;
@@ -27,7 +24,6 @@ public class ClientProxy extends CommonProxy {
         registerItemRender(beetroot);
         registerItemRender(beetrootSeeds);
         registerItemRender(beetrootSoup);
-        registerItemRender(blackPepperDrupe);
         registerItemRender(cakeKnife);
         registerItemRender(calfBelly);
         registerItemRender(caneKnife);
@@ -44,6 +40,8 @@ public class ClientProxy extends CommonProxy {
         registerItemRenderIgnoreMeta(ModBlocks.beetroots);
         registerItemRenderIgnoreMeta(ModBlocks.blackPepper);
         registerItemRenderIgnoreMeta(ModBlocks.cheese);
+        registerItemRenderIgnoreMeta(ModBlocks.cucumber);
+        registerItemRenderIgnoreMeta(ModBlocks.tomato);
 
         addVariantName(debugItem, "debugDefault");
         addVariantName(debugItem, "debugHunger");
@@ -97,8 +95,15 @@ public class ClientProxy extends CommonProxy {
         int iCropType = aCropType.length;
         for (int j = 0; j < iCropType; ++j) {
             ItemCropFood.CropType cropType = aCropType[j];
-            addVariantName(crop, cropType.getUnlocalizedName());
-            Utils.getMesher().register(crop, cropType.getMetadata(), new ModelResourceLocation(Paths.ModAssets + cropType.getUnlocalizedName(), "inventory"));
+            addVariantName(cropFood, cropType.getUnlocalizedName());
+            Utils.getMesher().register(cropFood, cropType.getMetadata(), new ModelResourceLocation(Paths.ModAssets + cropType.getUnlocalizedName(), "inventory"));
+        }
+        ItemCropSeeds.SeedType[] aSeedType = ItemCropSeeds.SeedType.values();
+        int iSeedType = aSeedType.length;
+        for (int j = 0; j < iSeedType; ++j) {
+            ItemCropSeeds.SeedType seedType = aSeedType[j];
+            addVariantName(cropSeeds, seedType.getUnlocalizedName());
+            Utils.getMesher().register(cropSeeds, seedType.getMetadata(), new ModelResourceLocation(Paths.ModAssets + seedType.getUnlocalizedName(), "inventory"));
         }
     }
 
