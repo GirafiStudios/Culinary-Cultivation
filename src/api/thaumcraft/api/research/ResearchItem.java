@@ -24,12 +24,6 @@ public class ResearchItem
 	public final AspectList tags;
 	
 	/**
-	 * How many knowledge fragments are required to complete this research
-	 * Only secondary research can be pruchased with fragments
-	 */
-	public final int fragments;
-
-	/**
      * This links to any research that needs to be completed before this research can be discovered or learnt.
      */
     public String[] parents = null;
@@ -57,12 +51,12 @@ public class ResearchItem
     /**
      * the icon to be used for this research 
      */
-    public final ItemStack icon_item;
+    public final ItemStack[] icon_item;
     
     /**
      * the icon to be used for this research 
      */
-    public final ResourceLocation icon_resource;
+    public final ResourceLocation[] icon_resource;
     
     /**
      * How large the research grid is. Valid values are 1 to 3.
@@ -100,11 +94,7 @@ public class ResearchItem
     
     /**
      * Concealed research does not display in the thaumonomicon until parent researches are discovered.
-     */
-    private boolean isConcealed;
-    
-    /**
-     * Hidden research can only be discovered via scanning or similar means
+     * Often times some of the parent researches is linked to scanned objects.
      */
     private boolean isHidden;
         
@@ -114,19 +104,9 @@ public class ResearchItem
     private boolean isAutoUnlock;
     
     /**
-     * Scanning these items will have a chance of revealing hidden knowledge in the thaumonomicon
+     * Flip the way the connecting lines are drawn in the research browser.
      */
-    private ItemStack[] itemTriggers;
-    
-    /**
-     * Scanning these entities will have a chance of revealing hidden knowledge in the thaumonomicon
-     */
-    private String[] entityTriggers;
-    
-    /**
-     * Scanning things with these aspects will have a chance of revealing hidden knowledge in the thaumonomicon
-     */
-    private Aspect[] aspectTriggers;
+    private boolean isFlipped;
 
 	private ResearchPage[] pages = null;
 	
@@ -139,39 +119,31 @@ public class ResearchItem
         this.icon_item = null;
         this.displayColumn = 0;
         this.displayRow = 0;
-        this.fragments = 0;
         this.isVirtual = true;      
     }
     
-    public ResearchItem(String key, String category, AspectList tags, int col, int row, int complex, Object icon)
+    public ResearchItem(String key, String category, AspectList tags, int col, int row, int complex, Object ... icon)
     {
     	this.key = key;
     	this.category = category;
     	this.tags = tags;    	
-        this.icon_resource = icon instanceof ResourceLocation?(ResourceLocation)icon:null;
-        this.icon_item = icon instanceof ItemStack?(ItemStack)icon:null;
+    	if (icon[0] instanceof ResourceLocation) {
+    		ResourceLocation[] t = new ResourceLocation[icon.length];
+    		System.arraycopy(icon, 0, t, 0, icon.length);
+    		this.icon_resource = t;
+    	} else this.icon_resource = null;
+    	if (icon[0] instanceof ItemStack) {
+    		ItemStack[] t = new ItemStack[icon.length];
+    		System.arraycopy(icon, 0, t, 0, icon.length);
+    		this.icon_item = t;
+    	} else this.icon_item = null;
         this.displayColumn = col;
         this.displayRow = row;
         this.complexity = complex;
-        this.fragments = 0;
         if (complexity < 1) this.complexity = 1;
         if (complexity > 3) this.complexity = 3;
     }
-        
-    public ResearchItem(String key, String category, int fragments, int col, int row, Object icon)
-    {
-    	this.key = key;
-    	this.category = category;
-    	this.tags = new AspectList();    	
-    	this.icon_resource = icon instanceof ResourceLocation?(ResourceLocation)icon:null;
-        this.icon_item = icon instanceof ItemStack?(ItemStack)icon:null;
-        this.displayColumn = col;
-        this.displayRow = row;
-        this.fragments = fragments;
-        this.isSecondary = true;
-        if (complexity < 1) this.complexity = 1;
-        if (complexity > 3) this.complexity = 3;
-    }
+    
     
     public ResearchItem setSpecial()
     {
@@ -185,12 +157,7 @@ public class ResearchItem
         return this;
     }    
     
-    public ResearchItem setConcealed()
-    {
-        this.isConcealed = true;
-        return this;
-    }
-    
+        
     public ResearchItem setHidden()
     {
         this.isHidden = true;
@@ -201,7 +168,9 @@ public class ResearchItem
     {
         this.parents = par;
         return this;
-    }       
+    }    
+    
+    
 
 	public ResearchItem setParentsHidden(String... par)
     {
@@ -223,36 +192,6 @@ public class ResearchItem
     
     public ResearchPage[] getPages() {
 		return pages;
-	}
-    
-    public ResearchItem setItemTriggers(ItemStack... par)
-    {
-        this.itemTriggers = par;
-        return this;
-    }
-    
-    public ResearchItem setEntityTriggers(String... par)
-    {
-        this.entityTriggers = par;
-        return this;
-    }
-    
-    public ResearchItem setAspectTriggers(Aspect... par)
-    {
-        this.aspectTriggers = par;
-        return this;
-    }
-
-    public ItemStack[] getItemTriggers() {
-		return itemTriggers;
-	}
-
-	public String[] getEntityTriggers() {
-		return entityTriggers;
-	}
-	
-	public Aspect[] getAspectTriggers() {
-		return aspectTriggers;
 	}
 
 	public ResearchItem registerResearchItem()
@@ -280,12 +219,7 @@ public class ResearchItem
     {
         return this.isStub;
     }
-            
-    public boolean isConcealed()
-    {
-        return this.isConcealed;
-    }
-    
+                
     public boolean isHidden()
     {
         return this.isHidden;
@@ -315,6 +249,12 @@ public class ResearchItem
 		return this;
 	}
 	
+	public ResearchItem setSecondary()
+    {
+        this.isSecondary = true;
+        return this;
+    }
+	
 	public boolean isSecondary() {
 		return isSecondary;
 	}
@@ -322,14 +262,26 @@ public class ResearchItem
 	public int getComplexity() {
 		return complexity;
 	}
+	
+	public ResearchItem setFlipped() {
+    	this.isFlipped = true;
+    	return this;
+    }
+	
+	public boolean isFlipped() {
+		return this.isFlipped;
+	}
 
 	public ResearchItem setComplexity(int complexity) {
 		this.complexity = complexity;
 		return this;
 	}
 	
-	public int getFragments() {
-		return fragments;
+	public int getExperience() {
+		if (this.tags!=null && this.tags.visSize()>0) {
+			return Math.max(1, (int) Math.sqrt(this.tags.visSize()));
+		} else
+		return 0;
 	}
 
 	/**

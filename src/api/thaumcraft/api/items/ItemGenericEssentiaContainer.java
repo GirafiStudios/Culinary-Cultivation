@@ -1,5 +1,7 @@
 package thaumcraft.api.items;
 
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,8 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaContainerItem;
-
-import java.util.List;
 
 public class ItemGenericEssentiaContainer extends Item implements IEssentiaContainerItem
 {
@@ -65,6 +65,9 @@ public class ItemGenericEssentiaContainer extends Item implements IEssentiaConta
 			itemstack.setTagCompound(new NBTTagCompound());
 		aspects.writeToNBT(itemstack.getTagCompound());
 	}
+	
+	@Override
+	public boolean ignoreContainedAspects() {return false;}
 	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {

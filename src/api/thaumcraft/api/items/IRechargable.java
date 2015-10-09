@@ -21,10 +21,14 @@ import thaumcraft.api.aspects.AspectList;
  */
 public interface IRechargable {
 	/**
-	 * The passed in player can be null
+	 * @param world
+	 * @param is
+	 * @param pos
+	 * @param player The passed in player can be null
+	 * @param amount how much vis to recharge - modified by things like the node tapper research
 	 * @return the last aspect that was recharged
 	 */
-	public Aspect handleRecharge(World world, ItemStack is, BlockPos pos, EntityPlayer player);
+	public Aspect handleRecharge(World world, ItemStack is, BlockPos pos, EntityPlayer player, int amount);
 	
 	public AspectList getAspectsInChargable(ItemStack is);
 	

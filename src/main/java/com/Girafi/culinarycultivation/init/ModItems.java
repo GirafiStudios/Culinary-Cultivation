@@ -76,10 +76,10 @@ public class ModItems {
         GameRegistry.registerItem(caneKnife, "caneKnife");
         GameRegistry.registerItem(wooden_largeHoe, "wooden_largeHoe");
         GameRegistry.registerItem(debugItem, "debugItem");
-        GameRegistry.registerItem(farmerBoots, "farmerBoots");
+        GameRegistry.registerItem(farmerStrawhat, "farmerStrawhat");
         GameRegistry.registerItem(farmerShirt, "farmerShirt");
         GameRegistry.registerItem(farmerOveralls, "farmerOveralls");
-        GameRegistry.registerItem(farmerStrawhat, "farmerStrawhat");
+        GameRegistry.registerItem(farmerBoots, "farmerBoots");
         MinecraftForge.EVENT_BUS.register(new ItemDebugItem());
     }
 

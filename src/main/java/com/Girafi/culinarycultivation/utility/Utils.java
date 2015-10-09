@@ -5,12 +5,12 @@ import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Utils {
-    public static Color setColor(int r, int g, int b) {
+    public static int setColor(int r, int g, int b) {
         Color c = new Color(r, g, b);
-        return c;
+        return c.getRGB();
     }
 
     @SideOnly(Side.CLIENT)

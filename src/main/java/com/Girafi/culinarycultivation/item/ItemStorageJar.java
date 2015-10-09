@@ -35,9 +35,9 @@ public class ItemStorageJar extends Item {
 
     public static enum StorageJarType {
         EMPTY(0, "empty"),
-        WATER(1, "water", Utils.setColor(52, 95, 218).getRGB()),
-        MILK(2, "milk", Utils.setColor(255, 255, 255).getRGB()),
-        RENNET(3, "rennet", Utils.setColor(184, 185, 151).getRGB());
+        WATER(1, "water", Utils.setColor(52, 95, 218)),
+        MILK(2, "milk", Utils.setColor(255, 255, 255)),
+        RENNET(3, "rennet", Utils.setColor(184, 185, 151));
 
         private static final Map StorageJarTypeMap = Maps.newHashMap();
         private final int metaData;

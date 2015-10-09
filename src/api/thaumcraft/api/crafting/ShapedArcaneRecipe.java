@@ -1,5 +1,8 @@
 package thaumcraft.api.crafting;
 
+import java.util.HashMap;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryCrafting;
@@ -9,9 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import thaumcraft.api.research.ResearchHelper;
 
 public class ShapedArcaneRecipe implements IArcaneRecipe
 {
@@ -22,14 +23,15 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
     public ItemStack output = null;
     public  Object[] input = null;
     public AspectList aspects = null;
-    public String research; 
+    public String[] research; 
     public int width = 0;
     public int height = 0;
     private boolean mirrored = true;
 
-    public ShapedArcaneRecipe(String research, Block     result, AspectList aspects, Object... recipe){ this(research, new ItemStack(result), aspects, recipe); }
-    public ShapedArcaneRecipe(String research, Item      result, AspectList aspects, Object... recipe){ this(research, new ItemStack(result), aspects, recipe); }
-    public ShapedArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe)
+    
+    public ShapedArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe){ this(new String[]{research}, result, aspects, recipe); }
+    
+    public ShapedArcaneRecipe(String[] research, ItemStack result, AspectList aspects, Object... recipe)
     {
         output = result.copy();
         this.research = research;
@@ -147,8 +149,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
     @Override
     public boolean matches(InventoryCrafting inv, World world, EntityPlayer player)
     {
-    	if (player!=null && ( research.length()>0 && 
-    			!ThaumcraftApiHelper.isResearchComplete(player.getName(), research))) {
+    	if (player!=null && ( research!=null && research[0].length()>0 && !ResearchHelper.isResearchComplete(player.getName(), research))) {
     		return false;
     	}
         for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)
@@ -201,11 +202,11 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
                         return false;
                     }
                 }
-                else if (target instanceof ArrayList)
+                else if (target instanceof List)
                 {
                     boolean matched = false;
 
-                    for (ItemStack item : (ArrayList<ItemStack>)target)
+                    for (ItemStack item : (List<ItemStack>)target)
                     {
                         matched = matched || checkItemEquals(item, slot);
                     }
@@ -263,7 +264,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
 	}
 	
 	@Override
-	public String getResearch() {
+	public String[] getResearch() {
 		return research;
 	}
 	

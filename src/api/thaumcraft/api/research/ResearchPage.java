@@ -1,5 +1,7 @@
 package thaumcraft.api.research;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
@@ -11,13 +13,10 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
 
-import java.util.List;
-
 public class ResearchPage {
 	public static enum PageType
     {
         TEXT,
-        TEXT_CONCEALED,
         IMAGE,
         CRUCIBLE_CRAFTING,
         ARCANE_CRAFTING,
@@ -45,17 +44,7 @@ public class ResearchPage {
 		this.type = PageType.TEXT;
 		this.text = text;
 	}
-	
-	/**
-	 * @param research this page will only be displayed if the player has discovered this research
-	 * @param text this can (but does not have to) be a reference to a localization variable, not the actual text.
-	 */
-	public ResearchPage(String research, String text) {
-		this.type = PageType.TEXT_CONCEALED;
-		this.research = research;
-		this.text = text;
-	}
-	
+		
 	/**
 	 * @param recipe a vanilla crafting recipe.
 	 */
@@ -151,11 +140,6 @@ public class ResearchPage {
 	public ResearchPage(InfusionEnchantmentRecipe recipe) {
 		this.type = PageType.INFUSION_ENCHANTMENT;
 		this.recipe = recipe;
-//		if (recipe.recipeOutput instanceof ItemStack) {
-//			this.recipeOutput = (ItemStack) recipe.recipeOutput;
-//		} else {
-//			this.recipeOutput = recipe.recipeInput;
-//		}
 	}
 	
 	/**
@@ -188,6 +172,12 @@ public class ResearchPage {
 		}
 		return ret;
 	}
-	
+	/**
+	 * This page will only be shown if this research is unlocked 
+	 */
+	public ResearchPage setRequisite(String research) {
+		this.research = research;
+		return this;
+	}
 	
 }

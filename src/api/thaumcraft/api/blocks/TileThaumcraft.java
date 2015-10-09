@@ -7,7 +7,9 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import thaumcraft.common.lib.utils.BlockStateUtils;
 
 /**
  * 
@@ -65,6 +67,17 @@ public class TileThaumcraft extends TileEntity {
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		return oldState.getBlock() != newState.getBlock();
 //		return super.shouldRefresh(world, pos, oldState, newState);
+	}
+	
+	public EnumFacing getFacing() {
+		try {
+			return BlockStateUtils.getFacing(getBlockMetadata());
+		} catch (Exception e) {	}
+		return EnumFacing.UP;
+	}
+	
+	public boolean gettingPower() {
+		return worldObj.isBlockPowered(getPos());
 	}
 
 }

@@ -22,7 +22,7 @@ public class FocusUpgradeType {
 	 */
 	public AspectList aspects;
 
-	private static int lastID = 0;
+	private static int lastID = 0; 
 
 	public FocusUpgradeType(ResourceLocation icon, String name, String text, AspectList aspects) {
 		this.id = (short) lastID;	
@@ -61,22 +61,22 @@ public class FocusUpgradeType {
 	public static FocusUpgradeType potency = new FocusUpgradeType( 
 			new ResourceLocation("thaumcraft", "textures/foci/potency.png"),
 			"focus.upgrade.potency.name","focus.upgrade.potency.text",
-			new AspectList().add(Aspect.WEAPON,1));
+			new AspectList().add(Aspect.AVERSION,1));
 	
 	public static FocusUpgradeType frugal = new FocusUpgradeType(
 			new ResourceLocation("thaumcraft", "textures/foci/frugal.png"),
 			"focus.upgrade.frugal.name","focus.upgrade.frugal.text",
-			new AspectList().add(Aspect.HUNGER,1));
+			new AspectList().add(Aspect.DESIRE,1));
 	
 	public static FocusUpgradeType treasure = new FocusUpgradeType( 
 			new ResourceLocation("thaumcraft", "textures/foci/treasure.png"),
 			"focus.upgrade.treasure.name","focus.upgrade.treasure.text",
-			new AspectList().add(Aspect.GREED,1));
+			new AspectList().add(Aspect.DESIRE,1));
 	
 	public static FocusUpgradeType enlarge = new FocusUpgradeType( 
 			new ResourceLocation("thaumcraft", "textures/foci/enlarge.png"),
 			"focus.upgrade.enlarge.name","focus.upgrade.enlarge.text",
-			new AspectList().add(Aspect.TRAVEL,1));
+			new AspectList().add(Aspect.MOTION,1));
 
 	public static FocusUpgradeType alchemistsfire = new FocusUpgradeType( 
 			new ResourceLocation("thaumcraft", "textures/foci/alchemistsfire.png"),
@@ -101,7 +101,7 @@ public class FocusUpgradeType {
 	public static FocusUpgradeType silktouch = new FocusUpgradeType( 
 			new ResourceLocation("thaumcraft", "textures/foci/silktouch.png"),
 			"focus.upgrade.silktouch.name","focus.upgrade.silktouch.text",
-			new AspectList().add(Aspect.GREED,1));
+			new AspectList().add(Aspect.DESIRE,1));
 	
 	
 }

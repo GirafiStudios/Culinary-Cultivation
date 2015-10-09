@@ -19,7 +19,7 @@ public class Aspects {
         for (int j = 0; j < i; ++j) {
             ItemModFishFood.FishType fishType = fish[j];
             ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.fish, 1, fishType.getMetaData()), new AspectList().add(Aspect.LIFE, 1).add(Aspect.WATER, 1));
-            ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.cooked_fish, 1, fishType.getMetaData()), new AspectList().add(Aspect.HUNGER, 3).add(Aspect.CRAFT, 1));
+            ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.cooked_fish, 1, fishType.getMetaData()), new AspectList().add(Aspect.SENSES, 3).add(Aspect.CRAFT, 1));
         }
 
         ItemStorageJar.StorageJarType[] jar = ItemStorageJar.StorageJarType.values(); //TODO Add Rennet Jar aspects
@@ -30,7 +30,7 @@ public class Aspects {
             if (meta == ItemStorageJar.StorageJarType.WATER.getMetaData()) {
                 ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.storageJar, 1, ItemStorageJar.StorageJarType.WATER.getMetaData()), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.WATER, 1));
             } else if (meta == ItemStorageJar.StorageJarType.MILK.getMetaData()) {
-                ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.storageJar, 1, ItemStorageJar.StorageJarType.MILK.getMetaData()), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.HUNGER, 1).add(Aspect.WATER, 1));
+                ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.storageJar, 1, ItemStorageJar.StorageJarType.MILK.getMetaData()), new AspectList().add(Aspect.CRYSTAL, 1).add(Aspect.SENSES, 1).add(Aspect.WATER, 1));
             } else {
                 ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.storageJar, 1, jarType.getMetaData()), new AspectList().add(Aspect.CRYSTAL, 1));
             }
@@ -44,21 +44,21 @@ public class Aspects {
 
             if (getMeta == meattype.LAMB.getMetaData() || getMeta == meattype.LEGSHEEP.getMetaData()) {
                 ThaumcraftApi.registerObjectTag(new ItemStack(meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.BEAST, 2).add(Aspect.LIFE, 1).add(Aspect.EARTH, 1));
-                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.HUNGER, 2).add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1));
+                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.SENSES, 2).add(Aspect.CRAFT, 1).add(Aspect.BEAST, 1));
             } else if (getMeta == meattype.VEAL.getMetaData() || getMeta == meattype.ROAST.getMetaData() || getMeta == meattype.RIBSBEEF.getMetaData()) {
                 ThaumcraftApi.registerObjectTag(new ItemStack(meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.LIFE, 2).add(Aspect.BEAST, 1));
-                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.HUNGER, 2).add(Aspect.CRAFT, 1));
+                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.SENSES, 2).add(Aspect.CRAFT, 1));
             } else if (getMeta == meattype.RIBS.getMetaData() || getMeta == meattype.HAM.getMetaData() || getMeta == meattype.BACON.getMetaData()) {
                 ThaumcraftApi.registerObjectTag(new ItemStack(meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
-                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.HUNGER, 3).add(Aspect.CRAFT, 1));
+                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.SENSES, 3).add(Aspect.CRAFT, 1));
             } else if (getMeta == meattype.CHICKENWING.getMetaData() || getMeta == meattype.DRUMSTICK.getMetaData() || getMeta == meattype.CHICKENNUGGET.getMetaData()) {
                 ThaumcraftApi.registerObjectTag(new ItemStack(meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.LIFE, 1).add(Aspect.BEAST, 1));
-                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.HUNGER, 3).add(Aspect.CRAFT, 1));
+                ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.SENSES, 3).add(Aspect.CRAFT, 1));
             } else {
-                ThaumcraftApi.registerObjectTag(new ItemStack(meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.HUNGER, 1).add(Aspect.LIFE, 1));
+                ThaumcraftApi.registerObjectTag(new ItemStack(meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.SENSES, 1).add(Aspect.LIFE, 1));
                 ThaumcraftApi.registerObjectTag(new ItemStack(cooked_meat, 1, meattype.getMetaData()), new AspectList().add(Aspect.LIFE, 1).add(Aspect.CRAFT, 1));
             }
-            ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.meat, 1, meattype.PATTY.getMetaData()), new AspectList().add(Aspect.BEAST, 1).add(Aspect.HUNGER, 1));
+            ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.meat, 1, meattype.PATTY.getMetaData()), new AspectList().add(Aspect.BEAST, 1).add(Aspect.SENSES, 1));
             ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.cooked_meat, 1, meattype.PATTY.getMetaData()), new AspectList().add(Aspect.LIFE, 1).add(Aspect.CRAFT, 2));
         }
 

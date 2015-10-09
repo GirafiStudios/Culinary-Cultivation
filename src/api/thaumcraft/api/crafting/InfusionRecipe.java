@@ -1,25 +1,29 @@
 package thaumcraft.api.crafting;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
-
-import java.util.ArrayList;
+import thaumcraft.api.research.ResearchHelper;
 
 public class InfusionRecipe
 {
 	protected AspectList aspects;
-	protected String research;
+	protected String[] research;
 	private Object[] components;
 	private Object recipeInput;
 	protected Object recipeOutput;
 	protected int instability;
 	
-	public InfusionRecipe(String research, Object output, int inst,
-			AspectList aspects2, Object input, Object[] recipe) {
+	public InfusionRecipe(String research, Object output, int inst, AspectList aspects2, Object input, Object[] recipe) {
+		this(new String[]{research},output,inst,aspects2,input,recipe);
+	}
+	
+	public InfusionRecipe(String[] research, Object output, int inst, AspectList aspects2, Object input, Object[] recipe) {
 		this.research = research;
 		this.recipeOutput = output;
 		this.recipeInput = input;
@@ -35,7 +39,7 @@ public class InfusionRecipe
 	public boolean matches(ArrayList<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
 		if (getRecipeInput()==null) return false;
 			
-		if (research.length()>0 && !ThaumcraftApiHelper.isResearchComplete(player.getName(), research)) {
+		if (research!=null && research[0].length()>0 && !ResearchHelper.isResearchComplete(player.getName(), research)) {
     		return false;
     	}
 		
@@ -67,7 +71,7 @@ public class InfusionRecipe
 		return ii.size()==0?true:false;
     }
     
-    public String getResearch() {
+    public String[] getResearch() {
 		return research;
     }
     

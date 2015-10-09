@@ -22,52 +22,52 @@ public class ThaumcraftMaterials {
 	    public MaterialTaint(MapColor par1MapColor)
 	    {
 	        super(par1MapColor);
-	        this.setNoPushMobility();
-	        this.setRequiresTool();
+//	        this.setNoPushMobility();
+//	        this.setRequiresTool();
 	    }
 
-	    @Override
-	    public boolean isSolid()
-	    {
-	        return false;
-	    }
-	    
-	    @Override
-	    public boolean isReplaceable()
-	    {
-	        return false;
-	    }
-
-	    /**
-	     * Returns if this material is considered solid or not
-	     */
-	    @Override
-	    public boolean blocksMovement()
-	    {
-	        return true;
-	    }
-
-		@Override
-		protected Material setRequiresTool() {
-//			this.requiresNoTool = true;
-	        return this;
-		}
-
-		
-		@Override
-		protected Material setNoPushMobility()
-	    {
-	        this.mobilityFlag = 1;
-	        return this;
-	    }
-		
-		private int mobilityFlag;
-		
-		@Override
-		public int getMaterialMobility()
-	    {
-	        return this.mobilityFlag;
-	    }
+//	    @Override
+//	    public boolean isSolid()
+//	    {
+//	        return false;
+//	    }
+//	    
+//	    @Override
+//	    public boolean isReplaceable()
+//	    {
+//	        return false;
+//	    }
+//
+//	    /**
+//	     * Returns if this material is considered solid or not
+//	     */
+//	    @Override
+//	    public boolean blocksMovement()
+//	    {
+//	        return true;
+//	    }
+//
+////		@Override
+////		protected Material setRequiresTool() {
+//////			this.requiresNoTool = true;
+////	        return this;
+////		}
+//
+//		
+//		@Override
+//		protected Material setNoPushMobility()
+//	    {
+//	        this.mobilityFlag = 1;
+//	        return this;
+//	    }
+//		
+//		private int mobilityFlag;
+//		
+//		@Override
+//		public int getMaterialMobility()
+//	    {
+//	        return this.mobilityFlag;
+//	    }
 	    
 	    
 	}

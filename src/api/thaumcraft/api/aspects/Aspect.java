@@ -1,12 +1,17 @@
 package thaumcraft.api.aspects;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import org.apache.commons.lang3.text.WordUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
+import org.apache.commons.lang3.text.WordUtils;
+
+import thaumcraft.api.research.ScanAspect;
+import thaumcraft.api.research.ScanningManager;
 
 public class Aspect {
 	
@@ -16,6 +21,11 @@ public class Aspect {
 	private String chatcolor;
 	ResourceLocation image;
 	int blend;
+	
+	/**
+	 * For easy reference of what compounds are made up of 
+	 */
+	public static HashMap<Integer,Aspect> mixList = new HashMap<Integer,Aspect>();
 
 	/**
 	 * Use this constructor to register your own aspects.
@@ -33,6 +43,11 @@ public class Aspect {
 		this.image = image;
 		this.blend = blend;
 		aspects.put(tag, this);
+		ScanningManager.addScannableThing(new ScanAspect("!"+tag,this));		
+		if (components!=null) {
+			int h = (components[0].getTag()+components[1].getTag()).hashCode();
+			mixList.put(h, this);
+		}
 	}
 	
 	/**
@@ -166,31 +181,26 @@ public class Aspect {
 	//TERTIARY 
 		public static final Aspect AURA = new Aspect("auram",0xffc0ff, new Aspect[] {ENERGY, AIR});
 		public static final Aspect FLUX = new Aspect("vitium",0x800080, new Aspect[] {ENTROPY, ENERGY});
-		public static final Aspect FLIGHT = new Aspect("volatus",0xe7e7d7, new Aspect[] {AIR, MOTION});
-		public static final Aspect PLANT = new Aspect("herba",0x01ac00, new Aspect[] {LIFE, EARTH});				
-		public static final Aspect SOUL = new Aspect("spiritus",0xebebfb, new Aspect[] {LIFE, DEATH});	
 		public static final Aspect DARKNESS = new Aspect("tenebrae",0x222222, new Aspect[] {VOID, LIGHT});
-		public static final Aspect TRAVEL = new Aspect("iter",0xe0585b, new Aspect[] {MOTION, EARTH});		
-		public static final Aspect UNDEAD = new Aspect("exanimis",0x3a4000, new Aspect[] {MOTION, DEATH});		
-		public static final Aspect TOOL = new Aspect("instrumentum",0x4040ee, new Aspect[] {METAL, MOTION});
-		public static final Aspect HUNGER = new Aspect("fames",0x9a0305, new Aspect[] {LIFE, VOID});
-		public static final Aspect BEAST = new Aspect("bestia",0x9f6409, new Aspect[] {MOTION, LIFE});
-		public static final Aspect MAN = new Aspect("humanus",0xffd7c0, new Aspect[] {SOUL, LIFE});
-		
-		//
 		public static final Aspect ELDRITCH = new Aspect("alienis",0x805080, new Aspect[] {VOID, DARKNESS});
-		public static final Aspect MIND = new Aspect("cognitio",0xffc2b3, new Aspect[] {FIRE, SOUL});
-		public static final Aspect SENSES = new Aspect("sensus",0x0fd9ff, new Aspect[] {AIR, SOUL});		
-			
-		//
-//		public static final Aspect HARVEST = new Aspect("meto",0xeead82, new Aspect[] {TOOL, EARTH});
-		public static final Aspect WEAPON = new Aspect("telum",0xc05050, new Aspect[] {TOOL, FIRE});
-		public static final Aspect ARMOR = new Aspect("tutamen",0x00c0c0, new Aspect[] {TOOL, EARTH});
-		public static final Aspect GREED = new Aspect("lucrum",0xe6be44, new Aspect[] {SOUL, HUNGER});
+		public static final Aspect FLIGHT = new Aspect("volatus",0xe7e7d7, new Aspect[] {AIR, MOTION});
+		public static final Aspect PLANT = new Aspect("herba",0x01ac00, new Aspect[] {LIFE, EARTH});		
+		
+		public static final Aspect TOOL = new Aspect("instrumentum",0x4040ee, new Aspect[] {METAL, ENERGY});
 		public static final Aspect CRAFT = new Aspect("fabrico",0x809d80, new Aspect[] {EXCHANGE, TOOL});
-//		public static final Aspect CLOTH = new Aspect("pannus",0xeaeac2, new Aspect[] {TOOL, BEAST});
-//		public static final Aspect MECHANISM = new Aspect("machina",0x8080a0, new Aspect[] {MOTION, TOOL});
-		public static final Aspect TRAP = new Aspect("vinculum",0x9a8080, new Aspect[] {MOTION, ENTROPY});				
+		public static final Aspect MECHANISM = new Aspect("machina",0x8080a0, new Aspect[] {MOTION, TOOL});
+		public static final Aspect TRAP = new Aspect("vinculum",0x9a8080, new Aspect[] {MOTION, ENTROPY});			
+		
+		public static final Aspect SOUL = new Aspect("spiritus",0xebebfb, new Aspect[] {LIFE, DEATH});
+		public static final Aspect MIND = new Aspect("cognitio",0xffc2b3, new Aspect[] {FIRE, SOUL});
+		public static final Aspect SENSES = new Aspect("sensus",0x0fd9ff, new Aspect[] {AIR, SOUL});
+		public static final Aspect AVERSION = new Aspect("aversio",0xc05050, new Aspect[] {SOUL, ENTROPY});
+		public static final Aspect PROTECT = new Aspect("praemunio",0x00c0c0, new Aspect[] {SOUL, EARTH});
+		public static final Aspect DESIRE = new Aspect("desiderium",0xe6be44, new Aspect[] {SOUL, VOID});
+		
+		public static final Aspect UNDEAD = new Aspect("exanimis",0x3a4000, new Aspect[] {MOTION, DEATH});
+		public static final Aspect BEAST = new Aspect("bestia",0x9f6409, new Aspect[] {MOTION, LIFE});
+		public static final Aspect MAN = new Aspect("humanus",0xffd7c0, new Aspect[] {SOUL, LIFE});						
 		
 		
 }

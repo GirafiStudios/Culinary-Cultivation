@@ -3,6 +3,7 @@ package com.Girafi.culinarycultivation.init;
 import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import com.Girafi.culinarycultivation.item.equipment.armor.farmer.RecipesFarmerArmorDyes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -15,6 +16,7 @@ import static com.Girafi.culinarycultivation.init.ModItems.*;
 public class Recipes {
 
     public static void init() {
+        GameRegistry.addRecipe(new RecipesFarmerArmorDyes());
         //Tools and other stuff
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cakeKnife), true, "   ", "  H", "II ", 'H', toolHandle, 'I', "ingotIron"));

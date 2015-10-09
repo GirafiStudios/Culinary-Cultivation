@@ -1,13 +1,15 @@
 package thaumcraft.api.blocks;
 
+import thaumcraft.common.blocks.devices.BlockJar;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 
 public class BlocksTC {
 
+	
 	// World
 	public static Block oreAmber;
 	public static Block oreCinnabar;
-	public static Block oreInfused;
 	public static Block log;
 	public static Block leaf;
 	public static Block sapling;
@@ -27,29 +29,38 @@ public class BlocksTC {
 	public static Block slabStone;
 	public static Block doubleSlabWood;
 	public static Block doubleSlabStone;
-	public static Block taint;
-	public static Block taintFibres;
-	public static Block fluxGoo;	
-	
-	// Misc
-	public static Block hole;
-	public static Block vacuum;
-	public static Block groundEffect;
+	public static Block taintBlock;
+	public static Block taintFibre;
+	public static Block taintDust;
+	public static Block taintLog;
+	public static Block taintFeature;
+	public static Block lootCrate;
+	public static Block lootUrn;
+	public static Block eldritch;
 	
 	// Doodads	
 	public static Block tableWood;
 	public static Block tableStone;
+	public static Block metal;
 	public static Block candle;
 	public static Block nitor;
 	public static Block bloom;
 	public static Block pedestal;	
 	public static Block itemGrate;
-	public static Block thaumiumBlock;
-	public static Block voidBlock;
 	public static Block fleshBlock;
 	public static Block banner;
+	public static Block pavingStone;
+	public static Block pillar;
+	public static Block crystalAir;
+	public static Block crystalFire;
+	public static Block crystalWater;
+	public static Block crystalEarth;
+	public static Block crystalOrder;
+	public static Block crystalEntropy;
+	public static Block crystalTaint;
 	
 	// Machines
+	public static Block arcaneEar;
 	public static Block levitator;
 	public static Block dioptra;
 	public static Block crucible;	
@@ -59,10 +70,61 @@ public class BlocksTC {
 	public static Block rechargePedestal;
 	public static Block researchTable;
 	public static Block tube;
+	public static Block centrifuge;
+	public static Block crystallizer;
 	public static Block hungryChest;
 	public static Block jar;
-	public static Block bellows;	
+	public static Block bellows;
+	public static Block smelterBasic;
+	public static Block smelterThaumium;
+	public static Block smelterVoid;
+	public static Block smelterAux;
+	public static Block alembic;
+	public static Block infusionMatrix;
+	public static Block infernalFurnace;
+	public static Block arcaneBore;
+	public static Block arcaneBoreBase;
+	public static Block thaumatorium;
+	public static Block brainBox;
+	public static Block mirror;
+	public static Block mirrorEssentia;
+	public static Block auraTotem;
+	public static Block spa;
+	public static Block waterJug;
+	public static Block lampArcane;
+	public static Block lampFertility;
+	public static Block lampGrowth;
+	
+	// Fluids
+	public static Block fluxGoo;	
+	public static Block purifyingFluid;
+	public static Block liquidDeath;
+		
+	// Misc
+	public static Block hole;
+	public static Block vacuum;
+	public static Block effect;
+	public static Block barrier;
+	public static Block placeholder;
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
 
 }

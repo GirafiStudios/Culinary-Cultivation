@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.init.*;
+import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;

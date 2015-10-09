@@ -4,23 +4,27 @@ import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.utility.Utils;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
+public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor { //TODO Finish work on making it dyeable
     public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("FARMER", "FARMER", 10, new int[]{1, 2, 3, 3}, 12);
 
     public ItemFarmerArmor(int type, String name) {
@@ -133,5 +137,77 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
         addStringToTooltip("", list);
         addStringToTooltip(StatCollector.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".armorset.farmer.desc"), list);
         addStringToTooltip(StatCollector.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".armorset.farmer.descFull"), list);
+    }
+
+    @Override
+    public boolean hasColor(ItemStack stack) {
+        ItemFarmerArmor armor = (ItemFarmerArmor) stack.getItem();
+
+        return armor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial ? false : (!stack.hasTagCompound() ? false : (!stack.getTagCompound().hasKey("display", 10) ? false : stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int getColorFromItemStack(ItemStack stack, int renderPass) {
+        if (renderPass > 0) {
+            return 16777215;
+        } else {
+            int j = this.getColor(stack);
+
+            if (j < 0) {
+                j = 16777215;
+            }
+            return j;
+        }
+    }
+
+    @Override
+    public int getColor(ItemStack stack) {
+        if (!hasColor(stack)) {
+            if (stack.getItem() instanceof ItemFarmerOveralls) {
+                return new Color(125, 146, 193).getRGB();
+            } else {
+                return -1;
+            }
+        } else {
+            NBTTagCompound tag = stack.getTagCompound();
+
+            if (tag != null) {
+                NBTTagCompound displayTag = tag.getCompoundTag("display");
+
+                if (displayTag != null && displayTag.hasKey("color", 3)) {
+                    return displayTag.getInteger("color");
+                }
+            }
+        }
+        return 10511680;
+    }
+
+    @Override
+    public void removeColor(ItemStack stack) {
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag != null) {
+            NBTTagCompound displayTag = tag.getCompoundTag("display");
+
+            if (displayTag.hasKey("color")) {
+                displayTag.removeTag("color");
+            }
+        }
+    }
+
+    @Override
+    public void setColor(ItemStack stack, int color) {
+        NBTTagCompound tag = stack.getTagCompound();
+
+        if (tag == null) {
+            tag = new NBTTagCompound();
+            stack.setTagCompound(tag);
+        }
+        NBTTagCompound displayTag = tag.getCompoundTag("display");
+
+        if (!tag.hasKey("display", 10)) {
+            tag.setTag("display", displayTag);
+        }
+        displayTag.setInteger("color", color);
     }
 }

@@ -1,5 +1,9 @@
 package thaumcraft.api.crafting;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,23 +11,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import thaumcraft.api.research.ResearchHelper;
 
 public class InfusionEnchantmentRecipe
 {
 	
 	public AspectList aspects;
-	public String research;
+	public String[] research;
 	public Object[] components;
 	public Enchantment enchantment;
 	public int recipeXP;
 	public int instability;
 	
-	public InfusionEnchantmentRecipe(String research, Enchantment input, int inst, 
-			AspectList aspects2, Object[] recipe) {
+	public InfusionEnchantmentRecipe(String research, Enchantment input, int inst, AspectList aspects2, Object[] recipe) {
+		this(new String[]{research},input,inst,aspects2,recipe);
+	}
+	
+	public InfusionEnchantmentRecipe(String[] research, Enchantment input, int inst, AspectList aspects2, Object[] recipe) {
 		this.research = research;
 		this.enchantment = input;
 		this.aspects = aspects2;
@@ -37,7 +41,7 @@ public class InfusionEnchantmentRecipe
      * @param player 
      */
 	public boolean matches(ArrayList<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
-		if (research.length()>0 && !ThaumcraftApiHelper.isResearchComplete(player.getName(), research)) {
+		if (research!=null && research[0].length()>0 && !ResearchHelper.isResearchComplete(player.getName(), research)) {
     		return false;
     	}
 		
@@ -94,7 +98,7 @@ public class InfusionEnchantmentRecipe
     	
     }
     
-    public String getResearch() {
+    public String[] getResearch() {
 		return research;
     	
     }

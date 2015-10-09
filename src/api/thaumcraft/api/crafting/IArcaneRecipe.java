@@ -23,6 +23,6 @@ public interface IArcaneRecipe extends IRecipe
     
     AspectList getAspects();
     AspectList getAspects(InventoryCrafting inv);
-    String getResearch();
+    String[] getResearch();
     
 }

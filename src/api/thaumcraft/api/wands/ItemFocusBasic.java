@@ -1,19 +1,23 @@
 package thaumcraft.api.wands;
 
+import java.text.DecimalFormat;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-
-import java.text.DecimalFormat;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 public class ItemFocusBasic extends Item {
 	
@@ -78,7 +82,7 @@ public class ItemFocusBasic extends Item {
 			list.add(StatCollector.translateToLocal(isVisCostPerTick(stack)?"item.Focus.cost2":"item.Focus.cost1"));
 			for (Aspect aspect:al.getAspectsSortedByName()) {
 				DecimalFormat myFormatter = new DecimalFormat("#####.##");
-				String amount = myFormatter.format(al.getAmount(aspect)/100f);
+				String amount = myFormatter.format(al.getAmount(aspect));
 				list.add(" \u00A7"+aspect.getChatcolor()+aspect.getName()+"\u00A7r x "+ amount);				
 			}
 		}

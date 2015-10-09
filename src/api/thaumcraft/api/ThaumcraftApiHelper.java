@@ -1,69 +1,25 @@
 package thaumcraft.api;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.IEssentiaTransport;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.aspects.IEssentiaTransport;
+
 public class ThaumcraftApiHelper {
-	
-	public static AspectList cullTags(AspectList temp) {
-		AspectList temp2 = new AspectList();
-		for (Aspect tag:temp.getAspects()) {
-			if (tag!=null)
-				temp2.add(tag, temp.getAmount(tag));
-		}
-		while (temp2!=null && temp2.size()>6) {
-			Aspect lowest = null;
-			float low = Short.MAX_VALUE;
-			for (Aspect tag:temp2.getAspects()) {
-				if (tag==null) continue;
-				float ta=temp2.getAmount(tag);
-				if (tag.isPrimal()) {
-					ta *= .9f;
-				} else {
-					if (!tag.getComponents()[0].isPrimal()) {
-						ta *= 1.1f;
-						if (!tag.getComponents()[0].getComponents()[0].isPrimal()) {
-							ta *= 1.05f;
-						}
-						if (!tag.getComponents()[0].getComponents()[1].isPrimal()) {
-							ta *= 1.05f;
-						}
-					}
-					if (!tag.getComponents()[1].isPrimal()) {
-						ta *= 1.1f;
-						if (!tag.getComponents()[1].getComponents()[0].isPrimal()) {
-							ta *= 1.05f;
-						}
-						if (!tag.getComponents()[1].getComponents()[1].isPrimal()) {
-							ta *= 1.05f;
-						}
-					}
-				}
-				
-				if (ta<low) {
-					low = ta;					 
-					lowest = tag;
-				}
-			}
-			temp2.aspects.remove(lowest);
-		}
-		return temp2; 
-	}
 	
 	public static boolean areItemsEqual(ItemStack s1,ItemStack s2)
     {
@@ -73,22 +29,6 @@ public class ThaumcraftApiHelper {
 		} else
 			return s1.getItem() == s2.getItem() && s1.getItemDamage() == s2.getItemDamage();
     }
-
-	public static boolean isResearchComplete(String username, String researchkey) {
-		return ThaumcraftApi.internalMethods.isResearchComplete(username, researchkey);
-	}
-	
-	public static AspectList getObjectAspects(ItemStack is) {
-		return ThaumcraftApi.internalMethods.getObjectAspects(is);
-	}
-
-	public static AspectList getBonusObjectTags(ItemStack is,AspectList ot) {
-		return ThaumcraftApi.internalMethods.getBonusObjectTags(is, ot);
-	}
-
-	public static AspectList generateTags(Item item, int meta) {
-		return ThaumcraftApi.internalMethods.generateTags(item, meta);
-	}
 	
 	/**
 	 * Notifies thaumcraft that something with regards to runic shielding has changed and that it should
@@ -130,7 +70,7 @@ public class ThaumcraftApiHelper {
 			//nbt
 			boolean t1=areItemStackTagsEqualForCrafting(stack0, (ItemStack) in);		
 			if (!t1) return false;	
-	        return OreDictionary.itemMatches(stack0, (ItemStack) in, false);
+	        return OreDictionary.itemMatches((ItemStack) in, stack0, false);
 		}
 		
 		return false;
@@ -176,96 +116,32 @@ public class ThaumcraftApiHelper {
 			return null;
 	}
     
-    private static HashMap<Integer, AspectList> allAspects= new HashMap<Integer, AspectList>();
-    private static HashMap<Integer, AspectList> allCompoundAspects= new HashMap<Integer, AspectList>();
+//    private static HashMap<Integer, AspectList> allAspects= new HashMap<Integer, AspectList>();
+//    private static HashMap<Integer, AspectList> allCompoundAspects= new HashMap<Integer, AspectList>();
+//    
+//    public static AspectList getAllAspects(int amount) {
+//    	if (allAspects.get(amount)==null) {
+//    		AspectList al = new AspectList();
+//    		for (Aspect aspect:Aspect.aspects.values()) {
+//    			al.add(aspect, amount);
+//    		}
+//    		allAspects.put(amount, al);
+//    	} 
+//    	return allAspects.get(amount);
+//    }
+//    
+//    public static AspectList getAllCompoundAspects(int amount) {
+//    	if (allCompoundAspects.get(amount)==null) {
+//    		AspectList al = new AspectList();
+//    		for (Aspect aspect:Aspect.getCompoundAspects()) {
+//    			al.add(aspect, amount);
+//    		}
+//    		allCompoundAspects.put(amount, al);
+//    	} 
+//    	return allCompoundAspects.get(amount);
+//    }
     
-    public static AspectList getAllAspects(int amount) {
-    	if (allAspects.get(amount)==null) {
-    		AspectList al = new AspectList();
-    		for (Aspect aspect:Aspect.aspects.values()) {
-    			al.add(aspect, amount);
-    		}
-    		allAspects.put(amount, al);
-    	} 
-    	return allAspects.get(amount);
-    }
     
-    public static AspectList getAllCompoundAspects(int amount) {
-    	if (allCompoundAspects.get(amount)==null) {
-    		AspectList al = new AspectList();
-    		for (Aspect aspect:Aspect.getCompoundAspects()) {
-    			al.add(aspect, amount);
-    		}
-    		allCompoundAspects.put(amount, al);
-    	} 
-    	return allCompoundAspects.get(amount);
-    }
-    
-    
-	/**
-	 * Use to subtract vis from a wand for most operations
-	 * Wands store vis differently so "real" vis costs need to be multiplied by 100 before calling this method
-	 * @param wand the wand itemstack
-	 * @param player the player using the wand
-	 * @param cost the cost of the operation. 
-	 * @param doit actually subtract the vis from the wand if true - if false just simulate the result
-	 * @param crafting is this a crafting operation or not - if 
-	 * false then things like frugal and potency will apply to the costs
-	 * @return was the vis successfully subtracted
-	 */
-	public static boolean consumeVisFromWand(ItemStack wand, EntityPlayer player, 
-			AspectList cost, boolean doit, boolean crafting) {
-		return ThaumcraftApi.internalMethods.consumeVisFromWand(wand, player, cost, doit, crafting);
-	}
-	
-	/**
-	 * Subtract vis for use by a crafting mechanic. Costs are calculated slightly 
-	 * differently and things like the frugal enchant is ignored
-	 * Must NOT be multiplied by 100 - send the actual vis cost
-	 * @param wand the wand itemstack
-	 * @param player the player using the wand
-	 * @param cost the cost of the operation. 
-	 * @param doit actually subtract the vis from the wand if true - if false just simulate the result
-	 * @return was the vis successfully subtracted
-	 */
-	public static boolean consumeVisFromWandCrafting(ItemStack wand, EntityPlayer player, 
-			AspectList cost, boolean doit) {
-		return ThaumcraftApi.internalMethods.consumeVisFromWandCrafting(wand, player, cost, doit);
-	}
-	
-	/**
-	 * Subtract vis from a wand the player is carrying. Works like consumeVisFromWand in that actual vis
-	 * costs should be multiplied by 100. The costs are handled like crafting however and things like 
-	 * frugal don't effect them
-	 * @param player the player using the wand
-	 * @param cost the cost of the operation. 
-	 * @return was the vis successfully subtracted
-	 */
-	public static boolean consumeVisFromInventory(EntityPlayer player, AspectList cost) {
-		return ThaumcraftApi.internalMethods.consumeVisFromInventory(player, cost);
-	}
-	
-	
-	/**
-	 * This adds permanents or temporary warp to a player. It will automatically be synced clientside
-	 * @param player the player using the wand
-	 * @param amount how much warp to add. Negative amounts are only valid for temporary warp
-	 * @param temporary add temporary warp instead of permanent
-	 */
-	public static void addWarpToPlayer(EntityPlayer player, int amount, boolean temporary) {
-		ThaumcraftApi.internalMethods.addWarpToPlayer(player, amount, temporary);
-	}
-	
-	/**
-	 * This "sticky" warp to a player. Sticky warp is permanent warp that can be removed.
-	 * It will automatically be synced clientside
-	 * @param player the player using the wand
-	 * @param amount how much warp to add. Can have negative amounts.
-	 */
-	public static void addStickyWarpToPlayer(EntityPlayer player, int amount) {
-		ThaumcraftApi.internalMethods.addStickyWarpToPlayer(player, amount);
-	}
-
 	public static MovingObjectPosition rayTraceIgnoringSource(World world, Vec3 v1, Vec3 v2, 
 			boolean bool1, boolean bool2, boolean bool3)
 	{
@@ -432,5 +308,22 @@ public class ThaumcraftApiHelper {
 	    {
 	        return null;
 	    }
+	}
+	
+	public static Object getNBTDataFromId(NBTTagCompound nbt, byte id, String key) {
+		switch (id) {
+		case 1: return nbt.getByte(key);
+		case 2: return nbt.getShort(key);
+		case 3: return nbt.getInteger(key);
+		case 4: return nbt.getLong(key);
+		case 5: return nbt.getFloat(key);
+		case 6: return nbt.getDouble(key);
+		case 7: return nbt.getByteArray(key);
+		case 8: return nbt.getString(key);
+		case 9: return nbt.getTagList(key, (byte) 10);
+		case 10: return nbt.getTag(key);
+		case 11: return nbt.getIntArray(key);
+		default: return null;
+		}
 	}
 }

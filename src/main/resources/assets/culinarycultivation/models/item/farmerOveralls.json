@@ -1,6 +1,7 @@
 {
   "parent": "culinarycultivation:item/default",
   "textures": {
-    "layer0": "culinarycultivation:items/farmerOveralls"
+    "layer0": "culinarycultivation:items/farmerOveralls_dye",
+    "layer1": "culinarycultivation:items/farmerOveralls_overlay"
   }
 }

@@ -1,5 +1,8 @@
 package thaumcraft.api.items;
 
+import thaumcraft.api.wands.WandCap;
+import thaumcraft.api.wands.WandRod;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
 public class ItemsTC {
@@ -16,24 +19,30 @@ public class ItemsTC {
 	/**"iron","gold","copper","tin","silver","lead","cinnabar"*/
 	public static Item clusters; 
 	
-	//resources
-	public static Item alumentum;	
+	//resources		
 	public static Item tallow;
 	public static Item fabric;	
 	public static Item brassGear;
-	public static Item brassPanel;
+	public static Item brassPlate;
 	public static Item voidSeed;	
 	public static Item salisMundus;
 	public static Item mirroredGlass;
 	public static Item primalCharm;
 	public static Item phial;
 	public static Item label;
+	public static Item visFilter;
 	
-	//food
+	//consumables
+	public static Item alumentum;
 	public static Item brain;
 	/** "beef","chicken","pork","fish","rabbit","mutton"*/
 	public static Item chunks; 
 	public static Item tripleMeatTreat;
+	public static Item bucketDeath;
+	public static Item bucketPure;
+	public static Item bottleTaint;
+	public static Item bathSalts;
+	public static Item sanitySoap;
 	
 	//armor
 	public static Item goggles;
@@ -82,6 +91,8 @@ public class ItemsTC {
 	public static Item thaumometer;
 	public static Item thaumonomicon;
 	public static Item resonator;
+	public static Item sinisterStone;
+	public static Item sanityChecker;
 	
 	public static Item thaumiumAxe;
 	public static Item thaumiumSword;
@@ -107,6 +118,8 @@ public class ItemsTC {
 	public static Item boneBow;
 	public static Item primalArrows;
 	
+	public static Item handMirror;
+	
 	//wand
 	public static Item wand;
 	/** iron, gold, brass, thaumium_inert, thaumium_charged, void_inert, void_charged*/
@@ -126,6 +139,8 @@ public class ItemsTC {
 	public static Item focusWarding;
 	public static Item focusHole;
 	
+	public static Item focusPouch;
+	
 	
 	//baubles
 	/** "amulet_mundane","ring_mundane","girdle_mundane","ring_apprentice"*/
@@ -139,7 +154,6 @@ public class ItemsTC {
 	//misc
 	/** "slime","tendril"*/
 	public static Item tainted;	
-	public static Item spawnEgg;
 	public static Item researchNotes;
 	public static Item scribingTools;
 	public static Item knowledgeFragment;
@@ -148,14 +162,13 @@ public class ItemsTC {
 	public static Item eldritchEye;
 	public static Item crimsonRites;
 	public static Item wispyEssence;
-	public static Item crystalEssence;
-	public static Item bucketDeath;
-	public static Item bucketPure;
-	public static Item bottleTaint;
-	public static Item bathSalts;
-	public static Item sanitySoap;
+	public static Item crystalEssence;	
 	public static Item runedTablet;
 	public static Item primordialPearl;
+	
+	
+	
+	
 	
 	
 

@@ -1,12 +1,11 @@
 package thaumcraft.api.aspects;
 
+import java.io.Serializable;
+import java.util.LinkedHashMap;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import thaumcraft.api.ThaumcraftApiHelper;
-
-import java.io.Serializable;
-import java.util.LinkedHashMap;
 
 public class AspectList implements Serializable {
 	
@@ -19,7 +18,7 @@ public class AspectList implements Serializable {
 	 */
 	public AspectList(ItemStack stack) {
 		try {
-			AspectList temp = ThaumcraftApiHelper.getObjectAspects(stack);
+			AspectList temp = AspectHelper.getObjectAspects(stack);
 			if (temp!=null)
 			for (Aspect tag:temp.getAspects()) {
 				add(tag,temp.getAmount(tag));
@@ -47,7 +46,7 @@ public class AspectList implements Serializable {
 	/**
 	 * @return the amount of total vis in this collection
 	 */
-	public int totalAspectAmount() {
+	public int visSize() {
 		int q = 0;
 		
 		for (Aspect as:aspects.keySet()) {

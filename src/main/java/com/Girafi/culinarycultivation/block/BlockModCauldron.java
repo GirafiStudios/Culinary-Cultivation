@@ -3,6 +3,7 @@ package com.Girafi.culinarycultivation.block;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.Girafi.culinarycultivation.tileentity.TileEntityCauldron;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -355,24 +356,24 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             }
                         }
                     } else if (j1 > 0 && j1 <= 3 && stack.getItem() instanceof ItemArmor) {
-                        ItemArmor itemarmor = (ItemArmor) stack.getItem();
-                        if (itemarmor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && itemarmor.hasColor(stack)) {
-                            itemarmor.removeColor(stack);
+                        ItemArmor armor = (ItemArmor) stack.getItem();
+                        if (armor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && armor.hasColor(stack) || armor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && armor.hasColor(stack)) {
+                            armor.removeColor(stack);
                             setWaterLevel(worldIn, pos, state, j1 - 1);
                             return true;
                         }
                     }
-                    ItemStack itemstack1;
+                    ItemStack banner;
                     if (j1 > 0 && stack.getItem() instanceof ItemBanner && TileEntityBanner.getPatterns(stack) > 0) {
-                        itemstack1 = stack.copy();
-                        itemstack1.stackSize = 1;
-                        TileEntityBanner.removeBannerData(itemstack1);
+                        banner = stack.copy();
+                        banner.stackSize = 1;
+                        TileEntityBanner.removeBannerData(banner);
 
                         if (stack.stackSize <= 1 && !playerIn.capabilities.isCreativeMode) {
-                            playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, itemstack1);
+                            playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, banner);
                         } else {
-                            if (!playerIn.inventory.addItemStackToInventory(itemstack1)) {
-                                worldIn.spawnEntityInWorld(new EntityItem(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, itemstack1));
+                            if (!playerIn.inventory.addItemStackToInventory(banner)) {
+                                worldIn.spawnEntityInWorld(new EntityItem(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, banner));
                             } else if (playerIn instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
                             }

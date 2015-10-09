@@ -1,5 +1,9 @@
 package thaumcraft.api.crafting;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryCrafting;
@@ -9,9 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
-
-import java.util.ArrayList;
-import java.util.Iterator;
+import thaumcraft.api.research.ResearchHelper;
 
 public class ShapelessArcaneRecipe implements IArcaneRecipe
 {
@@ -19,12 +21,11 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
     private ArrayList input = new ArrayList();
     
     public AspectList aspects = null;
-    public String research; 
+    public String[] research; 
+    
+    public ShapelessArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe){ this(new String[] {research}, result,aspects, recipe); }
 
-    public ShapelessArcaneRecipe(String research, Block result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }
-    public ShapelessArcaneRecipe(String research, Item  result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }
-
-    public ShapelessArcaneRecipe(String research, ItemStack result, AspectList aspects, Object... recipe)
+    public ShapelessArcaneRecipe(String[] research, ItemStack result, AspectList aspects, Object... recipe)
     {
         output = result.copy();
         this.research = research;
@@ -78,8 +79,7 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
     @Override
     public boolean matches(InventoryCrafting var1, World world, EntityPlayer player)
     {
-    	if (player!=null && ( research.length()>0 && 
-    			!ThaumcraftApiHelper.isResearchComplete(player.getName(), research))) {
+    	if (player!=null && ( research != null && research[0].length()>0 && !ResearchHelper.isResearchComplete(player.getName(), research))) {
     		return false;
     	}
     	
@@ -104,9 +104,9 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
                     {
                         match = checkItemEquals((ItemStack)next, slot);
                     }
-                    else if (next instanceof ArrayList)
+                    else if (next instanceof List)
                     {
-                        for (ItemStack item : (ArrayList<ItemStack>)next)
+                        for (ItemStack item : (List<ItemStack>)next)
                         {
                             match = match || checkItemEquals(item, slot);
                         }
@@ -162,7 +162,7 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
 	}
 	
 	@Override
-	public String getResearch() {
+	public String[] getResearch() {
 		return research;
 	}
 	
