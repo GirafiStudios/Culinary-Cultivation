@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.modSupport.thaumcraft;
 
+import com.Girafi.culinarycultivation.block.BlockModCauldron;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.modSupport.IModSupport;
 import com.Girafi.culinarycultivation.reference.Reference;
@@ -17,7 +18,8 @@ public class Thaumcraft implements IModSupport {
 
     @Override
     public void postInit() {
-        WandTriggerRegistry.registerWandBlockTrigger(new CrucibleSupport(), 1, ModBlocks.cauldron.getDefaultState(), Reference.MOD_ID);
+        BlockModCauldron cauldron = (BlockModCauldron) ModBlocks.cauldron;
+        WandTriggerRegistry.registerWandBlockTrigger(new CrucibleSupport(), 1, cauldron.getDefaultState(), Reference.MOD_ID); //TODO Make it able to transform no matter what the state is.
     }
 
     @Override
