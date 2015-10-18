@@ -66,7 +66,6 @@ public class TileThaumcraft extends TileEntity {
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		return oldState.getBlock() != newState.getBlock();
-//		return super.shouldRefresh(world, pos, oldState, newState);
 	}
 	
 	public EnumFacing getFacing() {

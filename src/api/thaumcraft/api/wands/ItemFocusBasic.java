@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -73,6 +74,26 @@ public class ItemFocusBasic extends Item {
 	@Override
 	public boolean isDamageable() {
 		return false;
+	}
+	
+	public boolean canBePlacedInTurret() {
+		return false;
+	}
+	
+	/**
+	 * This is used to correct for foci that shoot projectiles effected by gravity. 
+	 * The number will be modified by range to the target
+	 * @return a number to add to the angle the turrent aims at.
+	 */
+	public float getTurretCorrection(ItemStack focusstack) {
+		return 0;
+	}
+	
+	/**
+	 * @return the possible range of the attack - if the entity is outside this range the turret will not attempt to attack it. Values higher than 32 will have no effect
+	 */
+	public float getTurretRange(ItemStack focusstack) {
+		return 32;
 	}
 
 	@Override
@@ -233,19 +254,34 @@ public class ItemFocusBasic extends Item {
         return level;
 	}	
 	
-	public ItemStack onFocusRightClick(ItemStack wandstack, World world,EntityPlayer player, MovingObjectPosition movingobjectposition) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * This method will be called whenever you right click, and possibly per wand usage tick depending on isVisCostPerTick
+	 * IMPORTANT: It should be noted that vis consumption is now handled by the wand and not the focus so do not subtract any vis there.
+	 * @param wandstack
+	 * @param world
+	 * @param entity - do not assume it will always be a player since it could be used by turrets as well
+	 * @param movingobjectposition The target
+	 * @param useCount the amount of ticks the item has been used for
+	 * 
+	 */
+	public void onFocusActivation(ItemStack wandstack, World world, EntityLivingBase entity, MovingObjectPosition movingobjectposition, int useCount) {
+	
 	}
 	
-	public void onUsingFocusTick(ItemStack wandstack, EntityPlayer player,int count) {
-		// TODO Auto-generated method stub		
-	}
 	
-	public void onPlayerStoppedUsingFocus(ItemStack wandstack, World world,	EntityPlayer player, int count) {
-		// TODO Auto-generated method stub
-		
-	}
+//	public ItemStack onFocusRightClick(ItemStack wandstack, World world,EntityPlayer player, MovingObjectPosition movingobjectposition) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	
+//	public void onUsingFocusTick(ItemStack wandstack, EntityPlayer player,int count) {
+//		// TODO Auto-generated method stub		
+//	}
+//	
+//	public void onPlayerStoppedUsingFocus(ItemStack wandstack, World world,	EntityPlayer player, int count) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 	
 	public boolean onFocusBlockStartBreak(ItemStack wandstack, BlockPos pos, EntityPlayer player) {
 		// TODO Auto-generated method stub
@@ -272,5 +308,6 @@ public class ItemFocusBasic extends Item {
 			tlist.appendTag(f);
 		}
 	}
+	
 	
 }

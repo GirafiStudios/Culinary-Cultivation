@@ -38,9 +38,9 @@ minecraft {
 }
 
 dependencies {
-    compile "codechicken:CodeChickenLib:1.8-1.1.2.139:dev"
-    compile "codechicken:CodeChickenCore:1.8-1.0.5.36:dev"
-    compile "codechicken:NotEnoughItems:1.8-1.0.5.82:dev"
+    compile "codechicken:CodeChickenLib:${minecraft_version}-${ccl_version}:dev"
+    compile "codechicken:CodeChickenCore:${minecraft_version}-${ccc_version}:dev"
+    compile "codechicken:NotEnoughItems:${minecraft_version}-${nei_version}:dev"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 

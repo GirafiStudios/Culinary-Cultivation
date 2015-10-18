@@ -22,8 +22,10 @@ public class ItemsTC {
 	//resources		
 	public static Item tallow;
 	public static Item fabric;	
-	public static Item brassGear;
-	public static Item brassPlate;
+	/** "brass"*/
+	public static Item gear;
+	/** "brass"*/
+	public static Item plate;
 	public static Item voidSeed;	
 	public static Item salisMundus;
 	public static Item mirroredGlass;
@@ -31,6 +33,8 @@ public class ItemsTC {
 	public static Item phial;
 	public static Item label;
 	public static Item visFilter;
+	/** "clockwork","biothaumic" */
+	public static Item mind;
 	
 	//consumables
 	public static Item alumentum;
@@ -43,6 +47,7 @@ public class ItemsTC {
 	public static Item bottleTaint;
 	public static Item bathSalts;
 	public static Item sanitySoap;
+	public static Item turretPlacer;
 	
 	//armor
 	public static Item goggles;
@@ -138,6 +143,7 @@ public class ItemsTC {
 	public static Item focusShock;
 	public static Item focusWarding;
 	public static Item focusHole;
+	public static Item focusShard;
 	
 	public static Item focusPouch;
 	
@@ -154,17 +160,21 @@ public class ItemsTC {
 	//misc
 	/** "slime","tendril"*/
 	public static Item tainted;	
-	public static Item researchNotes;
-	public static Item scribingTools;
 	public static Item knowledgeFragment;
 	public static Item coin;
-	public static Item lootBag;
-	public static Item eldritchEye;
-	public static Item crimsonRites;
 	public static Item wispyEssence;
 	public static Item crystalEssence;	
-	public static Item runedTablet;
 	public static Item primordialPearl;
+	public static Item researchNotes;
+	public static Item scribingTools;	
+	public static Item lootBag;
+	public static Item eldritchEye;
+	public static Item crimsonRites;	
+	public static Item runedTablet;
+	
+	
+	
+	
 	
 	
 	

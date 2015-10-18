@@ -15,103 +15,23 @@ public class ThaumcraftMaterials {
 	public static ArmorMaterial ARMORMAT_SPECIAL = EnumHelper.addArmorMaterial("SPECIAL","SPECIAL", 25, new int[] { 1, 3, 2, 1 }, 25);
 	public static ArmorMaterial ARMORMAT_VOID = EnumHelper.addArmorMaterial("VOID","VOID", 10, new int[] { 3, 7, 6, 3 }, 10);
 	
-	public static final Material MATERIAL_TAINT = new MaterialTaint(MapColor.purpleColor);
+	public static final Material MATERIAL_TAINT = new MaterialTaint();
 	
 	public static class MaterialTaint extends Material
 	{
-	    public MaterialTaint(MapColor par1MapColor)
+	    public MaterialTaint()
 	    {
-	        super(par1MapColor);
-//	        this.setNoPushMobility();
-//	        this.setRequiresTool();
-	    }
-
-//	    @Override
-//	    public boolean isSolid()
-//	    {
-//	        return false;
-//	    }
-//	    
-//	    @Override
-//	    public boolean isReplaceable()
-//	    {
-//	        return false;
-//	    }
-//
-//	    /**
-//	     * Returns if this material is considered solid or not
-//	     */
-//	    @Override
-//	    public boolean blocksMovement()
-//	    {
-//	        return true;
-//	    }
-//
-////		@Override
-////		protected Material setRequiresTool() {
-//////			this.requiresNoTool = true;
-////	        return this;
-////		}
-//
-//		
-//		@Override
-//		protected Material setNoPushMobility()
-//	    {
-//	        this.mobilityFlag = 1;
-//	        return this;
-//	    }
-//		
-//		private int mobilityFlag;
-//		
-//		@Override
-//		public int getMaterialMobility()
-//	    {
-//	        return this.mobilityFlag;
-//	    }
+	        super(MapColor.purpleColor);
+	        setNoPushMobility();
+	    }	    
 	    
-	    
-	}
-
-	public static class MaterialAiry extends Material
-	{
-	    public MaterialAiry(MapColor par1MapColor)
-	    {
-	        super(par1MapColor);
-	        this.setNoPushMobility();
-	        this.setRequiresTool();
-	    }
-
-	    @Override
-	    public boolean isSolid()
-	    {
-	        return false;
-	    }
-	    
-	    @Override
-	    public boolean blocksLight()
-	    {
-	        return false;
-	    }
-	    
-	    @Override
-	    public boolean isReplaceable()
-	    {
-	        return false;
-	    }   
-
 	    @Override
 	    public boolean blocksMovement()
 	    {
-	        return false;
+	        return true;
 	    }
-
-		@Override
-		protected Material setRequiresTool() {
-	        return this;
-		}
-
-		
-		@Override
+	    
+	    @Override
 		protected Material setNoPushMobility()
 	    {
 	        this.mobilityFlag = 1;
@@ -126,6 +46,7 @@ public class ThaumcraftMaterials {
 	        return this.mobilityFlag;
 	    }
 	    
-	    
 	}
+	
+	
 }

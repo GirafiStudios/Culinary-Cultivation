@@ -25,7 +25,7 @@ public interface IWand {
 
 	public abstract ItemFocusBasic getFocus(ItemStack stack);
 
-	public abstract ItemStack getFocusItem(ItemStack stack);
+	public abstract ItemStack getFocusStack(ItemStack stack);
 
 	public abstract void setFocus(ItemStack stack, ItemStack focus);
 
