@@ -44,8 +44,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    public int getRenderType()
-    {
+    public int getRenderType() {
         return 3;
     }
 
@@ -74,16 +73,19 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public boolean isOpaqueCube() {return false;}
+    public boolean isOpaqueCube() {
+        return false;
+    }
 
-    public boolean isFullCube() {return false;}
+    public boolean isFullCube() {
+        return false;
+    }
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        int i = ((Integer)state.getValue(LEVEL)).intValue();
-        float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
+        int i = ((Integer) state.getValue(LEVEL)).intValue();
+        float f = (float) pos.getY() + (6.0F + (float) (3 * i)) / 16.0F;
 
-        if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && i < 13 && entityIn.getEntityBoundingBox().minY <= (double)f)
-        {
+        if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && i < 13 && entityIn.getEntityBoundingBox().minY <= (double) f) {
             entityIn.extinguish();
             worldIn.setBlockState(pos, ModBlocks.cauldron.getDefaultState());
         }
@@ -95,16 +97,14 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         int j1 = ((Integer) state.getValue(LEVEL)).intValue();
 
         if (j1 == 13) {
-            if (!playerIn.capabilities.isCreativeMode) {
-                ItemStack cheese = new ItemStack(ModBlocks.cheese);
-                if (!playerIn.inventory.addItemStackToInventory(cheese)) {
-                    worldIn.spawnEntityInWorld(new EntityItem(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, cheese));
-                } else if (playerIn instanceof EntityPlayerMP) {
-                    ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
-                }
-                worldIn.setBlockState(pos, state.getBlock().getDefaultState());
-                return true;
+            ItemStack cheese = new ItemStack(ModBlocks.cheese);
+            if (!playerIn.inventory.addItemStackToInventory(cheese)) {
+                worldIn.spawnEntityInWorld(new EntityItem(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, cheese));
+            } else if (playerIn instanceof EntityPlayerMP) {
+                ((EntityPlayerMP) playerIn).sendContainerToPlayer(playerIn.inventoryContainer);
             }
+            worldIn.setBlockState(pos, state.getBlock().getDefaultState());
+            return true;
         }
 
         if (worldIn.isRemote) {
@@ -405,7 +405,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         if (worldIn.rand.nextInt(20) == 1) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
-            if (((Integer)iblockstate.getValue(LEVEL)).intValue() < 3) {
+            if (((Integer) iblockstate.getValue(LEVEL)).intValue() < 3) {
                 worldIn.setBlockState(pos, iblockstate.cycleProperty(LEVEL), 2);
             }
         }
@@ -425,19 +425,18 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public int getComparatorInputOverride(World worldIn, BlockPos pos) {
-        return ((Integer)worldIn.getBlockState(pos).getValue(LEVEL)).intValue();
+        return ((Integer) worldIn.getBlockState(pos).getValue(LEVEL)).intValue();
     }
 
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(meta));
     }
 
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((Integer)state.getValue(LEVEL)).intValue();
+    public int getMetaFromState(IBlockState state) {
+        return ((Integer) state.getValue(LEVEL)).intValue();
     }
 
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[] {LEVEL});
+        return new BlockState(this, new IProperty[]{LEVEL});
     }
 }

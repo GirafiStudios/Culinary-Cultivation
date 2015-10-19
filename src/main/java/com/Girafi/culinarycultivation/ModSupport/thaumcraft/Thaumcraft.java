@@ -23,7 +23,9 @@ public class Thaumcraft implements IModSupport {
     @Override
     public void postInit() {
         BlockModCauldron cauldron = (BlockModCauldron) ModBlocks.cauldron;
-        WandTriggerRegistry.registerWandBlockTrigger(new CrucibleSupport(), 1, cauldron.getDefaultState(), Reference.MOD_ID); //TODO Make it able to transform no matter what the state is.
+        for (int i = 0; i < cauldron.LEVEL.getAllowedValues().size() - 1; i++) {
+            WandTriggerRegistry.registerWandBlockTrigger(new CrucibleSupport(), 1, cauldron.getStateFromMeta(i), Reference.MOD_ID);
+        }
     }
 
     @Override
