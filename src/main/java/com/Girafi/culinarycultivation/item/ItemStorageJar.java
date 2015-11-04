@@ -141,39 +141,39 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (stack.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
-            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
+            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
             if (movingobjectposition == null) {
                 return stack;
             } else {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos pos = movingobjectposition.getBlockPos();
-                    if (!worldIn.isBlockModifiable(playerIn, pos)) {
+                    if (!world.isBlockModifiable(player, pos)) {
                         return stack;
                     }
-                    if (!playerIn.canPlayerEdit(pos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, stack)) {
+                    if (!player.canPlayerEdit(pos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, stack)) {
                         return stack;
                     }
 
-                    if (worldIn.getBlockState(pos).getBlock().getMaterial() == Material.water) {
+                    if (world.getBlockState(pos).getBlock().getMaterial() == Material.water) {
                         --stack.stackSize;
                         if (stack.stackSize <= 0) {
                             return new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData());
                         }
-                        if (!playerIn.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()))) {
-                            playerIn.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()), false);
+                        if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()))) {
+                            player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()), false);
                         }
                     }
                 }
             }
         }
-        playerIn.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

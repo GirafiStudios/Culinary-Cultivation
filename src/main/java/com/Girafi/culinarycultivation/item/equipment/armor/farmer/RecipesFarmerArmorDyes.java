@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class RecipesFarmerArmorDyes implements IRecipe {
 
-    public boolean matches(InventoryCrafting crafting, World worldIn) {
+    public boolean matches(InventoryCrafting crafting, World world) {
         ItemStack stack = null;
         ArrayList list = Lists.newArrayList();
 

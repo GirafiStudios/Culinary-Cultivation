@@ -24,20 +24,20 @@ public class BlockCheese extends BlockCake {
     }
 
     @Override
-    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-        this.eatCheese(worldIn, pos, worldIn.getBlockState(pos), playerIn);
+    public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
+        this.eatCheese(world, pos, world.getBlockState(pos), player);
     }
 
-    private void eatCheese(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+    private void eatCheese(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.canEat(false)) {
             player.getFoodStats().addStats(2, 0.4F);
             int i = ((Integer)state.getValue(BITES)).intValue();
 
             if (i < 6) {
-                worldIn.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+                world.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
             }
             else {
-                worldIn.setBlockToAir(pos);
+                world.setBlockToAir(pos);
             }
         }
     }

@@ -15,7 +15,7 @@ import thaumcraft.common.lib.network.fx.PacketFXBlockSparkle;
 public class CrucibleSupport implements IWandTriggerManager {
 
     @Override
-    public boolean performTrigger(World world, ItemStack stack, EntityPlayer playerIn, BlockPos pos, EnumFacing enumFacing, int i) {
+    public boolean performTrigger(World world, ItemStack stack, EntityPlayer player, BlockPos pos, EnumFacing enumFacing, int i) {
         if (!world.isRemote) {
             world.setBlockToAir(pos);
             world.setBlockState(pos, BlocksTC.crucible.getDefaultState());

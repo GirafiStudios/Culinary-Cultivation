@@ -32,7 +32,11 @@ public class ModItems {
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
     public static final Item storageJar = new ItemStorageJar();
     public static final Item toolHandle = new Item().setUnlocalizedName(Paths.ModAssets + "toolHandle");
-    public static final Item wooden_largeHoe = new ItemLargeHoe(Item.ToolMaterial.WOOD).setUnlocalizedName(Paths.ModAssets + "hoeLargeWood");
+    public static final Item wooden_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.WOOD).setUnlocalizedName(Paths.ModAssets + "hoeLargeWood");
+    public static final Item stone_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.STONE).setUnlocalizedName(Paths.ModAssets + "hoeLargeStone");
+    public static final Item iron_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.IRON).setUnlocalizedName(Paths.ModAssets + "hoeLargeIron");
+    public static final Item golden_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.GOLD).setUnlocalizedName(Paths.ModAssets + "hoeLargeGolden");
+    public static final Item diamond_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.EMERALD).setUnlocalizedName(Paths.ModAssets + "hoeLargeDiamond");
 
     ////Food
     public static final Item beetroot = new SourceFood(1, 0.1F, false).setUnlocalizedName("beetroot");
@@ -74,7 +78,11 @@ public class ModItems {
         GameRegistry.registerItem(cakeKnife, "cakeKnife");
         GameRegistry.registerItem(meatCleaver, "meatCleaver");
         GameRegistry.registerItem(caneKnife, "caneKnife");
-        GameRegistry.registerItem(wooden_largeHoe, "wooden_largeHoe");
+        GameRegistry.registerItem(wooden_hoeLarge, "wooden_hoeLarge");
+        GameRegistry.registerItem(stone_hoeLarge, "stone_hoeLarge");
+        GameRegistry.registerItem(iron_hoeLarge, "iron_hoeLarge");
+        GameRegistry.registerItem(golden_hoeLarge, "golden_hoeLarge");
+        GameRegistry.registerItem(diamond_hoeLarge, "diamond_hoeLarge");
         GameRegistry.registerItem(debugItem, "debugItem");
         GameRegistry.registerItem(farmerStrawhat, "farmerStrawhat");
         GameRegistry.registerItem(farmerShirt, "farmerShirt");

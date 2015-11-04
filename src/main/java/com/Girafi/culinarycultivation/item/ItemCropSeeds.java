@@ -47,14 +47,14 @@ public class ItemCropSeeds extends Item implements IPlantable {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         SeedType seedType = SeedType.byItemStack(stack);
         if (side != EnumFacing.UP) {
             return false;
-        } else if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
+        } else if (!player.canPlayerEdit(pos.offset(side), side, stack)) {
             return false;
-        } else if (worldIn.getBlockState(pos).getBlock().canSustainPlant(worldIn, pos, EnumFacing.UP, this) && worldIn.isAirBlock(pos.up())) {
-            worldIn.setBlockState(pos.up(), seedType.crop.getDefaultState());
+        } else if (world.getBlockState(pos).getBlock().canSustainPlant(world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
+            world.setBlockState(pos.up(), seedType.crop.getDefaultState());
             --stack.stackSize;
             return true;
         } else {

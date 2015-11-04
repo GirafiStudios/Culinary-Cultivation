@@ -171,9 +171,9 @@ public class InteractEvents {
             }
         }
 
-        public void changeWater(World worldIn, BlockPos pos, IBlockState state, int side) {
-            worldIn.setBlockState(pos, state.withProperty(BlockModCauldron.LEVEL, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
-            worldIn.updateComparatorOutputLevel(pos, ModBlocks.cauldron);
+        public void changeWater(World world, BlockPos pos, IBlockState state, int side) {
+            world.setBlockState(pos, state.withProperty(BlockModCauldron.LEVEL, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
+            world.updateComparatorOutputLevel(pos, ModBlocks.cauldron);
         }
     }
 

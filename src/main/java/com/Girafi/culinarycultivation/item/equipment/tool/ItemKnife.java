@@ -30,9 +30,9 @@ public class ItemKnife extends ItemTool {
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-        if ((double) blockIn.getBlockHardness(worldIn, pos) != 0.0D) {
-            stack.damageItem(2, playerIn);
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block blockIn, BlockPos pos, EntityLivingBase player) {
+        if ((double) blockIn.getBlockHardness(world, pos) != 0.0D) {
+            stack.damageItem(2, player);
         }
         return true;
     }

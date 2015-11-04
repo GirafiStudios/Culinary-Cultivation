@@ -36,7 +36,7 @@ public class BlockCrop extends BlockCrops {
     }
 
     @SideOnly(Side.CLIENT)
-    public Item getItem(World worldIn, BlockPos pos) {
+    public Item getItem(World world, BlockPos pos) {
         if (itemSeed == null) {
             return itemCrop.getItem();
         }

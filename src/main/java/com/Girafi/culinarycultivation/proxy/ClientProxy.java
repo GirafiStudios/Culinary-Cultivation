@@ -36,6 +36,11 @@ public class ClientProxy extends CommonProxy {
         registerItemRender(meatCleaver);
         registerItemRender(pieceOfCake);
         registerItemRender(toolHandle);
+        registerItemRender(wooden_hoeLarge);
+        registerItemRender(stone_hoeLarge);
+        registerItemRender(iron_hoeLarge);
+        registerItemRender(golden_hoeLarge);
+        registerItemRender(diamond_hoeLarge);
         registerItemRender(ModBlocks.cauldron);
         registerItemRenderIgnoreMeta(ModBlocks.beetroots);
         registerItemRenderIgnoreMeta(ModBlocks.blackPepper);

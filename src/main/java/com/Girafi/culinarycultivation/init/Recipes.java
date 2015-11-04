@@ -18,12 +18,17 @@ public class Recipes {
     public static void init() {
         GameRegistry.addRecipe(new RecipesFarmerArmorDyes());
         //Tools and other stuff
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cakeKnife), true, "   ", "  H", "II ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(caneKnife), true, " II", " I ", " H ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(kitchenKnife), true, "  I", " I ", "H  ", 'H', toolHandle, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(meatCleaver), true, " II", " II", "H  ", 'H', toolHandle, 'I', "ingotIron"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolHandle), true, "   ", " S ", " S ", 'S', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wooden_hoeLarge), true, "###", " H ", "H  ", 'H', toolHandle, '#', "plankWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stone_hoeLarge), true, "###", " H ", "H  ", 'H', toolHandle, '#', "cobblestone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(iron_hoeLarge), true, "###", " H ", "H  ", 'H', toolHandle, '#', "ingotIron"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(golden_hoeLarge), true, "###", " H ", "H  ", 'H', toolHandle, '#', "ingotGold"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(diamond_hoeLarge), true, "###", " H ", "H  ", 'H', toolHandle, '#', "gemDiamond"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.dye, 1, 1), new ItemStack(beetroot)));
 
         //Food
