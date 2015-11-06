@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -15,10 +16,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemLargeHoe extends Item {
-    protected Item.ToolMaterial theToolMaterial;
+public class ItemLargeHoe extends ItemHoe {
+    protected ToolMaterial theToolMaterial;
 
-    public ItemLargeHoe(Item.ToolMaterial material) {
+    public ItemLargeHoe(ToolMaterial material) {
+        super(material);
         this.theToolMaterial = material;
         this.maxStackSize = 1;
         this.setMaxDamage(material.getMaxUses() * 2 - 39);
@@ -91,6 +93,7 @@ public class ItemLargeHoe extends Item {
         return true;
     }
 
+    @Override
     protected boolean useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos target, IBlockState newState) { //TODO Make water right-clickable, but not replaceable
         if (world.getBlockState(target).getBlock() instanceof BlockDirt || world.getBlockState(target).getBlock() instanceof BlockGrass) {
             world.playSoundEffect((double) ((float) target.getX() + 0.5F), (double) ((float) target.getY() + 0.5F), (double) ((float) target.getZ() + 0.5F), newState.getBlock().stepSound.getStepSound(), (newState.getBlock().stepSound.getVolume() + 1.0F) / 2.0F, newState.getBlock().stepSound.getFrequency() * 0.8F);
@@ -107,13 +110,11 @@ public class ItemLargeHoe extends Item {
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean isFull3D()
-    {
+    public boolean isFull3D() {
         return true;
     }
 
-    public String getMaterialName()
-    {
+    public String getMaterialName() {
         return this.theToolMaterial.toString();
     }
 
@@ -125,7 +126,8 @@ public class ItemLargeHoe extends Item {
                 TYPE_LOOKUP[BlockDirt.DirtType.DIRT.ordinal()] = 1;
             } catch (NoSuchFieldError var2) {
                 ;
-            } try {
+            }
+            try {
                 TYPE_LOOKUP[BlockDirt.DirtType.COARSE_DIRT.ordinal()] = 2;
             } catch (NoSuchFieldError var1) {
                 ;
