@@ -4,7 +4,6 @@ import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
-import com.Girafi.culinarycultivation.utility.Utils;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,15 +16,13 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor { //TODO Finish work on making it dyeable
-    public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("FARMER", "FARMER", 10, new int[]{1, 2, 3, 3}, 12);
+public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
+    private final String armorPieceName;
+    public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("farmerArmor", "farmerArmor", 10, new int[]{1, 2, 3, 3}, 12);
 
     public ItemFarmerArmor(int type, String name) {
         this(type, name, farmerArmorMaterial);
@@ -33,17 +30,14 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor { //TODO
 
     public ItemFarmerArmor(int type, String name, ArmorMaterial mat) {
         super(mat, 0, type);
+        this.armorPieceName = name;
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
         setUnlocalizedName(Paths.ModAssets + name);
     }
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-        return Paths.ARMOR_MODEL + armorModelFile();
-    }
-
-    public String armorModelFile() {
-        return "farmerArmorBoots.png";
+        return type == null ? Paths.ARMOR_MODEL + armorPieceName + ".png" : Paths.ARMOR_MODEL + armorPieceName + "_overlay" + ".png";
     }
 
     @Override
@@ -146,28 +140,17 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor { //TODO
         return armor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial ? false : (!stack.hasTagCompound() ? false : (!stack.getTagCompound().hasKey("display", 10) ? false : stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        if (renderPass > 0) {
-            return 16777215;
-        } else {
-            int j = this.getColor(stack);
-
-            if (j < 0) {
-                j = 16777215;
-            }
-            return j;
-        }
-    }
-
     @Override
     public int getColor(ItemStack stack) {
-        if (!hasColor(stack)) {
-            if (stack.getItem() instanceof ItemFarmerOveralls) {
-                return new Color(125, 146, 193).getRGB();
-            } else {
-                return -1;
+        if (!this.hasColor(stack)) {
+            if (stack.getItem() == ModItems.farmerShirt) {
+                return 0x971212;
+            }
+            if (stack.getItem() == ModItems.farmerOveralls) {
+                return 0x7d92c1;
+            }
+            if (stack.getItem() == ModItems.farmerBoots) {
+                return 10511680;
             }
         } else {
             NBTTagCompound tag = stack.getTagCompound();
@@ -180,7 +163,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor { //TODO
                 }
             }
         }
-        return 10511680;
+        return -1;
     }
 
     @Override

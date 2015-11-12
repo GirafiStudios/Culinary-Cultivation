@@ -2,10 +2,13 @@ package com.Girafi.culinarycultivation.init;
 
 import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
+import com.Girafi.culinarycultivation.item.ItemStorageJar;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.RecipesFarmerArmorDyes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.common.brewing.VanillaBrewingRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -43,6 +46,7 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(pieceOfCake, 7), new ItemStack(cakeKnife, 1, OreDictionary.WILDCARD_VALUE), Items.cake));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(cheeseSlice, 7), new ItemStack(kitchenKnife, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.cheese));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(storageJar, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(kitchenKnife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(calfBelly), storageJar, storageJar, storageJar, Items.water_bucket));
+        //BrewingRecipeRegistry.addRecipe(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()), new ItemStack(ModItems.calfBelly), new ItemStack(ModItems.storageJar, 1, StorageJarType.RENNET.getMetaData()));
 
         //Furnace recipes
         GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cooked_fish, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);

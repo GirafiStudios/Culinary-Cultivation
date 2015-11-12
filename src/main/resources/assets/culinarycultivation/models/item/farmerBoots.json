@@ -1,6 +1,7 @@
 {
   "parent": "culinarycultivation:item/default",
   "textures": {
-    "layer0": "culinarycultivation:items/farmerBoots"
+    "layer0": "culinarycultivation:items/farmerBoots",
+    "layer1": "culinarycultivation:items/farmerBoots_overlay"
   }
 }

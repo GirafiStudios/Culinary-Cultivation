@@ -11,12 +11,7 @@ import java.util.Random;
 public class ItemFarmerBoots extends ItemFarmerArmor {
 
     public ItemFarmerBoots() {
-        super(3, "farmerBoots");
-    }
-
-    @Override
-    public String armorModelFile() {
-        return "farmerArmorBoots.png";
+        super(3, "farmerArmorBoots");
     }
 
     @Override

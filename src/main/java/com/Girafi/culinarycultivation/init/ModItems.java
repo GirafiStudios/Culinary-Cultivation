@@ -50,7 +50,7 @@ public class ModItems {
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
     //public static final Item seasoned_meat = new ItemModMeatFood(true, true).setHasSubtypes(true);
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
-    public static final Item calfBelly = new Item().setUnlocalizedName(Paths.ModAssets + "calfBelly").setMaxStackSize(1);
+    public static final Item calfBelly = new Item().setUnlocalizedName(Paths.ModAssets + "calfBelly").setMaxStackSize(1).setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
 
     //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
@@ -97,7 +97,7 @@ public class ModItems {
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.TROUT.getMetaData()), 25));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.HERRING.getMetaData()), 30));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.PLAICE.getMetaData()), 18));
-        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.SMALLSQUID.getMetaData()), 8));
-        FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 8).setMaxDamagePercent(0.25F));
+        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.SMALLSQUID.getMetaData()), 11));
+        FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 3).setMaxDamagePercent(0.25F));
     }
 }

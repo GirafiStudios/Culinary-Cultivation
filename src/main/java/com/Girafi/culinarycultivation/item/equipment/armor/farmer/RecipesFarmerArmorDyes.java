@@ -1,6 +1,6 @@
 package com.Girafi.culinarycultivation.item.equipment.armor.farmer;
 
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
+import com.Girafi.culinarycultivation.init.ModItems;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class RecipesFarmerArmorDyes implements IRecipe {
 
+    @Override
     public boolean matches(InventoryCrafting crafting, World world) {
         ItemStack stack = null;
         ArrayList list = Lists.newArrayList();
@@ -22,7 +23,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
             ItemStack craftingStack = crafting.getStackInSlot(i);
 
             if (craftingStack != null) {
-                if (craftingStack.getItem() instanceof ItemFarmerArmor) {
+                if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.farmerStrawhat) {
                     ItemFarmerArmor armor = (ItemFarmerArmor) craftingStack.getItem();
 
                     if (armor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial || stack != null) {
@@ -42,6 +43,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
         return stack != null && !list.isEmpty();
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting crafting) {
         ItemStack stack = null;
         int[] aint = new int[3];
@@ -58,7 +60,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
             ItemStack craftingStack = crafting.getStackInSlot(k);
 
             if (craftingStack != null) {
-                if (craftingStack.getItem() instanceof ItemFarmerArmor) {
+                if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.farmerStrawhat) {
                     farmerArmor = (ItemFarmerArmor) craftingStack.getItem();
 
                     if (farmerArmor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial || stack != null) {
@@ -115,14 +117,17 @@ public class RecipesFarmerArmorDyes implements IRecipe {
         }
     }
 
+    @Override
     public int getRecipeSize() {
         return 10;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return null;
     }
 
+    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting crafting) {
         ItemStack[] aStack = new ItemStack[crafting.getSizeInventory()];
 

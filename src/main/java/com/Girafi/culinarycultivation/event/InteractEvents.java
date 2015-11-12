@@ -5,10 +5,12 @@ import com.Girafi.culinarycultivation.block.BlockModCauldron;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
+import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -174,6 +176,23 @@ public class InteractEvents {
         public void changeWater(World world, BlockPos pos, IBlockState state, int side) {
             world.setBlockState(pos, state.withProperty(BlockModCauldron.LEVEL, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
             world.updateComparatorOutputLevel(pos, ModBlocks.cauldron);
+        }
+
+        @SubscribeEvent
+        public void RemoveDyeEvent(PlayerInteractEvent iEvent) {
+            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.getCurrentEquippedItem().getItem() instanceof ItemFarmerArmor && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cauldron) {
+                int i = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCauldron.LEVEL)).intValue();
+                ItemFarmerArmor itemFarmerArmor = (ItemFarmerArmor) iEvent.entityPlayer.getCurrentEquippedItem().getItem();
+                if (itemFarmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && itemFarmerArmor.hasColor(iEvent.entityPlayer.getCurrentEquippedItem()) && i > 0) {
+                    itemFarmerArmor.removeColor(iEvent.entityPlayer.getCurrentEquippedItem());
+                    this.setWaterLevel(iEvent.world, iEvent.pos, iEvent.world.getBlockState(iEvent.pos), i - 1);
+                }
+            }
+        }
+
+        public void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, int level) {
+            worldIn.setBlockState(pos, state.withProperty(BlockCauldron.LEVEL, Integer.valueOf(MathHelper.clamp_int(level, 0, 3))), 2);
+            worldIn.updateComparatorOutputLevel(pos, Blocks.cauldron);
         }
     }
 

@@ -7,14 +7,11 @@ import net.minecraft.block.material.Material;
 
 public class SourceBlock extends Block {
     public SourceBlock(Material material) {
-
         super(material);
         this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-
     }
 
-    public SourceBlock()
-    {
+    public SourceBlock() {
         this(Material.rock);
     }
 

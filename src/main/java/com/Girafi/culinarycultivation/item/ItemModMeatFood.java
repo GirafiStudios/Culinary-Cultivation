@@ -17,7 +17,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import java.util.List;
 import java.util.Map;
 
-public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with seasoned meat too. Don't add that to NEI. (MAYBE)
+public class ItemModMeatFood extends SourceFood {
     private final boolean cooked;
     private static double potionEffectProbability;
 
@@ -106,7 +106,7 @@ public class ItemModMeatFood extends SourceFood { //TODO Same as fish, but with 
         HAM(6, "ham", 3, 0.3F, 8, 0.7F),
         BACON(7, "bacon", 1, 0.3F, 4, 0.6F),
         PATTY(8, "patty", 2, 0.3F, 6, 0.7F),
-        CHICKENWING(9, "chickenWing", 2, 0.3F, 5, 0.5F), //TODO add chicken wing hot as seasoned, when implemented
+        CHICKENWING(9, "chickenWing", 2, 0.3F, 5, 0.5F),
         DRUMSTICK(10, "drumstick", 2, 0.3F, 5, 0.6F),
         CHICKENNUGGET(11, "chickenNugget", 1, 0.3F, 3, 0.5F),
         SQUIDTENTACLE(12, "squidTentacle", 2, 0.2F, 4, 0.4F),
