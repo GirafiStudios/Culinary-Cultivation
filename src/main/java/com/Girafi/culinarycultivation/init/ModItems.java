@@ -31,7 +31,7 @@ public class ModItems {
     public static final Item kitchenKnife = new ItemKnife(Item.ToolMaterial.IRON);
     public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
     public static final Item storageJar = new ItemStorageJar();
-    public static final Item toolHandle = new Item().setUnlocalizedName(Paths.ModAssets + "toolHandle");
+    public static final Item toolHandle = new Item().setUnlocalizedName(Paths.ModAssets + "toolHandle").setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     public static final Item wooden_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.WOOD).setUnlocalizedName(Paths.ModAssets + "hoeLargeWood");
     public static final Item stone_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.STONE).setUnlocalizedName(Paths.ModAssets + "hoeLargeStone");
     public static final Item iron_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.IRON).setUnlocalizedName(Paths.ModAssets + "hoeLargeIron");
@@ -46,17 +46,14 @@ public class ModItems {
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
     public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
     public static final Item cropFood = new ItemCropFood().setHasSubtypes(true);
+    public static final Item beetrootSeeds = new ItemSeeds(ModBlocks.beetroots, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "beetrootSeeds").setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     public static final Item cropSeeds = new ItemCropSeeds().setHasSubtypes(true);
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
-    //public static final Item seasoned_meat = new ItemModMeatFood(true, true).setHasSubtypes(true);
     public static final Item pieceOfCake = new SourceFood(2, 0.1F, false).setUnlocalizedName("pieceOfCake");
     public static final Item calfBelly = new Item().setUnlocalizedName(Paths.ModAssets + "calfBelly").setMaxStackSize(1).setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
 
     //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
-
-    //Seeds
-    public static final Item beetrootSeeds = new ItemSeeds(ModBlocks.beetroots, Blocks.farmland).setUnlocalizedName(Paths.ModAssets + "beetrootSeeds");
 
     public static void init() { //Will show up in this order in NEI and Creative Tab
         GameRegistry.registerItem(cheeseSlice, "cheeseSlice");
@@ -64,7 +61,6 @@ public class ModItems {
         GameRegistry.registerItem(calfBelly, "calfBelly");
         GameRegistry.registerItem(meat, "meat");
         GameRegistry.registerItem(cooked_meat, "cooked_meat");
-        //GameRegistry.registerItem(seasoned_meat, "seasoned_meat");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
         GameRegistry.registerItem(beetrootSeeds, "beetRootSeeds");

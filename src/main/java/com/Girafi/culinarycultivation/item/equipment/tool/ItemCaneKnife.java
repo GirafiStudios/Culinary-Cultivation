@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.item.equipment.tool;
 
+import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -15,6 +16,7 @@ public class ItemCaneKnife extends ItemTool {
     public ItemCaneKnife(ToolMaterial material) {
         super(3.0F, material, EFFECTIVE_ON);
         setUnlocalizedName(Paths.ModAssets + "caneKnife");
+        setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     }
 
     @Override

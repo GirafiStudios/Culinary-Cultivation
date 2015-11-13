@@ -22,7 +22,7 @@ import java.util.Locale;
 
 public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     private final String armorPieceName;
-    public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("farmerArmor", "farmerArmor", 10, new int[]{1, 2, 3, 3}, 12);
+    public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("farmerArmor", "farmerArmor", 9, new int[]{1, 2, 3, 2}, 12);
 
     public ItemFarmerArmor(int type, String name) {
         this(type, name, farmerArmorMaterial);

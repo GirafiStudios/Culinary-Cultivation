@@ -180,7 +180,7 @@ public class InteractEvents {
 
         @SubscribeEvent
         public void RemoveDyeEvent(PlayerInteractEvent iEvent) {
-            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.getCurrentEquippedItem().getItem() instanceof ItemFarmerArmor && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cauldron) {
+            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.getCurrentEquippedItem() != null && iEvent.entityPlayer.getCurrentEquippedItem().getItem() instanceof ItemFarmerArmor && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cauldron) {
                 int i = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCauldron.LEVEL)).intValue();
                 ItemFarmerArmor itemFarmerArmor = (ItemFarmerArmor) iEvent.entityPlayer.getCurrentEquippedItem().getItem();
                 if (itemFarmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && itemFarmerArmor.hasColor(iEvent.entityPlayer.getCurrentEquippedItem()) && i > 0) {
