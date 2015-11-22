@@ -8,6 +8,7 @@ import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.utility.LogHelper;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -34,6 +35,7 @@ public class CulinaryCultivation {
         ModBlocks.setup();
         Events.init();
         NetworkHandler.init();
+        OBJLoader.instance.addDomain(Reference.MOD_ID);
         ModSupport.instance().preInit();
         LogHelper.info(Reference.MOD_NAME_ + "Pre Initialization Complete.");
     }

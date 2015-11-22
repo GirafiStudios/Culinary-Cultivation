@@ -6,6 +6,7 @@ import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
 import net.minecraft.block.Block;
@@ -250,7 +251,7 @@ public class InteractEvents {
     public static class CaneKnife {
         @SubscribeEvent
         public void CaneKnifeOnSugarCane(BlockEvent.BreakEvent breakEvent) {
-            if (breakEvent.getPlayer().getCurrentEquippedItem() != null && breakEvent.getPlayer().getCurrentEquippedItem().getItem() == ModItems.caneKnife) {
+            if (breakEvent.getPlayer().getCurrentEquippedItem() != null && breakEvent.getPlayer().getCurrentEquippedItem().getItem() instanceof ItemCaneKnife) {
                 World world = breakEvent.world;
                 BlockPos pos = breakEvent.pos;
                 Block block = world.getBlockState(pos).getBlock();

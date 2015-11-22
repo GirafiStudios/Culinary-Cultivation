@@ -1,9 +1,6 @@
 package com.Girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.block.BlockCheese;
-import com.Girafi.culinarycultivation.block.BlockCrop;
-import com.Girafi.culinarycultivation.block.BlockDoubleCrop;
-import com.Girafi.culinarycultivation.block.BlockModCauldron;
+import com.Girafi.culinarycultivation.block.*;
 import com.Girafi.culinarycultivation.item.ItemCropFood;
 import com.Girafi.culinarycultivation.item.ItemCropSeeds;
 import com.Girafi.culinarycultivation.reference.Reference;
@@ -21,6 +18,7 @@ public class ModBlocks {
 
     public static Block cheese = new BlockCheese();
     public static Block cauldron = new BlockModCauldron();
+    public static Block winnowingMachine = new BlockWinnowingMachine();
 
     public static void init() {
         GameRegistry.registerBlock(beetroots, "beetRoots");
@@ -29,6 +27,7 @@ public class ModBlocks {
         GameRegistry.registerBlock(cheese, "cheese");
         GameRegistry.registerBlock(cucumber, "cucumber");
         GameRegistry.registerBlock(tomato, "tomato");
+        GameRegistry.registerBlock(winnowingMachine, "winnowingMachine");
     }
 
     public static void setup() {
