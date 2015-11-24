@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.modSupport.nei;
 
+/*
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import com.Girafi.culinarycultivation.init.ModBlocks;
@@ -27,3 +28,4 @@ public class NEICulinaryCultivationConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(ModBlocks.tomato));
     }
 }
+*/

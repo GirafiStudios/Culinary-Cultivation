@@ -42,7 +42,6 @@ public class CulinaryCultivation {
 
     @Mod.EventHandler
     public void init (FMLInitializationEvent event) {
-        //Register GUIs
         ModTileEntities.init();
         Recipes.init();
         OreDictionaryRegistration.init();

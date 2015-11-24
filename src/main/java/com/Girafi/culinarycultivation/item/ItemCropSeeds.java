@@ -79,7 +79,7 @@ public class ItemCropSeeds extends Item implements IPlantable {
         return null;
     }
 
-    public static enum SeedType { //TODO Make proper values
+    public static enum SeedType {
         BLACKPEPPERDRUPE(0, "blackPepperDrupe", ModBlocks.blackPepper);
 
         private static final Map META_LOOKUP = Maps.newHashMap();

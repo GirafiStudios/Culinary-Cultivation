@@ -23,6 +23,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
@@ -186,6 +187,7 @@ public class InteractEvents {
                 ItemFarmerArmor itemFarmerArmor = (ItemFarmerArmor) iEvent.entityPlayer.getCurrentEquippedItem().getItem();
                 if (itemFarmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && itemFarmerArmor.hasColor(iEvent.entityPlayer.getCurrentEquippedItem()) && i > 0) {
                     itemFarmerArmor.removeColor(iEvent.entityPlayer.getCurrentEquippedItem());
+                    iEvent.entityPlayer.triggerAchievement(StatList.field_181727_K);
                     this.setWaterLevel(iEvent.world, iEvent.pos, iEvent.world.getBlockState(iEvent.pos), i - 1);
                 }
             }

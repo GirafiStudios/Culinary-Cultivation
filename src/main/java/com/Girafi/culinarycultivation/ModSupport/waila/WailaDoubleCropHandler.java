@@ -1,5 +1,5 @@
 package com.Girafi.culinarycultivation.modSupport.waila;
-
+/*
 import com.Girafi.culinarycultivation.block.BlockDoubleCrop;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -55,3 +55,4 @@ public class WailaDoubleCropHandler implements IWailaDataProvider {
         return tag;
     }
 }
+*/

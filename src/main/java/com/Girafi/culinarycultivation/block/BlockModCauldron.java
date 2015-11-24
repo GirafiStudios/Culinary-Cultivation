@@ -5,6 +5,8 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.Girafi.culinarycultivation.tileentity.TileEntityCauldron;
+import net.minecraft.block.BlockCauldron;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -19,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBanner;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.AxisAlignedBB;
@@ -54,7 +57,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity) {
+    public void addCollisionBoxesToList(World world, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3125F, 1.0F);
         super.addCollisionBoxesToList(world, pos, state, mask, list, collidingEntity);
         float f = 0.125F;
@@ -82,7 +85,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entityIn) {
-        int i = ((Integer) state.getValue(LEVEL)).intValue();
+        int i = (state.getValue(LEVEL)).intValue();
         float f = (float) pos.getY() + (6.0F + (float) (3 * i)) / 16.0F;
 
         if (!world.isRemote && entityIn.isBurning() && i > 0 && i < 13 && entityIn.getEntityBoundingBox().minY <= (double) f) {
@@ -94,7 +97,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.inventory.getCurrentItem();
-        int j1 = ((Integer) state.getValue(LEVEL)).intValue();
+        int j1 = (state.getValue(LEVEL)).intValue();
 
         if (j1 == 13) {
             ItemStack cheese = new ItemStack(ModBlocks.cheese);
@@ -118,6 +121,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         if (!player.capabilities.isCreativeMode) {
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
                         }
+                        player.triggerAchievement(StatList.field_181725_I);
                         setWaterLevel(world, pos, state, 3);
                     }
                     return true;
@@ -127,6 +131,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         if (!player.capabilities.isCreativeMode) {
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.water_bucket));
                         }
+                        player.triggerAchievement(StatList.field_181726_J);
                         setWaterLevel(world, pos, state, -3);
                     }
                     if (j1 > 0 && j1 == 6) {
@@ -156,6 +161,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 } else if (player instanceof EntityPlayerMP) {
                                     ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                                 }
+                                player.triggerAchievement(StatList.field_181726_J);
                                 --stack.stackSize;
                                 if (stack.stackSize <= 0) {
                                     player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
@@ -174,6 +180,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                                 } else if (player instanceof EntityPlayerMP) {
                                     ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                                 }
+                                player.triggerAchievement(StatList.field_181726_J);
                                 --stack.stackSize;
                                 if (stack.stackSize <= 0) {
                                     player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
@@ -359,13 +366,13 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         ItemArmor armor = (ItemArmor) stack.getItem();
                         if (armor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && armor.hasColor(stack) || armor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && armor.hasColor(stack)) {
                             armor.removeColor(stack);
+                            player.triggerAchievement(StatList.field_181727_K);
                             setWaterLevel(world, pos, state, j1 - 1);
                             return true;
                         }
                     }
-                    ItemStack banner;
                     if (j1 > 0 && stack.getItem() instanceof ItemBanner && TileEntityBanner.getPatterns(stack) > 0) {
-                        banner = stack.copy();
+                        ItemStack banner = stack.copy();
                         banner.stackSize = 1;
                         TileEntityBanner.removeBannerData(banner);
 
@@ -377,6 +384,8 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             } else if (player instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                             }
+
+                            player.triggerAchievement(StatList.field_181728_L);
 
                             if (!player.capabilities.isCreativeMode) {
                                 --stack.stackSize;
@@ -403,10 +412,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     public void fillWithRain(World world, BlockPos pos) {
         if (world.rand.nextInt(20) == 1) {
-            IBlockState iblockstate = world.getBlockState(pos);
+            IBlockState state = world.getBlockState(pos);
 
-            if (((Integer) iblockstate.getValue(LEVEL)).intValue() < 3) {
-                world.setBlockState(pos, iblockstate.cycleProperty(LEVEL), 2);
+            if ((state.getValue(LEVEL)).intValue() < 3) {
+                world.setBlockState(pos, state.cycleProperty(LEVEL), 2);
             }
         }
     }
@@ -425,7 +434,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public int getComparatorInputOverride(World world, BlockPos pos) {
-        return ((Integer) world.getBlockState(pos).getValue(LEVEL)).intValue();
+        return (world.getBlockState(pos).getValue(LEVEL)).intValue();
     }
 
     public IBlockState getStateFromMeta(int meta) {
@@ -433,7 +442,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return ((Integer) state.getValue(LEVEL)).intValue();
+        return (state.getValue(LEVEL)).intValue();
     }
 
     protected BlockState createBlockState() {

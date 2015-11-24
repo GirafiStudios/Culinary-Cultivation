@@ -7,11 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 
-public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpdatePlayerListBox, IInventory {
+public class TileEntityWinnowingMachine extends SourceTileEntity implements ITickable, IInventory {
 
     private boolean isMultiblockFormed;
     private boolean isInvalidBlock;
@@ -76,9 +76,9 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpd
     }
 
     /**
-     * Returns the stack in slot i
+     * Returns the stack in the given slot.
      *
-     * @param index
+     * @param index The slot to retrieve from.
      */
     @Override
     public ItemStack getStackInSlot(int index) {
@@ -86,11 +86,10 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpd
     }
 
     /**
-     * Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a
-     * new stack.
+     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
      *
-     * @param index
-     * @param count
+     * @param index The slot to remove from.
+     * @param count The maximum amount of items to remove.
      */
     @Override
     public ItemStack decrStackSize(int index, int count) {
@@ -98,10 +97,9 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpd
     }
 
     /**
-     * When some containers are closed they call this on each slot, then drop whatever it returns as an EntityItem -
-     * like when you close a workbench GUI.
+     * Removes a stack from the given slot and returns it.
      *
-     * @param index
+     * @param index The slot to remove a stack from.
      */
     @Override
     public ItemStack getStackInSlotOnClosing(int index) {
@@ -120,8 +118,7 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpd
     }
 
     /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't
-     * this more of a set than a get?*
+     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
      */
     @Override
     public int getInventoryStackLimit() {
@@ -148,9 +145,15 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpd
 
     }
 
+    /**
+     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
+     *
+     * @param index
+     * @param stack
+     */
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return true;
+        return false;
     }
 
     @Override
@@ -177,7 +180,7 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpd
      * Gets the name of this command sender (usually username, but possibly "Rcon")
      */
     @Override
-    public String getName() {
+    public String getCommandSenderName() {
         return null;
     }
 
@@ -186,6 +189,9 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements IUpd
         return false;
     }
 
+    /**
+     * Get the formatted ChatComponent that will be used for the sender's username in chat
+     */
     @Override
     public IChatComponent getDisplayName() {
         return null;

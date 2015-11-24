@@ -3,9 +3,9 @@ package com.Girafi.culinarycultivation.tileentity;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.utility.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 
-public class TileEntityCauldron extends SourceTileEntity implements IUpdatePlayerListBox {
+public class TileEntityCauldron extends SourceTileEntity implements ITickable {
     private int timer = 2400;
 
     @Override

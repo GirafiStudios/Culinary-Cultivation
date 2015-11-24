@@ -1,5 +1,5 @@
 package com.Girafi.culinarycultivation.modSupport.thaumcraft;
-
+/*
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -29,3 +29,4 @@ public class CrucibleSupport implements IWandTriggerManager {
         }
     }
 }
+*/

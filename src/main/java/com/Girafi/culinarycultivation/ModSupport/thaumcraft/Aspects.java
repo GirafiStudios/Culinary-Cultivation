@@ -1,5 +1,5 @@
 package com.Girafi.culinarycultivation.modSupport.thaumcraft;
-
+/*
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
@@ -71,3 +71,4 @@ public class Aspects {
         //TODO Add aspects for crop related stuff, when done.
     }
 }
+*/
