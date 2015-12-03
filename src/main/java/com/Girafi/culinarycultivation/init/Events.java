@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation.init;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import static com.Girafi.culinarycultivation.event.ChickenDropsEvent.ChickenWingDropsEvent;
 import static com.Girafi.culinarycultivation.event.CowDropsEvent.*;
@@ -18,25 +17,29 @@ import static com.Girafi.culinarycultivation.handler.ConfigurationHandler.*;
 
 public class Events {
     public static void init() {
-        if (CanRightClickHarvestVanillaCrops) {MinecraftForge.EVENT_BUS.register(new VanillaCrops()); }
-        if (ShouldBabyCowDropVeal) {MinecraftForge.EVENT_BUS.register(new BabyCowVealDropsEvent()); }
-        if (ShouldBabySheepDropLamb) {MinecraftForge.EVENT_BUS.register(new BabySheepLambDropsEvent()); }
-        if (ShouldChickensDropChickenWings) {MinecraftForge.EVENT_BUS.register(new ChickenWingDropsEvent()); }
-        if (ShouldCowsDropBeefRibs) {MinecraftForge.EVENT_BUS.register(new CowRibsBeefDropsEvent()); }
-        if (ShouldCowsDropRoast) {MinecraftForge.EVENT_BUS.register(new CowRoastDropsEvent()); }
-        if (ShouldPigsDropHam) {MinecraftForge.EVENT_BUS.register(new PigHamDropsEvent()); }
-        if (ShouldPigsDropPorkRibs) {MinecraftForge.EVENT_BUS.register(new PigRibsPorkDropsEvent()); }
-        if (ShouldSheepDropLegOfSheep) {MinecraftForge.EVENT_BUS.register(new SheepLegOfSheepDropsEvent()); }
-        if (ShouldSquidDropSquidMantle) {MinecraftForge.EVENT_BUS.register(new SquidMantleDropsEvent()); }
-        if (ShouldSquidDropSquidTentacle) {MinecraftForge.EVENT_BUS.register(new SquidTentacleDropsEvent()); }
-        MinecraftForge.EVENT_BUS.register(new BabyCowCalfBellyDropsEvent());
-        FMLCommonHandler.instance().bus().register(new AchievementTriggerEvent());
-        FMLCommonHandler.instance().bus().register(new CraftedEvent());
-        MinecraftForge.EVENT_BUS.register(new CakeInteractionEvent());
-        MinecraftForge.EVENT_BUS.register(new CaneKnife());
-        MinecraftForge.EVENT_BUS.register(new CauldronTransformation());
-        MinecraftForge.EVENT_BUS.register(new CheeseInteractionEvent());
-        MinecraftForge.EVENT_BUS.register(new DebugItemEvent());
-        MinecraftForge.EVENT_BUS.register(new StorageJarMilkFill());
+        if (CanRightClickHarvestVanillaCrops) { registerEvent(new VanillaCrops()); }
+        if (ShouldBabyCowDropVeal) { registerEvent(new BabyCowVealDropsEvent()); }
+        if (ShouldBabySheepDropLamb) { registerEvent(new BabySheepLambDropsEvent()); }
+        if (ShouldChickensDropChickenWings) { registerEvent(new ChickenWingDropsEvent()); }
+        if (ShouldCowsDropBeefRibs) { registerEvent(new CowRibsBeefDropsEvent()); }
+        if (ShouldCowsDropRoast) { registerEvent(new CowRoastDropsEvent()); }
+        if (ShouldPigsDropHam) { registerEvent(new PigHamDropsEvent()); }
+        if (ShouldPigsDropPorkRibs) { registerEvent(new PigRibsPorkDropsEvent()); }
+        if (ShouldSheepDropLegOfSheep) { registerEvent(new SheepLegOfSheepDropsEvent()); }
+        if (ShouldSquidDropSquidMantle) { registerEvent(new SquidMantleDropsEvent()); }
+        if (ShouldSquidDropSquidTentacle) { registerEvent(new SquidTentacleDropsEvent()); }
+        registerEvent(new BabyCowCalfBellyDropsEvent());
+        registerEvent(new AchievementTriggerEvent());
+        registerEvent(new CraftedEvent());
+        registerEvent(new CakeInteractionEvent());
+        registerEvent(new CaneKnife());
+        registerEvent(new CauldronTransformation());
+        registerEvent(new CheeseInteractionEvent());
+        registerEvent(new DebugItemEvent());
+        registerEvent(new StorageJarMilkFill());
+    }
+
+    public static void registerEvent(Object eventClass) {
+        MinecraftForge.EVENT_BUS.register(eventClass);
     }
 }

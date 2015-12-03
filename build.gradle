@@ -12,13 +12,19 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
+repositories {
+  maven {
+    url "http://dvs1.progwml6.com/files/maven"
+  }
+}
+
 version = "${minecraft_version}-${mod_version}"
 group = "com.Girafi.CulinaryCultivation"
 archivesBaseName = "CulinaryCultivation"
 
 minecraft {
     version = "${minecraft_version}-${forge_version}"
-    mappings = "snapshot_20151122"
+    mappings = "snapshot_20151129"
     runDir = "run"
 
     replace "@VERSION@", project.mod_version
@@ -26,6 +32,10 @@ minecraft {
 }
 
 dependencies {
+    //deobfCompile "codechicken:CodeChickenLib:${minecraft_version}-${ccl_version}:dev"
+    //deobfCompile "codechicken:CodeChickenCore:${minecraft_version}-${ccc_version}:dev"
+    //deobfCompile "codechicken:NotEnoughItems:${minecraft_version}-${nei_version}:dev"
+	deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 

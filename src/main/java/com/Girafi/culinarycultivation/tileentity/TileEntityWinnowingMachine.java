@@ -102,7 +102,7 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements ITic
      * @param index The slot to remove a stack from.
      */
     @Override
-    public ItemStack getStackInSlotOnClosing(int index) {
+    public ItemStack removeStackFromSlot(int index) {
         return null;
     }
 
@@ -180,7 +180,7 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements ITic
      * Gets the name of this command sender (usually username, but possibly "Rcon")
      */
     @Override
-    public String getCommandSenderName() {
+    public String getName() {
         return null;
     }
 
