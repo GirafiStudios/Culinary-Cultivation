@@ -26,7 +26,7 @@ public class BlockWinnowingMachine extends SourceBlockTileEntity {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public BlockWinnowingMachine() {
-        super(Material.wood);
+        super(Material.iron);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         setUnlocalizedName(Paths.ModAssets + "winnowingMachine");
         setCreativeTab(CreativeTab.CulinaryCultivation_Tab);

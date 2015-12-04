@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.modSupport;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import com.Girafi.culinarycultivation.modSupport.thaumcraft.Thaumcraft;
+import com.Girafi.culinarycultivation.modSupport.jei.JEI;
 import com.Girafi.culinarycultivation.modSupport.waila.Waila;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.reference.SupportedModIDs;
@@ -22,14 +22,16 @@ public class ModSupport {
     private final List<IModSupport> modSupportMods = new ArrayList<IModSupport>();
     private final List<IModSupport> modSupportModsNoConfig = new ArrayList<IModSupport>();
 
-    public static ModSupport instance() { return INSTANCE; }
+    public static ModSupport instance() {
+        return INSTANCE;
+    }
 
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
         Map<String, Class<? extends IModSupport>> modSupportClassesNoConfig = new HashMap<String, Class<? extends IModSupport>>();
-        modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
+        //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
         modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
-
+        modSupportClasses.put(SupportedModIDs.JEI, JEI.class);
 
 
         List<String> enabledModSupport = new ArrayList<String>();
@@ -102,17 +104,6 @@ public class ModSupport {
                 modSupport.clientSide();
             } catch (Exception e) {
                 LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " on client side!");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void clientInit() {
-        for (IModSupport modSupport : modSupportMods) {
-            try {
-                modSupport.clientInit();
-            } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " on client side under Initialization");
                 e.printStackTrace();
             }
         }

@@ -31,8 +31,4 @@ public class Thaumcraft implements IModSupport {
     @Override
     public void clientSide() {
     }
-
-    @Override
-    public void clientInit() {
-    }
 }

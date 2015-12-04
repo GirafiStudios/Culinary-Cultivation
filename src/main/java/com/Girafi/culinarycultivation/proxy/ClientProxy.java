@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation.proxy;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.item.*;
+import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.utility.Utils;
 import net.minecraft.block.Block;
@@ -21,6 +22,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerRenders() {
+        ModSupport.instance().clientSide();
         registerItemRender(beetroot);
         registerItemRender(beetrootSeeds);
         registerItemRender(beetrootSoup);

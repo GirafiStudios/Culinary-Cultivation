@@ -9,6 +9,4 @@ public interface IModSupport {
     public void postInit();
 
     public void clientSide();
-
-    public void clientInit();
 }
