@@ -13,7 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -31,7 +31,7 @@ public class BlockCrop extends BlockCrops {
 
     @Override
     public String getUnlocalizedName() {
-        String name = "tile." + Paths.ModAssets + GameRegistry.findUniqueIdentifierFor(getBlockState().getBlock()).name;
+        String name = "tile." + GameData.getItemRegistry().getNameForObject(Item.getItemFromBlock(getBlockState().getBlock()));
         return name;
     }
 
@@ -59,7 +59,7 @@ public class BlockCrop extends BlockCrops {
     }
 
     public boolean rightClickHarvest (World world, BlockPos pos, IBlockState state) {
-        int age = ((Integer) state.getValue(AGE)).intValue();
+        int age = (state.getValue(AGE)).intValue();
         if (age >= 7) {
             super.dropBlockAsItem(world, pos, state, 0);
             world.setBlockState(pos, state.withProperty(AGE, 0), 2);
@@ -96,13 +96,13 @@ public class BlockCrop extends BlockCrops {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return ((Integer) state.getValue(AGE)).intValue() == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
+        return (state.getValue(AGE)).intValue() == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
     }
 
     @Override
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
-        int age = ((Integer) state.getValue(AGE)).intValue();
+        int age = (state.getValue(AGE)).intValue();
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
         if (age >= 7) {
