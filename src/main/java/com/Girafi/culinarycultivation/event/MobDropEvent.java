@@ -24,7 +24,7 @@ public class MobDropEvent {
     private int dropMax;
 
     @SubscribeEvent
-    public void LivingDropsEvent(LivingDropsEvent dropsEvent) {
+    public void livingDropEvent(LivingDropsEvent dropsEvent) {
         if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
             if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == this.killTool) {
@@ -33,7 +33,6 @@ public class MobDropEvent {
                         dropsEvent.drops.clear();
                     }
                     int drop = MathHelper.getRandomIntegerInRange(random, dropMin, dropMax);
-                    //int j = dropSwitch() + random.nextInt(dropLootingInt + dropsEvent.lootingLevel);
                     for (int k = 0; k < drop + dropsEvent.lootingLevel; ++k) {
                         if (dropsEvent.entityLiving.isBurning() && canDropBurned) {
                             dropsEvent.entityLiving.entityDropItem(this.dropBurning.copy(), 1F);
@@ -51,13 +50,18 @@ public class MobDropEvent {
         return this;
     }
 
+    public MobDropEvent setModifiedDrop(Class<? extends EntityLivingBase> entityLivingClass, ItemStack drop, ItemStack dropBurning, int vanillaDropChance, int dropMin, int dropMax) {
+        this.setFullDrop(entityLivingClass, false, drop, dropBurning, true, ModItems.meatCleaver, vanillaDropChance, dropMin, dropMax);
+        return this;
+    }
+
     public MobDropEvent setChildDrop(Class<? extends EntityLivingBase> entityLivingClass, ItemStack drop, ItemStack dropBurning, int dropMin, int dropMax) {
         this.setFullDrop(entityLivingClass, true, drop, dropBurning, true, ModItems.meatCleaver, -1, dropMin, dropMax);
         return this;
     }
 
-    public MobDropEvent setNoBurnDrop(Class<? extends EntityLivingBase> entityLivingClass, boolean isChild, ItemStack drop, int dropMin, int dropMax) {
-        this.setFullDrop(entityLivingClass, isChild, drop, dropBurning, false, ModItems.meatCleaver, -1, dropMin, dropMax);
+    public MobDropEvent setWaterDrop(Class<? extends EntityLivingBase> entityLivingClass, ItemStack drop, int dropMin, int dropMax) {
+        this.setFullDrop(entityLivingClass, false, drop, null, false, ModItems.meatCleaver, 25, dropMin, dropMax);
         return this;
     }
 
@@ -73,28 +77,4 @@ public class MobDropEvent {
         this.dropMax = dropMax;
         return this;
     }
-
-/*    private int dropSwitch() {
-        switch (dropCode) {
-            case 1: { *//*Drop 0-1 items of this living's type*//*
-                dropLootingInt = 2;
-                break;
-            }
-            case 2: { *//*Drop 0-2 items of this living's type*//*
-                dropLootingInt = 3;
-                break;
-            }
-            case 3: { *//*Drop 1-2 items of this living's type*//*
-                dropCode = random.nextInt(2) + 1;
-                dropLootingInt = 1;
-                break;
-            }
-            case 4: { *//*Drop 1-3 items of this living's type*//*
-                dropCode = random.nextInt(3) + 1;
-                dropLootingInt = 1;
-                break;
-            }
-        }
-        return dropCode;
-    }*/
 }
