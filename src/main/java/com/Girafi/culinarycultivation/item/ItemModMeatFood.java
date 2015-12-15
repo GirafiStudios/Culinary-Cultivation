@@ -44,20 +44,14 @@ public class ItemModMeatFood extends SourceFood {
 
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         MeatType meatType = MeatType.getMeatType(stack);
-        potionEffectProbability = Math.random();
+        potionEffectProbability = (float) Math.random();
 
-        if (meatType == MeatType.CHICKENWING  && stack.getItem() == ModItems.meat) {
-            if (potionEffectProbability <= 0.3F) {
+        if (potionEffectProbability <= 0.3F) {
+            if (meatType == MeatType.CHICKENWING && stack.getItem() == ModItems.meat) {
                 player.addPotionEffect(new PotionEffect(Potion.hunger.id, 440)); //22 seconds
-            }
-        }
-        if (meatType == MeatType.DRUMSTICK && stack.getItem() == ModItems.meat) {
-            if (potionEffectProbability <= 0.3F) {
+            } else if (meatType == MeatType.DRUMSTICK && stack.getItem() == ModItems.meat) {
                 player.addPotionEffect(new PotionEffect(Potion.hunger.id, 320)); //16 seconds
-            }
-        }
-        if (meatType == MeatType.CHICKENNUGGET  && stack.getItem() == ModItems.meat) {
-            if (potionEffectProbability <= 0.3F) {
+            } else if (meatType == MeatType.CHICKENNUGGET && stack.getItem() == ModItems.meat) {
                 player.addPotionEffect(new PotionEffect(Potion.hunger.id, 160)); //8 seconds
             }
         }

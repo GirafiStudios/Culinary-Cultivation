@@ -116,7 +116,7 @@ public class InteractEvents {
         }
 
         public int state(World world, BlockPos pos) {
-            return ((Integer) world.getBlockState(pos).getValue(BlockCake.BITES)).intValue();
+            return (world.getBlockState(pos).getValue(BlockCake.BITES)).intValue();
         }
 
         public IBlockState stateWithProperty(World world, BlockPos pos) {
@@ -183,7 +183,7 @@ public class InteractEvents {
         @SubscribeEvent
         public void RemoveDyeEvent(PlayerInteractEvent iEvent) {
             if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.getCurrentEquippedItem() != null && iEvent.entityPlayer.getCurrentEquippedItem().getItem() instanceof ItemFarmerArmor && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cauldron) {
-                int i = ((Integer) iEvent.world.getBlockState(iEvent.pos).getValue(BlockCauldron.LEVEL)).intValue();
+                int i = (iEvent.world.getBlockState(iEvent.pos).getValue(BlockCauldron.LEVEL)).intValue();
                 ItemFarmerArmor itemFarmerArmor = (ItemFarmerArmor) iEvent.entityPlayer.getCurrentEquippedItem().getItem();
                 if (itemFarmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && itemFarmerArmor.hasColor(iEvent.entityPlayer.getCurrentEquippedItem()) && i > 0) {
                     itemFarmerArmor.removeColor(iEvent.entityPlayer.getCurrentEquippedItem());
@@ -300,7 +300,7 @@ public class InteractEvents {
                 Block block = world.getBlockState(pos).getBlock();
 
                 if (block instanceof BlockCrops && !(block instanceof BlockCrop)) {
-                    int age = ((Integer) state.getValue(BlockCrops.AGE)).intValue();
+                    int age = (state.getValue(BlockCrops.AGE)).intValue();
                     if (age >= 7) {
                         block.dropBlockAsItem(world, pos, state, 0);
                         world.setBlockState(pos, state.withProperty(BlockCrop.AGE, 0), 2);

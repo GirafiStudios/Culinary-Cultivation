@@ -16,7 +16,6 @@ import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomFishable;
 import net.minecraftforge.common.FishingHooks;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -55,7 +54,7 @@ public class ModItems {
     //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
 
-    public static void init() { //Will show up in this order in NEI and Creative Tab
+    public static void init() {
         GameRegistry.registerItem(cheeseSlice, "cheeseSlice");
         GameRegistry.registerItem(pieceOfCake, "pieceOfCake");
         GameRegistry.registerItem(calfBelly, "calfBelly");
@@ -84,7 +83,7 @@ public class ModItems {
         GameRegistry.registerItem(farmerShirt, "farmerShirt");
         GameRegistry.registerItem(farmerOveralls, "farmerOveralls");
         GameRegistry.registerItem(farmerBoots, "farmerBoots");
-        MinecraftForge.EVENT_BUS.register(new ItemDebugItem());
+        Events.register(new ItemDebugItem());
     }
 
     public static void setup() {

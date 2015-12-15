@@ -27,7 +27,7 @@ archivesBaseName = "CulinaryCultivation"
 
 minecraft {
     version = "${minecraft_version}-${forge_version}"
-    mappings = "snapshot_20151129"
+    mappings = "snapshot_20151122"
     runDir = "run"
 
     replace "@VERSION@", project.mod_version

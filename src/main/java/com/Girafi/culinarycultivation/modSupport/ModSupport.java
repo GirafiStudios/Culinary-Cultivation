@@ -20,7 +20,6 @@ public class ModSupport {
 
     private static ModSupport INSTANCE = new ModSupport();
     private final List<IModSupport> modSupportMods = new ArrayList<IModSupport>();
-    private final List<IModSupport> modSupportModsNoConfig = new ArrayList<IModSupport>();
 
     public static ModSupport instance() {
         return INSTANCE;
@@ -28,7 +27,6 @@ public class ModSupport {
 
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
-        Map<String, Class<? extends IModSupport>> modSupportClassesNoConfig = new HashMap<String, Class<? extends IModSupport>>();
         //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
         modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
         modSupportClasses.put(SupportedModIDs.JEI, JEI.class);
@@ -46,17 +44,6 @@ public class ModSupport {
             if (enabledModSupport.contains(entry.getKey()) && Loader.isModLoaded(entry.getKey())) {
                 try {
                     modSupportMods.add(entry.getValue().newInstance());
-                } catch (Exception e) {
-                    LogHelper.error("Failed to load mod support handler");
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        for (Map.Entry<String, Class<? extends IModSupport>> entryNoConfig : modSupportClassesNoConfig.entrySet()) {
-            if (enabledModSupport.contains(entryNoConfig.getKey()) && Loader.isModLoaded(entryNoConfig.getKey())) {
-                try {
-                    modSupportMods.add(entryNoConfig.getValue().newInstance());
                 } catch (Exception e) {
                     LogHelper.error("Failed to load mod support handler");
                     e.printStackTrace();

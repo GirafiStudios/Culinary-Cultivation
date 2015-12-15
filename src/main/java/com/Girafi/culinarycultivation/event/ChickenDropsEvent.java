@@ -22,6 +22,9 @@ public class ChickenDropsEvent {
                 EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
                 if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == ModItems.meatCleaver) {
                     if (dropsEvent.entityLiving instanceof EntityChicken & !dropsEvent.entityLiving.isChild()) {
+                        if (random.nextInt(100) <= 50) {
+                            dropsEvent.drops.clear();
+                        }
                         int j = random.nextInt(2) + 1 + random.nextInt(1 + dropsEvent.lootingLevel);
                         for (int k = 0; k < j; ++k) {
                             if (dropsEvent.entityLiving.isBurning()) {

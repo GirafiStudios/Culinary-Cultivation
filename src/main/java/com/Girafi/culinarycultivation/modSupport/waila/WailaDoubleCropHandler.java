@@ -43,7 +43,7 @@ public class WailaDoubleCropHandler implements IWailaDataProvider {
                     currenttip.add(String.format("%s : %.0f %%", LangUtil.translateG("hud.msg.growth"), growthValue));
                 } else if (growthValue < 100.0 && accessor.getMetadata() == 6 && blockUp instanceof BlockAir) {
                     currenttip.add(String.format("%s : %.0f %%", LangUtil.translateG("hud.msg.growth"), growthValue));
-                } else {
+                } else if (accessor.getMetadata() == 7 || accessor.getMetadata() == 14) {
                     currenttip.add(String.format("%s : %s", LangUtil.translateG("hud.msg.growth"), LangUtil.translateG("hud.msg.mature")));
                 }
                 if (blockUp instanceof BlockDoubleCrop && accessor.getWorld().getBlockState(new BlockPos(x, y - 1, z)).getBlock() instanceof BlockFarmland) {

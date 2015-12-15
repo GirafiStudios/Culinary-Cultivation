@@ -11,7 +11,7 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -115,18 +115,18 @@ public class ClientProxy extends CommonProxy {
     }
 
     public static void registerItemRender(Item item) {
-        Utils.getMesher().register(item, 0, new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(item).toString(), "inventory"));
+        Utils.getMesher().register(item, 0, new ModelResourceLocation(GameData.getItemRegistry().getNameForObject(item), "inventory"));
     }
 
     public static void registerItemRender(Block block) {
-        Utils.getMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(block).toString(), "inventory"));
+        Utils.getMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(GameData.getItemRegistry().getNameForObject(Item.getItemFromBlock(block)), "inventory"));
     }
 
     public static void registerItemRenderIgnoreMeta(final Item item) {
         Utils.getMesher().register(item, new ItemMeshDefinition() {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(item).toString(), "inventory");
+                return new ModelResourceLocation(GameData.getItemRegistry().getNameForObject(item), "inventory");
             }
         });
     }
@@ -135,7 +135,7 @@ public class ClientProxy extends CommonProxy {
         Utils.getMesher().register(Item.getItemFromBlock(block), new ItemMeshDefinition() {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return new ModelResourceLocation(GameRegistry.findUniqueIdentifierFor(block).toString(), "inventory");
+                return new ModelResourceLocation(GameData.getItemRegistry().getNameForObject(Item.getItemFromBlock(block)), "inventory");
             }
         });
     }
