@@ -11,6 +11,7 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -141,6 +142,6 @@ public class ClientProxy extends CommonProxy {
     }
 
     public static void addVariantName(Item item, String name) {
-        ModelBakery.addVariantName(item, Paths.ModAssets + name);
+        ModelBakery.registerItemVariants(item, new ResourceLocation(Paths.ModAssets + name));
     }
 }
