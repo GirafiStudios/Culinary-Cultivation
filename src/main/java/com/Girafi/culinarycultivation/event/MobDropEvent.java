@@ -24,7 +24,7 @@ public class MobDropEvent {
     private int dropMax;
 
     @SubscribeEvent
-    public void livingDropEvent(LivingDropsEvent dropsEvent) {
+    public void livingDropsEvent(LivingDropsEvent dropsEvent) {
         if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
             if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == this.killTool) {

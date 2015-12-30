@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.modSupport.jei;
 
+import com.Girafi.culinarycultivation.init.Events;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.modSupport.IModSupport;
 import mezz.jei.api.JEIManager;
@@ -21,6 +22,7 @@ public class JEI implements IModSupport {
 
     @Override
     public void clientSide() {
+        //Events.register(new JEIAdditionsTest());
         JEIManager.itemBlacklist.addItemToBlacklist(new ItemStack(ModBlocks.beetroots));
         JEIManager.itemBlacklist.addItemToBlacklist(new ItemStack(ModBlocks.blackPepper));
         JEIManager.itemBlacklist.addItemToBlacklist(new ItemStack(ModBlocks.cauldron));
