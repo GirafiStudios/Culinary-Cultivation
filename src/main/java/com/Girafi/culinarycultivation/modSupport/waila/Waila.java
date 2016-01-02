@@ -1,6 +1,8 @@
 package com.Girafi.culinarycultivation.modSupport.waila;
 
+import com.Girafi.culinarycultivation.block.BlockDoubleCrop;
 import com.Girafi.culinarycultivation.modSupport.IModSupport;
+import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 public class Waila implements IModSupport {
@@ -21,7 +23,7 @@ public class Waila implements IModSupport {
     public void clientSide() {
     }
 
-    /*public static void callbackRegister(IWailaRegistrar registrar) {
+    public static void callbackRegister(IWailaRegistrar registrar) {
         registrar.registerBodyProvider(new WailaDoubleCropHandler(), BlockDoubleCrop.class);
-    }*/
+    }
 }

@@ -16,6 +16,9 @@ repositories {
   maven {
     url "http://dvs1.progwml6.com/files/maven"
   }
+  maven {
+    url "http://mobiusstrip.eu/maven"
+  }
 }
 
 version = "${minecraft_version}-${mod_version}"
@@ -36,7 +39,7 @@ dependencies {
     //deobfCompile "codechicken:CodeChickenCore:${minecraft_version}-${ccc_version}:dev"
     //deobfCompile "codechicken:NotEnoughItems:${minecraft_version}-${nei_version}:dev"
 	deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
-    //deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${minecraft_version}"
+    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.8.8"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
