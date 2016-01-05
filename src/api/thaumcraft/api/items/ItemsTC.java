@@ -146,6 +146,7 @@ public class ItemsTC {
 	public static Item focusWarding;
 	public static Item focusHole;
 	public static Item focusShard;
+	public static Item focusGrapple;
 	
 	public static Item focusPouch;	
 	
@@ -179,6 +180,7 @@ public class ItemsTC {
 	public static Item golemPlacer;
 	/** "blank","pickup","fill","fill_advanced","empty","empty_advanced", "harvest", "pickup_advanced" */
 	public static Item seals;
+	
 	
 		
 	

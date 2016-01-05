@@ -12,8 +12,14 @@ public class GolemMaterial {
 	public byte id;
 	public String key;
 	public String[] research;
+	/**
+	 * The actual base model texture file that will be used for this material. 
+	 */
 	public ResourceLocation texture;
-	public ResourceLocation icon;
+	/**
+	 * The color applied to the item model used by the golem placer and builder.
+	 */
+	public int itemColor;
 	public int healthMod;
 	public int armor;
 	public int damage;
@@ -21,13 +27,13 @@ public class GolemMaterial {
 	public ItemStack componentMechanism;
 	public EnumGolemTrait[] traits;
 	
-	public GolemMaterial(String key,String[] research,ResourceLocation icon,ResourceLocation texture, 
+	public GolemMaterial(String key,String[] research,ResourceLocation texture, int itemColor,
 			int hp, int armor, int damage, ItemStack compb, ItemStack compm, EnumGolemTrait[] tags) {
 		
 		this.key = key;
 		this.research=research;
 		this.texture=texture;
-		this.icon=icon;
+		this.itemColor=itemColor;
 		this.componentBase = compb;
 		this.componentMechanism = compm;
 		this.healthMod = hp;

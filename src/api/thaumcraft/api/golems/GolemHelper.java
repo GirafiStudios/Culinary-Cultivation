@@ -15,6 +15,10 @@ import thaumcraft.api.golems.tasks.Task;
 
 public class GolemHelper {
 
+	/**
+	 * Make sure to register your seals during the preInit phase.
+	 * @param seal
+	 */
 	public static void registerSeal(ISeal seal) {
 		ThaumcraftApi.internalMethods.registerSeal(seal);
 	}

@@ -62,9 +62,9 @@ public class ModItems {
         GameRegistry.registerItem(cooked_meat, "cooked_meat");
         GameRegistry.registerItem(fish, "fish");
         GameRegistry.registerItem(cooked_fish, "cooked_fish");
-        GameRegistry.registerItem(beetrootSeeds, "beetRootSeeds");
+        GameRegistry.registerItem(beetrootSeeds, "beetrootSeeds");
         GameRegistry.registerItem(beetroot, "beetroot");
-        GameRegistry.registerItem(beetrootSoup, "beetRootSoup");
+        GameRegistry.registerItem(beetrootSoup, "beetrootSoup");
         GameRegistry.registerItem(cropFood, "cropFood");
         GameRegistry.registerItem(cropSeeds, "cropSeeds");
         GameRegistry.registerItem(storageJar, "storageJar");

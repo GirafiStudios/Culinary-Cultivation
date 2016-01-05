@@ -16,6 +16,9 @@ public class GolemArm {
 	public byte id;
 	public String key;
 	public String[] research;
+	/**
+	 * The icon used in the golem builder 
+	 */
 	public ResourceLocation icon;
 	public Object[] components;
 	public EnumGolemTrait[] traits;

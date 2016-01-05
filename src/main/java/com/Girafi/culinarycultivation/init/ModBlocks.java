@@ -21,7 +21,7 @@ public class ModBlocks {
     public static Block winnowingMachine = new BlockWinnowingMachine();
 
     public static void init() {
-        GameRegistry.registerBlock(beetroots, "beetRoots");
+        GameRegistry.registerBlock(beetroots, "beetroots");
         GameRegistry.registerBlock(blackPepper, "blackPepper");
         GameRegistry.registerBlock(cauldron, "cauldron");
         GameRegistry.registerBlock(cheese, "cheese");
