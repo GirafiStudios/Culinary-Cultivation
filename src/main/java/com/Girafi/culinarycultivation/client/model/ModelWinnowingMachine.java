@@ -7,7 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * winnowingMachine - wiiv
+ * WinnowingMachine - wiiv
  * Created using Tabula 4.1.1
  */
 @SideOnly(Side.CLIENT)

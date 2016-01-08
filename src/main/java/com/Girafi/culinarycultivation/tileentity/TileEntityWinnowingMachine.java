@@ -10,7 +10,7 @@ import net.minecraft.util.ITickable;
 
 public class TileEntityWinnowingMachine extends SourceTileEntity implements ITickable {
 
-    private boolean isMultiblockFormed;
+    public static boolean isMultiblockFormed;
     private boolean isInvalidBlock;
     private int checkingX, checkingY, checkingZ;
 
