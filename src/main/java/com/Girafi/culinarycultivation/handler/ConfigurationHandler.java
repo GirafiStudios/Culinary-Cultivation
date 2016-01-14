@@ -7,12 +7,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
 
-public class ConfigurationHandler
-{
+public class ConfigurationHandler {
     public static Configuration config;
     public static String CATEGORY_MOB_DROPS = "mob drops";
     public static String CATEGORY_MOD_SUPPORT_ENABLING = "mod support";
-    public static String CATEGORY_RIGHT_CLICK_HARVESTING = "Right Click Harvesting";
+    public static String CATEGORY_RIGHT_CLICK_HARVESTING = "right click harvesting";
     public static boolean CanRightClickHarvestAllCulinaryCultivationCrops;
     public static boolean CanRightClickHarvestAllCulinaryCultivationDoubleCrops;
     public static boolean CanRightClickHarvestCulinaryCultivationCrops;

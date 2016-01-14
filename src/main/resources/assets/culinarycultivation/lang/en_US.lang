@@ -88,6 +88,7 @@ tile.culinarycultivation:blackPepper.name=Black Pepper
 tile.culinarycultivation:cheese.name=Cheese
 tile.culinarycultivation:cucumber.name=Cucumbers
 tile.culinarycultivation:tomato.name=Tomatoes
+tile.culinarycultivation:winnowingMachine.name=Winnowing Machine
 
 #Misc
 culinarycultivation.misc.shift=Press &3&oShift&r&7 for info
