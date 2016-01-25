@@ -175,6 +175,7 @@ public class ItemsTC {
 	public static Item crimsonRites;	
 	public static Item runedTablet;
 	public static Item creativePlacer;
+	public static Item creativeFluxSponge;
 	
 	//golems
 	public static Item golemBell;
@@ -184,6 +185,7 @@ public class ItemsTC {
 	 * use GolemHelper.getSealStack to return an itemstack of a specific seal 
 	 * **/
 	public static Item seals;
+	
 	
 	
 	

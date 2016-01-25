@@ -8,11 +8,6 @@ import net.minecraft.item.ItemStack;
 public class JEIPlugin implements IModPlugin {
 
     @Override
-    public boolean isModLoaded() {
-        return true;
-    }
-
-    @Override
     public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
         jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.beetroots));
         jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.blackPepper));

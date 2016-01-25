@@ -18,12 +18,13 @@ public class OreDictionaryRegistration {
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getUnlocalizedName()) + "Raw", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getUnlocalizedName()) + "Cooked", new ItemStack(ModItems.cooked_fish, 1, fishtype.getMetaData()));
             if (fishtype.isHaveRawFish() && fishtype.getMetaData() != FishType.FILLET.getMetaData() && fishtype.getMetaData() != FishType.SMALLSQUID.getMetaData()) {
+                OreDictionary.registerOre("filletFish", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
                 OreDictionary.registerOre("fish", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
             }
         }
-        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.COD.getMetadata()));
-        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.SALMON.getMetadata()));
-        OreDictionary.registerOre("fish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.CLOWNFISH.getMetadata()));
+        OreDictionary.registerOre("filletFish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.COD.getMetadata()));
+        OreDictionary.registerOre("filletFish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.SALMON.getMetadata()));
+        OreDictionary.registerOre("filletFish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.CLOWNFISH.getMetadata()));
 
         MeatType[] meat = MeatType.values();
         int iMeat = meat.length;

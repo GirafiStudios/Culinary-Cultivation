@@ -40,7 +40,7 @@ public class Recipes {
         //Food
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(beetrootSoup), "BBB", "BBB", " C ", 'B', beetroot, 'C', Items.bowl));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.cake), " C ", "CCC", "CCC", 'C', ModItems.pieceOfCake));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fish, 1, FishType.FILLET.getMetaData()), new ItemStack(kitchenKnife, 1, OreDictionary.WILDCARD_VALUE), "fish"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(fish, 1, FishType.FILLET.getMetaData()), new ItemStack(kitchenKnife, 1, OreDictionary.WILDCARD_VALUE), "filletFish"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 1, MeatType.PATTY.getMetaData()), new ItemStack(meatCleaver, 1, OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 3, MeatType.BACON.getMetaData()), new ItemStack(kitchenKnife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.porkchop)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(meat, 2, MeatType.CHICKENNUGGET.getMetaData()), new ItemStack(kitchenKnife, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.chicken)));
