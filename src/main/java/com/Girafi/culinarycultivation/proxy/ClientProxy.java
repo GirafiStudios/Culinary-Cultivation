@@ -1,11 +1,10 @@
 package com.Girafi.culinarycultivation.proxy;
 
-import com.Girafi.culinarycultivation.client.renderer.tileentity.TileWinnowingMachineRenderer;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.item.*;
 import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.tileentity.TileEntityWinnowingMachine;
+import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.utility.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -14,7 +13,8 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,9 +25,16 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerRenders() {
+    public void preInit() {
         ModSupport.instance().clientSide();
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWinnowingMachine.class, new TileWinnowingMachineRenderer());
+        OBJLoader.instance.addDomain(Reference.MOD_ID);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.fanHousing), 0, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + "fanHousing", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.separator), 0, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + "separator", "inventory"));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerRenders() {
         registerItemRender(beetroot);
         registerItemRender(beetrootSeeds);
         registerItemRender(beetrootSoup);

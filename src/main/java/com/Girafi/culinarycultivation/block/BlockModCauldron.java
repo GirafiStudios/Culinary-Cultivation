@@ -4,14 +4,13 @@ import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
-import com.Girafi.culinarycultivation.tileentity.TileEntityCauldron;
-import net.minecraft.block.BlockCauldron;
-import net.minecraft.block.ITileEntityProvider;
+import com.Girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,6 +40,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     public BlockModCauldron() {
         super(Material.iron);
+        this.setCreativeTab((CreativeTabs) null);
         setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
         setUnlocalizedName("cauldron");
         setHardness(2.0F);

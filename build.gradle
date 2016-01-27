@@ -35,9 +35,6 @@ minecraft {
 }
 
 dependencies {
-    //deobfCompile "codechicken:CodeChickenLib:${minecraft_version}-${ccl_version}:dev"
-    //deobfCompile "codechicken:CodeChickenCore:${minecraft_version}-${ccc_version}:dev"
-    //deobfCompile "codechicken:NotEnoughItems:${minecraft_version}-${nei_version}:dev"
 	deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
     deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.8.8"
     compile fileTree(dir: 'libs', include: '*.jar')

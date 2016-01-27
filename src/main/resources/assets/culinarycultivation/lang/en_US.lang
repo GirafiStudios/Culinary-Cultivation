@@ -83,12 +83,14 @@ item.culinarycultivation:vealCooked.name=Cooked Veal
 item.culinarycultivation:vealRaw.name=Raw Veal
 
 #Blocks
-tile.culinarycultivation:beetRoots.name=Beetroots
+tile.culinarycultivation:beetroots.name=Beetroots
 tile.culinarycultivation:blackPepper.name=Black Pepper
 tile.culinarycultivation:cheese.name=Cheese
 tile.culinarycultivation:cucumber.name=Cucumbers
 tile.culinarycultivation:tomato.name=Tomatoes
-tile.culinarycultivation:winnowingMachine.name=Winnowing Machine
+tile.culinarycultivation:winnowingMachine.fanHousing.name=Winnowing Machine Fan Housing
+tile.culinarycultivation:winnowingMachine.separator.name=Winnowing Machine Separator
+
 
 #Misc
 culinarycultivation.misc.shift=Press &3&oShift&r&7 for info

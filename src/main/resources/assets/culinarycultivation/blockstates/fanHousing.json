@@ -1,0 +1,54 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "custom": { "flip-v": true },
+    "model": "culinarycultivation:fanHousing.obj"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{
+      "transform": {
+        "thirdperson": {
+          "translation": [0.1, -0.3, -0.3],
+          "rotation": {"x" : 180},
+          "scale": [0.5, 0.5, 0.5]
+        },
+        "firstperson": {
+          "rotation": {"y" : -135},
+          "translation": [0, 0.4, 0.2],
+          "scale": [ 1.7, 1.7, 1.7 ]
+        },
+        "gui": {
+          "translation": [-0.5, 0.5, 0],
+          "rotation": {"y" : 180}
+        }
+      }
+    }],
+    "facing": {
+      "north": {
+        "transform": {
+          "translation": [-0.5, 1.5, -0.5],
+          "rotation": {"y": 180}
+        }
+      },
+      "south": {
+        "transform": {
+          "translation": [0.5, 1.5, 0.5]
+        }
+      },
+      "west": {
+        "transform": {
+          "translation": [-0.5, 1.5, 0.5],
+          "rotation": {"y": 270}
+        }
+      },
+      "east": {
+        "transform": {
+          "translation": [0.5, 1.5, -0.5],
+          "rotation": {"y": 90}
+        }
+      }
+    }
+  }
+}

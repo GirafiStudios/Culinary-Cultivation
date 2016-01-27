@@ -33,6 +33,7 @@ public class CulinaryCultivation {
         ModBlocks.setup();
         Events.init();
         NetworkHandler.init();
+        proxy.preInit();
         ModSupport.instance().preInit();
         LogHelper.info(Reference.MOD_NAME_ + "Pre Initialization Complete.");
     }

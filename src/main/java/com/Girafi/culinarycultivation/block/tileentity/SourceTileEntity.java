@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.tileentity;
+package com.Girafi.culinarycultivation.block.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
 

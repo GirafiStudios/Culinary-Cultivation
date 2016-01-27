@@ -18,16 +18,19 @@ public class ModBlocks {
 
     public static Block cheese = new BlockCheese();
     public static Block cauldron = new BlockModCauldron();
-    public static Block winnowingMachine = new BlockWinnowingMachine();
+    public static Block fanHousing = new BlockFanHousing();
+    public static Block separator = new BlockSeparator();
 
     public static void init() {
+        //Crops
         GameRegistry.registerBlock(beetroots, "beetroots");
         GameRegistry.registerBlock(blackPepper, "blackPepper");
-        GameRegistry.registerBlock(cauldron, "cauldron");
-        GameRegistry.registerBlock(cheese, "cheese");
         GameRegistry.registerBlock(cucumber, "cucumber");
         GameRegistry.registerBlock(tomato, "tomato");
-        GameRegistry.registerBlock(winnowingMachine, "winnowingMachine");
+        GameRegistry.registerBlock(cauldron, "cauldron");
+        GameRegistry.registerBlock(fanHousing, "fanHousing");
+        GameRegistry.registerBlock(separator, "separator");
+        GameRegistry.registerBlock(cheese, "cheese");
     }
 
     public static void setup() {

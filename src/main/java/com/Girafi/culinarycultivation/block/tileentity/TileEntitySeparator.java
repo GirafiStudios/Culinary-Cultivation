@@ -1,29 +1,22 @@
-package com.Girafi.culinarycultivation.tileentity;
+package com.Girafi.culinarycultivation.block.tileentity;
 
-import com.Girafi.culinarycultivation.utility.LogHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ITickable;
 
-public class TileEntityWinnowingMachine extends SourceTileEntity implements ITickable {
-
+public class TileEntitySeparator extends SourceTileEntity implements ITickable {
     public static boolean isMultiblockFormed;
     private boolean isInvalidBlock;
     private int checkingX, checkingY, checkingZ;
 
     @Override
     public void update() {
-        if (!worldObj.isRemote) {
+/*        if (!worldObj.isRemote) {
             checkMultiblock();
             if (isMultiblockFormed) {
             }
-        }
+        }*/
     }
 
-    private void checkMultiblock() {
+/*    private void checkMultiblock() {
         checkingX++;
         if (checkingX > 1) {
             checkingX = -1;
@@ -65,5 +58,5 @@ public class TileEntityWinnowingMachine extends SourceTileEntity implements ITic
 
     public void outputJunk(ItemStack stack) {
 
-    }
+    }*/
 }
