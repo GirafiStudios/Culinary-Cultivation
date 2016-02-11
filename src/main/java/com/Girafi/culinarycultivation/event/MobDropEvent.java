@@ -29,7 +29,7 @@ public class MobDropEvent {
             EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
             if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == this.killTool) {
                 if (dropsEvent.entityLiving.getClass().isAssignableFrom(this.entityLivingClass) && (isChild ? dropsEvent.entityLiving.isChild() : !dropsEvent.entityLiving.isChild())) {
-                    if (this.vanillaDropChance == -1 ? random.nextInt(100) <= 50 : random.nextInt(100) <= this.vanillaDropChance) {
+                    if (this.vanillaDropChance == -1 ? random.nextInt(100) <= 35 : random.nextInt(100) <= this.vanillaDropChance) {
                         dropsEvent.drops.clear();
                     }
                     int drop = MathHelper.getRandomIntegerInRange(random, dropMin, dropMax);
