@@ -86,6 +86,10 @@ public class BlockSeparator extends SourceBlockTileEntity {
         return this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
     }
 
+    public static boolean isEnabled(int meta) {
+        return (meta & 8) != 8;
+    }
+
     @Override
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing enumfacing = EnumFacing.getFront(meta);

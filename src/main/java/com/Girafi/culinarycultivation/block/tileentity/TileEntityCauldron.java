@@ -3,9 +3,10 @@ package com.Girafi.culinarycultivation.block.tileentity;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.utility.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 
-public class TileEntityCauldron extends SourceTileEntity implements ITickable {
+public class TileEntityCauldron extends TileEntity implements ITickable {
     private int timer = 2400;
 
     @Override
