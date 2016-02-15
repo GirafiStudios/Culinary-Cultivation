@@ -1,6 +1,5 @@
 package com.Girafi.culinarycultivation.block.tileentity;
 
-import com.Girafi.culinarycultivation.block.BlockFanHousing;
 import com.Girafi.culinarycultivation.block.BlockSeparator;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.item.wrapper.SeparatorItemHandler;

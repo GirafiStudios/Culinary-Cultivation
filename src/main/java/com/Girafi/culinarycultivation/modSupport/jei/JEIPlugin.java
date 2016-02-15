@@ -24,6 +24,7 @@ public class JEIPlugin implements IModPlugin {
     public void register(IModRegistry registry) {
     }
 
+    @Deprecated
     @Override
     public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
     }
