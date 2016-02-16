@@ -1,10 +1,10 @@
 package com.Girafi.culinarycultivation.init;
 
+import com.Girafi.culinarycultivation.CulinaryCultivation;
 import com.Girafi.culinarycultivation.block.*;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.item.ItemCropFood;
 import com.Girafi.culinarycultivation.item.ItemCropSeeds;
-import com.Girafi.culinarycultivation.proxy.ClientProxy;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.block.Block;
@@ -65,6 +65,6 @@ public class ModBlocks {
     }
 
     public static void registerBlockVariant(Block block, String name) {
-        ClientProxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
+        CulinaryCultivation.proxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
     }
 }

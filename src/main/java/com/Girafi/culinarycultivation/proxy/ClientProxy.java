@@ -41,7 +41,8 @@ public class ClientProxy extends CommonProxy {
         getMesher().register(debugItem, 4, new ModelResourceLocation(Paths.ModAssets + "debugHoe", "inventory"));
     }
 
-    public static void registerItemVariantModel(Item item, final String name) {
+    @Override
+    public void registerItemVariantModel(Item item, final String name) {
         if (item != null) {
             ModelBakery.registerItemVariants(item, new ResourceLocation(Paths.ModAssets + name));
             ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
