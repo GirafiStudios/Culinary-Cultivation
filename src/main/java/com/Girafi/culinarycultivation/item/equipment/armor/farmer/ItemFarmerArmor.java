@@ -1,6 +1,5 @@
 package com.Girafi.culinarycultivation.item.equipment.armor.farmer;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
@@ -31,8 +30,6 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     public ItemFarmerArmor(int type, String name, ArmorMaterial mat) {
         super(mat, 0, type);
         this.armorPieceName = name;
-        setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-        setUnlocalizedName(Paths.ModAssets + name);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockBush;
@@ -10,7 +9,6 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,7 +19,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -41,7 +38,6 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public BlockDoubleCrop() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
         this.setTickRandomly(true);
-        this.setCreativeTab((CreativeTabs) null);
         this.setHardness(0.0F);
         this.setStepSound(soundTypeGrass);
         this.disableStats();
@@ -56,12 +52,6 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         if (age >= 8) {
             this.setBlockBounds(0F, 0F, 0F, 1.0F, age == 8 || age == 9 || age == 10 ? 0.35F : 1.0F, 1.0F);
         }
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        String name = "tile." + GameData.getItemRegistry().getNameForObject(Item.getItemFromBlock(getBlockState().getBlock()));
-        return name;
     }
 
     @SideOnly(Side.CLIENT)

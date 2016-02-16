@@ -5,7 +5,7 @@ import com.Girafi.culinarycultivation.modSupport.thaumcraft.Thaumcraft;
 import com.Girafi.culinarycultivation.modSupport.waila.Waila;
 import com.Girafi.culinarycultivation.reference.Reference;
 import com.Girafi.culinarycultivation.reference.SupportedModIDs;
-import com.Girafi.culinarycultivation.utility.LogHelper;
+import com.Girafi.culinarycultivation.reference.LogHelper;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;

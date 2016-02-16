@@ -3,7 +3,6 @@ package com.Girafi.culinarycultivation.item;
 import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.utility.Utils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
@@ -29,15 +29,13 @@ public class ItemStorageJar extends Item {
         setHasSubtypes(true);
         setMaxDamage(0);
         setContainerItem(this);
-        this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-        setUnlocalizedName("storageJar");
     }
 
     public static enum StorageJarType {
         EMPTY(0, "empty"),
-        WATER(1, "water", Utils.setColor(52, 95, 218)),
-        MILK(2, "milk", Utils.setColor(255, 255, 255)),
-        RENNET(3, "rennet", Utils.setColor(184, 185, 151));
+        WATER(1, "water", setColor(52, 95, 218)),
+        MILK(2, "milk", setColor(255, 255, 255)),
+        RENNET(3, "rennet", setColor(184, 185, 151));
 
         private static final Map StorageJarTypeMap = Maps.newHashMap();
         private final int metaData;
@@ -186,8 +184,24 @@ public class ItemStorageJar extends Item {
             return 16777215;
     }
 
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
+        if (storageJarType.getMetaData() == 0) {
+            return this.getUnlocalizedName() + "_" + storageJarType.getUnlocalizedName();
+        } else {
+            return this.getUnlocalizedName();
+        }
+    }
+
+    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
         return StatCollector.translateToLocal("item." + Paths.ModAssets + "storageJar_" + storageJarType.getUnlocalizedName() + ".name").trim();
+    }
+
+    public static int setColor(int r, int g, int b) {
+        Color c = new Color(r, g, b);
+        return c.getRGB();
     }
 }

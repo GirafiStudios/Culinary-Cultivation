@@ -1,7 +1,5 @@
 package com.Girafi.culinarycultivation.item.equipment.tool;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
-import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,9 +16,7 @@ public class ItemKnife extends ItemTool {
 
     public ItemKnife(Item.ToolMaterial material) {
         super(1.5F, material, EFFECTIVE_ON);
-        setUnlocalizedName(Paths.ModAssets + "knife");
-        setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-        maxStackSize=1;
+        maxStackSize = 1;
     }
 
     @Override
@@ -38,6 +34,7 @@ public class ItemKnife extends ItemTool {
     }
 
     @Override
-    public int getItemEnchantability() {return this.toolMaterial.WOOD.getHarvestLevel();
+    public int getItemEnchantability() {
+        return this.toolMaterial.WOOD.getHarvestLevel();
     }
 }

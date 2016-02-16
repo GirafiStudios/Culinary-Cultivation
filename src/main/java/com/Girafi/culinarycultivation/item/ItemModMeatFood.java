@@ -6,18 +6,18 @@ import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.List;
 import java.util.Map;
 
-public class ItemModMeatFood extends SourceFood {
+public class ItemModMeatFood extends ItemFood {
     private final boolean cooked;
     private static double potionEffectProbability;
 
@@ -26,6 +26,7 @@ public class ItemModMeatFood extends SourceFood {
         this.cooked = cooked;
     }
 
+    @Override
     public int getHealAmount(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (meattype.isHaveRawMeat()) {
@@ -34,6 +35,7 @@ public class ItemModMeatFood extends SourceFood {
             return meattype.isHaveCookedMeat() & !meattype.isHaveRawMeat() ? meattype.getHealAmountCooked() : meattype.getHealAmountRaw();
     }
 
+    @Override
     public float getSaturationModifier(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (meattype.isHaveRawMeat()) {
@@ -42,6 +44,7 @@ public class ItemModMeatFood extends SourceFood {
             return meattype.isHaveCookedMeat() & !meattype.isHaveRawMeat() ? meattype.getSaturationAmountCooked() : meattype.getSaturationAmountRaw();
     }
 
+    @Override
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         MeatType meatType = MeatType.getMeatType(stack);
         potionEffectProbability = (float) Math.random();
@@ -68,6 +71,7 @@ public class ItemModMeatFood extends SourceFood {
     }
 
     @SideOnly(Side.CLIENT)
+    @Override
     public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
         MeatType[] ameattype = MeatType.values();
         int i = ameattype.length;
@@ -85,10 +89,15 @@ public class ItemModMeatFood extends SourceFood {
         }
     }
 
+    @Override
     public String getUnlocalizedName(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
-        return "item." + Paths.ModAssets + meattype.getUnlocalizedName() + WordUtils.capitalize(this.cooked && meattype.isHaveCookedMeat() ? "cooked" : "raw");
-}
+        if (this.cooked && meattype.isHaveCookedMeat()) {
+            return "item." + Paths.ModAssets + "meat_" + meattype.getMeatName() + "_cooked";
+        } else {
+            return this.getUnlocalizedName() + "_" + meattype.getMeatName();
+        }
+    }
 
     public static enum MeatType {
         LAMB(0, "lamb", 2, 0.3F, 5, 1.1F),
@@ -109,7 +118,7 @@ public class ItemModMeatFood extends SourceFood {
 
         private static final Map META_LOOKUP = Maps.newHashMap();
         private final int metaData;
-        private final String unlocalizedName;
+        private final String name;
         private final int healAmountRaw;
         private final float saturationAmountRaw;
         private final int healAmountCooked;
@@ -117,9 +126,9 @@ public class ItemModMeatFood extends SourceFood {
         private boolean haveRawMeat = false;
         private boolean haveCookedMeat = false;
 
-        private MeatType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+        private MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
             this.metaData = metaData;
-            this.unlocalizedName = unlocalizedName;
+            this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = healAmountCooked;
@@ -128,9 +137,9 @@ public class ItemModMeatFood extends SourceFood {
             this.haveCookedMeat = true;
         }
 
-        private MeatType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw) {
+        private MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw) {
             this.metaData = metaData;
-            this.unlocalizedName = unlocalizedName;
+            this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = 0;
@@ -139,9 +148,9 @@ public class ItemModMeatFood extends SourceFood {
             this.haveCookedMeat = false;
         }
 
-        private MeatType(int metaData, String unlocalizedName, float saturationAmountCooked, int healAmountCooked) {
+        private MeatType(int metaData, String name, float saturationAmountCooked, int healAmountCooked) {
             this.metaData = metaData;
-            this.unlocalizedName = unlocalizedName;
+            this.name = name;
             this.healAmountRaw = 0;
             this.saturationAmountRaw = 0.0F;
             this.healAmountCooked = healAmountCooked;
@@ -150,9 +159,9 @@ public class ItemModMeatFood extends SourceFood {
             this.haveCookedMeat = true;
         }
 
-/*        private MeatType(int metaData, String unlocalizedName, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
+/*        private MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
             this.metaData = metaData;
-            this.unlocalizedName = unlocalizedName;
+            this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = healAmountCooked;
@@ -161,30 +170,48 @@ public class ItemModMeatFood extends SourceFood {
             this.haveCookedMeat = true;
         }*/
 
-        public int getMetaData() { return this.metaData;}
+        public int getMetaData() {
+            return this.metaData;
+        }
 
-        public String getUnlocalizedName() { return this.unlocalizedName; }
+        public String getMeatName() {
+            return this.name;
+        }
 
-        public int getHealAmountRaw() { return this.healAmountRaw; }
+        public int getHealAmountRaw() {
+            return this.healAmountRaw;
+        }
 
-        public float getSaturationAmountRaw() { return this.saturationAmountRaw; }
+        public float getSaturationAmountRaw() {
+            return this.saturationAmountRaw;
+        }
 
-        public int getHealAmountCooked() { return this.healAmountCooked; }
+        public int getHealAmountCooked() {
+            return this.healAmountCooked;
+        }
 
-        public float getSaturationAmountCooked() { return this.saturationAmountCooked; }
+        public float getSaturationAmountCooked() {
+            return this.saturationAmountCooked;
+        }
 
-        public boolean isHaveCookedMeat() { return this.haveCookedMeat; }
+        public boolean isHaveCookedMeat() {
+            return this.haveCookedMeat;
+        }
 
-        public boolean isHaveRawMeat() { return this.haveRawMeat; }
+        public boolean isHaveRawMeat() {
+            return this.haveRawMeat;
+        }
 
         public static MeatType getMeatTypeList(int meat) {
-            MeatType meattype = (MeatType)META_LOOKUP.get(Integer.valueOf(meat));
+            MeatType meattype = (MeatType) META_LOOKUP.get(Integer.valueOf(meat));
             return meattype == null ? LAMB : meattype;
         }
 
         public static MeatType getMeatType(ItemStack stack) {
             return stack.getItem() instanceof ItemModMeatFood ? getMeatTypeList(stack.getItemDamage()) : LAMB;
-        } static {
+        }
+
+        static {
             MeatType[] var0 = values();
             int var1 = var0.length;
             for (int var2 = 0; var2 < var1; ++var2) {

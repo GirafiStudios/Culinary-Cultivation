@@ -2,8 +2,7 @@ package com.Girafi.culinarycultivation.block.tileentity;
 
 import com.Girafi.culinarycultivation.block.BlockSeparator;
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.item.wrapper.SeparatorItemHandler;
-import com.Girafi.culinarycultivation.utility.LogHelper;
+import com.Girafi.culinarycultivation.reference.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.entity.Entity;
@@ -21,7 +20,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 
 import java.util.List;
 
@@ -541,19 +539,16 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         return stack1.getItem() != stack2.getItem() ? false : (stack1.getMetadata() != stack2.getMetadata() ? false : (stack1.stackSize > stack1.getMaxStackSize() ? false : ItemStack.areItemStackTagsEqual(stack1, stack2)));
     }
 
-    public double getXPos()
-    {
-        return (double)this.pos.getX() + 0.5D;
+    public double getXPos() {
+        return (double) this.pos.getX() + 0.5D;
     }
 
-    public double getYPos()
-    {
-        return (double)this.pos.getY() + 0.5D;
+    public double getYPos() {
+        return (double) this.pos.getY() + 0.5D;
     }
 
-    public double getZPos()
-    {
-        return (double)this.pos.getZ() + 0.5D;
+    public double getZPos() {
+        return (double) this.pos.getZ() + 0.5D;
     }
 
     public void setTransferCooldown(int ticks) {
@@ -576,6 +571,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
     @Override
     public void setField(int id, int value) {
     }
+
     @Override
     public int getFieldCount() {
         return 0;
@@ -588,22 +584,19 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         }
     }
 
-    private IItemHandler itemHandler;
-
-    protected IItemHandler createUnSidedHandler() {
-        return new SeparatorItemHandler(this);
-    }
-
-    @Override
-    public <T> T getCapability(Capability<T> capability, net.minecraft.util.EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return (T) (itemHandler == null ? (itemHandler = createUnSidedHandler()) : itemHandler);
-        }
-        return super.getCapability(capability, facing);
-    }
-
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return true;
+        }
+        return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return (T) this;
+        }
+        return super.getCapability(capability, facing);
     }
 }

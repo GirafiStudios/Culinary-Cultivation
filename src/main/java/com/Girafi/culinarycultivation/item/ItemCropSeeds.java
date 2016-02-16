@@ -24,10 +24,6 @@ import java.util.Map;
 
 public class ItemCropSeeds extends Item implements IPlantable {
 
-    public ItemCropSeeds (){
-        this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
@@ -42,8 +38,7 @@ public class ItemCropSeeds extends Item implements IPlantable {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        SeedType seedType = SeedType.byItemStack(stack);
-        return "item." + Paths.ModAssets + seedType.getUnlocalizedName();
+        return "item." + Paths.ModAssets + SeedType.byItemStack(stack).getSeedName();
     }
 
     @Override
@@ -84,12 +79,12 @@ public class ItemCropSeeds extends Item implements IPlantable {
 
         private static final Map META_LOOKUP = Maps.newHashMap();
         private final int meta;
-        private final String unlocalizedName;
+        private final String name;
         private final Block crop;
 
-        private SeedType(int meta, String unlocalizedName, Block crop) {
+        private SeedType(int meta, String name, Block crop) {
             this.meta = meta;
-            this.unlocalizedName = unlocalizedName;
+            this.name = name;
             this.crop = crop;
         }
 
@@ -97,8 +92,8 @@ public class ItemCropSeeds extends Item implements IPlantable {
             return this.meta;
         }
 
-        public String getUnlocalizedName() {
-            return this.unlocalizedName;
+        public String getSeedName() {
+            return this.name;
         }
 
         public static SeedType byMetadata(int meta) {

@@ -1,14 +1,11 @@
 package com.Girafi.culinarycultivation.item.equipment.tool;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
-import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
@@ -26,33 +23,28 @@ public class ItemDebugItem extends Item {
 
     public ItemDebugItem() {
         super();
-        this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-        setUnlocalizedName(Paths.ModAssets + "debugItem");
         maxStackSize = 1;
         setAlwaysEdible();
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-        if (stack.getItemDamage() == 0)
-            return new ModelResourceLocation(Paths.ModAssets + "debugDefault", "inventory");
-        if (stack.getItemDamage() == 1)
-            return new ModelResourceLocation(Paths.ModAssets + "debugHunger", "inventory");
-        if (stack.getItemDamage() == 2)
-            return new ModelResourceLocation(Paths.ModAssets + "debugHungerPlus", "inventory");
-        if (stack.getItemDamage() == 3)
-            return new ModelResourceLocation(Paths.ModAssets + "debugFertilizer", "inventory");
-        if (stack.getItemDamage() == 4)
-            return new ModelResourceLocation(Paths.ModAssets + "debugHoe", "inventory");
-        else return new ModelResourceLocation(Paths.ModAssets + "debugDefault", "inventory");
-    }
-
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName(stack)
-                + (stack.getItemDamage() == 0 ? ".debug" : (stack.getItemDamage() == 1 ? ".hunger" : (stack.getItemDamage() == 2 ? ".hungerPlus" :
-                (stack.getItemDamage() == 3 ? ".fertilizer" : (stack.getItemDamage() == 4 ? ".hoe" : "")))));
+        return super.getUnlocalizedName(stack) + "." + getModeName(stack);
+    }
+
+    public static String getModeName(ItemStack stack) {
+        switch (stack.getItemDamage()) {
+            case 1:
+                return "hunger";
+            case 2:
+                return "hungerPlus";
+            case 3:
+                return "fertilizer";
+            case 4:
+                return "hoe";
+            default:
+                return "debug";
+        }
     }
 
     @Override
@@ -205,94 +197,94 @@ public class ItemDebugItem extends Item {
         int y = pos.getY();
         int z = pos.getZ();
         IBlockState blockState = Blocks.farmland.getDefaultState();
-            return useHoe(stack, player, world, new BlockPos(pos), Blocks.water.getBlockState().getBaseState())
-            //3 x 3
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z - 1), blockState)
-            //5 x 5
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z - 2), blockState)
-            //7 x 7
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z - 3), blockState)
-            //9x9
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x + 4, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 1), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 2), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 3), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x - 4, y, z), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z + 4), blockState)
-            && useHoe(stack, player, world, new BlockPos(x, y, z - 4), blockState);
+        return useHoe(stack, player, world, new BlockPos(pos), Blocks.water.getBlockState().getBaseState())
+                //3 x 3
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z - 1), blockState)
+                //5 x 5
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z - 2), blockState)
+                //7 x 7
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z - 3), blockState)
+                //9x9
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 1, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 2, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 3, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x + 4, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 1, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 2, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 3, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 1), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 2), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 3), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z - 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x - 4, y, z), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z + 4), blockState)
+                && useHoe(stack, player, world, new BlockPos(x, y, z - 4), blockState);
     }
 
     protected boolean useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos target, IBlockState newState) {
@@ -331,12 +323,13 @@ public class ItemDebugItem extends Item {
     @SubscribeEvent
     public void onMouseEvent(net.minecraftforge.client.event.MouseEvent event) {
         if (event.button < 0) {
-            EntityPlayer entityPlayer = Minecraft.getMinecraft().thePlayer;
-            if (entityPlayer.isSneaking()) {
-                ItemStack itemStack = entityPlayer.getHeldItem();
-                if (itemStack != null && itemStack.getItem() == ModItems.debugItem) {
-                    if (event.dwheel != 0)
-                        NetworkHandler.instance().sendToServer(new PacketDebugItemMode(entityPlayer.inventory.currentItem, event.dwheel < 0));
+            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            if (player.isSneaking()) {
+                ItemStack stack = player.getHeldItem();
+                if (stack != null && stack.getItem() == ModItems.debugItem) {
+                    if (event.dwheel != 0) {
+                        NetworkHandler.instance().sendToServer(new PacketDebugItemMode(player.inventory.currentItem, event.dwheel < 0));
+                    }
                     event.setCanceled(true);
                 }
             }

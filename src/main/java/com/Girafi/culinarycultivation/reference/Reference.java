@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation.reference;
 
-public class Reference
-{
+public class Reference {
     public static final String MOD_ID = "CulinaryCultivation";
     public static final String MOD_NAME = "Culinary Cultivation";
     public static final String MOD_NAME_ = "Culinary Cultivation ";

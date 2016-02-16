@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
 import com.Girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -23,8 +22,6 @@ public class BlockSeparator extends SourceBlockTileEntity {
     public BlockSeparator() {
         super(Material.iron);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-        setUnlocalizedName("winnowingMachine" + "." + "separator");
         setStepSound(soundTypePiston);
         setHardness(3.5F);
     }

@@ -1,13 +1,11 @@
 package com.Girafi.culinarycultivation.item.equipment.tool;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -24,7 +22,6 @@ public class ItemLargeHoe extends ItemHoe {
         this.theToolMaterial = material;
         this.maxStackSize = 1;
         this.setMaxDamage(material.getMaxUses() * 2 - 39);
-        this.setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
     }
 
     @Override
@@ -61,17 +58,17 @@ public class ItemLargeHoe extends ItemHoe {
         int y = pos.getY();
         int z = pos.getZ();
         if (this.getMaterialName().equals("WOOD")) {
-            return     this.useHoe(stack, player, world, pos, newState)
+            return this.useHoe(stack, player, world, pos, newState)
                     && this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
         }
         if (this.getMaterialName().equals("STONE")) {
-            return     this.useHoe(stack, player, world, pos, newState)
+            return this.useHoe(stack, player, world, pos, newState)
                     && this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()), newState)
                     && this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState)
                     && this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
         }
         if (this.getMaterialName().equals("IRON")) {
-            return     this.useHoe(stack, player, world, pos, newState)
+            return this.useHoe(stack, player, world, pos, newState)
                     && this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()), newState)
                     && this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState)
                     && this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState)
@@ -80,7 +77,7 @@ public class ItemLargeHoe extends ItemHoe {
 
         }
         if (this.getMaterialName().equals("GOLD") || this.getMaterialName().equals("EMERALD")) {
-            return     this.useHoe(stack, player, world, pos, newState)
+            return this.useHoe(stack, player, world, pos, newState)
                     && this.useHoe(stack, player, world, new BlockPos(x + 1, y, z + 1), newState)
                     && this.useHoe(stack, player, world, new BlockPos(x + 1, y, z - 1), newState)
                     && this.useHoe(stack, player, world, new BlockPos(x + 1, y, z), newState)

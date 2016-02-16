@@ -1,7 +1,5 @@
 package com.Girafi.culinarycultivation.item.equipment.tool;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
-import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -14,9 +12,7 @@ public class ItemMeatCleaver extends ItemSword {
 
     public ItemMeatCleaver(ToolMaterial material) {
         super(material);
-        setUnlocalizedName(Paths.ModAssets + "meatCleaver");
-        setCreativeTab(CreativeTab.CulinaryCultivation_Tab);
-        maxStackSize=1;
+        maxStackSize = 1;
     }
 
     @Override

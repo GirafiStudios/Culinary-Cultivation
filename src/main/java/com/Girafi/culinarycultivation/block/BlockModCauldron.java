@@ -1,16 +1,15 @@
 package com.Girafi.culinarycultivation.block;
 
+import com.Girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
-import com.Girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,9 +39,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     public BlockModCauldron() {
         super(Material.iron);
-        this.setCreativeTab((CreativeTabs) null);
         setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, Integer.valueOf(0)));
-        setUnlocalizedName("cauldron");
         setHardness(2.0F);
     }
 
@@ -72,14 +69,17 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         this.setBlockBoundsForItemRender();
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isFullCube() {
         return false;
     }
@@ -420,6 +420,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         }
     }
 
+    @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.cauldron;
     }
@@ -429,22 +430,27 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         return Items.cauldron;
     }
 
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
     }
 
+    @Override
     public int getComparatorInputOverride(World world, BlockPos pos) {
         return (world.getBlockState(pos).getValue(LEVEL)).intValue();
     }
 
+    @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(LEVEL, Integer.valueOf(meta));
     }
 
+    @Override
     public int getMetaFromState(IBlockState state) {
         return (state.getValue(LEVEL)).intValue();
     }
 
+    @Override
     protected BlockState createBlockState() {
         return new BlockState(this, new IProperty[]{LEVEL});
     }

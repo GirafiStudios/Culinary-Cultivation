@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -21,21 +22,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Map;
 
-public class ItemCropFood extends SourceFood implements IPlantable {
+public class ItemCropFood extends ItemFood implements IPlantable {
+
     public ItemCropFood() {
         super(0, 0.0F, false);
     }
 
     @Override
     public int getHealAmount(ItemStack stack) {
-        CropType cropType = CropType.byItemStack(stack);
-        return cropType.getHungerAmount();
+        return CropType.byItemStack(stack).getHungerAmount();
     }
 
     @Override
     public float getSaturationModifier(ItemStack stack) {
-        CropType cropType = CropType.byItemStack(stack);
-        return cropType.getSaturation();
+        return CropType.byItemStack(stack).getSaturation();
     }
 
     @Override
@@ -52,8 +52,7 @@ public class ItemCropFood extends SourceFood implements IPlantable {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        CropType cropType = CropType.byItemStack(stack);
-        return "item." + Paths.ModAssets + cropType.getUnlocalizedName();
+        return "item." + Paths.ModAssets + CropType.byItemStack(stack).getCropName();
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ItemCropFood extends SourceFood implements IPlantable {
 
     @Override
     public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
-        return net.minecraftforge.common.EnumPlantType.Crop;
+        return EnumPlantType.Crop;
     }
 
     @Override
@@ -100,24 +99,24 @@ public class ItemCropFood extends SourceFood implements IPlantable {
 
         private static final Map META_LOOKUP = Maps.newHashMap();
         private final int meta;
-        private final String unlocalizedName;
+        private final String name;
         private final int hungerAmount;
         private final float saturationModifier;
         private final boolean isSeed;
         private final Block crop;
 
-        private CropType(int meta, String unlocalizedName, int hungerAmount, float saturationModifier) {
+        private CropType(int meta, String name, int hungerAmount, float saturationModifier) {
             this.meta = meta;
-            this.unlocalizedName = unlocalizedName;
+            this.name = name;
             this.hungerAmount = hungerAmount;
             this.saturationModifier = saturationModifier;
             this.isSeed = false;
             this.crop = null;
         }
 
-        private CropType(int meta, String unlocalizedName, int hungerAmount, float saturationModifier, Block crop) {
+        private CropType(int meta, String name, int hungerAmount, float saturationModifier, Block crop) {
             this.meta = meta;
-            this.unlocalizedName = unlocalizedName;
+            this.name = name;
             this.hungerAmount = hungerAmount;
             this.saturationModifier = saturationModifier;
             this.isSeed = true;
@@ -128,8 +127,8 @@ public class ItemCropFood extends SourceFood implements IPlantable {
             return this.meta;
         }
 
-        public String getUnlocalizedName() {
-            return this.unlocalizedName;
+        public String getCropName() {
+            return this.name;
         }
 
         public int getHungerAmount() {

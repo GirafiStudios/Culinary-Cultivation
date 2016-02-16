@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import com.Girafi.culinarycultivation.reference.Paths;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +12,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -28,12 +26,6 @@ public class BlockCrop extends BlockCrops {
     private int minDropValueSeed;
     private int maxDropValueSeed;
     private boolean canRightClickHarvest;
-
-    @Override
-    public String getUnlocalizedName() {
-        String name = "tile." + GameData.getItemRegistry().getNameForObject(Item.getItemFromBlock(getBlockState().getBlock()));
-        return name;
-    }
 
     @SideOnly(Side.CLIENT)
     public Item getItem(World world, BlockPos pos) {
@@ -58,7 +50,7 @@ public class BlockCrop extends BlockCrops {
         return super.onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
     }
 
-    public boolean rightClickHarvest (World world, BlockPos pos, IBlockState state) {
+    public boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
         int age = (state.getValue(AGE)).intValue();
         if (age >= 7) {
             super.dropBlockAsItem(world, pos, state, 0);
@@ -82,7 +74,7 @@ public class BlockCrop extends BlockCrops {
         return this;
     }
 
-    public boolean setRightClickHarvest () {
+    public boolean setRightClickHarvest() {
         this.canRightClickHarvest = true;
         return canRightClickHarvest;
     }

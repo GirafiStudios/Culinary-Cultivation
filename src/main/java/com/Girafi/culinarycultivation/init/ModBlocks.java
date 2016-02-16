@@ -1,10 +1,15 @@
 package com.Girafi.culinarycultivation.init;
 
 import com.Girafi.culinarycultivation.block.*;
+import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.item.ItemCropFood;
 import com.Girafi.culinarycultivation.item.ItemCropSeeds;
+import com.Girafi.culinarycultivation.proxy.ClientProxy;
+import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -23,14 +28,15 @@ public class ModBlocks {
 
     public static void init() {
         //Crops
-        GameRegistry.registerBlock(beetroots, "beetroots");
-        GameRegistry.registerBlock(blackPepper, "blackPepper");
-        GameRegistry.registerBlock(cucumber, "cucumber");
-        GameRegistry.registerBlock(tomato, "tomato");
-        GameRegistry.registerBlock(cauldron, "cauldron");
-        GameRegistry.registerBlock(fanHousing, "fanHousing");
-        GameRegistry.registerBlock(separator, "separator");
-        GameRegistry.registerBlock(cheese, "cheese");
+        registerCrop(beetroots, "beetroots");
+        registerCrop(blackPepper, "blackPepper");
+        registerCrop(cucumber, "cucumber");
+        registerCrop(tomato, "tomato");
+
+        registerBlock(cauldron, "cauldron", null);
+        registerBlock(fanHousing, "fanHousing");
+        registerBlock(separator, "separator");
+        registerBlock(cheese, "cheese");
     }
 
     public static void setup() {
@@ -38,5 +44,27 @@ public class ModBlocks {
         beetroots.setModCrop(new ItemStack(ModItems.beetroot), 1, 1).setModSeed(new ItemStack(ModItems.beetrootSeeds), 0, 1);
         blackPepper.setModCrop(new ItemStack(ModItems.cropSeeds, 1, ItemCropSeeds.SeedType.BLACKPEPPERDRUPE.getMetadata()), 1, 5).setRightClickHarvest();
         tomato.setModCrop(new ItemStack(ModItems.cropFood, 1, ItemCropFood.CropType.TOMATO.getMetadata()), 1, 4).setRightClickHarvest();
+    }
+
+    public static Block registerCrop(Block block, String name) {
+        return registerBlock(block, name, null);
+    }
+
+    public static Block registerBlock(Block block, String name) {
+        return registerBlock(block, name, CreativeTab.CulinaryCultivation_Tab);
+    }
+
+    public static Block registerBlock(Block block, String name, CreativeTabs tab) {
+        block.setUnlocalizedName(Paths.ModAssets + name);
+        block.setCreativeTab(tab);
+
+        GameRegistry.registerBlock(block, name);
+        registerBlockVariant(block, name);
+
+        return block;
+    }
+
+    public static void registerBlockVariant(Block block, String name) {
+        ClientProxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
     }
 }
