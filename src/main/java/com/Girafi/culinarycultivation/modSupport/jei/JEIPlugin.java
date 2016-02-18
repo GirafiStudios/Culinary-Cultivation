@@ -1,35 +1,22 @@
 package com.Girafi.culinarycultivation.modSupport.jei;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import mezz.jei.api.*;
+import mezz.jei.api.BlankModPlugin;
+import mezz.jei.api.IItemBlacklist;
+import mezz.jei.api.IModRegistry;
 import net.minecraft.item.ItemStack;
 
 @mezz.jei.api.JEIPlugin
-public class JEIPlugin implements IModPlugin {
-
-    @Override
-    public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
-        jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.beetroots));
-        jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.blackPepper));
-        jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.cauldron));
-        jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.cucumber));
-        jeiHelpers.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.tomato));
-    }
-
-    @Override
-    public void onItemRegistryAvailable(IItemRegistry itemRegistry) {
-    }
+public class JEIPlugin extends BlankModPlugin {
 
     @Override
     public void register(IModRegistry registry) {
-    }
+        IItemBlacklist blacklist = registry.getJeiHelpers().getItemBlacklist();
 
-    @Deprecated
-    @Override
-    public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {
-    }
-
-    @Override
-    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.beetroots));
+        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.blackPepper));
+        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.cauldron));
+        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.cucumber));
+        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.tomato));
     }
 }
