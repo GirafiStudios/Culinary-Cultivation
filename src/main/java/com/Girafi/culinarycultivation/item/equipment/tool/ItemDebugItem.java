@@ -29,11 +29,11 @@ public class ItemDebugItem extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName(stack) + "." + getModeName(stack);
+        return super.getUnlocalizedName(stack) + "." + getModeName(stack.getItemDamage());
     }
 
-    public static String getModeName(ItemStack stack) {
-        switch (stack.getItemDamage()) {
+    public static String getModeName(int metadata) {
+        switch (metadata) {
             case 1:
                 return "hunger";
             case 2:

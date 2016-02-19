@@ -1,12 +1,12 @@
 package com.Girafi.culinarycultivation.proxy;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
 import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import org.apache.commons.lang3.text.WordUtils;
 
 import static com.Girafi.culinarycultivation.init.ModItems.debugItem;
 
@@ -29,16 +30,11 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenders() {
-        addVariant(debugItem, "debugDefault", 0);
-        addVariant(debugItem, "debugHunger", 0);
-        addVariant(debugItem, "debugHungerPlus", 0);
-        addVariant(debugItem, "debugFertilizer", 0);
-        addVariant(debugItem, "debugHoe", 0);
-        getMesher().register(debugItem, 0, new ModelResourceLocation(Paths.ModAssets + "debugDefault", "inventory"));
-        getMesher().register(debugItem, 1, new ModelResourceLocation(Paths.ModAssets + "debugHunger", "inventory"));
-        getMesher().register(debugItem, 2, new ModelResourceLocation(Paths.ModAssets + "debugHungerPlus", "inventory"));
-        getMesher().register(debugItem, 3, new ModelResourceLocation(Paths.ModAssets + "debugFertilizer", "inventory"));
-        getMesher().register(debugItem, 4, new ModelResourceLocation(Paths.ModAssets + "debugHoe", "inventory"));
+        for (int i = 0; i <= ItemDebugItem.getModeName(i).length() + 1; i++) {
+            String name = "debugItem" + WordUtils.capitalize(ItemDebugItem.getModeName(i));
+            ModelBakery.registerItemVariants(debugItem, new ResourceLocation(Paths.ModAssets + name));
+            Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(debugItem, i, new ModelResourceLocation(Paths.ModAssets + name, "inventory"));
+        }
     }
 
     @Override
@@ -52,16 +48,5 @@ public class ClientProxy extends CommonProxy {
                 }
             });
         }
-    }
-
-    public static void addVariant(Item item, String name, int damageValue) {
-        if (item != null) {
-            ModelBakery.registerItemVariants(item, new ResourceLocation(Paths.ModAssets + name));
-            getMesher().register(item, damageValue, new ModelResourceLocation(Paths.ModAssets + name, "inventory"));
-        }
-    }
-
-    protected static ItemModelMesher getMesher() {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
     }
 }
