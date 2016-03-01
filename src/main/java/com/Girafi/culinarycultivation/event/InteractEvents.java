@@ -9,10 +9,7 @@ import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmo
 import com.Girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCake;
-import net.minecraft.block.BlockCauldron;
-import net.minecraft.block.BlockCrops;
+import net.minecraft.block.*;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -304,6 +301,12 @@ public class InteractEvents {
                     if (age >= 7) {
                         block.dropBlockAsItem(world, pos, state, 0);
                         world.setBlockState(pos, state.withProperty(BlockCrop.AGE, 0), 2);
+                    }
+                } else if (block instanceof BlockNetherWart) {
+                    int ageWart = (state.getValue(BlockNetherWart.AGE)).intValue();
+                    if (ageWart >= 3) {
+                        block.dropBlockAsItem(world, pos, state, 0);
+                        world.setBlockState(pos, state.withProperty(BlockNetherWart.AGE, 0), 2);
                     }
                 }
             }
