@@ -9,8 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import thaumcraft.api.blocks.BlocksTC;
 import thaumcraft.api.wands.IWandTriggerManager;
-import thaumcraft.common.lib.network.fx.PacketFXBlockSparkle;
-
+import thaumcraft.common.lib.network.fx.PacketFXBlockBamf;
 
 public class CrucibleSupport implements IWandTriggerManager {
 
@@ -21,7 +20,7 @@ public class CrucibleSupport implements IWandTriggerManager {
             world.setBlockState(pos, BlocksTC.crucible.getDefaultState());
             world.notifyNeighborsOfStateChange(pos, BlocksTC.crucible);
             world.markBlockForUpdate(pos);
-            NetworkHandler.instance.sendToAllAround(new PacketFXBlockSparkle(pos, -9999), new NetworkRegistry.TargetPoint(world.provider.getDimensionId(), (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), 32.0D));
+            NetworkHandler.instance.sendToAllAround(new PacketFXBlockBamf(pos, -9999, true, true, true), new NetworkRegistry.TargetPoint(world.provider.getDimensionId(), (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), 32.0D));
             world.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "thaumcraft:wand", 1.0F, 1.0F);
             return true;
         } else {

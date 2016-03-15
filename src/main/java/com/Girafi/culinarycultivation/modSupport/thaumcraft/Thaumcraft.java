@@ -6,19 +6,17 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.modSupport.IModSupport;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.reference.Reference;
-import com.Girafi.culinarycultivation.reference.SupportedModIDs;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.relauncher.Side;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.items.ItemsTC;
 import thaumcraft.api.wands.WandTriggerRegistry;
-import thaumcraft.common.lib.network.fx.PacketFXBlockSparkle;
+import thaumcraft.common.lib.network.fx.PacketFXBlockBamf;
 
 public class Thaumcraft implements IModSupport {
     @Override
     public void preInit() {
-        NetworkHandler.instance.registerPacket(PacketFXBlockSparkle.class, Side.CLIENT);
+        NetworkHandler.instance.registerPacket(PacketFXBlockBamf.class, Side.CLIENT);
     }
 
     @Override
