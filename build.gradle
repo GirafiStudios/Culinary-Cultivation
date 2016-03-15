@@ -21,7 +21,12 @@ repositories {
   }
 }
 
-version = "${minecraft_version}-${mod_version}"
+ext.buildnumber=""
+if (System.getenv().BUILD_NUMBER) {
+    ext.buildnumber="-" + System.getenv().BUILD_NUMBER
+}
+
+version = "${minecraft_version}-${mod_version}Beta${buildnumber}"
 group = "com.Girafi.CulinaryCultivation"
 archivesBaseName = "CulinaryCultivation"
 
