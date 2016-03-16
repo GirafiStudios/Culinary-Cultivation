@@ -23,10 +23,10 @@ repositories {
 
 ext.buildnumber=""
 if (System.getenv().BUILD_NUMBER) {
-    ext.buildnumber="" + System.getenv().BUILD_NUMBER
+    ext.buildnumber="-Beta" + System.getenv().BUILD_NUMBER
 }
 
-version = "${minecraft_version}-${mod_version}-Beta${buildnumber}"
+version = "${minecraft_version}-${mod_version}${buildnumber}"
 group = "com.Girafi.CulinaryCultivation"
 archivesBaseName = "CulinaryCultivation"
 
