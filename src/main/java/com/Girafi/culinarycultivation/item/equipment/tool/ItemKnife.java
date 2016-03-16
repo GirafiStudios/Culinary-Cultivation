@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import java.util.Set;
 
 public class ItemKnife extends ItemTool {
-    private static final Set EFFECTIVE_ON = Sets.newHashSet(new Block[]{});
+    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[]{});
 
     public ItemKnife(Item.ToolMaterial material) {
         super(1.5F, material, EFFECTIVE_ON);
@@ -35,6 +35,6 @@ public class ItemKnife extends ItemTool {
 
     @Override
     public int getItemEnchantability() {
-        return this.toolMaterial.WOOD.getHarvestLevel();
+        return ToolMaterial.WOOD.getHarvestLevel();
     }
 }

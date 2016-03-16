@@ -1,23 +1,19 @@
 package thaumcraft.api;
 
-import java.nio.ByteBuffer;
-import java.util.Iterator;
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.aspects.IEssentiaTransport;
+
+import java.nio.ByteBuffer;
+import java.util.Iterator;
+import java.util.List;
 
 public class ThaumcraftApiHelper {
 	

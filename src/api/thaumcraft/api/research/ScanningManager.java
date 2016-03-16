@@ -1,10 +1,10 @@
 package thaumcraft.api.research;
 
-import java.util.ArrayList;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
+
+import java.util.ArrayList;
 
 public class ScanningManager {
 	

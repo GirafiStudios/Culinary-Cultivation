@@ -27,10 +27,10 @@ public class BlockCheese extends BlockCake {
     private void eatCheese(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.canEat(false)) {
             player.getFoodStats().addStats(2, 0.4F);
-            int i = ((Integer) state.getValue(BITES)).intValue();
+            int i = state.getValue(BITES);
 
             if (i < 6) {
-                world.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+                world.setBlockState(pos, state.withProperty(BITES, i + 1), 3);
             } else {
                 world.setBlockToAir(pos);
             }

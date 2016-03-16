@@ -172,7 +172,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
 
     @Override
     public IChatComponent getDisplayName() {
-        return (IChatComponent) (this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), 0);
     }
 
     public void setCustomName(String customNameIn) {
@@ -186,7 +186,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -281,10 +281,9 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
     private boolean isInventoryFull(IInventory inventoryIn, EnumFacing side) {
         if (inventoryIn instanceof ISidedInventory) {
             ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
-            int[] aint = isidedinventory.getSlotsForFace(side);
 
-            for (int k = 0; k < aint.length; ++k) {
-                ItemStack itemstack1 = isidedinventory.getStackInSlot(aint[k]);
+            for (int anAint : isidedinventory.getSlotsForFace(side)) {
+                ItemStack itemstack1 = isidedinventory.getStackInSlot(anAint);
 
                 if (itemstack1 == null || itemstack1.stackSize != itemstack1.getMaxStackSize()) {
                     return false;
@@ -308,10 +307,9 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
     private static boolean isInventoryEmpty(IInventory inventoryIn, EnumFacing side) {
         if (inventoryIn instanceof ISidedInventory) {
             ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
-            int[] aint = isidedinventory.getSlotsForFace(side);
 
-            for (int i = 0; i < aint.length; ++i) {
-                if (isidedinventory.getStackInSlot(aint[i]) != null) {
+            for (int anAint : isidedinventory.getSlotsForFace(side)) {
+                if (isidedinventory.getStackInSlot(anAint) != null) {
                     return false;
                 }
             }
@@ -343,10 +341,9 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
 
             if (iinventory instanceof ISidedInventory) {
                 ISidedInventory isidedinventory = (ISidedInventory) iinventory;
-                int[] aint = isidedinventory.getSlotsForFace(enumfacing);
 
-                for (int i = 0; i < aint.length; ++i) {
-                    if (pullItemFromSlot(p_145891_0_, iinventory, aint[i], enumfacing)) {
+                for (int anAint : isidedinventory.getSlotsForFace(enumfacing)) {
+                    if (pullItemFromSlot(p_145891_0_, iinventory, anAint, enumfacing)) {
                         return true;
                     }
                 }
@@ -375,7 +372,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
 
         if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction)) {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), (EnumFacing) null);
+            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), null);
 
             if (itemstack2 == null || itemstack2.stackSize == 0) {
                 inventoryIn.markDirty();
@@ -395,7 +392,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
             return false;
         } else {
             ItemStack itemstack = itemIn.getEntityItem().copy();
-            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, (EnumFacing) null);
+            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, null);
 
             if (itemstack1 != null && itemstack1.stackSize != 0) {
                 itemIn.setEntityItemStack(itemstack1);
@@ -432,7 +429,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
     }
 
     private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
-        return !inventoryIn.isItemValidForSlot(index, stack) ? false : !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side);
+        return inventoryIn.isItemValidForSlot(index, stack) && (!(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack, side));
     }
 
     private static boolean canExtractItemFromSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side) {
@@ -494,14 +491,11 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
     }
 
     public static IInventory getHopperInventory(IHopper hopper) {
-        /**
-         * Returns the IInventory (if applicable) of the TileEntity at the specified position
-         */
         return getInventoryAtPosition(hopper.getWorld(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
     }
 
-    public static List<EntityItem> func_181556_a(World p_181556_0_, double p_181556_1_, double p_181556_3_, double p_181556_5_) {
-        return p_181556_0_.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_181556_1_ - 0.5D, p_181556_3_ - 0.5D, p_181556_5_ - 0.5D, p_181556_1_ + 0.5D, p_181556_3_ + 0.5D, p_181556_5_ + 0.5D), EntitySelectors.selectAnything);
+    public static List<EntityItem> func_181556_a(World world, double x, double y, double z) {
+        return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectAnything);
     }
 
     public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
@@ -525,7 +519,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         }
 
         if (iinventory == null) {
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding((Entity) null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
 
             if (list.size() > 0) {
                 iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));
@@ -536,7 +530,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
     }
 
     private static boolean canCombine(ItemStack stack1, ItemStack stack2) {
-        return stack1.getItem() != stack2.getItem() ? false : (stack1.getMetadata() != stack2.getMetadata() ? false : (stack1.stackSize > stack1.getMaxStackSize() ? false : ItemStack.areItemStackTagsEqual(stack1, stack2)));
+        return stack1.getItem() == stack2.getItem() && (stack1.getMetadata() == stack2.getMetadata() && (stack1.stackSize <= stack1.getMaxStackSize() && ItemStack.areItemStackTagsEqual(stack1, stack2)));
     }
 
     public double getXPos() {
@@ -586,10 +580,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
 
     @Override

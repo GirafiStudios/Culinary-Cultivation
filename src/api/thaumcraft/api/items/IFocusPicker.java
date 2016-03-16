@@ -1,7 +1,6 @@
 package thaumcraft.api.items;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Used by wand foci like the trade focus to get an itemstack and display it on the wand hud.

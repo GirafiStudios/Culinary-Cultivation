@@ -41,7 +41,7 @@ public class ItemLargeHoe extends ItemHoe {
                 }
 
                 if (block == Blocks.dirt) {
-                    switch (SwitchDirtType.TYPE_LOOKUP[((BlockDirt.DirtType) iBlockState.getValue(BlockDirt.VARIANT)).ordinal()]) {
+                    switch (SwitchDirtType.TYPE_LOOKUP[iBlockState.getValue(BlockDirt.VARIANT).ordinal()]) {
                         case 1:
                             return this.useLargeHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
                         case 2:
@@ -121,13 +121,11 @@ public class ItemLargeHoe extends ItemHoe {
         static {
             try {
                 TYPE_LOOKUP[BlockDirt.DirtType.DIRT.ordinal()] = 1;
-            } catch (NoSuchFieldError var2) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
             try {
                 TYPE_LOOKUP[BlockDirt.DirtType.COARSE_DIRT.ordinal()] = 2;
-            } catch (NoSuchFieldError var1) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
         }
     }
