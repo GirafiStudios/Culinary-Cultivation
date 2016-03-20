@@ -1,8 +1,5 @@
 package thaumcraft.api.golems;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -12,6 +9,9 @@ import thaumcraft.api.golems.seals.ISeal;
 import thaumcraft.api.golems.seals.ISealEntity;
 import thaumcraft.api.golems.seals.SealPos;
 import thaumcraft.api.golems.tasks.Task;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GolemHelper {
 
@@ -41,6 +41,12 @@ public class GolemHelper {
 	
 	public static HashMap<Integer,ArrayList<ProvisionRequest>> provisionRequests = new HashMap<Integer,ArrayList<ProvisionRequest>>();
 	
+	/**
+	 * 
+	 * @param world
+	 * @param seal
+	 * @param stack the stack requested. Can accept wildcard values.
+	 */
 	public static void requestProvisioning(World world, ISealEntity seal, ItemStack stack) {
 		if (!provisionRequests.containsKey(world.provider.getDimensionId()))
 			provisionRequests.put(world.provider.getDimensionId(), new ArrayList<ProvisionRequest>());

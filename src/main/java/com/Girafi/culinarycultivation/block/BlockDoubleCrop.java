@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -36,7 +35,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     private boolean canRightClickHarvest;
 
     public BlockDoubleCrop() {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         this.setTickRandomly(true);
         this.setHardness(0.0F);
         this.setStepSound(soundTypeGrass);
@@ -45,7 +44,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos) { //Might need to tweak this later on
-        int age = (world.getBlockState(pos).getValue(AGE)).intValue();
+        int age = (world.getBlockState(pos).getValue(AGE));
         if (age <= 7) {
             this.setBlockBounds(0F, 0F, 0F, 1.0F, age == 0 ? 0.25F : age == 1 || age == 2 ? 0.5F : age == 3 || age == 4 ? 0.8F : 1.0F, 1.0F);
         }
@@ -74,7 +73,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
-        int age = (state.getValue(AGE)).intValue();
+        int age = state.getValue(AGE);
         if (age == 14 || age == 7) {
             if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
                 this.rightClickHarvest(world, pos, state);
@@ -86,7 +85,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     public boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
-        int age = (state.getValue(AGE)).intValue();
+        int age = state.getValue(AGE);
         if (age == 7) {
             super.dropBlockAsItem(world, pos.up(), world.getBlockState(pos.up()), 0);
             world.setBlockState(pos, state.withProperty(AGE, 6), 2);
@@ -105,7 +104,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
         super.onNeighborBlockChange(world, pos, state, neighborBlock);
         this.checkAndDropBlock(world, pos, state);
-        int age = (state.getValue(AGE)).intValue();
+        int age = state.getValue(AGE);
         if (age == 7 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
             world.setBlockState(pos, state.withProperty(AGE, 6), 2);
         }
@@ -116,7 +115,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         super.updateTick(world, pos, state, rand);
 
         if (world.getLightFromNeighbors(pos.up()) >= 9) {
-            int age = (state.getValue(AGE)).intValue();
+            int age = state.getValue(AGE);
 
             if (age < 14) {
                 float f = getGrowthChance(this, world, pos);
@@ -125,7 +124,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                     if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
                         world.setBlockState(pos.up(), state.withProperty(AGE, 8), 2);
                     } else if (age != 6 && age != 7 && age != 13)
-                        world.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(age + 1)), 2);
+                        world.setBlockState(pos, state.withProperty(AGE, age + 1), 2);
                 }
                 if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop && world.getBlockState(pos.up()) == state.getBlock().getStateFromMeta(13)) {
                     world.setBlockState(pos, state.withProperty(AGE, 7), 2);
@@ -137,16 +136,16 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     protected static float getGrowthChance(Block blockIn, World world, BlockPos pos) {
         float f = 1.0F;
-        BlockPos blockpos1 = pos.down();
+        BlockPos blockPos1 = pos.down();
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
-                IBlockState iblockstate = world.getBlockState(blockpos1.add(i, 0, j));
+                IBlockState iblockstate = world.getBlockState(blockPos1.add(i, 0, j));
 
-                if (iblockstate.getBlock().canSustainPlant(world, blockpos1.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) blockIn)) {
+                if (iblockstate.getBlock().canSustainPlant(world, blockPos1.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) blockIn)) {
                     f1 = 1.0F;
 
-                    if (iblockstate.getBlock().isFertile(world, blockpos1.add(i, 0, j))) {
+                    if (iblockstate.getBlock().isFertile(world, blockPos1.add(i, 0, j))) {
                         f1 = 3.0F;
                     }
                 }
@@ -190,8 +189,8 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     public void grow(World world, BlockPos pos, IBlockState state) {
-        int i = (state.getValue(AGE)).intValue() + MathHelper.getRandomIntegerInRange(world.rand, 1, 1);
-        int age = (state.getValue(AGE)).intValue();
+        int i = state.getValue(AGE) + MathHelper.getRandomIntegerInRange(world.rand, 1, 1);
+        int age = state.getValue(AGE);
 
         if (i > 14) {
             i = 14;
@@ -199,7 +198,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
             world.setBlockState(pos.up(), state.withProperty(AGE, 8), 2);
         } else if (age != 6 && age != 7 && age != 13) {
-            world.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i)), 2);
+            world.setBlockState(pos, state.withProperty(AGE, i), 2);
         }
         if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop && world.getBlockState(pos.up()) == state.getBlock().getStateFromMeta(13)) {
             world.setBlockState(pos, state.withProperty(AGE, 7), 2);
@@ -214,26 +213,26 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
-        int age = (state.getValue(AGE)).intValue();
+        int age = state.getValue(AGE);
         return age < 14 && age != 7;
     }
 
     @Override
     public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
-        int age = (world.getBlockState(pos).getValue(AGE)).intValue();
+        int age = world.getBlockState(pos).getValue(AGE);
         if (age < 14) {
             if (age == 13 && world.getBlockState(pos.down()).getBlock() instanceof BlockDoubleCrop) {
-                if ((world.getBlockState(pos.down()).getValue(AGE)).intValue() == 6) {
+                if ((world.getBlockState(pos.down()).getValue(AGE)) == 6) {
                     world.playAuxSFX(2005, new BlockPos(pos.down()), 0);
-                    world.setBlockState(pos.down(), state.withProperty(AGE, Integer.valueOf((world.getBlockState(pos.down()).getValue(AGE)).intValue() + 1)), 2);
-                    world.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(age + 1)), 2);
+                    world.setBlockState(pos.down(), state.withProperty(AGE, (world.getBlockState(pos.down()).getValue(AGE) + 1)), 2);
+                    world.setBlockState(pos, state.withProperty(AGE, age + 1), 2);
                     return true;
                 }
             }
             if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop) {
-                if ((world.getBlockState(pos.up()).getValue(AGE)).intValue() >= 8) {
+                if ((world.getBlockState(pos.up()).getValue(AGE)) >= 8) {
                     world.playAuxSFX(2005, new BlockPos(pos.up()), 0);
-                    world.setBlockState(pos.up(), state.withProperty(AGE, Integer.valueOf((world.getBlockState(pos.up()).getValue(AGE)).intValue() + 1)), 2);
+                    world.setBlockState(pos.up(), state.withProperty(AGE, (world.getBlockState(pos.up()).getValue(AGE) + 1)), 2);
                     return true;
                 }
             }
@@ -244,17 +243,17 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
+        return this.getDefaultState().withProperty(AGE, meta);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return (state.getValue(AGE)).intValue();
+        return state.getValue(AGE);
     }
 
     @Override
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[]{AGE});
+        return new BlockState(this, AGE);
     }
 
     public BlockDoubleCrop setModCrop(ItemStack item, int minDropValue, int maxDropValue) {
@@ -272,8 +271,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     public boolean setRightClickHarvest() {
-        this.canRightClickHarvest = true;
-        return canRightClickHarvest;
+        return canRightClickHarvest = true;
     }
 
     protected ItemStack notGrownDrop() {
@@ -285,13 +283,13 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return (state.getValue(AGE)).intValue() == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
+        return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
     }
 
     @Override
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
-        int age = (state.getValue(AGE)).intValue();
+        int age = state.getValue(AGE);
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
         if (age == 14) {

@@ -1,6 +1,5 @@
 package com.Girafi.culinarycultivation.item;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Maps;
@@ -31,24 +30,24 @@ public class ItemStorageJar extends Item {
         setContainerItem(this);
     }
 
-    public static enum StorageJarType {
+    public enum StorageJarType {
         EMPTY(0, "empty"),
         WATER(1, "water", setColor(52, 95, 218)),
         MILK(2, "milk", setColor(255, 255, 255)),
         RENNET(3, "rennet", setColor(184, 185, 151));
 
-        private static final Map StorageJarTypeMap = Maps.newHashMap();
+        private static final Map<Integer, StorageJarType> StorageJarTypeMap = Maps.newHashMap();
         private final int metaData;
         private final String unlocalizedName;
         private final int colorNumber;
 
-        private StorageJarType(int metaData, String unlocalizedName) {
+        StorageJarType(int metaData, String unlocalizedName) {
             this.metaData = metaData;
             this.unlocalizedName = unlocalizedName;
             this.colorNumber = 0;
         }
 
-        private StorageJarType(int metaData, String unlocalizedName, int colorNumber) {
+        StorageJarType(int metaData, String unlocalizedName, int colorNumber) {
             this.metaData = metaData;
             this.unlocalizedName = unlocalizedName;
             this.colorNumber = colorNumber;
@@ -67,7 +66,7 @@ public class ItemStorageJar extends Item {
         }
 
         public static StorageJarType getStorageJarTypeList(int storageJar) {
-            StorageJarType storageJarType = (StorageJarType) StorageJarTypeMap.get(Integer.valueOf(storageJar));
+            StorageJarType storageJarType = StorageJarTypeMap.get(storageJar);
             return storageJarType == null ? EMPTY : storageJarType;
         }
 
@@ -76,22 +75,16 @@ public class ItemStorageJar extends Item {
         }
 
         static {
-            StorageJarType[] var0 = values();
-            int var1 = var0.length;
-            for (int var2 = 0; var2 < var1; ++var2) {
-                StorageJarType var3 = var0[var2];
-                StorageJarTypeMap.put(Integer.valueOf(var3.getMetaData()), var3);
+            for (StorageJarType jarType : values()) {
+                StorageJarTypeMap.put(jarType.getMetaData(), jarType);
             }
         }
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
+    public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list) {
         super.getSubItems(item, creativeTab, list);
-        StorageJarType[] astorageJar = StorageJarType.values();
-        int i = astorageJar.length;
-        for (int j = 0; j < i; ++j) {
-            StorageJarType storageJarType = astorageJar[j];
+        for (StorageJarType storageJarType : StorageJarType.values()) {
             if (storageJarType.getMetaData() != 0) {
                 list.add(new ItemStack(this, 1, storageJarType.getMetaData()));
             }

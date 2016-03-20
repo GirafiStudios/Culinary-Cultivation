@@ -54,18 +54,13 @@ public class Recipes {
         GameRegistry.addSmelting(new ItemStack(Items.fish, 1, 2), new ItemStack(cooked_fish, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);
         GameRegistry.addSmelting(new ItemStack(meat, 1, MeatType.RIBSBEEF.getMetaData()), new ItemStack(cooked_meat, 1, MeatType.RIBS.getMetaData()), 0.35F);
 
-        FishType[] afishtype = FishType.values();
-        int i = afishtype.length;
-        for (int j = 0; j < i; ++j) {
-            FishType fishtype = afishtype[j];
+        for (FishType fishtype : FishType.values()) {
             if (fishtype.isHaveCookedFish() && fishtype.isHaveRawFish()) {
                 GameRegistry.addSmelting(new ItemStack(fish, 1, fishtype.getMetaData()), new ItemStack(cooked_fish, 1, fishtype.getMetaData()), 0.35F);
             }
         }
-        MeatType[] ameattype = MeatType.values();
-        int iMeat = ameattype.length;
-        for (int j = 0; j < iMeat; ++j) {
-            MeatType meattype = ameattype[j];
+
+        for (MeatType meattype : MeatType.values()) {
             if (meattype.isHaveCookedMeat()) {
                 GameRegistry.addSmelting(new ItemStack(meat, 1, meattype.getMetaData()), new ItemStack(cooked_meat, 1, meattype.getMetaData()), 0.35F);
             }

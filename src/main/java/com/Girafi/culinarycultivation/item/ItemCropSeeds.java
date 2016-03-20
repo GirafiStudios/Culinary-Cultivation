@@ -1,6 +1,5 @@
 package com.Girafi.culinarycultivation.item;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Maps;
@@ -26,12 +25,8 @@ public class ItemCropSeeds extends Item implements IPlantable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-        SeedType[] aSeedType = SeedType.values();
-        int i = aSeedType.length;
-
-        for (int j = 0; j < i; ++j) {
-            SeedType seedType = aSeedType[j];
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+        for (SeedType seedType : SeedType.values()) {
             subItems.add(new ItemStack(this, 1, seedType.getMetadata()));
         }
     }
@@ -64,25 +59,21 @@ public class ItemCropSeeds extends Item implements IPlantable {
 
     @Override
     public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
-        SeedType[] aSeedType = SeedType.values();
-        int i = aSeedType.length;
-
-        for (int j = 0; j < i; ++j) {
-            SeedType seedType = aSeedType[j];
+        for (SeedType seedType : SeedType.values()) {
             return seedType.crop.getDefaultState();
         }
         return null;
     }
 
-    public static enum SeedType {
+    public enum SeedType {
         BLACKPEPPERDRUPE(0, "blackPepperDrupe", ModBlocks.blackPepper);
 
-        private static final Map META_LOOKUP = Maps.newHashMap();
+        private static final Map<Integer, SeedType> META_LOOKUP = Maps.newHashMap();
         private final int meta;
         private final String name;
         private final Block crop;
 
-        private SeedType(int meta, String name, Block crop) {
+        SeedType(int meta, String name, Block crop) {
             this.meta = meta;
             this.name = name;
             this.crop = crop;
@@ -97,7 +88,7 @@ public class ItemCropSeeds extends Item implements IPlantable {
         }
 
         public static SeedType byMetadata(int meta) {
-            SeedType seedType = (SeedType) META_LOOKUP.get(Integer.valueOf(meta));
+            SeedType seedType = META_LOOKUP.get(meta);
             return seedType == null ? BLACKPEPPERDRUPE : seedType;
         }
 
@@ -106,12 +97,8 @@ public class ItemCropSeeds extends Item implements IPlantable {
         }
 
         static {
-            SeedType[] values = values();
-            int var1 = values.length;
-
-            for (int value = 0; value < var1; ++value) {
-                SeedType seedValues = values[value];
-                META_LOOKUP.put(Integer.valueOf(seedValues.getMetadata()), seedValues);
+            for (SeedType seedValues : values()) {
+                META_LOOKUP.put(seedValues.getMetadata(), seedValues);
             }
         }
     }

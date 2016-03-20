@@ -6,7 +6,6 @@ import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.Girafi.culinarycultivation.item.equipment.tool.ItemCakeKnife;
 import com.Girafi.culinarycultivation.item.equipment.tool.ItemKnife;
 import com.Girafi.culinarycultivation.item.equipment.tool.ItemMeatCleaver;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.AchievementList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -18,7 +17,6 @@ public class ItemCraftingEvent {
     public static class CraftedEvent {
         @SubscribeEvent
         public void CraftingHandler(ItemCraftedEvent craftedEvent) {
-            final IInventory knifeCrafting = null;
             ItemStack stackKnife = craftedEvent.crafting;
             if (stackKnife != null && stackKnife.getItem() == ModItems.kitchenKnife) {
             } else {
@@ -34,7 +32,6 @@ public class ItemCraftingEvent {
                     }
                 }
             }
-            final IInventory cakeKnifeCrafting = null;
             ItemStack stackCakeKnife = craftedEvent.crafting;
             if (stackCakeKnife != null && stackCakeKnife.getItem() == ModItems.cakeKnife) {
             } else {
@@ -50,7 +47,6 @@ public class ItemCraftingEvent {
                     }
                 }
             }
-            final IInventory meatCleaverCrafting = null;
             ItemStack stackMeatCleaver = craftedEvent.crafting;
             if (stackMeatCleaver != null && stackCakeKnife.getItem() == ModItems.meatCleaver) {
             } else {

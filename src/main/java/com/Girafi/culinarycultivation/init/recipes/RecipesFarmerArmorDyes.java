@@ -18,7 +18,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     @Override
     public boolean matches(InventoryCrafting crafting, World world) {
         ItemStack stack = null;
-        ArrayList list = Lists.newArrayList();
+        ArrayList<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < crafting.getSizeInventory(); ++i) {
             ItemStack craftingStack = crafting.getStackInSlot(i);

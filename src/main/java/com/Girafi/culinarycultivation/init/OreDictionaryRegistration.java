@@ -11,10 +11,7 @@ import org.apache.commons.lang3.text.WordUtils;
 public class OreDictionaryRegistration {
     public static void init() {
 
-        FishType[] fish = FishType.values();
-        int iFish = fish.length;
-        for (int j = 0; j < iFish; ++j) {
-            FishType fishtype = fish[j];
+        for (FishType fishtype : FishType.values()) {
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getFishName()) + "Raw", new ItemStack(ModItems.fish, 1, fishtype.getMetaData()));
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getFishName()) + "Cooked", new ItemStack(ModItems.cooked_fish, 1, fishtype.getMetaData()));
             if (fishtype.isHaveRawFish() && fishtype.getMetaData() != FishType.FILLET.getMetaData() && fishtype.getMetaData() != FishType.SMALLSQUID.getMetaData()) {
@@ -26,10 +23,7 @@ public class OreDictionaryRegistration {
         OreDictionary.registerOre("filletFish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.SALMON.getMetadata()));
         OreDictionary.registerOre("filletFish", new ItemStack(Items.fish, 1, ItemFishFood.FishType.CLOWNFISH.getMetadata()));
 
-        MeatType[] meat = MeatType.values();
-        int iMeat = meat.length;
-        for (int j = 0; j < iMeat; ++j) {
-            MeatType meatType = meat[j];
+        for (MeatType meatType : MeatType.values()) {
             OreDictionary.registerOre("food" + WordUtils.capitalize(meatType.getMeatName()) + "Raw", new ItemStack(ModItems.meat, 1, meatType.getMetaData()));
             OreDictionary.registerOre("food" + WordUtils.capitalize(meatType.getMeatName()) + "Cooked", new ItemStack(ModItems.cooked_meat, 1, meatType.getMetaData()));
         }
@@ -41,6 +35,7 @@ public class OreDictionaryRegistration {
         OreDictionary.registerOre("foodMincedMeat", Items.beef);
         OreDictionary.registerOre("foodMincedMeat", Items.mutton);
         OreDictionary.registerOre("foodMincedMeat", Items.porkchop);
+        OreDictionary.registerOre("foodMincedMeat", Items.rabbit);
         OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.HAM.getMetaData()));
         OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.LAMB.getMetaData()));
         OreDictionary.registerOre("foodMincedMeat", new ItemStack(ModItems.meat, 1, MeatType.ROAST.getMetaData()));

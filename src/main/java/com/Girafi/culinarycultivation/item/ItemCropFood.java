@@ -40,12 +40,8 @@ public class ItemCropFood extends ItemFood implements IPlantable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-        CropType[] aCropType = CropType.values();
-        int i = aCropType.length;
-
-        for (int j = 0; j < i; ++j) {
-            CropType cropType = aCropType[j];
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+        for (CropType cropType : CropType.values()) {
             subItems.add(new ItemStack(this, 1, cropType.getMetadata()));
         }
     }
@@ -81,11 +77,7 @@ public class ItemCropFood extends ItemFood implements IPlantable {
 
     @Override
     public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
-        CropType[] aCropType = CropType.values();
-        int i = aCropType.length;
-
-        for (int j = 0; j < i; ++j) {
-            CropType cropType = aCropType[j];
+        for (CropType cropType : CropType.values()) {
             if (cropType.isSeed) {
                 return cropType.crop.getDefaultState();
             }
@@ -93,11 +85,11 @@ public class ItemCropFood extends ItemFood implements IPlantable {
         return null;
     }
 
-    public static enum CropType { //TODO Make proper values
+    public enum CropType { //TODO Make proper values
         CUCUMBER(0, "cucumber", 3, 0.4F, ModBlocks.cucumber),
         TOMATO(1, "tomato", 4, 0.5F, ModBlocks.tomato);
 
-        private static final Map META_LOOKUP = Maps.newHashMap();
+        private static final Map<Integer, CropType> META_LOOKUP = Maps.newHashMap();
         private final int meta;
         private final String name;
         private final int hungerAmount;
@@ -105,7 +97,7 @@ public class ItemCropFood extends ItemFood implements IPlantable {
         private final boolean isSeed;
         private final Block crop;
 
-        private CropType(int meta, String name, int hungerAmount, float saturationModifier) {
+        CropType(int meta, String name, int hungerAmount, float saturationModifier) {
             this.meta = meta;
             this.name = name;
             this.hungerAmount = hungerAmount;
@@ -114,7 +106,7 @@ public class ItemCropFood extends ItemFood implements IPlantable {
             this.crop = null;
         }
 
-        private CropType(int meta, String name, int hungerAmount, float saturationModifier, Block crop) {
+        CropType(int meta, String name, int hungerAmount, float saturationModifier, Block crop) {
             this.meta = meta;
             this.name = name;
             this.hungerAmount = hungerAmount;
@@ -140,7 +132,7 @@ public class ItemCropFood extends ItemFood implements IPlantable {
         }
 
         public static CropType byMetadata(int meta) {
-            CropType cropType = (CropType) META_LOOKUP.get(Integer.valueOf(meta));
+            CropType cropType = META_LOOKUP.get(meta);
             return cropType == null ? CUCUMBER : cropType;
         }
 
@@ -149,12 +141,8 @@ public class ItemCropFood extends ItemFood implements IPlantable {
         }
 
         static {
-            CropType[] values = values();
-            int var1 = values.length;
-
-            for (int value = 0; value < var1; ++value) {
-                CropType cropValues = values[value];
-                META_LOOKUP.put(Integer.valueOf(cropValues.getMetadata()), cropValues);
+            for (CropType cropValues : values()) {
+                META_LOOKUP.put(cropValues.getMetadata(), cropValues);
             }
         }
     }

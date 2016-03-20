@@ -2,11 +2,11 @@ package com.Girafi.culinarycultivation.modSupport;
 
 public interface IModSupport {
 
-    public void preInit();
+    void preInit();
 
-    public void init();
+    void init();
 
-    public void postInit();
+    void postInit();
 
-    public void clientSide();
+    void clientSide();
 }

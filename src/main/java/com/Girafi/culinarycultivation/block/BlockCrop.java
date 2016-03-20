@@ -51,7 +51,7 @@ public class BlockCrop extends BlockCrops {
     }
 
     public boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
-        int age = (state.getValue(AGE)).intValue();
+        int age = state.getValue(AGE);
         if (age >= 7) {
             super.dropBlockAsItem(world, pos, state, 0);
             world.setBlockState(pos, state.withProperty(AGE, 0), 2);
@@ -75,8 +75,7 @@ public class BlockCrop extends BlockCrops {
     }
 
     public boolean setRightClickHarvest() {
-        this.canRightClickHarvest = true;
-        return canRightClickHarvest;
+        return canRightClickHarvest = true;
     }
 
     protected ItemStack notGrownDrop() {
@@ -88,13 +87,13 @@ public class BlockCrop extends BlockCrops {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return (state.getValue(AGE)).intValue() == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
+        return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
     }
 
     @Override
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
-        int age = (state.getValue(AGE)).intValue();
+        int age = state.getValue(AGE);
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
         if (age >= 7) {

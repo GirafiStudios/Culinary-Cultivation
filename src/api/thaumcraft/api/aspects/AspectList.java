@@ -1,11 +1,11 @@
 package thaumcraft.api.aspects;
 
-import java.io.Serializable;
-import java.util.LinkedHashMap;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+import java.io.Serializable;
+import java.util.LinkedHashMap;
 
 public class AspectList implements Serializable {
 	

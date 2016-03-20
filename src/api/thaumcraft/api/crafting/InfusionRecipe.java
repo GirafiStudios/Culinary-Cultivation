@@ -1,7 +1,5 @@
 package thaumcraft.api.crafting;
 
-import java.util.ArrayList;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -10,14 +8,16 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchHelper;
 
+import java.util.ArrayList;
+
 public class InfusionRecipe
 {
-	protected AspectList aspects;
-	protected String[] research;
-	private Object[] components;
-	private Object recipeInput;
-	protected Object recipeOutput;
-	protected int instability;
+	public AspectList aspects;
+	public String[] research;
+	public Object[] components;
+	public Object recipeInput;
+	public Object recipeOutput;
+	public int instability;
 	
 	public InfusionRecipe(String research, Object output, int inst, AspectList aspects2, Object input, Object[] recipe) {
 		this(new String[]{research},output,inst,aspects2,input,recipe);

@@ -56,14 +56,14 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean b) {
         if (GuiScreen.isShiftKeyDown()) {
             addStringToTooltip(getArmorSetTitle(player), list);
             ItemStack[] stacks = getArmorSetStacks();
             for (int i = 0; i < stacks.length; i++) {
                 addStringToTooltip((hasArmorSetPiece(player, i) ? EnumChatFormatting.YELLOW : "") + " " + stacks[i].getDisplayName(), list);
             }
-            addArmorStatsDesc(stack, list);
+            addArmorStatsDesc(list);
         } else
             addStringToTooltip(StatCollector.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".misc.shift"), list);
     }
@@ -124,7 +124,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
         return getArmorSetName() + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
     }
 
-    public void addArmorStatsDesc(ItemStack stack, List<String> list) {
+    public void addArmorStatsDesc(List<String> list) {
         addStringToTooltip("", list);
         addStringToTooltip(StatCollector.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".armorset.farmer.desc"), list);
         addStringToTooltip(StatCollector.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".armorset.farmer.descFull"), list);
@@ -134,7 +134,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     public boolean hasColor(ItemStack stack) {
         ItemFarmerArmor armor = (ItemFarmerArmor) stack.getItem();
 
-        return armor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial ? false : (!stack.hasTagCompound() ? false : (!stack.getTagCompound().hasKey("display", 10) ? false : stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
+        return armor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && (stack.hasTagCompound() && (stack.getTagCompound().hasKey("display", 10) && stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
     }
 
     @Override

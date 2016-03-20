@@ -18,7 +18,6 @@ import java.util.Map;
 
 public class ItemModFishFood extends ItemFood {
     private final boolean cooked;
-    private static double potionEffectProbability;
 
     public ItemModFishFood(boolean cooked) {
         super(0, 0.0F, false);
@@ -46,7 +45,7 @@ public class ItemModFishFood extends ItemFood {
     @Override
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         FishType fishType = FishType.getFishType(stack);
-        potionEffectProbability = Math.random();
+        double potionEffectProbability = Math.random();
 
         if (fishType == FishType.CLOWNFISH) {
             if (potionEffectProbability <= 0.001F) {
@@ -61,12 +60,8 @@ public class ItemModFishFood extends ItemFood {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List subItems) {
-        FishType[] afishtype = FishType.values();
-        int i = afishtype.length;
-
-        for (int j = 0; j < i; ++j) {
-            FishType fishtype = afishtype[j];
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> subItems) {
+        for (FishType fishtype : FishType.values()) {
             if (!fishtype.isHaveRawFish() && this.cooked && fishtype.isHaveCookedFish()) {
                 subItems.add(new ItemStack(this, 1, fishtype.getMetaData()));
             }
@@ -89,7 +84,7 @@ public class ItemModFishFood extends ItemFood {
         }
     }
 
-    public static enum FishType {
+    public enum FishType {
         MACKEREL(0, "mackerel", 2, 0.1F, 6, 0.7F),
         TUNA(1, "tuna", 3, 0.2F, 6, 0.6F),
         TROUT(2, "trout", 2, 0.1F, 6, 0.4F),
@@ -98,7 +93,7 @@ public class ItemModFishFood extends ItemFood {
         SMALLSQUID(5, "smallSquid", 2, 0.3F),
         CLOWNFISH(6, "clownfish", 0.2F, 3),
         FILLET(7, "fillet", 2, 0.3F, 5, 0.6F);
-        private static final Map META_LOOKUP = Maps.newHashMap();
+        private static final Map<Integer, FishType> META_LOOKUP = Maps.newHashMap();
         private final int metaData;
         private final String name;
         private final int healAmountRaw;
@@ -108,7 +103,7 @@ public class ItemModFishFood extends ItemFood {
         private boolean haveRawFish = false;
         private boolean haveCookedFish = false;
 
-        private FishType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+        FishType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
             this.metaData = metaData;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
@@ -119,7 +114,7 @@ public class ItemModFishFood extends ItemFood {
             this.haveCookedFish = true;
         }
 
-        private FishType(int metaData, String name, int healAmountRaw, float saturationAmountRaw) {
+        FishType(int metaData, String name, int healAmountRaw, float saturationAmountRaw) {
             this.metaData = metaData;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
@@ -130,7 +125,7 @@ public class ItemModFishFood extends ItemFood {
             this.haveCookedFish = false;
         }
 
-        private FishType(int metaData, String name, float saturationAmountCooked, int healAmountCooked) {
+        FishType(int metaData, String name, float saturationAmountCooked, int healAmountCooked) {
             this.metaData = metaData;
             this.name = name;
             this.healAmountRaw = 0;
@@ -174,7 +169,7 @@ public class ItemModFishFood extends ItemFood {
         }
 
         public static FishType getFishTypeList(int fishType) {
-            FishType fishtype = (FishType) META_LOOKUP.get(Integer.valueOf(fishType));
+            FishType fishtype = META_LOOKUP.get(fishType);
             return fishtype == null ? MACKEREL : fishtype;
         }
 
@@ -183,11 +178,8 @@ public class ItemModFishFood extends ItemFood {
         }
 
         static {
-            FishType[] var0 = values();
-            int var1 = var0.length;
-            for (int var2 = 0; var2 < var1; ++var2) {
-                FishType var3 = var0[var2];
-                META_LOOKUP.put(Integer.valueOf(var3.getMetaData()), var3);
+            for (FishType fishType : values()) {
+                META_LOOKUP.put(fishType.getMetaData(), fishType);
             }
         }
     }

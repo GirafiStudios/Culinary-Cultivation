@@ -19,7 +19,6 @@ import java.util.Map;
 
 public class ItemModMeatFood extends ItemFood {
     private final boolean cooked;
-    private static double potionEffectProbability;
 
     public ItemModMeatFood(boolean cooked) {
         super(0, 0.0F, true); //TODO Fix what Food wolves can eat
@@ -47,7 +46,7 @@ public class ItemModMeatFood extends ItemFood {
     @Override
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
         MeatType meatType = MeatType.getMeatType(stack);
-        potionEffectProbability = (float) Math.random();
+        double potionEffectProbability = (float) Math.random();
 
         if (potionEffectProbability <= 0.3F) {
             if (meatType == MeatType.CHICKENWING && stack.getItem() == ModItems.meat) {
@@ -72,12 +71,8 @@ public class ItemModMeatFood extends ItemFood {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
-        MeatType[] ameattype = MeatType.values();
-        int i = ameattype.length;
-
-        for (int j = 0; j < i; ++j) {
-            MeatType meattype = ameattype[j];
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
+        for (MeatType meattype : MeatType.values()) {
             if (!meattype.isHaveRawMeat() && this.cooked && meattype.isHaveCookedMeat()) {
                 list.add(new ItemStack(this, 1, meattype.getMetaData()));
             }
@@ -99,7 +94,7 @@ public class ItemModMeatFood extends ItemFood {
         }
     }
 
-    public static enum MeatType {
+    public enum MeatType {
         LAMB(0, "lamb", 2, 0.3F, 5, 1.1F),
         LEGSHEEP(1, "legSheep", 2, 0.3F, 7, 0.6F),
         VEAL(2, "veal", 2, 0.3F, 6, 1.0F),
@@ -116,7 +111,7 @@ public class ItemModMeatFood extends ItemFood {
         SQUIDMANTLE(13, "squidMantle", 2, 0.3F, 5, 0.4F),
         SQUIDRING(14, "squidRing", 1, 0.1F, 2, 0.2F);
 
-        private static final Map META_LOOKUP = Maps.newHashMap();
+        private static final Map<Integer, MeatType> META_LOOKUP = Maps.newHashMap();
         private final int metaData;
         private final String name;
         private final int healAmountRaw;
@@ -126,7 +121,7 @@ public class ItemModMeatFood extends ItemFood {
         private boolean haveRawMeat = false;
         private boolean haveCookedMeat = false;
 
-        private MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+        MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
             this.metaData = metaData;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
@@ -137,7 +132,7 @@ public class ItemModMeatFood extends ItemFood {
             this.haveCookedMeat = true;
         }
 
-        private MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw) {
+        MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw) {
             this.metaData = metaData;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
@@ -148,7 +143,7 @@ public class ItemModMeatFood extends ItemFood {
             this.haveCookedMeat = false;
         }
 
-        private MeatType(int metaData, String name, float saturationAmountCooked, int healAmountCooked) {
+        MeatType(int metaData, String name, float saturationAmountCooked, int healAmountCooked) {
             this.metaData = metaData;
             this.name = name;
             this.healAmountRaw = 0;
@@ -159,7 +154,7 @@ public class ItemModMeatFood extends ItemFood {
             this.haveCookedMeat = true;
         }
 
-/*        private MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
+/*        MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
             this.metaData = metaData;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
@@ -203,7 +198,7 @@ public class ItemModMeatFood extends ItemFood {
         }
 
         public static MeatType getMeatTypeList(int meat) {
-            MeatType meattype = (MeatType) META_LOOKUP.get(Integer.valueOf(meat));
+            MeatType meattype = META_LOOKUP.get(meat);
             return meattype == null ? LAMB : meattype;
         }
 
@@ -212,11 +207,8 @@ public class ItemModMeatFood extends ItemFood {
         }
 
         static {
-            MeatType[] var0 = values();
-            int var1 = var0.length;
-            for (int var2 = 0; var2 < var1; ++var2) {
-                MeatType var3 = var0[var2];
-                META_LOOKUP.put(Integer.valueOf(var3.getMetaData()), var3);
+            for (MeatType meatType : values()) {
+                META_LOOKUP.put(meatType.getMetaData(), meatType);
             }
         }
     }

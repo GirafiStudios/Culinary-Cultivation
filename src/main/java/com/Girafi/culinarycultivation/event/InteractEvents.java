@@ -113,11 +113,11 @@ public class InteractEvents {
         }
 
         public int state(World world, BlockPos pos) {
-            return (world.getBlockState(pos).getValue(BlockCake.BITES)).intValue();
+            return world.getBlockState(pos).getValue(BlockCake.BITES);
         }
 
         public IBlockState stateWithProperty(World world, BlockPos pos) {
-            return world.getBlockState(pos).withProperty(BlockCake.BITES, Integer.valueOf(state(world, pos) + 1));
+            return world.getBlockState(pos).withProperty(BlockCake.BITES, state(world, pos) + 1);
         }
 
         public int hungerAmount() {
@@ -173,14 +173,14 @@ public class InteractEvents {
         }
 
         public void changeWater(World world, BlockPos pos, IBlockState state, int side) {
-            world.setBlockState(pos, state.withProperty(BlockModCauldron.LEVEL, Integer.valueOf(MathHelper.clamp_int(side, 0, 3))), 2);
+            world.setBlockState(pos, state.withProperty(BlockModCauldron.LEVEL, MathHelper.clamp_int(side, 0, 3)), 2);
             world.updateComparatorOutputLevel(pos, ModBlocks.cauldron);
         }
 
         @SubscribeEvent
         public void RemoveDyeEvent(PlayerInteractEvent iEvent) {
             if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.getCurrentEquippedItem() != null && iEvent.entityPlayer.getCurrentEquippedItem().getItem() instanceof ItemFarmerArmor && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cauldron) {
-                int i = (iEvent.world.getBlockState(iEvent.pos).getValue(BlockCauldron.LEVEL)).intValue();
+                int i = iEvent.world.getBlockState(iEvent.pos).getValue(BlockCauldron.LEVEL);
                 ItemFarmerArmor itemFarmerArmor = (ItemFarmerArmor) iEvent.entityPlayer.getCurrentEquippedItem().getItem();
                 if (itemFarmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && itemFarmerArmor.hasColor(iEvent.entityPlayer.getCurrentEquippedItem()) && i > 0) {
                     itemFarmerArmor.removeColor(iEvent.entityPlayer.getCurrentEquippedItem());
@@ -191,7 +191,7 @@ public class InteractEvents {
         }
 
         public void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, int level) {
-            worldIn.setBlockState(pos, state.withProperty(BlockCauldron.LEVEL, Integer.valueOf(MathHelper.clamp_int(level, 0, 3))), 2);
+            worldIn.setBlockState(pos, state.withProperty(BlockCauldron.LEVEL, MathHelper.clamp_int(level, 0, 3)), 2);
             worldIn.updateComparatorOutputLevel(pos, Blocks.cauldron);
         }
     }
@@ -233,7 +233,7 @@ public class InteractEvents {
 
     public static class StorageJarMilkFill {
         @SubscribeEvent
-        public void StorageJarMiliFillEvent(EntityInteractEvent iEvent) {
+        public void StorageJarMilkFillEvent(EntityInteractEvent iEvent) {
             ItemStack stack = iEvent.entityPlayer.inventory.getCurrentItem();
             if (iEvent.target instanceof EntityCow & !iEvent.entityLiving.isChild()) {
                 if (stack != null && stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.EMPTY.getMetaData() && !iEvent.entityPlayer.capabilities.isCreativeMode) {
@@ -297,13 +297,13 @@ public class InteractEvents {
                 Block block = world.getBlockState(pos).getBlock();
 
                 if (block instanceof BlockCrops && !(block instanceof BlockCrop)) {
-                    int age = (state.getValue(BlockCrops.AGE)).intValue();
+                    int age = state.getValue(BlockCrops.AGE);
                     if (age >= 7) {
                         block.dropBlockAsItem(world, pos, state, 0);
                         world.setBlockState(pos, state.withProperty(BlockCrop.AGE, 0), 2);
                     }
                 } else if (block instanceof BlockNetherWart) {
-                    int ageWart = (state.getValue(BlockNetherWart.AGE)).intValue();
+                    int ageWart = state.getValue(BlockNetherWart.AGE);
                     if (ageWart >= 3) {
                         block.dropBlockAsItem(world, pos, state, 0);
                         world.setBlockState(pos, state.withProperty(BlockNetherWart.AGE, 0), 2);
