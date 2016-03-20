@@ -26,7 +26,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public boolean isFullyOpaque(IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
