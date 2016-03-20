@@ -78,7 +78,7 @@ public class ItemCraftingEvent {
         @SubscribeEvent
         public void ItemSmeltedEvent(ItemSmeltedEvent smeltedEvent) {
             if (smeltedEvent.smelting.getItem() != null && smeltedEvent.smelting.getItem() instanceof ItemModFishFood) {
-                smeltedEvent.player.triggerAchievement(AchievementList.cookFish);
+                smeltedEvent.player.addStat(AchievementList.cookFish);
             }
         }
     }

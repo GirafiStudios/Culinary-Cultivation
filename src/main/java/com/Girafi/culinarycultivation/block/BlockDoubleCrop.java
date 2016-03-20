@@ -1,33 +1,31 @@
 package com.Girafi.culinarycultivation.block;
 
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockAir;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.IGrowable;
+import net.minecraft.block.*;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Random;
 
 public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 14);
-    public ItemStack itemCrop;
-    public ItemStack itemSeed;
+    private ItemStack itemCrop;
+    private ItemStack itemSeed;
     private int minDropValueCrop;
     private int maxDropValueCrop;
     private int minDropValueSeed;
@@ -38,27 +36,28 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
         this.setTickRandomly(true);
         this.setHardness(0.0F);
-        this.setStepSound(soundTypeGrass);
+        this.setSoundType(SoundType.PLANT);
         this.disableStats();
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, BlockPos pos) { //Might need to tweak this later on
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) { //Might need to tweak this later on
         int age = (world.getBlockState(pos).getValue(AGE));
         if (age <= 7) {
-            this.setBlockBounds(0F, 0F, 0F, 1.0F, age == 0 ? 0.25F : age == 1 || age == 2 ? 0.5F : age == 3 || age == 4 ? 0.8F : 1.0F, 1.0F);
+            new AxisAlignedBB(0F, 0F, 0F, 1.0F, age == 0 ? 0.25F : age == 1 || age == 2 ? 0.5F : age == 3 || age == 4 ? 0.8F : 1.0F, 1.0F);
         }
         if (age >= 8) {
-            this.setBlockBounds(0F, 0F, 0F, 1.0F, age == 8 || age == 9 || age == 10 ? 0.35F : 1.0F, 1.0F);
+            new AxisAlignedBB(0F, 0F, 0F, 1.0F, age == 8 || age == 9 || age == 10 ? 0.35F : 1.0F, 1.0F);
         }
+        return FULL_BLOCK_AABB;
     }
 
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World world, BlockPos pos) {
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         if (itemSeed == null) {
-            return itemCrop.getItem();
+            return itemCrop;
         }
-        return itemSeed.getItem();
+        return itemSeed;
     }
 
     @Override
@@ -67,12 +66,12 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    protected boolean canPlaceBlockOn(Block ground) {
-        return ground == Blocks.farmland || ground instanceof BlockDoubleCrop;
+    protected boolean canSustainBush(IBlockState state) {
+        return state.getBlock() == Blocks.farmland || state.getBlock() instanceof BlockDoubleCrop;
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         int age = state.getValue(AGE);
         if (age == 14 || age == 7) {
             if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
@@ -81,10 +80,10 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                 this.rightClickHarvest(world, pos, state);
             }
         }
-        return super.onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
+        return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ);
     }
 
-    public boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
+    private boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
         int age = state.getValue(AGE);
         if (age == 7) {
             super.dropBlockAsItem(world, pos.up(), world.getBlockState(pos.up()), 0);
@@ -134,18 +133,19 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         }
     }
 
-    protected static float getGrowthChance(Block blockIn, World world, BlockPos pos) {
+    private static float getGrowthChance(Block blockIn, World world, BlockPos pos) {
         float f = 1.0F;
-        BlockPos blockPos1 = pos.down();
+        BlockPos blockpos = pos.down();
+
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
-                IBlockState iblockstate = world.getBlockState(blockPos1.add(i, 0, j));
+                IBlockState iblockstate = world.getBlockState(blockpos.add(i, 0, j));
 
-                if (iblockstate.getBlock().canSustainPlant(world, blockPos1.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) blockIn)) {
+                if (iblockstate.getBlock().canSustainPlant(iblockstate, world, blockpos.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) blockIn)) {
                     f1 = 1.0F;
 
-                    if (iblockstate.getBlock().isFertile(world, blockPos1.add(i, 0, j))) {
+                    if (iblockstate.getBlock().isFertile(world, blockpos.add(i, 0, j))) {
                         f1 = 3.0F;
                     }
                 }
@@ -157,30 +157,28 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                 f += f1;
             }
         }
-
-        BlockPos blockpos2 = pos.north();
-        BlockPos blockpos3 = pos.south();
-        BlockPos blockpos4 = pos.west();
-        BlockPos blockpos5 = pos.east();
-        boolean flag = blockIn == world.getBlockState(blockpos4).getBlock() || blockIn == world.getBlockState(blockpos5).getBlock();
-        boolean flag1 = blockIn == world.getBlockState(blockpos2).getBlock() || blockIn == world.getBlockState(blockpos3).getBlock();
+        BlockPos blockpos1 = pos.north();
+        BlockPos blockpos2 = pos.south();
+        BlockPos blockpos3 = pos.west();
+        BlockPos blockpos4 = pos.east();
+        boolean flag = blockIn == world.getBlockState(blockpos3).getBlock() || blockIn == world.getBlockState(blockpos4).getBlock();
+        boolean flag1 = blockIn == world.getBlockState(blockpos1).getBlock() || blockIn == world.getBlockState(blockpos2).getBlock();
 
         if (flag && flag1) {
             f /= 2.0F;
         } else {
-            boolean flag2 = blockIn == world.getBlockState(blockpos4.north()).getBlock() || blockIn == world.getBlockState(blockpos5.north()).getBlock() || blockIn == world.getBlockState(blockpos5.south()).getBlock() || blockIn == world.getBlockState(blockpos4.south()).getBlock();
+            boolean flag2 = blockIn == world.getBlockState(blockpos3.north()).getBlock() || blockIn == world.getBlockState(blockpos4.north()).getBlock() || blockIn == world.getBlockState(blockpos4.south()).getBlock() || blockIn == world.getBlockState(blockpos3.south()).getBlock();
 
             if (flag2) {
                 f /= 2.0F;
             }
         }
-
         return f;
     }
 
     @Override
     public boolean canBlockStay(World world, BlockPos pos, IBlockState state) {
-        return (world.getLight(pos) >= 8 || world.canSeeSky(pos)) && world.getBlockState(pos.down()).getBlock().canSustainPlant(world, pos.down(), net.minecraft.util.EnumFacing.UP, this);
+        return (world.getLight(pos) >= 8 || world.canSeeSky(pos)) && world.getBlockState(pos.down()).getBlock().canSustainPlant(state, world, pos.down(), net.minecraft.util.EnumFacing.UP, this);
     }
 
     @Override
@@ -188,7 +186,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         this.grow(world, pos, state);
     }
 
-    public void grow(World world, BlockPos pos, IBlockState state) {
+    private void grow(World world, BlockPos pos, IBlockState state) {
         int i = state.getValue(AGE) + MathHelper.getRandomIntegerInRange(world.rand, 1, 1);
         int age = state.getValue(AGE);
 
@@ -252,8 +250,8 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    protected BlockState createBlockState() {
-        return new BlockState(this, AGE);
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, AGE);
     }
 
     public BlockDoubleCrop setModCrop(ItemStack item, int minDropValue, int maxDropValue) {
@@ -274,7 +272,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         return canRightClickHarvest = true;
     }
 
-    protected ItemStack notGrownDrop() {
+    private ItemStack notGrownDrop() {
         if (itemSeed == null) {
             return itemCrop;
         }

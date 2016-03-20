@@ -2,6 +2,8 @@ package com.Girafi.culinarycultivation.block;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumBlockRenderType;
 
 public abstract class SourceBlockTileEntity extends BlockContainer {
 
@@ -14,7 +16,7 @@ public abstract class SourceBlockTileEntity extends BlockContainer {
     }
 
     @Override
-    public int getRenderType() {
-        return 3;
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
     }
 }

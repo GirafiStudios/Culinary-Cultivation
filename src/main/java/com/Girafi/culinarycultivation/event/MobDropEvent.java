@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -27,7 +27,7 @@ public class MobDropEvent {
     public void livingDropsEvent(LivingDropsEvent dropsEvent) {
         if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
-            if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == this.killTool) {
+            if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == this.killTool) {
                 if (dropsEvent.entityLiving.getClass().isAssignableFrom(this.entityLivingClass) && isChild == dropsEvent.entityLiving.isChild()) {
                     if (this.vanillaDropChance == -1 ? random.nextInt(100) <= 35 : random.nextInt(100) <= this.vanillaDropChance) {
                         dropsEvent.drops.clear();

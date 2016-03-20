@@ -10,8 +10,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
@@ -52,22 +54,16 @@ public class ItemCropFood extends ItemFood implements IPlantable {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         CropType cropType = CropType.byItemStack(stack);
-        if (cropType.isSeed) {
-            if (side != EnumFacing.UP) {
-                return false;
-            } else if (!player.canPlayerEdit(pos.offset(side), side, stack)) {
-                return false;
-            } else if (world.getBlockState(pos).getBlock().canSustainPlant(world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
-                world.setBlockState(pos.up(), cropType.crop.getDefaultState());
-                --stack.stackSize;
-                return true;
-            } else {
-                return false;
-            }
+        IBlockState state = world.getBlockState(pos);
+        if (cropType.isSeed && facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
+            world.setBlockState(pos.up(), cropType.crop.getDefaultState(), 11);
+            --stack.stackSize;
+            return EnumActionResult.SUCCESS;
+        } else {
+            return EnumActionResult.FAIL;
         }
-        return false;
     }
 
     @Override

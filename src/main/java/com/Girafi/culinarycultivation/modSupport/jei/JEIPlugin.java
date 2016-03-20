@@ -13,7 +13,6 @@ public class JEIPlugin extends BlankModPlugin {
     public void register(IModRegistry registry) {
         IItemBlacklist blacklist = registry.getJeiHelpers().getItemBlacklist();
 
-        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.beetroots));
         blacklist.addItemToBlacklist(new ItemStack(ModBlocks.blackPepper));
         blacklist.addItemToBlacklist(new ItemStack(ModBlocks.cauldron));
         blacklist.addItemToBlacklist(new ItemStack(ModBlocks.cucumber));

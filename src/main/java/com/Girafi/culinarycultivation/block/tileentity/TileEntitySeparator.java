@@ -16,7 +16,15 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.IHopper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.*;
+import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -171,8 +179,8 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
     }
 
     @Override
-    public IChatComponent getDisplayName() {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), 0);
+    public ITextComponent getDisplayName() {
+        return (this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), 0));
     }
 
     public void setCustomName(String customNameIn) {
@@ -202,7 +210,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         return true;
     }
 
-    public boolean updateHopper() {
+    private boolean updateHopper() {
         if (this.worldObj != null && !this.worldObj.isRemote) {
             if (!this.isOnTransferCooldown() && BlockSeparator.isEnabled(this.getBlockMetadata())) {
                 boolean flag = false;
@@ -326,7 +334,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         return true;
     }
 
-    public static boolean captureDroppedItems(IHopper p_145891_0_) {
+    private static boolean captureDroppedItems(IHopper p_145891_0_) {
         if (net.minecraftforge.items.VanillaInventoryCodeHooks.extractHook(p_145891_0_)) {
             return true;
         }
@@ -357,7 +365,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
                 }
             }
         } else {
-            for (EntityItem entityitem : func_181556_a(p_145891_0_.getWorld(), p_145891_0_.getXPos(), p_145891_0_.getYPos() + 1.0D, p_145891_0_.getZPos())) {
+            for (EntityItem entityitem : getCaptureItems(p_145891_0_.getWorld(), p_145891_0_.getXPos(), p_145891_0_.getYPos() + 1.0D, p_145891_0_.getZPos())) {
                 if (putDropInInventoryAllSlots(p_145891_0_, entityitem)) {
                     return true;
                 }
@@ -385,7 +393,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         return false;
     }
 
-    public static boolean putDropInInventoryAllSlots(IInventory p_145898_0_, EntityItem itemIn) {
+    private static boolean putDropInInventoryAllSlots(IInventory p_145898_0_, EntityItem itemIn) {
         boolean flag = false;
 
         if (itemIn == null) {
@@ -405,7 +413,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         }
     }
 
-    public static ItemStack putStackInInventoryAllSlots(IInventory inventoryIn, ItemStack stack, EnumFacing side) {
+    private static ItemStack putStackInInventoryAllSlots(IInventory inventoryIn, ItemStack stack, EnumFacing side) {
         if (inventoryIn instanceof ISidedInventory && side != null) {
             ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
             int[] aint = isidedinventory.getSlotsForFace(side);
@@ -490,15 +498,15 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         return getInventoryAtPosition(this.getWorld(), (double) (this.pos.getX() + enumfacing.getFrontOffsetX()), (double) (this.pos.getY() + enumfacing.getFrontOffsetY()), (double) (this.pos.getZ() + enumfacing.getFrontOffsetZ()));
     }
 
-    public static IInventory getHopperInventory(IHopper hopper) {
+    private static IInventory getHopperInventory(IHopper hopper) {
         return getInventoryAtPosition(hopper.getWorld(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
     }
 
-    public static List<EntityItem> func_181556_a(World world, double x, double y, double z) {
-        return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectAnything);
+    private static List<EntityItem> getCaptureItems(World world, double x, double y, double z) {
+        return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.IS_ALIVE);
     }
 
-    public static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
+    private static IInventory getInventoryAtPosition(World worldIn, double x, double y, double z) {
         IInventory iinventory = null;
         int i = MathHelper.floor_double(x);
         int j = MathHelper.floor_double(y);
@@ -519,7 +527,7 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         }
 
         if (iinventory == null) {
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.HAS_INVENTORY);
 
             if (list.size() > 0) {
                 iinventory = (IInventory) list.get(worldIn.rand.nextInt(list.size()));
@@ -545,15 +553,15 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         return (double) this.pos.getZ() + 0.5D;
     }
 
-    public void setTransferCooldown(int ticks) {
+    private void setTransferCooldown(int ticks) {
         this.transferCooldown = ticks;
     }
 
-    public boolean isOnTransferCooldown() {
+    private boolean isOnTransferCooldown() {
         return this.transferCooldown > 0;
     }
 
-    public boolean mayTransfer() {
+    private boolean mayTransfer() {
         return this.transferCooldown <= 1;
     }
 

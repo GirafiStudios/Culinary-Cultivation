@@ -1,5 +1,5 @@
 {
-  "parent": "culinarycultivation:item/default",
+  "parent": "item/generated",
   "textures": {
     "layer0": "culinarycultivation:items/fish_trout_cooked"
   }

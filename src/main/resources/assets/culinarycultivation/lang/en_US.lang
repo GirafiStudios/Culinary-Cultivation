@@ -1,7 +1,4 @@
 #Items
-item.culinarycultivation:beetroot.name=Beetroot
-item.culinarycultivation:beetrootSeeds.name=Beetroot Seeds
-item.culinarycultivation:beetrootSoup.name=Beetroot Soup
 item.culinarycultivation:blackPepperDrupe.name=Black Pepper Drupe
 item.culinarycultivation:bucketRennet.name=Rennet Bucket
 item.culinarycultivation:cakeKnife.name=Cake Knife
@@ -79,7 +76,6 @@ item.culinarycultivation:toolHandle.name=Tool Handle
 item.culinarycultivation:wooden_hoeLarge.name=Wooden Large Hoe
 
 #Blocks
-tile.culinarycultivation:beetroots.name=Beetroots
 tile.culinarycultivation:blackPepper.name=Black Pepper
 tile.culinarycultivation:cauldron.name=Cauldron
 tile.culinarycultivation:cheese.name=Cheese

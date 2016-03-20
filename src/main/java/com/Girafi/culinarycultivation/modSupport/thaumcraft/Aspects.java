@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.modSupport.thaumcraft;
+/*package com.Girafi.culinarycultivation.modSupport.thaumcraft;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
 import com.Girafi.culinarycultivation.init.ModItems;
@@ -61,4 +61,4 @@ public class Aspects {
         ThaumcraftApi.registerObjectTag(new ItemStack(ModItems.cheeseSlice), new AspectList().add(Aspect.LIFE, 1));
         //TODO Add aspects for crop related stuff, when done.
     }
-}
+}*/

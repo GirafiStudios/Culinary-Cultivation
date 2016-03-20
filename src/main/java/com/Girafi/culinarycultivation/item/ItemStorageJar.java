@@ -5,15 +5,18 @@ import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -113,69 +116,83 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player) {
-        if (!player.capabilities.isCreativeMode) {
+    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
+        if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
             --stack.stackSize;
-        }
-        if (!player.capabilities.isCreativeMode) {
+
             if (stack.stackSize <= 0) {
                 return new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
             }
-            if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()))) {
-                player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), false);
+            if (!((EntityPlayer) entityLiving).inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()))) {
+                ((EntityPlayer) entityLiving).dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), false);
             }
         }
         if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
-            player.curePotionEffects(new ItemStack(Items.milk_bucket));
+            if (!world.isRemote) {
+                entityLiving.curePotionEffects(new ItemStack(Items.milk_bucket));
+            }
+            if (entityLiving instanceof EntityPlayer) {
+                ((EntityPlayer) entityLiving).addStat(StatList.getObjectUseStats(Items.milk_bucket));
+            }
         }
         return stack;
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if (stack.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
-            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
-            if (movingobjectposition == null) {
-                return stack;
+            RayTraceResult rayTraceResult = this.getMovingObjectPositionFromPlayer(world, player, true);
+
+            if (rayTraceResult == null) {
+                return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
             } else {
-                if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    BlockPos pos = movingobjectposition.getBlockPos();
-                    if (!world.isBlockModifiable(player, pos)) {
-                        return stack;
-                    }
-                    if (!player.canPlayerEdit(pos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, stack)) {
-                        return stack;
+                if (rayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK) {
+                    BlockPos pos = rayTraceResult.getBlockPos();
+
+                    if (!world.isBlockModifiable(player, pos) || !player.canPlayerEdit(pos.offset(rayTraceResult.sideHit), rayTraceResult.sideHit, stack)) {
+                        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
                     }
 
-                    if (world.getBlockState(pos).getBlock().getMaterial() == Material.water) {
-                        --stack.stackSize;
-                        if (stack.stackSize <= 0) {
-                            return new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData());
-                        }
-                        if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()))) {
-                            player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData()), false);
-                        }
+                    if (world.getBlockState(pos).getMaterial() == Material.water) {
+                        world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.item_bottle_fill, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.emptyJar(stack, player, new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData())));
                     }
                 }
             }
         }
-        player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-        return stack;
+        player.setActiveHand(hand);
+        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+    }
+
+    private ItemStack emptyJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {
+        --stack.stackSize;
+        player.addStat(StatList.getObjectUseStats(this));
+
+        if (stack.stackSize <= 0) {
+            return jarStack;
+        } else {
+            if (!player.inventory.addItemStackToInventory(stack)) {
+                player.dropPlayerItemWithRandomChoice(stack, false);
+            }
+
+            return stack;
+        }
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return false;
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return EnumActionResult.FAIL;
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT) //TODO
     public int getColorFromItemStack(ItemStack stack, int color) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
         if (stack.getItemDamage() != 0) {
             return color > 0 ? 16777215 : storageJarType.getColorNumber();
-        } else
+        } else {
             return 16777215;
-    }
+        }
+    }*/
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
@@ -190,10 +207,10 @@ public class ItemStorageJar extends Item {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
-        return StatCollector.translateToLocal("item." + Paths.ModAssets + "storageJar_" + storageJarType.getUnlocalizedName() + ".name").trim();
+        return I18n.translateToLocal("item." + Paths.ModAssets + "storageJar_" + storageJarType.getUnlocalizedName() + ".name").trim();
     }
 
-    public static int setColor(int r, int g, int b) {
+    private static int setColor(int r, int g, int b) {
         Color c = new Color(r, g, b);
         return c.getRGB();
     }

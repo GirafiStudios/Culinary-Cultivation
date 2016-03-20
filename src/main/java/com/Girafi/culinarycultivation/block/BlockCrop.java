@@ -6,9 +6,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
@@ -19,8 +20,8 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockCrop extends BlockCrops {
-    public ItemStack itemCrop;
-    public ItemStack itemSeed;
+    private ItemStack itemCrop;
+    private ItemStack itemSeed;
     private int minDropValueCrop;
     private int maxDropValueCrop;
     private int minDropValueSeed;
@@ -41,13 +42,13 @@ public class BlockCrop extends BlockCrops {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
             this.rightClickHarvest(world, pos, state);
         } else if (canRightClickHarvest && ConfigurationHandler.CanRightClickHarvestCulinaryCultivationCrops) {
             this.rightClickHarvest(world, pos, state);
         }
-        return super.onBlockActivated(world, pos, state, player, side, hitX, hitY, hitZ);
+        return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ);
     }
 
     public boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
@@ -78,7 +79,7 @@ public class BlockCrop extends BlockCrops {
         return canRightClickHarvest = true;
     }
 
-    protected ItemStack notGrownDrop() {
+    private ItemStack notGrownDrop() {
         if (itemSeed == null) {
             return itemCrop;
         }

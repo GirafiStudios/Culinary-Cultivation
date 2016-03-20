@@ -3,7 +3,10 @@ package com.Girafi.culinarycultivation.item.equipment.armor.farmer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -11,7 +14,7 @@ import java.util.Random;
 public class ItemFarmerBoots extends ItemFarmerArmor {
 
     public ItemFarmerBoots() {
-        super(3, "farmerArmorBoots");
+        super(EntityEquipmentSlot.FEET, "farmerArmorBoots");
     }
 
     @Override
@@ -21,7 +24,7 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
         if (player.onGround) {
             if (player.isSneaking()) {
                 if (playerStandingOnBlock == Blocks.farmland) {
-                    world.playSoundEffect((player.posX + 0.5F), (player.posY + 0.5F), (player.posZ + 0.5F), Blocks.dirt.stepSound.getStepSound(), (Blocks.dirt.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.dirt.stepSound.getFrequency() * 0.8F);
+                    world.playSound(player, (player.posX + 0.5F), (player.posY + 0.5F), (player.posZ + 0.5F), SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     if (!world.isRemote) {
                         world.setBlockState(player.getPosition().down(), Blocks.dirt.getDefaultState());
                     }

@@ -11,14 +11,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class RecipesFarmerArmorDyes implements IRecipe {
 
     @Override
     public boolean matches(InventoryCrafting crafting, World world) {
         ItemStack stack = null;
-        ArrayList<ItemStack> list = Lists.newArrayList();
+        List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < crafting.getSizeInventory(); ++i) {
             ItemStack craftingStack = crafting.getStackInSlot(i);
@@ -51,13 +51,8 @@ public class RecipesFarmerArmorDyes implements IRecipe {
         int i = 0;
         int j = 0;
         ItemFarmerArmor farmerArmor = null;
-        int k;
-        int l;
-        float f;
-        float f1;
-        int l1;
 
-        for (k = 0; k < crafting.getSizeInventory(); ++k) {
+        for (int k = 0; k < crafting.getSizeInventory(); ++k) {
             ItemStack craftingStack = crafting.getStackInSlot(k);
 
             if (craftingStack != null) {
@@ -72,9 +67,9 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                     stack.stackSize = 1;
 
                     if (farmerArmor.hasColor(craftingStack)) {
-                        l = farmerArmor.getColor(stack);
-                        f = (float) (l >> 16 & 255) / 255.0F;
-                        f1 = (float) (l >> 8 & 255) / 255.0F;
+                        int l = farmerArmor.getColor(stack);
+                        float f = (float) (l >> 16 & 255) / 255.0F;
+                        float f1 = (float) (l >> 8 & 255) / 255.0F;
                         float f2 = (float) (l & 255) / 255.0F;
                         i = (int) ((float) i + Math.max(f, Math.max(f1, f2)) * 255.0F);
                         aint[0] = (int) ((float) aint[0] + f * 255.0F);
@@ -87,14 +82,14 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                         return null;
                     }
 
-                    float[] afloat = EntitySheep.func_175513_a(EnumDyeColor.byDyeDamage(craftingStack.getMetadata()));
-                    int j1 = (int) (afloat[0] * 255.0F);
-                    int k1 = (int) (afloat[1] * 255.0F);
-                    l1 = (int) (afloat[2] * 255.0F);
-                    i += Math.max(j1, Math.max(k1, l1));
-                    aint[0] += j1;
-                    aint[1] += k1;
-                    aint[2] += l1;
+                    float[] afloat = EntitySheep.getDyeRgb(EnumDyeColor.byDyeDamage(craftingStack.getMetadata()));
+                    int l1 = (int) (afloat[0] * 255.0F);
+                    int i2 = (int) (afloat[1] * 255.0F);
+                    int j2 = (int) (afloat[2] * 255.0F);
+                    i += Math.max(l1, Math.max(i2, j2));
+                    aint[0] += l1;
+                    aint[1] += i2;
+                    aint[2] += j2;
                     ++j;
                 }
             }
@@ -103,17 +98,17 @@ public class RecipesFarmerArmorDyes implements IRecipe {
         if (farmerArmor == null) {
             return null;
         } else {
-            k = aint[0] / j;
-            int i1 = aint[1] / j;
-            l = aint[2] / j;
-            f = (float) i / (float) j;
-            f1 = (float) Math.max(k, Math.max(i1, l));
-            k = (int) ((float) k * f / f1);
-            i1 = (int) ((float) i1 * f / f1);
-            l = (int) ((float) l * f / f1);
-            l1 = (k << 8) + i1;
-            l1 = (l1 << 8) + l;
-            farmerArmor.setColor(stack, l1);
+            int i1 = aint[0] / j;
+            int j1 = aint[1] / j;
+            int k1 = aint[2] / j;
+            float f3 = (float) i / (float) j;
+            float f4 = (float) Math.max(i1, Math.max(j1, k1));
+            i1 = (int) ((float) i1 * f3 / f4);
+            j1 = (int) ((float) j1 * f3 / f4);
+            k1 = (int) ((float) k1 * f3 / f4);
+            int lvt_12_3_ = (i1 << 8) + j1;
+            lvt_12_3_ = (lvt_12_3_ << 8) + k1;
+            farmerArmor.setColor(stack, lvt_12_3_);
             return stack;
         }
     }

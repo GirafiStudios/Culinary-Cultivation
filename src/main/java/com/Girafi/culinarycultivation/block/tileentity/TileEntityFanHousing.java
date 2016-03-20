@@ -1,12 +1,11 @@
 package com.Girafi.culinarycultivation.block.tileentity;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -100,12 +99,12 @@ public class TileEntityFanHousing extends TileInventoryBase implements ITickable
         }
     }
 
-    public boolean canEject() {
-        Block blockBelow = worldObj.getBlockState(pos.down()).getBlock();
-        return blockBelow.isAir(worldObj, pos.down()) || blockBelow.getCollisionBoundingBox(worldObj, pos.down(), worldObj.getBlockState(pos.down())) == null;
+    private boolean canEject() {
+        IBlockState stateBelow = worldObj.getBlockState(pos.down());
+        return stateBelow.getBlock().isAir(stateBelow, worldObj, pos.down()) || stateBelow.getBlock().getCollisionBoundingBox(stateBelow, worldObj, pos.down()) == null;
     }
 
-    public void eject(ItemStack stack, boolean redstone) {
+    private void eject(ItemStack stack, boolean redstone) {
         EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
         item.motionX = 0;
         item.motionY = 0;

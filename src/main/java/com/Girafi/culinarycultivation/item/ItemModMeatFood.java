@@ -5,10 +5,10 @@ import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -50,11 +50,11 @@ public class ItemModMeatFood extends ItemFood {
 
         if (potionEffectProbability <= 0.3F) {
             if (meatType == MeatType.CHICKENWING && stack.getItem() == ModItems.meat) {
-                player.addPotionEffect(new PotionEffect(Potion.hunger.id, 440)); //22 seconds
+                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 440)); //22 seconds
             } else if (meatType == MeatType.DRUMSTICK && stack.getItem() == ModItems.meat) {
-                player.addPotionEffect(new PotionEffect(Potion.hunger.id, 320)); //16 seconds
+                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 320)); //16 seconds
             } else if (meatType == MeatType.CHICKENNUGGET && stack.getItem() == ModItems.meat) {
-                player.addPotionEffect(new PotionEffect(Potion.hunger.id, 160)); //8 seconds
+                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 160)); //8 seconds
             }
         }
         super.onFoodEaten(stack, world, player);
@@ -62,7 +62,7 @@ public class ItemModMeatFood extends ItemFood {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean b) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean b) {
         MeatType meatType = MeatType.getMeatType(stack);
         if (meatType == MeatType.LAMB) {
             //Just kept for later

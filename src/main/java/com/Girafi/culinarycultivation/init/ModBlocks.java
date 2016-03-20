@@ -18,7 +18,6 @@ public class ModBlocks {
 
     public static BlockDoubleCrop blackPepper = new BlockDoubleCrop();
     public static BlockCrop cucumber = new BlockCrop();
-    public static BlockCrop beetroots = new BlockCrop();
     public static BlockCrop tomato = new BlockCrop();
 
     public static Block cheese = new BlockCheese();
@@ -28,7 +27,6 @@ public class ModBlocks {
 
     public static void init() {
         //Crops
-        registerCrop(beetroots, "beetroots");
         registerCrop(blackPepper, "blackPepper");
         registerCrop(cucumber, "cucumber");
         registerCrop(tomato, "tomato");
@@ -41,7 +39,6 @@ public class ModBlocks {
 
     public static void setup() {
         cucumber.setModCrop(new ItemStack(ModItems.cropFood, 1, ItemCropFood.CropType.CUCUMBER.getMetadata()), 0, 4).setRightClickHarvest();
-        beetroots.setModCrop(new ItemStack(ModItems.beetroot), 1, 1).setModSeed(new ItemStack(ModItems.beetrootSeeds), 0, 1);
         blackPepper.setModCrop(new ItemStack(ModItems.cropSeeds, 1, ItemCropSeeds.SeedType.BLACKPEPPERDRUPE.getMetadata()), 1, 5).setRightClickHarvest();
         tomato.setModCrop(new ItemStack(ModItems.cropFood, 1, ItemCropFood.CropType.TOMATO.getMetadata()), 1, 4).setRightClickHarvest();
     }

@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.modSupport.thaumcraft;
+/*package com.Girafi.culinarycultivation.modSupport.thaumcraft;
 
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,4 +27,4 @@ public class CrucibleSupport implements IWandTriggerManager {
             return false;
         }
     }
-}
+}*/

@@ -14,7 +14,7 @@ public class ItemCakeKnife extends ItemTool {
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.cake);
 
     public ItemCakeKnife(ToolMaterial material) {
-        super(-2.0F, material, EFFECTIVE_ON);
+        super(-2.0F, -3.1F, material, EFFECTIVE_ON);
         maxStackSize = 1;
     }
 

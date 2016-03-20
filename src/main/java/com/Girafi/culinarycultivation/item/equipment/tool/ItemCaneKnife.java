@@ -9,11 +9,10 @@ import net.minecraft.item.ItemTool;
 import java.util.Set;
 
 public class ItemCaneKnife extends ItemTool {
-
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.reeds, Blocks.vine, Blocks.cocoa, Blocks.deadbush, Blocks.leaves, Blocks.leaves2, Blocks.tallgrass, Blocks.double_plant);
 
     public ItemCaneKnife(ToolMaterial material) {
-        super(3.0F, material, EFFECTIVE_ON);
+        super(3.0F, -2.0F, material, EFFECTIVE_ON);
     }
 
     @Override

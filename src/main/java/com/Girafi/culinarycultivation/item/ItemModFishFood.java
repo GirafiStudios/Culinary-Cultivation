@@ -4,10 +4,10 @@ import com.Girafi.culinarycultivation.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -49,10 +49,10 @@ public class ItemModFishFood extends ItemFood {
 
         if (fishType == FishType.CLOWNFISH) {
             if (potionEffectProbability <= 0.001F) {
-                player.addPotionEffect(new PotionEffect(Potion.poison.id, 60));
+                player.addPotionEffect(new PotionEffect(MobEffects.poison, 60));
             }
             if (potionEffectProbability <= 0.08F) {
-                player.addPotionEffect(new PotionEffect(Potion.confusion.id, 160));
+                player.addPotionEffect(new PotionEffect(MobEffects.confusion, 160));
             }
         }
         super.onFoodEaten(stack, world, player);

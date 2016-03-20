@@ -9,13 +9,11 @@ import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerStra
 import com.Girafi.culinarycultivation.item.equipment.tool.*;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.util.WeightedRandomFishable;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.FishingHooks;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -40,17 +38,14 @@ public class ModItems {
     public static final Item stone_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.STONE);
     public static final Item iron_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.IRON);
     public static final Item golden_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.GOLD);
-    public static final Item diamond_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.EMERALD);
+    public static final Item diamond_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.DIAMOND);
 
     /* Food */
-    public static final Item beetroot = new ItemFood(1, 0.1F, false);
-    public static final Item beetrootSoup = new ItemSoup(8);
     public static final Item cheeseSlice = new ItemFood(2, 0.4F, false);
     public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
     public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
     public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
     public static final Item cropFood = new ItemCropFood().setHasSubtypes(true);
-    public static final Item beetrootSeeds = new ItemSeeds(ModBlocks.beetroots, Blocks.farmland);
     public static final Item cropSeeds = new ItemCropSeeds().setHasSubtypes(true);
     public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
     public static final Item pieceOfCake = new ItemFood(2, 0.1F, false);
@@ -67,9 +62,6 @@ public class ModItems {
         registerItem(cooked_meat, "cooked_meat");
         registerItem(fish, "fish");
         registerItem(cooked_fish, "cooked_fish");
-        registerItem(beetrootSeeds, "beetrootSeeds");
-        registerItem(beetroot, "beetroot");
-        registerItem(beetrootSoup, "beetrootSoup");
         registerItem(cropFood, "cropFood");
         registerItem(cropSeeds, "cropSeeds");
         registerItem(storageJar, "storageJar");
@@ -91,21 +83,21 @@ public class ModItems {
         Events.register(new ItemDebugItem());
     }
 
-    public static void setup() {
-        FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.MACKEREL.getMetaData()), 48));
+    public static void setup() { //TODO
+        /*FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.MACKEREL.getMetaData()), 48));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.TUNA.getMetaData()), 40));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.TROUT.getMetaData()), 25));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.HERRING.getMetaData()), 30));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.PLAICE.getMetaData()), 18));
         FishingHooks.addFish(new WeightedRandomFishable(new ItemStack(ModItems.fish, 1, ItemModFishFood.FishType.SMALLSQUID.getMetaData()), 11));
-        FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 3).setMaxDamagePercent(0.25F));
+        FishingHooks.addJunk(new WeightedRandomFishable(new ItemStack(ModItems.meatCleaver, 1), 3).setMaxDamagePercent(0.25F));*/
     }
 
-    public static Item registerItem(Item item, String name) {
+    private static Item registerItem(Item item, String name) {
         return registerItem(item, name, CreativeTab.CulinaryCultivation_Tab);
     }
 
-    public static Item registerItem(Item item, String name, CreativeTabs tab) {
+    private static Item registerItem(Item item, String name, CreativeTabs tab) {
         item.setUnlocalizedName(Paths.ModAssets + name);
         item.setCreativeTab(tab);
 

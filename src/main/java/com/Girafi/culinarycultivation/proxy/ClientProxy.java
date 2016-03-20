@@ -6,11 +6,9 @@ import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import org.apache.commons.lang3.text.WordUtils;
@@ -33,7 +31,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerItemVariantModel(Item item, final String name) {
         if (item != null) {
-            ModelBakery.registerItemVariants(item, new ResourceLocation(Paths.ModAssets + name));
             ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
                 @Override
                 public ModelResourceLocation getModelLocation(ItemStack stack) {

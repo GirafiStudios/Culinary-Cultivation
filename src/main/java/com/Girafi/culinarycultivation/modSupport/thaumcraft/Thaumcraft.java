@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.modSupport.thaumcraft;
+/*package com.Girafi.culinarycultivation.modSupport.thaumcraft;
 
 import com.Girafi.culinarycultivation.block.BlockModCauldron;
 import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
@@ -26,9 +26,6 @@ public class Thaumcraft implements IModSupport {
         Aspects.init();
 
         if (ConfigurationHandler.CanRightClickHarvestCulinaryCultivationCrops) {
-            if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
-                FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(ModBlocks.beetroots, 1, 7));
-            }
             FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(ModBlocks.tomato, 1, 7));
             FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(ModBlocks.cucumber, 1, 7));
         }
@@ -48,4 +45,4 @@ public class Thaumcraft implements IModSupport {
     @Override
     public void clientSide() {
     }
-}
+}*/

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class NetworkHandler {
     public static final NetworkHandler instance = new NetworkHandler(Reference.MOD_ID);
-    public final SimpleNetworkWrapper networkWrapper;
+    private final SimpleNetworkWrapper networkWrapper;
 
     private int lastDiscriminator = 0;
 
@@ -19,7 +19,7 @@ public class NetworkHandler {
         return instance;
     }
 
-    public NetworkHandler(String modid) {
+    private NetworkHandler(String modid) {
         networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(modid);
     }
 
