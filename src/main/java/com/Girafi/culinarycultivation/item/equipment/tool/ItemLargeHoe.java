@@ -38,15 +38,18 @@ public class ItemLargeHoe extends ItemHoe {
 
             if (facing != EnumFacing.DOWN && world.isAirBlock(pos.up())) {
                 if (block == Blocks.grass || block == Blocks.grass_path) {
-                    return this.useLargeHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                    this.useLargeHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                    return EnumActionResult.SUCCESS;
                 }
 
                 if (block == Blocks.dirt) {
                     switch (state.getValue(BlockDirt.VARIANT)) {
                         case DIRT:
-                            return this.useLargeHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                            this.useLargeHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                            return EnumActionResult.SUCCESS;
                         case COARSE_DIRT:
-                            return this.useLargeHoe(stack, player, world, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                            this.useLargeHoe(stack, player, world, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                            return EnumActionResult.SUCCESS;
                         case PODZOL:
                             break;
                     }
@@ -56,7 +59,7 @@ public class ItemLargeHoe extends ItemHoe {
         }
     }
 
-    private EnumActionResult useLargeHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private void useLargeHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -90,12 +93,10 @@ public class ItemLargeHoe extends ItemHoe {
             this.useHoe(stack, player, world, new BlockPos(x, y, z + 1), newState);
             this.useHoe(stack, player, world, new BlockPos(x, y, z - 1), newState);
         }
-        return EnumActionResult.PASS;
     }
 
-    private EnumActionResult useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private void useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         this.func_185071_a(stack, player, world, pos, newState);
-        return EnumActionResult.SUCCESS;
     }
 
     @Override
@@ -103,7 +104,7 @@ public class ItemLargeHoe extends ItemHoe {
         if (world.getBlockState(pos).getBlock() instanceof BlockDirt || world.getBlockState(pos).getBlock() instanceof BlockGrass) {
             world.playSound(player, pos, SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-            if (world.isRemote) {
+            if (!world.isRemote) {
                 world.setBlockState(pos, newState);
                 stack.damageItem(1, player);
             }

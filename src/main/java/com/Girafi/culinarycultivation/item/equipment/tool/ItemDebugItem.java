@@ -160,15 +160,18 @@ public class ItemDebugItem extends Item {
 
                 if (side != EnumFacing.DOWN && world.isAirBlock(pos.offset(EnumFacing.UP))) {
                     if (block == Blocks.grass) {
-                        return useDebugItemHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                        this.useDebugItemHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                        return EnumActionResult.SUCCESS;
                     }
 
                     if (block == Blocks.dirt) {
                         switch (state.getValue(BlockDirt.VARIANT)) {
                             case DIRT:
-                                return useDebugItemHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                                this.useDebugItemHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                                return EnumActionResult.SUCCESS;
                             case COARSE_DIRT:
-                                return useDebugItemHoe(stack, player, world, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                                this.useDebugItemHoe(stack, player, world, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                                return EnumActionResult.SUCCESS;
                             case PODZOL:
                                 break;
                         }
@@ -197,7 +200,7 @@ public class ItemDebugItem extends Item {
         return false;
     }
 
-    private EnumActionResult useDebugItemHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private void useDebugItemHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -289,20 +292,17 @@ public class ItemDebugItem extends Item {
         this.useHoe(stack, player, world, new BlockPos(x - 4, y, z), newState);
         this.useHoe(stack, player, world, new BlockPos(x, y, z + 4), newState);
         this.useHoe(stack, player, world, new BlockPos(x, y, z - 4), newState);
-        return null;
     }
 
-    private EnumActionResult useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private void useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         if (world.getBlockState(pos).getBlock() instanceof BlockDirt || world.getBlockState(pos).getBlock() instanceof BlockGrass) {
             world.playSound(player, pos, SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-            if (world.isRemote) {
+            if (!world.isRemote) {
                 world.setBlockState(pos, newState);
                 stack.damageItem(1, player);
-                return EnumActionResult.SUCCESS;
             }
         }
-        return EnumActionResult.PASS;
     }
 
     @SideOnly(Side.CLIENT)

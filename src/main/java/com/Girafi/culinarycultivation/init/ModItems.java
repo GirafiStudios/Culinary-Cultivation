@@ -11,7 +11,6 @@ import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -30,8 +29,8 @@ public class ModItems {
     public static final Item farmerOveralls = new ItemFarmerOveralls();
     public static final Item farmerShirt = new ItemFarmerShirt();
     public static final Item farmerStrawhat = new ItemFarmerStrawhat();
-    public static final Item kitchenKnife = new ItemKnife(Item.ToolMaterial.IRON);
-    public static final Item meatCleaver = new ItemMeatCleaver(Item.ToolMaterial.IRON);
+    public static final Item kitchenKnife = new ItemKitchenKnife();
+    public static final Item meatCleaver = new ItemMeatCleaver();
     public static final Item storageJar = new ItemStorageJar();
     public static final Item toolHandle = new Item();
     public static final Item wooden_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.WOOD);

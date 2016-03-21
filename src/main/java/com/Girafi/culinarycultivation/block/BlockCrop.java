@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockCrop extends BlockCrops {
+    private static final AxisAlignedBB[] CROP_AAAB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.4375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5625D, 1.0D)};
     private ItemStack itemCrop;
     private ItemStack itemSeed;
     private int minDropValueCrop;
@@ -28,12 +30,18 @@ public class BlockCrop extends BlockCrops {
     private int maxDropValueSeed;
     private boolean canRightClickHarvest;
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public Item getItem(World world, BlockPos pos) {
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
         if (itemSeed == null) {
-            return itemCrop.getItem();
+            return itemCrop;
         }
-        return itemSeed.getItem();
+        return itemSeed;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) { //TODO
+        return CROP_AAAB[state.getValue(AGE)];
     }
 
     @Override
@@ -51,7 +59,7 @@ public class BlockCrop extends BlockCrops {
         return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ);
     }
 
-    public boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
+    private boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
         int age = state.getValue(AGE);
         if (age >= 7) {
             super.dropBlockAsItem(world, pos, state, 0);

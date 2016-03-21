@@ -4,7 +4,7 @@ import com.Girafi.culinarycultivation.init.ModItems;
 import com.Girafi.culinarycultivation.item.ItemModFishFood;
 import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.Girafi.culinarycultivation.item.equipment.tool.ItemCakeKnife;
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemKnife;
+import com.Girafi.culinarycultivation.item.equipment.tool.ItemKitchenKnife;
 import com.Girafi.culinarycultivation.item.equipment.tool.ItemMeatCleaver;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.AchievementList;
@@ -22,7 +22,7 @@ public class ItemCraftingEvent {
             } else {
                 for (int i = 0; i < craftedEvent.craftMatrix.getSizeInventory(); i++) {
                     ItemStack stack = craftedEvent.craftMatrix.getStackInSlot(i);
-                    if (stack != null && stack.getItem() instanceof ItemKnife) {
+                    if (stack != null && stack.getItem() instanceof ItemKitchenKnife) {
                         ItemStack itemKnife = new ItemStack(ModItems.kitchenKnife, 2, stack.getItemDamage() + 1);
 
                         if (itemKnife.getItemDamage() >= itemKnife.getMaxDamage()) {

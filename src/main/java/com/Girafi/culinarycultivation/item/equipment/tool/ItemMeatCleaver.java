@@ -1,6 +1,7 @@
 package com.Girafi.culinarycultivation.item.equipment.tool;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.relauncher.Side;
@@ -10,9 +11,9 @@ import java.util.List;
 
 public class ItemMeatCleaver extends ItemSword {
 
-    public ItemMeatCleaver(ToolMaterial material) {
-        super(material);
-        maxStackSize = 1;
+    public ItemMeatCleaver() {
+        super(Item.ToolMaterial.IRON);
+        this.maxStackSize = 1;
     }
 
     @Override

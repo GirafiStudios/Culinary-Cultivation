@@ -22,7 +22,7 @@ import net.minecraftforge.common.EnumPlantType;
 import java.util.List;
 import java.util.Random;
 
-public class BlockDoubleCrop extends BlockBush implements IGrowable {
+public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix that it can stay when on dirt or missing bottom blcok
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 14);
     private ItemStack itemCrop;
     private ItemStack itemSeed;
@@ -41,13 +41,12 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) { //Might need to tweak this later on
-        int age = (world.getBlockState(pos).getValue(AGE));
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        int age = state.getValue(AGE);
         if (age <= 7) {
-            new AxisAlignedBB(0F, 0F, 0F, 1.0F, age == 0 ? 0.25F : age == 1 || age == 2 ? 0.5F : age == 3 || age == 4 ? 0.8F : 1.0F, 1.0F);
-        }
-        if (age >= 8) {
-            new AxisAlignedBB(0F, 0F, 0F, 1.0F, age == 8 || age == 9 || age == 10 ? 0.35F : 1.0F, 1.0F);
+            return new AxisAlignedBB(0F, 0F, 0F, 1.0F, age == 0 ? 0.25F : age == 1 || age == 2 ? 0.5F : age == 3 || age == 4 ? 0.8F : 1.0F, 1.0F);
+        } else if (age >= 8) {
+            return new AxisAlignedBB(0F, 0F, 0F, 1.0F, age == 8 || age == 9 || age == 10 ? 0.35F : 1.0F, 1.0F);
         }
         return FULL_BLOCK_AABB;
     }
@@ -100,11 +99,11 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         return true;
     }
 
+    @Override
     public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
         super.onNeighborBlockChange(world, pos, state, neighborBlock);
-        this.checkAndDropBlock(world, pos, state);
-        int age = state.getValue(AGE);
-        if (age == 7 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
+
+        if (state.getValue(AGE) == 7 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
             world.setBlockState(pos, state.withProperty(AGE, 6), 2);
         }
     }
@@ -112,6 +111,8 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(world, pos, state, rand);
+
+        this.checkAndDropBlock(world, pos, state);
 
         if (world.getLightFromNeighbors(pos.up()) >= 9) {
             int age = state.getValue(AGE);
@@ -178,15 +179,15 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public boolean canBlockStay(World world, BlockPos pos, IBlockState state) {
-        return (world.getLight(pos) >= 8 || world.canSeeSky(pos)) && world.getBlockState(pos.down()).getBlock().canSustainPlant(state, world, pos.down(), net.minecraft.util.EnumFacing.UP, this);
+        if (state.getBlock() == this) {
+            IBlockState soil = world.getBlockState(pos.down());
+            return (world.getLight(pos) >= 8 || world.canSeeSky(pos)) && soil.getBlock().canSustainPlant(state, world, pos.down(), EnumFacing.UP, this);
+        }
+        return this.canSustainBush(world.getBlockState(pos.down()));
     }
 
     @Override
     public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
-        this.grow(world, pos, state);
-    }
-
-    private void grow(World world, BlockPos pos, IBlockState state) {
         int i = state.getValue(AGE) + MathHelper.getRandomIntegerInRange(world.rand, 1, 1);
         int age = state.getValue(AGE);
 
@@ -235,8 +236,9 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                 }
             }
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     @Override
@@ -313,7 +315,6 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                 }
             }
         }
-
         if (age <= 7) {
             if (notGrownDrop() != null) {
                 ret.add(notGrownDrop().copy());
