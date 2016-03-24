@@ -25,19 +25,19 @@ public class MobDropEvent {
 
     @SubscribeEvent
     public void livingDropsEvent(LivingDropsEvent dropsEvent) {
-        if (dropsEvent.source.getSourceOfDamage() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) dropsEvent.source.getSourceOfDamage();
+        if (dropsEvent.getSource().getSourceOfDamage() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) dropsEvent.getSource().getSourceOfDamage();
             if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == this.killTool) {
-                if (dropsEvent.entityLiving.getClass().isAssignableFrom(this.entityLivingClass) && isChild == dropsEvent.entityLiving.isChild()) {
+                if (dropsEvent.getEntityLiving().getClass().isAssignableFrom(this.entityLivingClass) && isChild == dropsEvent.getEntityLiving().isChild()) {
                     if (this.vanillaDropChance == -1 ? random.nextInt(100) <= 35 : random.nextInt(100) <= this.vanillaDropChance) {
-                        dropsEvent.drops.clear();
+                        dropsEvent.getDrops().clear();
                     }
                     int drop = MathHelper.getRandomIntegerInRange(random, dropMin, dropMax);
-                    for (int k = 0; k < drop + dropsEvent.lootingLevel; ++k) {
-                        if (dropsEvent.entityLiving.isBurning() && canDropBurned) {
-                            dropsEvent.entityLiving.entityDropItem(this.dropBurning.copy(), 1F);
+                    for (int k = 0; k < drop + dropsEvent.getLootingLevel(); ++k) {
+                        if (dropsEvent.getEntityLiving().isBurning() && canDropBurned) {
+                            dropsEvent.getEntityLiving().entityDropItem(this.dropBurning.copy(), 1F);
                         } else {
-                            dropsEvent.entityLiving.entityDropItem(this.drop.copy(), 1F);
+                            dropsEvent.getEntityLiving().entityDropItem(this.drop.copy(), 1F);
                         }
                     }
                 }

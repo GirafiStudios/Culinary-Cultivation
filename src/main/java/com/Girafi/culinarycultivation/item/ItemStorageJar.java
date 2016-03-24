@@ -117,17 +117,17 @@ public class ItemStorageJar extends Item {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
-        if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
-            --stack.stackSize;
+        ItemStack emptyJarStack = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
 
-            if (stack.stackSize <= 0) {
-                return new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+        /*if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
+
+            if (--stack.stackSize == 0) {
+                entityLiving.setHeldItem(EnumHand.MAIN_HAND, emptyJarStack);
+            } else if (!((EntityPlayer) entityLiving).inventory.addItemStackToInventory(emptyJarStack)) {
+                ((EntityPlayer) entityLiving).dropPlayerItemWithRandomChoice(emptyJarStack, false);
             }
-            if (!((EntityPlayer) entityLiving).inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()))) {
-                ((EntityPlayer) entityLiving).dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData()), false);
-            }
-        }
-        if (stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
+        }*/
+        if (stack == new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData())) {
             if (!world.isRemote) {
                 entityLiving.curePotionEffects(new ItemStack(Items.milk_bucket));
             }
@@ -155,7 +155,7 @@ public class ItemStorageJar extends Item {
 
                     if (world.getBlockState(pos).getMaterial() == Material.water) {
                         world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.item_bottle_fill, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.emptyJar(stack, player, new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData())));
+                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.fillJar(stack, player, new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData())));
                     }
                 }
             }
@@ -164,15 +164,15 @@ public class ItemStorageJar extends Item {
         return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
     }
 
-    private ItemStack emptyJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {
+    protected ItemStack fillJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {
         --stack.stackSize;
         player.addStat(StatList.getObjectUseStats(this));
 
         if (stack.stackSize <= 0) {
             return jarStack;
         } else {
-            if (!player.inventory.addItemStackToInventory(stack)) {
-                player.dropPlayerItemWithRandomChoice(stack, false);
+            if (!player.inventory.addItemStackToInventory(jarStack)) {
+                player.dropPlayerItemWithRandomChoice(jarStack, false);
             }
 
             return stack;
@@ -183,16 +183,6 @@ public class ItemStorageJar extends Item {
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.FAIL;
     }
-
-    /*@SideOnly(Side.CLIENT) //TODO
-    public int getColorFromItemStack(ItemStack stack, int color) {
-        StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
-        if (stack.getItemDamage() != 0) {
-            return color > 0 ? 16777215 : storageJarType.getColorNumber();
-        } else {
-            return 16777215;
-        }
-    }*/
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {

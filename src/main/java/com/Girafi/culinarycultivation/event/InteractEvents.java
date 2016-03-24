@@ -18,9 +18,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
@@ -35,61 +37,61 @@ public class InteractEvents {
     public static class ToolOnBlockInteractionEvent {
         @SubscribeEvent
         public void CakeKnifeInteractionEvent(PlayerInteractEvent iEvent) {
-            if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                EntityPlayer player = iEvent.entityPlayer;
-                if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == equippedItem() && iEvent.world.getBlockState(iEvent.pos).getBlock() == baseBlock()) {
-                    int x = (int) iEvent.entityPlayer.posX;
-                    int y = (int) iEvent.entityPlayer.posY;
-                    int z = (int) iEvent.entityPlayer.posZ;
+            if (iEvent.getAction() == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK || iEvent.getAction() == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                EntityPlayer player = iEvent.getEntityPlayer();
+                if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == equippedItem() && iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock() == baseBlock()) {
+                    int x = (int) iEvent.getEntityPlayer().posX;
+                    int y = (int) iEvent.getEntityPlayer().posY;
+                    int z = (int) iEvent.getEntityLiving().posZ;
                     boolean b = player.isSneaking();
-                    int state = state(iEvent.world, iEvent.pos);
+                    int state = state(iEvent.getWorld(), iEvent.getPos());
 
-                    if (player.getFoodStats().needFood() && iEvent.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                    if (player.getFoodStats().needFood() && iEvent.getAction() != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                         NetworkHandler.instance.sendTo(new PacketUpdateFoodOnClient(-hungerAmount(), -saturationAmount()), (EntityPlayerMP) player);
                     }
                     if (b) {
-                        iEvent.world.setBlockToAir(iEvent.pos);
-                        if (!iEvent.world.isRemote) {
+                        iEvent.getWorld().setBlockToAir(iEvent.getPos());
+                        if (!iEvent.getWorld().isRemote) {
                             if (state == 0) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(baseItem())));
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(baseItem())));
                             }
                             if (state == 1) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 6)));
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem(), 6)));
                             }
                             if (state == 2) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 5)));
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem(), 5)));
                             }
                             if (state == 3) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 4)));
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem(), 4)));
                             }
                             if (state == 4) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 3)));
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem(), 3)));
                             }
                             if (state == 5) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 2)));
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem(), 2)));
                             }
                             if (state == 6) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem(), 1)));
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem(), 1)));
                             }
                         }
                     }
                     if (!b) {
-                        if (player.getFoodStats().needFood() && iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                        if (player.getFoodStats().needFood() && iEvent.getAction() == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
                             player.getFoodStats().addStats(-hungerAmount(), -saturationAmount());
 
-                            if (!iEvent.world.isRemote) {
-                                iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem())));
+                            if (!iEvent.getWorld().isRemote) {
+                                iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem())));
                             }
-                        } else if (!iEvent.world.isRemote) {
-                            iEvent.world.spawnEntityInWorld(new EntityItem(iEvent.world, x, y, z, new ItemStack(sliceItem())));
+                        } else if (!iEvent.getWorld().isRemote) {
+                            iEvent.getWorld().spawnEntityInWorld(new EntityItem(iEvent.getWorld(), x, y, z, new ItemStack(sliceItem())));
                             if (state < 6) {
-                                iEvent.world.setBlockState(iEvent.pos, stateWithProperty(iEvent.world, iEvent.pos), 3);
+                                iEvent.getWorld().setBlockState(iEvent.getPos(), stateWithProperty(iEvent.getWorld(), iEvent.getPos()), 3);
                             } else {
-                                iEvent.world.setBlockToAir(iEvent.pos);
+                                iEvent.getWorld().setBlockToAir(iEvent.getPos());
                             }
                         }
                     }
-                    if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
+                    if (iEvent.getAction() == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
                         iEvent.setCanceled(true);
                     }
                 }
@@ -157,16 +159,16 @@ public class InteractEvents {
     public static class CauldronTransformation {
         @SubscribeEvent
         public void CauldronTransformationEvent(PlayerInteractEvent iEvent) {
-            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.inventory.getCurrentItem() != null) {
-                ItemStack equipped = iEvent.entityPlayer.inventory.getCurrentItem();
+            if (iEvent.getAction() == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.getEntityPlayer().inventory.getCurrentItem() != null) {
+                ItemStack equipped = iEvent.getEntityPlayer().inventory.getCurrentItem();
                 boolean nullCheck = equipped.getItem() != null;
-                int meta = iEvent.world.getBlockState(iEvent.pos).getBlock().getMetaFromState(iEvent.world.getBlockState(iEvent.pos));
-                Block getBlock = iEvent.world.getBlockState(iEvent.pos).getBlock();
+                int meta = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getMetaFromState(iEvent.getWorld().getBlockState(iEvent.getPos()));
+                Block getBlock = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock();
 
                 if (getBlock == Blocks.cauldron) {
                     if (nullCheck && equipped.getItem() == ModItems.storageJar || nullCheck && equipped.getItem() == Items.bucket || nullCheck && equipped.getItem() == Items.milk_bucket) {
-                        iEvent.world.setBlockState(iEvent.pos, ModBlocks.cauldron.getDefaultState());
-                        changeWater(iEvent.world, iEvent.pos, iEvent.world.getBlockState(iEvent.pos), meta);
+                        iEvent.getWorld().setBlockState(iEvent.getPos(), ModBlocks.cauldron.getDefaultState());
+                        changeWater(iEvent.getWorld(), iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()), meta);
                     }
                 }
             }
@@ -179,13 +181,13 @@ public class InteractEvents {
 
         @SubscribeEvent
         public void RemoveDyeEvent(PlayerInteractEvent iEvent) {
-            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.entityPlayer.inventory.getCurrentItem() != null && iEvent.entityPlayer.inventory.getCurrentItem().getItem() instanceof ItemFarmerArmor && iEvent.world.getBlockState(iEvent.pos).getBlock() == Blocks.cauldron) {
-                int i = iEvent.world.getBlockState(iEvent.pos).getValue(BlockCauldron.LEVEL);
-                ItemFarmerArmor farmerArmor = (ItemFarmerArmor) iEvent.entityPlayer.inventory.getCurrentItem().getItem();
-                if (farmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && farmerArmor.hasColor(iEvent.entityPlayer.inventory.getCurrentItem()) && i > 0) {
-                    farmerArmor.removeColor(iEvent.entityPlayer.inventory.getCurrentItem());
-                    iEvent.entityPlayer.addStat(StatList.armorCleaned);
-                    this.setWaterLevel(iEvent.world, iEvent.pos, iEvent.world.getBlockState(iEvent.pos), i - 1);
+            if (iEvent.getAction() == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && iEvent.getEntityPlayer().inventory.getCurrentItem() != null && iEvent.getEntityPlayer().inventory.getCurrentItem().getItem() instanceof ItemFarmerArmor && iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock() == Blocks.cauldron) {
+                int i = iEvent.getWorld().getBlockState(iEvent.getPos()).getValue(BlockCauldron.LEVEL);
+                ItemFarmerArmor farmerArmor = (ItemFarmerArmor) iEvent.getEntityPlayer().inventory.getCurrentItem().getItem();
+                if (farmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && farmerArmor.hasColor(iEvent.getEntityPlayer().inventory.getCurrentItem()) && i > 0) {
+                    farmerArmor.removeColor(iEvent.getEntityPlayer().inventory.getCurrentItem());
+                    iEvent.getEntityPlayer().addStat(StatList.armorCleaned);
+                    this.setWaterLevel(iEvent.getWorld(), iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()), i - 1);
                 }
             }
         }
@@ -199,48 +201,51 @@ public class InteractEvents {
     public static class DebugItemEvent {
         @SubscribeEvent
         public void DebugItem(PlayerInteractEvent iEvent) {
-            EntityPlayer player = iEvent.entityPlayer;
+            EntityPlayer player = iEvent.getEntityPlayer();
             ItemStack stack = player.inventory.getCurrentItem();
             boolean b = player.onGround && player.isSneaking();
-            if (iEvent.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
+            if (iEvent.getAction() == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
                 if (stack != null && player.inventory.getCurrentItem().getItem() == ModItems.debugItem && player.inventory.getCurrentItem().getItemDamage() == 0) {
-                    if (!iEvent.world.isRemote) {
-                        player.addChatComponentMessage(new TextComponentString(iEvent.world.getBlockState(iEvent.pos).getBlock().getLocalizedName() + " | " + "State: " + iEvent.world.getBlockState(iEvent.pos)));
+                    if (!iEvent.getWorld().isRemote) {
+                        player.addChatComponentMessage(new TextComponentString(iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getLocalizedName() + " | " + "State: " + iEvent.getWorld().getBlockState(iEvent.getPos())));
                     }
                     iEvent.setCanceled(true);
                 }
             }
-            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && stack != null && player.inventory.getCurrentItem().getItem() == ModItems.debugItem && player.inventory.getCurrentItem().getItemDamage() == 0) {
-                BlockStateContainer state = iEvent.world.getBlockState(iEvent.pos).getBlock().getBlockState();
+            if (iEvent.getAction() == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && stack != null && player.inventory.getCurrentItem().getItem() == ModItems.debugItem && player.inventory.getCurrentItem().getItemDamage() == 0) {
+                BlockStateContainer state = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getBlockState();
                 if (!b) {
-                    int l = iEvent.world.getBlockState(iEvent.pos).getBlock().getMetaFromState(iEvent.world.getBlockState(iEvent.pos)) + 1;
+                    int l = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getMetaFromState(iEvent.getWorld().getBlockState(iEvent.getPos())) + 1;
                     if (l >= state.getValidStates().size()) {
-                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getDefaultState(), 2);
+                        iEvent.getWorld().setBlockState(iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getDefaultState(), 2);
                     } else
-                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getStateFromMeta(l), 2);
+                        iEvent.getWorld().setBlockState(iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getStateFromMeta(l), 2);
                 }
                 if (b) {
-                    int l = iEvent.world.getBlockState(iEvent.pos).getBlock().getMetaFromState(iEvent.world.getBlockState(iEvent.pos)) - 1;
+                    int l = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getMetaFromState(iEvent.getWorld().getBlockState(iEvent.getPos())) - 1;
                     if (l < 0) {
-                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getDefaultState(), 2);
+                        iEvent.getWorld().setBlockState(iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getDefaultState(), 2);
                     } else
-                        iEvent.world.setBlockState(iEvent.pos, iEvent.world.getBlockState(iEvent.pos).getBlock().getStateFromMeta(l), 2);
+                        iEvent.getWorld().setBlockState(iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock().getStateFromMeta(l), 2);
                 }
             }
         }
     }
 
 
-    public static class StorageJarMilkFill {
+    public static class StorageJarMilkFill { //TODO Fix that it gives you double.
         @SubscribeEvent
         public void StorageJarMilkFillEvent(EntityInteractEvent iEvent) {
-            ItemStack stack = iEvent.entityPlayer.inventory.getCurrentItem();
-            if (iEvent.getTarget() instanceof EntityCow & !iEvent.entityLiving.isChild()) {
-                if (stack != null && stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.EMPTY.getMetaData() && !iEvent.entityPlayer.capabilities.isCreativeMode) {
-                    if (stack.stackSize-- == 1) {
-                        iEvent.entityPlayer.inventory.setInventorySlotContents(iEvent.entityPlayer.inventory.currentItem, new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()));
-                    } else if (!iEvent.entityPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()))) {
-                        iEvent.entityPlayer.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData()), false);
+            ItemStack stack = iEvent.getEntityPlayer().inventory.getCurrentItem();
+            if (iEvent.getTarget() instanceof EntityCow & !iEvent.getEntityLiving().isChild()) {
+                if (stack != null && stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.EMPTY.getMetaData() && !iEvent.getEntityPlayer().capabilities.isCreativeMode) {
+                    ItemStack milkJarStack = new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData());
+
+                    iEvent.getEntityPlayer().playSound(SoundEvents.entity_cow_milk, 1.0F, 1.0F);
+                    if (--stack.stackSize == 0) {
+                        iEvent.getEntityPlayer().setHeldItem(EnumHand.MAIN_HAND, milkJarStack);
+                    } else if (!iEvent.getEntityPlayer().inventory.addItemStackToInventory(milkJarStack)) {
+                        iEvent.getEntityPlayer().dropPlayerItemWithRandomChoice(milkJarStack, false);
                     }
                 }
             }
@@ -251,26 +256,26 @@ public class InteractEvents {
         @SubscribeEvent
         public void CaneKnifeOnSugarCane(BlockEvent.BreakEvent breakEvent) {
             if (breakEvent.getPlayer().inventory.getCurrentItem() != null && breakEvent.getPlayer().inventory.getCurrentItem().getItem() instanceof ItemCaneKnife) {
-                World world = breakEvent.world;
-                BlockPos pos = breakEvent.pos;
+                World world = breakEvent.getWorld();
+                BlockPos pos = breakEvent.getPos();
                 Block block = world.getBlockState(pos).getBlock();
                 if (block == Blocks.reeds) {
                     //4 Tall
                     if (world.getBlockState(pos.up()).getBlock() != Blocks.reeds) {
                         if (world.getBlockState(pos.down(4)) != Blocks.reeds && world.getBlockState(pos.down(3)).getBlock() == Blocks.reeds) {
-                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
                             world.setBlockToAir(pos.down(2));
                         }
                         //3 Tall
                         if (world.getBlockState(pos.down(3)) != Blocks.reeds && world.getBlockState(pos.down(2)).getBlock() == Blocks.reeds) {
-                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
                             world.setBlockToAir(pos.down());
                         }
                     }
                     //4 Tall, 3th block
                     if (world.getBlockState(pos.down()).getBlock() == Blocks.reeds && world.getBlockState(pos.up()).getBlock() == Blocks.reeds && world.getBlockState(pos.up(2)).getBlock() != Blocks.reeds) {
                         if (world.getBlockState(pos.down(2)).getBlock() == Blocks.reeds) {
-                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
                             world.setBlockToAir(pos.down());
                         }
                     }
@@ -278,7 +283,7 @@ public class InteractEvents {
                     if (world.getBlockState(pos.down()).getBlock() != Blocks.reeds) {
                         breakEvent.setCanceled(true);
                         if (world.getBlockState(pos.up()).getBlock() == Blocks.reeds) {
-                            block.dropBlockAsItem(world, pos, breakEvent.state, 0);
+                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
                             world.setBlockToAir(pos.up());
                         }
                     }
@@ -290,10 +295,10 @@ public class InteractEvents {
     public static class VanillaCrops {
         @SubscribeEvent
         public void VanillaRightClickCropsHarvesting(PlayerInteractEvent iEvent) {
-            if (iEvent.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-                World world = iEvent.world;
-                BlockPos pos = iEvent.pos;
-                IBlockState state = iEvent.world.getBlockState(pos);
+            if (iEvent.getAction() == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
+                World world = iEvent.getWorld();
+                BlockPos pos = iEvent.getPos();
+                IBlockState state = iEvent.getWorld().getBlockState(pos);
                 Block block = world.getBlockState(pos).getBlock();
 
                 if (block instanceof BlockCrops && !(block instanceof BlockCrop)) {

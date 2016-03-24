@@ -1,6 +1,8 @@
 package com.Girafi.culinarycultivation.block;
 
-import com.Girafi.culinarycultivation.block.tileentity.TileEntityFanHousing;
+import com.Girafi.culinarycultivation.reference.LogHelper;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLever;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -8,14 +10,13 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockFanHousing extends SourceBlockTileEntity {
+public class BlockFanHousing extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public BlockFanHousing() {
@@ -36,8 +37,24 @@ public class BlockFanHousing extends SourceBlockTileEntity {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityFanHousing();
+    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        return side == EnumFacing.getFront(state.getBlock().getMetaFromState(state));
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
+        if (!world.isRemote) {
+            if (neighborBlock instanceof BlockLever) {
+                if (isFrontPowered(world, pos, state)) {
+                    //Send progress update to separator
+                    LogHelper.info("Progress Send");
+                }
+            }
+        }
+    }
+
+    private boolean isFrontPowered(World world, BlockPos pos, IBlockState state) {
+        return world.getRedstonePower(pos, EnumFacing.getFront(state.getBlock().getMetaFromState(state))) > 0;
     }
 
     @Override
@@ -47,23 +64,23 @@ public class BlockFanHousing extends SourceBlockTileEntity {
 
     private void setDefaultFacing(World world, BlockPos pos, IBlockState state) {
         if (!world.isRemote) {
-            IBlockState iblockstate = world.getBlockState(pos.north());
-            IBlockState iblockstate1 = world.getBlockState(pos.south());
-            IBlockState iblockstate2 = world.getBlockState(pos.west());
-            IBlockState iblockstate3 = world.getBlockState(pos.east());
-            EnumFacing enumfacing = state.getValue(FACING);
+            IBlockState stateNorth = world.getBlockState(pos.north());
+            IBlockState stateSouth = world.getBlockState(pos.south());
+            IBlockState stateWest = world.getBlockState(pos.west());
+            IBlockState stateEast = world.getBlockState(pos.east());
+            EnumFacing facing = state.getValue(FACING);
 
-            if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
-                enumfacing = EnumFacing.SOUTH;
-            } else if (enumfacing == EnumFacing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock()) {
-                enumfacing = EnumFacing.NORTH;
-            } else if (enumfacing == EnumFacing.WEST && iblockstate2.isFullBlock() && !iblockstate3.isFullBlock()) {
-                enumfacing = EnumFacing.EAST;
-            } else if (enumfacing == EnumFacing.EAST && iblockstate3.isFullBlock() && !iblockstate2.isFullBlock()) {
-                enumfacing = EnumFacing.WEST;
+            if (facing == EnumFacing.NORTH && stateNorth.isFullBlock() && !stateSouth.isFullBlock()) {
+                facing = EnumFacing.SOUTH;
+            } else if (facing == EnumFacing.SOUTH && stateSouth.isFullBlock() && !stateNorth.isFullBlock()) {
+                facing = EnumFacing.NORTH;
+            } else if (facing == EnumFacing.WEST && stateWest.isFullBlock() && !stateEast.isFullBlock()) {
+                facing = EnumFacing.EAST;
+            } else if (facing == EnumFacing.EAST && stateEast.isFullBlock() && !stateWest.isFullBlock()) {
+                facing = EnumFacing.WEST;
             }
 
-            world.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
+            world.setBlockState(pos, state.withProperty(FACING, facing), 2);
         }
     }
 
@@ -77,9 +94,9 @@ public class BlockFanHousing extends SourceBlockTileEntity {
         worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
     }
 
-    @SideOnly(Side.CLIENT)
-    public IBlockState getStateForEntityRender(IBlockState state) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
     }
 
     @Override

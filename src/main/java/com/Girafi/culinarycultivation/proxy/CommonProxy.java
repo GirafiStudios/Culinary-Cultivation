@@ -4,7 +4,10 @@ import net.minecraft.item.Item;
 
 public abstract class CommonProxy {
 
-    public void registerRenders() {
+    public void preInit() {
+    }
+
+    public void postInit() {
     }
 
     public void registerItemVariantModel(Item item, final String name) {

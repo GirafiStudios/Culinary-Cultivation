@@ -1,10 +1,11 @@
 package com.Girafi.culinarycultivation.block.tileentity;
 
+import com.Girafi.culinarycultivation.block.BlockFanHousing;
 import com.Girafi.culinarycultivation.block.BlockSeparator;
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.reference.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,13 +27,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.List;
 
 public class TileEntitySeparator extends TileEntity implements IHopper, ITickable {
-
     public static boolean isMultiblockFormed;
     private boolean isInvalidBlock;
     private int checkingX, checkingZ;
@@ -45,7 +43,6 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         if (worldObj != null && !worldObj.isRemote) {
             checkForFanHousing();
             --this.transferCooldown;
-
             if (isMultiblockFormed) {
                 if (!this.isOnTransferCooldown()) {
                     this.setTransferCooldown(0);
@@ -63,15 +60,15 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
                 checkingZ = -1;
                 isMultiblockFormed = !isInvalidBlock;
                 isInvalidBlock = false;
-                LogHelper.info("Formed: " + isMultiblockFormed);
             }
         }
 
         if (checkingX == 0 && checkingZ == 0) return;
 
-        Block block = worldObj.getBlockState(pos.offset(EnumFacing.getFront(this.getBlockMetadata()).rotateY())).getBlock();
+        IBlockState state = worldObj.getBlockState(pos);
+        IBlockState stateFront = worldObj.getBlockState(pos.offset(EnumFacing.getFront(this.getBlockMetadata()).rotateY()));
 
-        if (!(block == ModBlocks.fanHousing)) { //TODO Fix checking fanHousing facing
+        if (!(stateFront.getBlock() == ModBlocks.fanHousing && stateFront.getValue(BlockFanHousing.FACING) == EnumFacing.getFront(state.getBlock().getMetaFromState(state)))) {
             isInvalidBlock = true;
         }
     }
@@ -584,18 +581,5 @@ public class TileEntitySeparator extends TileEntity implements IHopper, ITickabl
         for (int i = 0; i < this.inventory.length; ++i) {
             this.inventory[i] = null;
         }
-    }
-
-    @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-    }
-
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return (T) this;
-        }
-        return super.getCapability(capability, facing);
     }
 }

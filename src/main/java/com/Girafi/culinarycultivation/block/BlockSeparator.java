@@ -36,6 +36,12 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
+    public boolean isFullCube(IBlockState state)
+    {
+        return false;
+    }
+
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntitySeparator();
     }

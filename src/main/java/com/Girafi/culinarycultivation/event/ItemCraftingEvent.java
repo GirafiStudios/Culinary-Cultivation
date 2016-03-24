@@ -63,6 +63,7 @@ public class ItemCraftingEvent {
                 }
             }
         }
+
         @SubscribeEvent
         public void DrumstickCraftedEvent(ItemCraftedEvent craftedEvent) {
             ItemStack stack = craftedEvent.crafting;

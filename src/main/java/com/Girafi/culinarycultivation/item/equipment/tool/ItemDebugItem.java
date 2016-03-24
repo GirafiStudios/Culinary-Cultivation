@@ -308,13 +308,13 @@ public class ItemDebugItem extends Item {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onMouseEvent(net.minecraftforge.client.event.MouseEvent event) {
-        if (event.button < 0) {
+        if (event.getButton() < 0) {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player.isSneaking()) {
                 ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
                 if (stack != null && stack.getItem() == ModItems.debugItem) {
-                    if (event.dwheel != 0) {
-                        NetworkHandler.instance().sendToServer(new PacketDebugItemMode(player.inventory.currentItem, event.dwheel < 0));
+                    if (event.getDwheel() != 0) {
+                        NetworkHandler.instance().sendToServer(new PacketDebugItemMode(player.inventory.currentItem, event.getDwheel() < 0));
                     }
                     event.setCanceled(true);
                 }

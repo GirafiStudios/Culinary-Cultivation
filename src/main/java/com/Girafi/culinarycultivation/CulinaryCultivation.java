@@ -33,7 +33,7 @@ public class CulinaryCultivation {
         ModBlocks.setup();
         Events.init();
         NetworkHandler.init();
-        proxy.registerRenders();
+        proxy.preInit();
         ModSupport.instance().preInit();
         LogHelper.info(Reference.MOD_NAME_ + "Pre Initialization Complete.");
     }
@@ -43,6 +43,7 @@ public class CulinaryCultivation {
         ModTileEntities.init();
         Recipes.init();
         OreDictionaryRegistration.init();
+        proxy.postInit();
         ModSupport.instance().init();
         LogHelper.info(Reference.MOD_NAME_ + "Initialization Complete.");
     }
