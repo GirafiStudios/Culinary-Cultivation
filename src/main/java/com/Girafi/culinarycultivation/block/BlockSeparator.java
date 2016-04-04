@@ -7,6 +7,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -36,8 +37,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public boolean isFullCube(IBlockState state)
-    {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
 
@@ -83,8 +83,14 @@ public class BlockSeparator extends SourceBlockTileEntity {
         worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
     }
 
-    public static boolean isEnabled(int meta) {
-        return (meta & 8) != 8;
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+
+        if (tileentity instanceof TileEntitySeparator) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntitySeparator) tileentity);
+        }
+        super.breakBlock(worldIn, pos, state);
     }
 
     @Override

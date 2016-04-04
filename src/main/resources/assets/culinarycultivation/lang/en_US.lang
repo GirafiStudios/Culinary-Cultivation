@@ -66,6 +66,7 @@ item.culinarycultivation:meat_veal.name=Raw Veal
 item.culinarycultivation:meat_veal_cooked.name=Cooked Veal
 item.culinarycultivation:meatCleaver.name=Meat Cleaver
 item.culinarycultivation:pieceOfCake.name=Cake Slice
+item.culinarycultivation:pileOfChaff.name=Pile of Chaff
 item.culinarycultivation:stone_hoeLarge.name=Stone Large Hoe
 item.culinarycultivation:storageJar_empty.name=Storage Jar (Empty)
 item.culinarycultivation:storageJar_milk.name=Storage Jar (Milk)

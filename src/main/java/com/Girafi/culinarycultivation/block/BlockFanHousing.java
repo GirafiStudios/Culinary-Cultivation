@@ -1,6 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
-import com.Girafi.culinarycultivation.reference.LogHelper;
+import com.Girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.SoundType;
@@ -46,8 +46,7 @@ public class BlockFanHousing extends Block {
         if (!world.isRemote) {
             if (neighborBlock instanceof BlockLever) {
                 if (isFrontPowered(world, pos, state)) {
-                    //Send progress update to separator
-                    LogHelper.info("Progress Send");
+                    //Send signal to the Separator
                 }
             }
         }

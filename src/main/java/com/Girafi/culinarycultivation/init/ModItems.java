@@ -50,6 +50,8 @@ public class ModItems {
     public static final Item pieceOfCake = new ItemFood(2, 0.1F, false);
     public static final Item calfBelly = new Item().setMaxStackSize(1);
 
+    public static final Item pileOfChaff = new Item(); //Placeholder item
+
     //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
 
@@ -63,6 +65,7 @@ public class ModItems {
         registerItem(cooked_fish, "cooked_fish");
         registerItem(cropFood, "cropFood");
         registerItem(cropSeeds, "cropSeeds");
+        registerItem(pileOfChaff, "pileOfChaff");
         registerItem(storageJar, "storageJar");
         registerItem(toolHandle, "toolHandle");
         registerItem(kitchenKnife, "kitchenKnife");
