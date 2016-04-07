@@ -43,15 +43,15 @@ public class ModBlocks {
         tomato.setModCrop(new ItemStack(ModItems.cropFood, 1, ItemCropFood.CropType.TOMATO.getMetadata()), 1, 4).setRightClickHarvest();
     }
 
-    public static Block registerCrop(Block block, String name) {
+    private static Block registerCrop(Block block, String name) {
         return registerBlock(block, name, null);
     }
 
-    public static Block registerBlock(Block block, String name) {
+    private static Block registerBlock(Block block, String name) {
         return registerBlock(block, name, CreativeTab.CulinaryCultivation_Tab);
     }
 
-    public static Block registerBlock(Block block, String name, CreativeTabs tab) {
+    private static Block registerBlock(Block block, String name, CreativeTabs tab) {
         block.setUnlocalizedName(Paths.ModAssets + name);
         block.setCreativeTab(tab);
 
@@ -61,7 +61,7 @@ public class ModBlocks {
         return block;
     }
 
-    public static void registerBlockVariant(Block block, String name) {
+    private static void registerBlockVariant(Block block, String name) {
         CulinaryCultivation.proxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
     }
 }

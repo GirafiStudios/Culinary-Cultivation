@@ -78,12 +78,12 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         int i = state.getValue(LEVEL);
         float f = (float) pos.getY() + (6.0F + (float) (3 * i)) / 16.0F;
 
-        if (!world.isRemote && entityIn.isBurning() && i > 0 && i < 13 && entityIn.getEntityBoundingBox().minY <= (double) f) {
-            entityIn.extinguish();
+        if (!world.isRemote && entity.isBurning() && i > 0 && i < 13 && entity.getEntityBoundingBox().minY <= (double) f) {
+            entity.extinguish();
             world.setBlockState(pos, ModBlocks.cauldron.getDefaultState());
         }
     }

@@ -1,7 +1,6 @@
 package com.Girafi.culinarycultivation.network;
 
 import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
-import com.Girafi.culinarycultivation.network.packet.PacketUpdateFoodOnClient;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -25,7 +24,6 @@ public class NetworkHandler {
 
     public static void init() {
         instance.registerPacket(PacketDebugItemMode.class, Side.SERVER);
-        instance.registerPacket(PacketUpdateFoodOnClient.class, Side.CLIENT);
     }
 
     public void registerPacket(Class packetHandler, Class packetType, Side side) {

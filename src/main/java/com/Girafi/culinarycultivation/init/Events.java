@@ -27,10 +27,10 @@ public class Events {
         register(new MobDropEvent().setFullDrop(EntityCow.class, true, new ItemStack(ModItems.calfBelly), null, false, ModItems.meatCleaver, -1, 0, 1));
         register(new AchievementTriggerEvent());
         register(new CraftedEvent());
-        register(new CakeInteractionEvent());
+        register(new CakeInteractionEvent()); //TODO
+        register(new CheeseInteractionEvent()); //TODO
         register(new CaneKnife());
         register(new CauldronTransformation());
-        register(new CheeseInteractionEvent());
         register(new DebugItemEvent());
         register(new StorageJarMilkFill());
     }

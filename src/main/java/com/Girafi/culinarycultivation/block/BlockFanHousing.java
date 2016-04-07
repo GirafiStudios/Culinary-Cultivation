@@ -1,6 +1,5 @@
 package com.Girafi.culinarycultivation.block;
 
-import com.Girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.SoundType;
