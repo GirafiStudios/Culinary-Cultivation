@@ -30,25 +30,29 @@ public class InteractEvents {
 
     public static class CakeKnifeInteractionEvent {
         @SubscribeEvent
-        public void cakeKnifeInteractionEvent(PlayerInteractEvent iEvent) { //TODO Test in offhand
+        public void cakeKnifeInteractionEvent(PlayerInteractEvent iEvent) {
             World world = iEvent.getWorld();
             IBlockState state = world.getBlockState(iEvent.getPos());
             EntityPlayer player = iEvent.getEntityPlayer();
-            int x = (int) player.posX;
-            int y = (int) player.posY;
-            int z = (int) player.posZ;
-            ItemStack getItem = state.getBlock().getItem(world, iEvent.getPos(), state);
+            ItemStack heldItem = player.getHeldItem(iEvent.getHand());
+            double x = player.posX;
+            double y = player.posY;
+            double z = player.posZ;
 
-            if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ModItems.cakeKnife && state.getBlock() == baseBlock()) {
+            if (heldItem != null && heldItem.getItem() == ModItems.cakeKnife && state.getBlock() instanceof BlockCake) {
                 int bites = state.getValue(BlockCake.BITES);
 
                 if (iEvent instanceof PlayerInteractEvent.LeftClickBlock) {
-                    world.setBlockToAir(iEvent.getPos());
-                    if (!world.isRemote) {
-                        if (bites == 0) {
-                            world.spawnEntityInWorld(new EntityItem(world, x, y, z, getItem));
+                    if (bites == 0) {
+                        world.setBlockToAir(iEvent.getPos());
+                        if (!world.isRemote) {
+                            world.spawnEntityInWorld(new EntityItem(world, x, y, z, state.getBlock().getItem(world, iEvent.getPos(), state)));
                         }
-                        world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(sliceItem(), 7 - bites)));
+                    } else if (bites > 0 && state.getBlock() == baseBlock()) {
+                        world.setBlockToAir(iEvent.getPos());
+                        if (!world.isRemote) {
+                            world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(sliceItem(), 7 - bites)));
+                        }
                     }
                 }
 
@@ -70,16 +74,6 @@ public class InteractEvents {
                     }
                 }
             }
-            if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ModItems.cakeKnife && state.getBlock() != baseBlock() && state.getBlock() instanceof BlockCake) {
-                if (iEvent instanceof PlayerInteractEvent.LeftClickBlock) {
-                    world.setBlockToAir(iEvent.getPos());
-                    if (!world.isRemote) {
-                        if (state.getValue(BlockCake.BITES) == 0) {
-                            world.spawnEntityInWorld(new EntityItem(world, x, y, z, getItem));
-                        }
-                    }
-                }
-            }
         }
 
         public Item sliceItem() {
@@ -97,9 +91,6 @@ public class InteractEvents {
         public float saturationAmount() {
             return 0.1F;
         }
-    }
-
-    public static class CakeInteractionEvent extends CakeKnifeInteractionEvent {
     }
 
     public static class CheeseInteractionEvent extends CakeKnifeInteractionEvent {

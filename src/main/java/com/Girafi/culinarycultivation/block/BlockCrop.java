@@ -31,7 +31,6 @@ public class BlockCrop extends BlockCrops {
     private boolean canRightClickHarvest;
 
     @Override
-    @SideOnly(Side.CLIENT)
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
         if (itemSeed == null) {
             return itemCrop;
