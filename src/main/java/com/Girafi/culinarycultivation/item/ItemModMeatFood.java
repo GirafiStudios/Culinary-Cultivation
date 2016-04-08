@@ -60,15 +60,6 @@ public class ItemModMeatFood extends ItemFood {
         super.onFoodEaten(stack, world, player);
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean b) {
-        MeatType meatType = MeatType.getMeatType(stack);
-        if (meatType == MeatType.LAMB) {
-            //Just kept for later
-        }
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {

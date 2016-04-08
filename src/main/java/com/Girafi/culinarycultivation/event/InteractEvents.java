@@ -46,7 +46,7 @@ public class InteractEvents {
                     if (bites == 0) {
                         world.setBlockToAir(iEvent.getPos());
                         if (!world.isRemote) {
-                            world.spawnEntityInWorld(new EntityItem(world, x, y, z, state.getBlock().getItem(world, iEvent.getPos(), state)));
+                            world.spawnEntityInWorld(new EntityItem(world, x, y, z, state.getBlock().getPickBlock(state, null, world, iEvent.getPos(), player)));
                         }
                     } else if (bites > 0 && state.getBlock() == baseBlock()) {
                         world.setBlockToAir(iEvent.getPos());

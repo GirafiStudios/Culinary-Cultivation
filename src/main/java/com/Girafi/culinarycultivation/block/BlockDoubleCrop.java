@@ -22,7 +22,7 @@ import net.minecraftforge.common.EnumPlantType;
 import java.util.List;
 import java.util.Random;
 
-public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix that it can stay when on dirt or missing bottom blcok
+public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 14);
     private ItemStack itemCrop;
     private ItemStack itemSeed;
@@ -52,16 +52,16 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix
     }
 
     @Override
+    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
+        return EnumPlantType.Crop;
+    }
+
+    @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         if (itemSeed == null) {
             return itemCrop;
         }
         return itemSeed;
-    }
-
-    @Override
-    public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
-        return EnumPlantType.Crop;
     }
 
     @Override
@@ -101,11 +101,10 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix
 
     @Override
     public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
-        super.onNeighborBlockChange(world, pos, state, neighborBlock);
-
         if (state.getValue(AGE) == 7 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
             world.setBlockState(pos, state.withProperty(AGE, 6), 2);
         }
+        super.onNeighborBlockChange(world, pos, state, neighborBlock);
     }
 
     @Override
@@ -126,7 +125,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix
                     } else if (age != 6 && age != 7 && age != 13)
                         world.setBlockState(pos, state.withProperty(AGE, age + 1), 2);
                 }
-                if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop && world.getBlockState(pos.up()) == state.getBlock().getStateFromMeta(13)) {
+                if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop && world.getBlockState(pos.up()) == state.withProperty(AGE, 13)) {
                     world.setBlockState(pos, state.withProperty(AGE, 7), 2);
                     world.setBlockState(pos.up(), state.withProperty(AGE, 14), 2);
                 }
@@ -158,17 +157,17 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix
                 f += f1;
             }
         }
-        BlockPos blockpos1 = pos.north();
-        BlockPos blockpos2 = pos.south();
-        BlockPos blockpos3 = pos.west();
-        BlockPos blockpos4 = pos.east();
-        boolean flag = blockIn == world.getBlockState(blockpos3).getBlock() || blockIn == world.getBlockState(blockpos4).getBlock();
-        boolean flag1 = blockIn == world.getBlockState(blockpos1).getBlock() || blockIn == world.getBlockState(blockpos2).getBlock();
+        BlockPos posNorth = pos.north();
+        BlockPos posSouth = pos.south();
+        BlockPos posWest = pos.west();
+        BlockPos posEast = pos.east();
+        boolean isWestOrEast = blockIn == world.getBlockState(posWest).getBlock() || blockIn == world.getBlockState(posEast).getBlock();
+        boolean isNorthOrSouth = blockIn == world.getBlockState(posNorth).getBlock() || blockIn == world.getBlockState(posSouth).getBlock();
 
-        if (flag && flag1) {
+        if (isWestOrEast && isNorthOrSouth) {
             f /= 2.0F;
         } else {
-            boolean flag2 = blockIn == world.getBlockState(blockpos3.north()).getBlock() || blockIn == world.getBlockState(blockpos4.north()).getBlock() || blockIn == world.getBlockState(blockpos4.south()).getBlock() || blockIn == world.getBlockState(blockpos3.south()).getBlock();
+            boolean flag2 = blockIn == world.getBlockState(posWest.north()).getBlock() || blockIn == world.getBlockState(posEast.north()).getBlock() || blockIn == world.getBlockState(posEast.south()).getBlock() || blockIn == world.getBlockState(posWest.south()).getBlock();
 
             if (flag2) {
                 f /= 2.0F;
@@ -181,7 +180,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix
     public boolean canBlockStay(World world, BlockPos pos, IBlockState state) {
         if (state.getBlock() == this) {
             IBlockState soil = world.getBlockState(pos.down());
-            return (world.getLight(pos) >= 8 || world.canSeeSky(pos)) && soil.getBlock().canSustainPlant(state, world, pos.down(), EnumFacing.UP, this);
+            return (world.getLight(pos) >= 8 || world.canSeeSky(pos)) && soil.getBlock().canSustainPlant(soil, world, pos.down(), EnumFacing.UP, this);
         }
         return this.canSustainBush(world.getBlockState(pos.down()));
     }
@@ -199,7 +198,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable { //TODO Fix
         } else if (age != 6 && age != 7 && age != 13) {
             world.setBlockState(pos, state.withProperty(AGE, i), 2);
         }
-        if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop && world.getBlockState(pos.up()) == state.getBlock().getStateFromMeta(13)) {
+        if (age == 6 && world.getBlockState(pos.up()).getBlock() instanceof BlockDoubleCrop && world.getBlockState(pos.up()) == state.withProperty(AGE, 13)) {
             world.setBlockState(pos, state.withProperty(AGE, 7), 2);
             world.setBlockState(pos.up(), state.withProperty(AGE, 14), 2);
         }

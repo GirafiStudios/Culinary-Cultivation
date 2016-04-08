@@ -16,6 +16,9 @@ repositories {
   maven {
     url "http://dvs1.progwml6.com/files/maven"
   }
+  maven {
+    url "http://mobiusstrip.eu/maven"
+  }
 }
 
 ext.buildnumber=""
@@ -37,7 +40,8 @@ minecraft {
 }
 
 dependencies {
-	deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${minecraft_version}"
 }
 
 processResources {
