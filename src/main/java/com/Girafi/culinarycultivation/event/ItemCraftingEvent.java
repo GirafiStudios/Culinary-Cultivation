@@ -68,8 +68,8 @@ public class ItemCraftingEvent {
         public void DrumstickCraftedEvent(ItemCraftedEvent craftedEvent) {
             ItemStack stack = craftedEvent.crafting;
             if (stack != null && stack.getItem() == ModItems.meat && stack.getItemDamage() == MeatType.CHICKENNUGGET.getMetaData()) {
-                if (!craftedEvent.player.inventory.addItemStackToInventory(new ItemStack(ModItems.meat, 2, MeatType.DRUMSTICK.getMetaData()))) {
-                    craftedEvent.player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.meat, 2, MeatType.DRUMSTICK.getMetaData()), false);
+                if (!craftedEvent.player.inventory.addItemStackToInventory(new ItemStack(ModItems.meat, 1, MeatType.DRUMSTICK.getMetaData()))) {
+                    craftedEvent.player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.meat, 1, MeatType.DRUMSTICK.getMetaData()), false);
                 }
             }
         }

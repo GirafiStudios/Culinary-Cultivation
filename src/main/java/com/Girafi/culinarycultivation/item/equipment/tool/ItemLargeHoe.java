@@ -8,7 +8,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -24,6 +27,41 @@ public class ItemLargeHoe extends ItemHoe {
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        RayTraceResult rayTraceResult = this.getMovingObjectPositionFromPlayer(world, player, true);
+
+        if (rayTraceResult == null) {
+            return EnumActionResult.PASS;
+        } else if (rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
+            return EnumActionResult.PASS;
+        } else {
+            BlockPos rayTracePos = rayTraceResult.getBlockPos();
+
+            if (!world.isBlockModifiable(player, rayTracePos)) {
+                return EnumActionResult.FAIL;
+            } else {
+                if (!player.canPlayerEdit(rayTracePos.offset(rayTraceResult.sideHit), rayTraceResult.sideHit, stack)) {
+                    return EnumActionResult.FAIL;
+                } else {
+                    IBlockState state = world.getBlockState(rayTracePos);
+
+                    if (state.getMaterial() == Material.water && state.getValue(BlockLiquid.LEVEL) == 0) {
+                        if (this.getMaterialName().equals("GOLD") && state.getMaterial() == Material.water && state.getValue(BlockLiquid.LEVEL) == 0) {
+                            for (int x = -4; x <= 4; x++) {
+                                for (int z = -4; z <= 4; z++) {
+
+                                    if (facing != EnumFacing.DOWN) {
+                                        this.useHoe(stack, player, world, rayTracePos.add(x, 0, z), Blocks.farmland.getDefaultState());
+                                    }
+                                }
+                            }
+                        }
+                        return EnumActionResult.SUCCESS;
+                    }
+                }
+            }
+        }
+        w
+
         if (!player.canPlayerEdit(pos.offset(facing), facing, stack)) {
             return EnumActionResult.FAIL;
         } else {
@@ -52,11 +90,11 @@ public class ItemLargeHoe extends ItemHoe {
                     }
                 }
             }
-            return EnumActionResult.PASS;
         }
+        return EnumActionResult.PASS;
     }
 
-    private void useLargeHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private EnumActionResult useLargeHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         if (this.getMaterialName().equals("WOOD")) {
             this.useHoe(stack, player, world, pos, newState);
             this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
@@ -74,7 +112,6 @@ public class ItemLargeHoe extends ItemHoe {
             this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
             this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY(), 2), newState);
             this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY(), 2), newState);
-
         }
         if (this.getMaterialName().equals("GOLD") || this.getMaterialName().equals("DIAMOND")) {
             for (int x = -1; x <= 1; x++) {
@@ -83,6 +120,7 @@ public class ItemLargeHoe extends ItemHoe {
                 }
             }
         }
+        return EnumActionResult.PASS;
     }
 
     private void useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
@@ -98,43 +136,6 @@ public class ItemLargeHoe extends ItemHoe {
             if (!world.isRemote) {
                 world.setBlockState(pos, newState);
                 stack.damageItem(1, player);
-            }
-        }
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {  //TODO Fix stuff!
-        RayTraceResult rayTraceResult = this.getMovingObjectPositionFromPlayer(world, player, true);
-
-        if (rayTraceResult == null) {
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
-        } else if (rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
-            return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
-        } else {
-            BlockPos pos = rayTraceResult.getBlockPos();
-
-            if (!world.isBlockModifiable(player, pos)) {
-                return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-            } else {
-                if (!player.canPlayerEdit(pos.offset(rayTraceResult.sideHit), rayTraceResult.sideHit, stack)) {
-                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-                } else {
-                    IBlockState state = world.getBlockState(pos);
-
-                    if (state.getMaterial() == Material.water && state.getValue(BlockLiquid.LEVEL) == 0) {
-                        System.out.println("You right clicked me, the water!");
-                        if (this.getMaterialName().equals("GOLD") && state.getMaterial() == Material.water && state.getValue(BlockLiquid.LEVEL) == 0) {
-                            for (int x = -4; x <= 4; x++) {
-                                for (int z = -4; z <= 4; z++) {
-                                    this.useHoe(stack, player, world, pos.add(x, 0, z), Blocks.farmland.getDefaultState());
-                                }
-                            }
-                        }
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-                    } else {
-                        return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-                    }
-                }
             }
         }
     }
