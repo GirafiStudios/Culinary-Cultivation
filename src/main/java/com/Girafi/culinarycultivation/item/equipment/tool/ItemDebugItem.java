@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -107,37 +108,14 @@ public class ItemDebugItem extends Item {
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (stack.getItemDamage() == 3) {
             if (player.isSneaking() && applyBonemeal(stack, world, pos, player) && world.getBlockState(pos).getBlock() instanceof BlockCrops) {
-                int x = pos.getX();
-                int y = pos.getY();
-                int z = pos.getZ();
                 if (!world.isRemote) {
                     world.playAuxSFX(2005, pos, 0);
-                    if (applyBonemeal(stack, world, new BlockPos(x + 1, y, z), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x + 1, y, z), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x - 1, y, z), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x - 1, y, z), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x + 1, y, z + 1), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x + 1, y, z + 1), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x + 1, y - 1, z), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x + 1, y, z - 1), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x - 1, y, z + 1), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x - 1, y, z + 1), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x, y, z + 1), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x, y, z + 1), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x, y, z - 1), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x, y, z - 1), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x - 1, y, z - 1), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x - 1, y, z - 1), 0);
-                    }
-                    if (applyBonemeal(stack, world, new BlockPos(x + 1, y, z - 1), player)) {
-                        world.playAuxSFX(2005, new BlockPos(x + 1, y, z - 1), 0);
+                    for (int x = -1; x <= 1; x++) {
+                        for (int z = -1; z <= 1; z++) {
+                            if (applyBonemeal(stack, world, pos.add(x, 0, z), player)) {
+                                world.playAuxSFX(2005, pos.add(x, 0, z), 0);
+                            }
+                        }
                     }
                 }
                 return EnumActionResult.SUCCESS;
@@ -201,97 +179,12 @@ public class ItemDebugItem extends Item {
     }
 
     private void useDebugItemHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-        this.useHoe(stack, player, world, new BlockPos(pos), Blocks.water.getBlockState().getBaseState());
-        //3 x 3
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z - 1), newState);
-        //5 x 5
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z - 2), newState);
-        //7 x 7
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z - 3), newState);
-        //9x9
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 1, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 2, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 3, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x + 4, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 1, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 2, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 3, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z + 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z + 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z + 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z - 1), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z - 2), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z - 3), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z - 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x - 4, y, z), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z + 4), newState);
-        this.useHoe(stack, player, world, new BlockPos(x, y, z - 4), newState);
+        this.useHoe(stack, player, world, pos, Blocks.water.getBlockState().getBaseState());
+        for (int x = -4; x <= 4; x++) {
+            for (int z = -4; z <= 4; z++) {
+                this.useHoe(stack, player, world, pos.add(x, 0, z), newState);
+            }
+        }
     }
 
     private void useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
@@ -307,7 +200,7 @@ public class ItemDebugItem extends Item {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onMouseEvent(net.minecraftforge.client.event.MouseEvent event) {
+    public void onMouseEvent(MouseEvent event) {
         if (event.getButton() < 0) {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player.isSneaking()) {
