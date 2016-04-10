@@ -119,23 +119,18 @@ public class ItemStorageJar extends Item {
     public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
         ItemStack emptyJarStack = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
 
-        /*if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
-
+        if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
             if (--stack.stackSize == 0) {
                 entityLiving.setHeldItem(EnumHand.MAIN_HAND, emptyJarStack);
             } else if (!((EntityPlayer) entityLiving).inventory.addItemStackToInventory(emptyJarStack)) {
                 ((EntityPlayer) entityLiving).dropPlayerItemWithRandomChoice(emptyJarStack, false);
             }
-        }*/
-        if (stack == new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData())) {
-            if (!world.isRemote) {
+
+            if (!world.isRemote && stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
                 entityLiving.curePotionEffects(new ItemStack(Items.milk_bucket));
             }
-            if (entityLiving instanceof EntityPlayer) {
-                ((EntityPlayer) entityLiving).addStat(StatList.getObjectUseStats(Items.milk_bucket));
-            }
         }
-        return stack;
+        return stack.stackSize <= 0 ? emptyJarStack : stack;
     }
 
     @Override
@@ -164,7 +159,7 @@ public class ItemStorageJar extends Item {
         return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
     }
 
-    protected ItemStack fillJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {
+    private ItemStack fillJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {
         --stack.stackSize;
         player.addStat(StatList.getObjectUseStats(this));
 

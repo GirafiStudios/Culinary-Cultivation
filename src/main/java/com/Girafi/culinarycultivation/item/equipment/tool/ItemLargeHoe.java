@@ -60,7 +60,7 @@ public class ItemLargeHoe extends ItemHoe {
                 }
             }
         }
-        
+
         if (!player.canPlayerEdit(pos.offset(facing), facing, stack)) {
             return EnumActionResult.FAIL;
         } else {
