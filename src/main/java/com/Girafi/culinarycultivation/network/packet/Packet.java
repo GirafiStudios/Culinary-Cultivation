@@ -27,16 +27,11 @@ public abstract  class Packet<REQ extends Packet<REQ>> implements IMessage, IMes
                 message.handleServerSide(ctx.getServerHandler().playerEntity);
         } else {
             if (message.getClass() == getClass())
-                message.handleClientSide(getPlayerClient());
+                message.handleClientSide(Minecraft.getMinecraft().thePlayer);
             else
-                message.handleClientSide(getPlayerClient());
+                message.handleClientSide(Minecraft.getMinecraft().thePlayer);
         }
         return null;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public EntityPlayer getPlayerClient() {
-        return Minecraft.getMinecraft().thePlayer;
     }
 
     @SideOnly(Side.CLIENT)

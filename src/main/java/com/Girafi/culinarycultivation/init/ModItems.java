@@ -11,7 +11,10 @@ import com.Girafi.culinarycultivation.reference.Paths;
 import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -103,7 +106,7 @@ public class ModItems {
         item.setUnlocalizedName(Paths.ModAssets + name);
         item.setCreativeTab(tab);
 
-        GameRegistry.registerItem(item, name);
+        GameRegistry.register(item, new ResourceLocation(Reference.MOD_ID, name));
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             if (item.getHasSubtypes()) {

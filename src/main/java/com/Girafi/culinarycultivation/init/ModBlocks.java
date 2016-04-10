@@ -10,7 +10,9 @@ import com.Girafi.culinarycultivation.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -55,7 +57,8 @@ public class ModBlocks {
         block.setUnlocalizedName(Paths.ModAssets + name);
         block.setCreativeTab(tab);
 
-        GameRegistry.registerBlock(block, name);
+        GameRegistry.register(block, new ResourceLocation(Reference.MOD_ID, name));
+        GameRegistry.register(new ItemBlock(block), block.getRegistryName());
         registerBlockVariant(block, name);
 
         return block;

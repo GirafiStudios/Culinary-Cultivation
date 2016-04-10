@@ -53,19 +53,19 @@ public class BlockSeparator extends SourceBlockTileEntity {
 
     private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
-            IBlockState iblockstate = worldIn.getBlockState(pos.north());
-            IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
-            IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
-            IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
+            IBlockState stateNorth = worldIn.getBlockState(pos.north());
+            IBlockState stateSouth = worldIn.getBlockState(pos.south());
+            IBlockState stateWest = worldIn.getBlockState(pos.west());
+            IBlockState stateEast = worldIn.getBlockState(pos.east());
             EnumFacing enumfacing = state.getValue(FACING);
 
-            if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
+            if (enumfacing == EnumFacing.NORTH && stateNorth.isFullBlock() && !stateSouth.isFullBlock()) {
                 enumfacing = EnumFacing.SOUTH;
-            } else if (enumfacing == EnumFacing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock()) {
+            } else if (enumfacing == EnumFacing.SOUTH && stateSouth.isFullBlock() && !stateNorth.isFullBlock()) {
                 enumfacing = EnumFacing.NORTH;
-            } else if (enumfacing == EnumFacing.WEST && iblockstate2.isFullBlock() && !iblockstate3.isFullBlock()) {
+            } else if (enumfacing == EnumFacing.WEST && stateWest.isFullBlock() && !stateEast.isFullBlock()) {
                 enumfacing = EnumFacing.EAST;
-            } else if (enumfacing == EnumFacing.EAST && iblockstate3.isFullBlock() && !iblockstate2.isFullBlock()) {
+            } else if (enumfacing == EnumFacing.EAST && stateEast.isFullBlock() && !stateWest.isFullBlock()) {
                 enumfacing = EnumFacing.WEST;
             }
 
