@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.reference.Paths;
+import com.Girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -117,17 +117,17 @@ public class ItemStorageJar extends Item {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
-        ItemStack emptyJarStack = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+        ItemStack emptyJarStack = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
         if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
             if (--stack.stackSize == 0) {
                 entityLiving.setHeldItem(EnumHand.MAIN_HAND, emptyJarStack);
             } else if (!((EntityPlayer) entityLiving).inventory.addItemStackToInventory(emptyJarStack)) {
-                ((EntityPlayer) entityLiving).dropPlayerItemWithRandomChoice(emptyJarStack, false);
+                ((EntityPlayer) entityLiving).dropItem(emptyJarStack, false);
             }
 
-            if (!world.isRemote && stack.getItem() == ModItems.storageJar && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
-                entityLiving.curePotionEffects(new ItemStack(Items.milk_bucket));
+            if (!world.isRemote && stack.getItem() == ModItems.STORAGE_JAR && stack.getItemDamage() == StorageJarType.MILK.getMetaData()) {
+                entityLiving.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
             }
         }
         return stack.stackSize <= 0 ? emptyJarStack : stack;
@@ -136,7 +136,7 @@ public class ItemStorageJar extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if (stack.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
-            RayTraceResult rayTraceResult = this.getMovingObjectPositionFromPlayer(world, player, true);
+            RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
             if (rayTraceResult == null) {
                 return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
@@ -148,9 +148,9 @@ public class ItemStorageJar extends Item {
                         return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
                     }
 
-                    if (world.getBlockState(pos).getMaterial() == Material.water) {
-                        world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.item_bottle_fill, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.fillJar(stack, player, new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData())));
+                    if (world.getBlockState(pos).getMaterial() == Material.WATER) {
+                        world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.fillJar(stack, player, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData())));
                     }
                 }
             }
@@ -167,7 +167,7 @@ public class ItemStorageJar extends Item {
             return jarStack;
         } else {
             if (!player.inventory.addItemStackToInventory(jarStack)) {
-                player.dropPlayerItemWithRandomChoice(jarStack, false);
+                player.dropItem(jarStack, false);
             }
 
             return stack;
@@ -192,7 +192,7 @@ public class ItemStorageJar extends Item {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
-        return I18n.translateToLocal("item." + Paths.ModAssets + "storageJar_" + storageJarType.getUnlocalizedName() + ".name").trim();
+        return I18n.translateToLocal("item." + Paths.MOD_ASSETS + "storageJar_" + storageJarType.getUnlocalizedName() + ".name").trim();
     }
 
     private static int setColor(int r, int g, int b) {

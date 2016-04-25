@@ -7,8 +7,8 @@ import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOver
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
 import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerStrawhat;
 import com.Girafi.culinarycultivation.item.equipment.tool.*;
-import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.util.reference.Paths;
+import com.Girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -25,66 +25,66 @@ import java.util.List;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
-    public static final Item cakeKnife = new ItemCakeKnife(Item.ToolMaterial.IRON);
-    public static final Item caneKnife = new ItemCaneKnife(Item.ToolMaterial.STONE);
-    public static final Item debugItem = new ItemDebugItem();
-    public static final Item farmerBoots = new ItemFarmerBoots();
-    public static final Item farmerOveralls = new ItemFarmerOveralls();
-    public static final Item farmerShirt = new ItemFarmerShirt();
-    public static final Item farmerStrawhat = new ItemFarmerStrawhat();
-    public static final Item kitchenKnife = new ItemKitchenKnife();
-    public static final Item meatCleaver = new ItemMeatCleaver();
-    public static final Item storageJar = new ItemStorageJar();
-    public static final Item toolHandle = new Item();
-    public static final Item wooden_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.WOOD);
-    public static final Item stone_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.STONE);
-    public static final Item iron_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.IRON);
-    public static final Item golden_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.GOLD);
-    public static final Item diamond_hoeLarge = new ItemLargeHoe(Item.ToolMaterial.DIAMOND);
+    public static final Item CAKE_KNIFE = new ItemCakeKnife(Item.ToolMaterial.IRON);
+    public static final Item CANE_KNIFE = new ItemCaneKnife(Item.ToolMaterial.STONE);
+    public static final Item DEBUG_ITEM = new ItemDebugItem();
+    public static final Item FARMER_BOOTS = new ItemFarmerBoots();
+    public static final Item FARMER_OVERALLS = new ItemFarmerOveralls();
+    public static final Item FARMER_SHIRT = new ItemFarmerShirt();
+    public static final Item FARMER_STRAWHAT = new ItemFarmerStrawhat();
+    public static final Item KITCHEN_KNIFE = new ItemKitchenKnife();
+    public static final Item MEAT_CLEAVER = new ItemMeatCleaver();
+    public static final Item STORAGE_JAR = new ItemStorageJar();
+    public static final Item TOOL_HANDLE = new Item();
+    public static final Item WOODEN_HOE_LARGE = new ItemLargeHoe(Item.ToolMaterial.WOOD);
+    public static final Item STONE_HOE_LARGE = new ItemLargeHoe(Item.ToolMaterial.STONE);
+    public static final Item IRON_HOE_LARGE = new ItemLargeHoe(Item.ToolMaterial.IRON);
+    public static final Item GOLDEN_HOE_LARGE = new ItemLargeHoe(Item.ToolMaterial.GOLD);
+    public static final Item DIAMOND_HOE_LARGE = new ItemLargeHoe(Item.ToolMaterial.DIAMOND);
 
     /* Food */
-    public static final Item cheeseSlice = new ItemFood(2, 0.4F, false);
-    public static final Item cooked_fish = new ItemModFishFood(true).setHasSubtypes(true);
-    public static final Item cooked_meat = new ItemModMeatFood(true).setHasSubtypes(true);
-    public static final Item fish = new ItemModFishFood(false).setHasSubtypes(true);
-    public static final Item cropFood = new ItemCropFood().setHasSubtypes(true);
-    public static final Item cropSeeds = new ItemCropSeeds().setHasSubtypes(true);
-    public static final Item meat = new ItemModMeatFood(false).setHasSubtypes(true);
-    public static final Item pieceOfCake = new ItemFood(2, 0.1F, false);
-    public static final Item calfBelly = new Item().setMaxStackSize(1);
+    public static final Item CHEESE_SLICE = new ItemFood(2, 0.4F, false);
+    public static final Item COOKED_FISH = new ItemModFishFood(true).setHasSubtypes(true);
+    public static final Item COOKED_MEAT = new ItemModMeatFood(true).setHasSubtypes(true);
+    public static final Item FISH = new ItemModFishFood(false).setHasSubtypes(true);
+    public static final Item CROP_FOOD = new ItemCropFood().setHasSubtypes(true);
+    public static final Item CROP_SEEDS = new ItemCropSeeds().setHasSubtypes(true);
+    public static final Item MEAT = new ItemModMeatFood(false).setHasSubtypes(true);
+    public static final Item CAKE_PIECE = new ItemFood(2, 0.1F, false);
+    public static final Item CALF_BELLY = new Item().setMaxStackSize(1);
 
-    public static final Item pileOfChaff = new Item(); //Placeholder item
+    public static final Item CHAFF_PILE = new Item();
 
     //public static final Item chickenWingHot = new SourceFood(5, 0.8F, true).setPotionEffect(Potion.fireResistance.id, 15, 0, 0.25F).setUnlocalizedName("chickenWingHot");
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
 
     public static void init() {
-        registerItem(cheeseSlice, "cheeseSlice");
-        registerItem(pieceOfCake, "pieceOfCake");
-        registerItem(calfBelly, "calfBelly");
-        registerItem(meat, "meat");
-        registerItem(cooked_meat, "cooked_meat");
-        registerItem(fish, "fish");
-        registerItem(cooked_fish, "cooked_fish");
-        registerItem(cropFood, "cropFood");
-        registerItem(cropSeeds, "cropSeeds");
-        registerItem(pileOfChaff, "pileOfChaff");
-        registerItem(storageJar, "storageJar");
-        registerItem(toolHandle, "toolHandle");
-        registerItem(kitchenKnife, "kitchenKnife");
-        registerItem(cakeKnife, "cakeKnife");
-        registerItem(meatCleaver, "meatCleaver");
-        registerItem(caneKnife, "caneKnife");
-        registerItem(wooden_hoeLarge, "wooden_hoeLarge");
-        registerItem(stone_hoeLarge, "stone_hoeLarge");
-        registerItem(iron_hoeLarge, "iron_hoeLarge");
-        registerItem(golden_hoeLarge, "golden_hoeLarge");
-        registerItem(diamond_hoeLarge, "diamond_hoeLarge");
-        registerItem(debugItem, "debugItem");
-        registerItem(farmerStrawhat, "farmerStrawhat");
-        registerItem(farmerShirt, "farmerShirt");
-        registerItem(farmerOveralls, "farmerOveralls");
-        registerItem(farmerBoots, "farmerBoots");
+        registerItem(CHEESE_SLICE, "cheeseSlice");
+        registerItem(CAKE_PIECE, "pieceOfCake");
+        registerItem(CALF_BELLY, "calfBelly");
+        registerItem(MEAT, "meat");
+        registerItem(COOKED_MEAT, "cooked_meat");
+        registerItem(FISH, "fish");
+        registerItem(COOKED_FISH, "cooked_fish");
+        registerItem(CROP_FOOD, "cropFood");
+        registerItem(CROP_SEEDS, "cropSeeds");
+        registerItem(CHAFF_PILE, "pileOfChaff");
+        registerItem(STORAGE_JAR, "storageJar");
+        registerItem(TOOL_HANDLE, "toolHandle");
+        registerItem(KITCHEN_KNIFE, "kitchenKnife");
+        registerItem(CAKE_KNIFE, "cakeKnife");
+        registerItem(MEAT_CLEAVER, "meatCleaver");
+        registerItem(CANE_KNIFE, "caneKnife");
+        registerItem(WOODEN_HOE_LARGE, "wooden_hoeLarge");
+        registerItem(STONE_HOE_LARGE, "stone_hoeLarge");
+        registerItem(IRON_HOE_LARGE, "iron_hoeLarge");
+        registerItem(GOLDEN_HOE_LARGE, "golden_hoeLarge");
+        registerItem(DIAMOND_HOE_LARGE, "diamond_hoeLarge");
+        registerItem(DEBUG_ITEM, "debugItem");
+        registerItem(FARMER_STRAWHAT, "farmerStrawhat");
+        registerItem(FARMER_SHIRT, "farmerShirt");
+        registerItem(FARMER_OVERALLS, "farmerOveralls");
+        registerItem(FARMER_BOOTS, "farmerBoots");
         Events.register(new ItemDebugItem());
     }
 
@@ -103,7 +103,7 @@ public class ModItems {
     }
 
     private static Item registerItem(Item item, String name, CreativeTabs tab) {
-        item.setUnlocalizedName(Paths.ModAssets + name);
+        item.setUnlocalizedName(Paths.MOD_ASSETS + name);
         item.setCreativeTab(tab);
 
         GameRegistry.register(item, new ResourceLocation(Reference.MOD_ID, name));
@@ -115,10 +115,10 @@ public class ModItems {
                 for (ItemStack stack : subItems) {
                     String subItemName = item.getUnlocalizedName(stack).replace("item.culinarycultivation:", "");
 
-                    ModelLoader.setCustomModelResourceLocation(item, stack.getItemDamage(), new ModelResourceLocation(Paths.ModAssets + subItemName, "inventory"));
+                    ModelLoader.setCustomModelResourceLocation(item, stack.getItemDamage(), new ModelResourceLocation(Paths.MOD_ASSETS + subItemName, "inventory"));
                 }
             } else {
-                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Paths.ModAssets + name, "inventory"));
+                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Paths.MOD_ASSETS + name, "inventory"));
             }
         }
         return item;

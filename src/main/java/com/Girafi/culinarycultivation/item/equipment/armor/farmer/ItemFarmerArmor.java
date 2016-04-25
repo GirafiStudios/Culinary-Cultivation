@@ -1,8 +1,8 @@
 package com.Girafi.culinarycultivation.item.equipment.armor.farmer;
 
 import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.reference.Paths;
-import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.util.reference.Paths;
+import com.Girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     private final String armorPieceName;
-    public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("farmerArmor", "farmerArmor", 9, new int[]{1, 2, 3, 2}, 12, SoundEvents.item_armor_equip_generic);
+    public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("farmerArmor", "farmerArmor", 9, new int[]{1, 2, 3, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC);
 
     public ItemFarmerArmor(EntityEquipmentSlot equipmentSlot, String name) {
         this(equipmentSlot, name, farmerArmorMaterial);
@@ -79,10 +79,10 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     private ItemStack[] getArmorSetStacks() {
         if (armorSet == null)
             armorSet = new ItemStack[]{
-                    new ItemStack(ModItems.farmerStrawhat),
-                    new ItemStack(ModItems.farmerShirt),
-                    new ItemStack(ModItems.farmerOveralls),
-                    new ItemStack(ModItems.farmerBoots)
+                    new ItemStack(ModItems.FARMER_STRAWHAT),
+                    new ItemStack(ModItems.FARMER_SHIRT),
+                    new ItemStack(ModItems.FARMER_OVERALLS),
+                    new ItemStack(ModItems.FARMER_BOOTS)
             };
         return armorSet;
     }
@@ -98,13 +98,13 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
         }
         switch (i) {
             case 0:
-                return stack.getItem() == ModItems.farmerStrawhat;
+                return stack.getItem() == ModItems.FARMER_STRAWHAT;
             case 1:
-                return stack.getItem() == ModItems.farmerShirt;
+                return stack.getItem() == ModItems.FARMER_SHIRT;
             case 2:
-                return stack.getItem() == ModItems.farmerOveralls;
+                return stack.getItem() == ModItems.FARMER_OVERALLS;
             case 3:
-                return stack.getItem() == ModItems.farmerBoots;
+                return stack.getItem() == ModItems.FARMER_BOOTS;
         }
         return false;
     }
@@ -140,13 +140,13 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     @Override
     public int getColor(ItemStack stack) {
         if (!this.hasColor(stack)) {
-            if (stack.getItem() == ModItems.farmerShirt) {
+            if (stack.getItem() == ModItems.FARMER_SHIRT) {
                 return 0x971212;
             }
-            if (stack.getItem() == ModItems.farmerOveralls) {
+            if (stack.getItem() == ModItems.FARMER_OVERALLS) {
                 return 0x7d92c1;
             }
-            if (stack.getItem() == ModItems.farmerBoots) {
+            if (stack.getItem() == ModItems.FARMER_BOOTS) {
                 return 10511680;
             }
         } else {

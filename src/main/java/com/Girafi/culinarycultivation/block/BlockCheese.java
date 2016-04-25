@@ -42,6 +42,6 @@ public class BlockCheese extends BlockCake {
 
     @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(Item.getItemFromBlock(ModBlocks.cheese));
+        return new ItemStack(Item.getItemFromBlock(ModBlocks.CHEESE));
     }
 }

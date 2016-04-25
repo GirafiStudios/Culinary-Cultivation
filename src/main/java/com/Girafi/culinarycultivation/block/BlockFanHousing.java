@@ -19,7 +19,7 @@ public class BlockFanHousing extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public BlockFanHousing() {
-        super(Material.iron);
+        super(Material.IRON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         setSoundType(SoundType.METAL);
         setHardness(3.5F);

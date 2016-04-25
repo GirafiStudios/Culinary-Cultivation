@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.client.gui;
 
-import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
-import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.util.ConfigurationHandler;
+import com.Girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.config.DummyConfigElement;

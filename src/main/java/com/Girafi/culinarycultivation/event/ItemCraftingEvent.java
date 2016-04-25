@@ -18,12 +18,12 @@ public class ItemCraftingEvent {
         @SubscribeEvent
         public void CraftingHandler(ItemCraftedEvent craftedEvent) {
             ItemStack stackKnife = craftedEvent.crafting;
-            if (stackKnife != null && stackKnife.getItem() == ModItems.kitchenKnife) {
+            if (stackKnife != null && stackKnife.getItem() == ModItems.KITCHEN_KNIFE) {
             } else {
                 for (int i = 0; i < craftedEvent.craftMatrix.getSizeInventory(); i++) {
                     ItemStack stack = craftedEvent.craftMatrix.getStackInSlot(i);
                     if (stack != null && stack.getItem() instanceof ItemKitchenKnife) {
-                        ItemStack itemKnife = new ItemStack(ModItems.kitchenKnife, 2, stack.getItemDamage() + 1);
+                        ItemStack itemKnife = new ItemStack(ModItems.KITCHEN_KNIFE, 2, stack.getItemDamage() + 1);
 
                         if (itemKnife.getItemDamage() >= itemKnife.getMaxDamage()) {
                             itemKnife.stackSize--;
@@ -33,12 +33,12 @@ public class ItemCraftingEvent {
                 }
             }
             ItemStack stackCakeKnife = craftedEvent.crafting;
-            if (stackCakeKnife != null && stackCakeKnife.getItem() == ModItems.cakeKnife) {
+            if (stackCakeKnife != null && stackCakeKnife.getItem() == ModItems.CAKE_KNIFE) {
             } else {
                 for (int i = 0; i < craftedEvent.craftMatrix.getSizeInventory(); i++) {
                     ItemStack stack = craftedEvent.craftMatrix.getStackInSlot(i);
                     if (stack != null && stack.getItem() instanceof ItemCakeKnife) {
-                        ItemStack cakeKnife = new ItemStack(ModItems.cakeKnife, 2, stack.getItemDamage() + 1);
+                        ItemStack cakeKnife = new ItemStack(ModItems.CAKE_KNIFE, 2, stack.getItemDamage() + 1);
 
                         if (cakeKnife.getItemDamage() >= cakeKnife.getMaxDamage()) {
                             cakeKnife.stackSize--;
@@ -48,12 +48,12 @@ public class ItemCraftingEvent {
                 }
             }
             ItemStack stackMeatCleaver = craftedEvent.crafting;
-            if (stackMeatCleaver != null && stackCakeKnife.getItem() == ModItems.meatCleaver) {
+            if (stackMeatCleaver != null && stackCakeKnife.getItem() == ModItems.MEAT_CLEAVER) {
             } else {
                 for (int i = 0; i < craftedEvent.craftMatrix.getSizeInventory(); i++) {
                     ItemStack stack = craftedEvent.craftMatrix.getStackInSlot(i);
                     if (stack != null && stack.getItem() instanceof ItemMeatCleaver) {
-                        ItemStack meatCleaver = new ItemStack(ModItems.meatCleaver, 2, stack.getItemDamage() + 1);
+                        ItemStack meatCleaver = new ItemStack(ModItems.MEAT_CLEAVER, 2, stack.getItemDamage() + 1);
 
                         if (meatCleaver.getItemDamage() >= meatCleaver.getMaxDamage()) {
                             meatCleaver.stackSize--;
@@ -67,9 +67,9 @@ public class ItemCraftingEvent {
         @SubscribeEvent
         public void DrumstickCraftedEvent(ItemCraftedEvent craftedEvent) {
             ItemStack stack = craftedEvent.crafting;
-            if (stack != null && stack.getItem() == ModItems.meat && stack.getItemDamage() == MeatType.CHICKENNUGGET.getMetaData()) {
-                if (!craftedEvent.player.inventory.addItemStackToInventory(new ItemStack(ModItems.meat, 1, MeatType.DRUMSTICK.getMetaData()))) {
-                    craftedEvent.player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.meat, 1, MeatType.DRUMSTICK.getMetaData()), false);
+            if (stack != null && stack.getItem() == ModItems.MEAT && stack.getItemDamage() == MeatType.CHICKENNUGGET.getMetaData()) {
+                if (!craftedEvent.player.inventory.addItemStackToInventory(new ItemStack(ModItems.MEAT, 1, MeatType.DRUMSTICK.getMetaData()))) {
+                    craftedEvent.player.dropItem(new ItemStack(ModItems.MEAT, 1, MeatType.DRUMSTICK.getMetaData()), false);
                 }
             }
         }
@@ -79,7 +79,7 @@ public class ItemCraftingEvent {
         @SubscribeEvent
         public void ItemSmeltedEvent(ItemSmeltedEvent smeltedEvent) {
             if (smeltedEvent.smelting.getItem() != null && smeltedEvent.smelting.getItem() instanceof ItemModFishFood) {
-                smeltedEvent.player.addStat(AchievementList.cookFish);
+                smeltedEvent.player.addStat(AchievementList.COOK_FISH);
             }
         }
     }

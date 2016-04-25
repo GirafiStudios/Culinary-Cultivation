@@ -2,6 +2,7 @@ package com.Girafi.culinarycultivation.block.tileentity;
 
 import com.Girafi.culinarycultivation.block.BlockFanHousing;
 import com.Girafi.culinarycultivation.init.ModBlocks;
+import com.Girafi.culinarycultivation.util.InventoryHandlerHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,17 +10,27 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntitySeparator extends TileEntity implements ITickable, IInventory {
     private ItemStack[] separatorContents = new ItemStack[1];
+    private List<ItemStack> input = new ArrayList<ItemStack>();
     private boolean isMultiblockFormed;
     private boolean isInvalidBlock;
     private int checkingX, checkingZ;
@@ -30,6 +41,21 @@ public class TileEntitySeparator extends TileEntity implements ITickable, IInven
             this.checkForFanHousing();
         }
         if (isMultiblockFormed) {
+            for (EntityItem object : getCaptureItems(worldObj, pos)) {
+                if (object instanceof EntityItem) {
+                    EntityItem entityItem = object;
+                    ItemStack inputStack = entityItem.getEntityItem();
+                    if (input != null) {
+                        entityItem.setDead();
+                        //update = true;
+                        continue;
+                    }
+                    addStackToInput(inputStack);
+                    //update = true;
+                    entityItem.setDead();
+                }
+            }
+
             ArrayList<ItemStack> out = new ArrayList<ItemStack>();
             ItemStack outputStack = null;
             for (int i = 0; i < separatorContents.length; ++i) {
@@ -39,6 +65,7 @@ public class TileEntitySeparator extends TileEntity implements ITickable, IInven
                 out.add(outputStack);
             }
             this.outputItems(out, EnumFacing.getFront(this.getBlockMetadata()));
+            this.inputItems(out);
         }
     }
 
@@ -55,7 +82,7 @@ public class TileEntitySeparator extends TileEntity implements ITickable, IInven
 
         IBlockState state = worldObj.getBlockState(pos);
         IBlockState stateFront = worldObj.getBlockState(pos.offset(EnumFacing.getFront(this.getBlockMetadata()).rotateY()));
-        if (!(stateFront.getBlock() == ModBlocks.fanHousing && stateFront.getValue(BlockFanHousing.FACING) == EnumFacing.getFront(state.getBlock().getMetaFromState(state)))) {
+        if (!(stateFront.getBlock() == ModBlocks.FAN_HOUSING && stateFront.getValue(BlockFanHousing.FACING) == EnumFacing.getFront(state.getBlock().getMetaFromState(state)))) {
             isInvalidBlock = true;
         }
     }
@@ -147,6 +174,51 @@ public class TileEntitySeparator extends TileEntity implements ITickable, IInven
     }
 
     @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.separatorContents = new ItemStack[this.getSizeInventory()];
+
+        NBTTagList nbttaglist = compound.getTagList("Items", 10);
+
+        for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+            NBTTagCompound tagCompound = nbttaglist.getCompoundTagAt(i);
+            int j = tagCompound.getByte("Slot") & 255;
+
+            if (j >= 0 && j < this.separatorContents.length) {
+                this.separatorContents[j] = ItemStack.loadItemStackFromNBT(tagCompound);
+            }
+        }
+
+        NBTTagList inventoryList = compound.getTagList("input", 10);
+        input.clear();
+        for (int i = 0; i < inventoryList.tagCount(); i++) {
+            input.add(ItemStack.loadItemStackFromNBT(inventoryList.getCompoundTagAt(i)));
+        }
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+
+        NBTTagList nbttaglist = new NBTTagList();
+        for (int i = 0; i < this.separatorContents.length; ++i) {
+            if (this.separatorContents[i] != null) {
+                NBTTagCompound tagCompound = new NBTTagCompound();
+                tagCompound.setByte("Slot", (byte) i);
+                this.separatorContents[i].writeToNBT(tagCompound);
+                nbttaglist.appendTag(tagCompound);
+            }
+        }
+        compound.setTag("Items", nbttaglist);
+
+        NBTTagList inventoryList = new NBTTagList();
+        for (ItemStack s : input) {
+            inventoryList.appendTag(s.writeToNBT(new NBTTagCompound()));
+        }
+        compound.setTag("input", inventoryList);
+    }
+
+    @Override
     public boolean hasCustomName() {
         return false;
     }
@@ -156,8 +228,33 @@ public class TileEntitySeparator extends TileEntity implements ITickable, IInven
         return null;
     }
 
+
+    private void inputItems(List<ItemStack> stacks) {
+        TileEntity tileEntity = worldObj.getTileEntity(pos.up());
+
+        for (int i = 0; i < stacks.size(); i++) {
+            ItemStack stack = stacks.get(i);
+            if (tileEntity instanceof ISidedInventory && ((ISidedInventory) tileEntity).getSlotsForFace(null).length > 0 || tileEntity instanceof IInventory && ((IInventory) tileEntity).getSizeInventory() > 0) {
+                IInventory inventory = ((IInventory) tileEntity);
+                InventoryHandlerHelper.insertStackIntoInventory(inventory, stack, null);
+                ItemStackHelper.getAndRemove(this.separatorContents, i);
+            }
+        }
+    }
+
+    private boolean addStackToInput(ItemStack stack) {
+        for (ItemStack inputStack : input)
+            if (input != null && inputStack.isItemEqual(stack) && (inputStack.stackSize + stack.stackSize <= stack.getMaxStackSize())) {
+                inputStack.stackSize += stack.stackSize;
+                return true;
+            }
+        this.input.add(stack);
+
+        return true;
+    }
+
     private void outputItems(List<ItemStack> stacks, EnumFacing facing) {
-        TileEntity tileEntity = this.worldObj.getTileEntity(pos.offset(facing));
+        TileEntity tileEntity = worldObj.getTileEntity(pos.offset(facing));
 
         for (int i = 0; i < stacks.size(); i++) {
             ItemStack stack = stacks.get(i);
@@ -166,7 +263,7 @@ public class TileEntitySeparator extends TileEntity implements ITickable, IInven
             }
             if (tileEntity instanceof ISidedInventory && ((ISidedInventory) tileEntity).getSlotsForFace(facing).length > 0 || tileEntity instanceof IInventory && ((IInventory) tileEntity).getSizeInventory() > 0) {
                 IInventory inventory = ((IInventory) tileEntity);
-                stack = insertStackIntoInventory(inventory, stack, facing);
+                stack = InventoryHandlerHelper.insertStackIntoInventory(inventory, stack, facing);
                 ItemStackHelper.getAndRemove(this.separatorContents, i);
             }
             if (stack != null) {
@@ -174,86 +271,34 @@ public class TileEntitySeparator extends TileEntity implements ITickable, IInven
                 ei.motionX = (0.055F * facing.getFrontOffsetX());
                 ei.motionY = 0.025D;
                 ei.motionZ = (0.055F * facing.getFrontOffsetZ());
-                this.worldObj.spawnEntityInWorld(ei);
+                worldObj.spawnEntityInWorld(ei);
                 ItemStackHelper.getAndRemove(this.separatorContents, i);
             }
         }
     }
 
-    private static ItemStack insertStackIntoInventory(IInventory inventory, ItemStack stack, EnumFacing facing) {
-        if (stack == null || inventory == null) {
-            return null;
-        }
-        int stackSize = stack.stackSize;
-        if (inventory instanceof ISidedInventory) {
-            ISidedInventory sidedInv = (ISidedInventory) inventory;
-            int slots[] = sidedInv.getSlotsForFace(facing);
-            if (slots == null) {
-                return stack;
-            }
-            for (int i = 0; i < slots.length && stack != null; i++) {
-                ItemStack existingStack = inventory.getStackInSlot(slots[i]);
-                if (existingStack == null) {
-                    continue;
-                }
-                ItemStack toInsert = copyStackWithAmount(stack, Math.min(existingStack.getMaxStackSize(), inventory.getInventoryStackLimit()) - existingStack.stackSize);
-                if (sidedInv.canInsertItem(slots[i], toInsert, facing)) {
-                    if (OreDictionary.itemMatches(existingStack, stack, true) && ItemStack.areItemStackTagsEqual(stack, existingStack))
-                        stack = addToOccupiedSlot(sidedInv, slots[i], stack, existingStack);
-                }
-            }
-            for (int i = 0; i < slots.length && stack != null; i++)
-                if (inventory.getStackInSlot(slots[i]) == null && sidedInv.canInsertItem(slots[i], copyStackWithAmount(stack, inventory.getInventoryStackLimit()), facing)) {
-                    stack = addToEmptyInventorySlot(sidedInv, slots[i], stack);
-                }
-        } else {
-            int invSize = inventory.getSizeInventory();
-            for (int i = 0; i < invSize && stack != null; i++) {
-                ItemStack existingStack = inventory.getStackInSlot(i);
-                if (OreDictionary.itemMatches(existingStack, stack, true) && ItemStack.areItemStackTagsEqual(stack, existingStack)) {
-                    stack = addToOccupiedSlot(inventory, i, stack, existingStack);
-                }
-            }
-            for (int i = 0; i < invSize && stack != null; i++)
-                if (inventory.getStackInSlot(i) == null) {
-                    stack = addToEmptyInventorySlot(inventory, i, stack);
-                }
-        }
-        if (stack == null || stack.stackSize != stackSize) {
-            inventory.markDirty();
-        }
-        return stack;
+    private static List<EntityItem> getCaptureItems(World world, BlockPos pos) {
+        double x = pos.getX();
+        double y = pos.getY();
+        double z = pos.getZ();
+        return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x, y + 0.5D, z, x + 1.0D, y + 2.0D, z + 1.0D), EntitySelectors.IS_ALIVE);
     }
 
-    private static ItemStack addToEmptyInventorySlot(IInventory inventory, int slot, ItemStack stack) {
-        if (!inventory.isItemValidForSlot(slot, stack)) {
-            return stack;
-        }
-        int stackLimit = inventory.getInventoryStackLimit();
-        inventory.setInventorySlotContents(slot, copyStackWithAmount(stack, Math.min(stack.stackSize, stackLimit)));
-        return stackLimit >= stack.stackSize ? null : stack.splitStack(stack.stackSize - stackLimit);
+    private IItemHandler itemHandler;
+
+    private IItemHandler createUnSidedHandler() {
+        return new InvWrapper(this);
     }
 
-    private static ItemStack addToOccupiedSlot(IInventory inventory, int slot, ItemStack stack, ItemStack existingStack) {
-        int stackLimit = Math.min(inventory.getInventoryStackLimit(), stack.getMaxStackSize());
-        if (stack.stackSize + existingStack.stackSize > stackLimit) {
-            int stackDiff = stackLimit - existingStack.stackSize;
-            existingStack.stackSize = stackLimit;
-            stack = copyStackWithAmount(stack, stack.stackSize - stackDiff);
-            inventory.setInventorySlotContents(slot, existingStack);
-            return stack;
-        }
-        existingStack.stackSize += Math.min(stack.stackSize, stackLimit);
-        inventory.setInventorySlotContents(slot, existingStack);
-        return null;
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            return (T) (itemHandler == null ? (itemHandler = createUnSidedHandler()) : itemHandler);
+        return super.getCapability(capability, facing);
     }
 
-    private static ItemStack copyStackWithAmount(ItemStack stack, int amount) {
-        if (stack == null) {
-            return null;
-        }
-        ItemStack copyStack = stack.copy();
-        copyStack.stackSize = amount;
-        return copyStack;
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
 }

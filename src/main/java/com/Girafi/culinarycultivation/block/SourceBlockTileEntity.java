@@ -12,7 +12,7 @@ public abstract class SourceBlockTileEntity extends BlockContainer {
     }
 
     public SourceBlockTileEntity() {
-        this(Material.rock);
+        this(Material.ROCK);
     }
 
     @Override

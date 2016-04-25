@@ -23,10 +23,10 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
 
         if (player.onGround) {
             if (player.isSneaking()) {
-                if (playerStandingOnBlock == Blocks.farmland) {
-                    world.playSound(player, (player.posX + 0.5F), (player.posY + 0.5F), (player.posZ + 0.5F), SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (playerStandingOnBlock == Blocks.FARMLAND) {
+                    world.playSound(player, (player.posX + 0.5F), (player.posY + 0.5F), (player.posZ + 0.5F), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     if (!world.isRemote) {
-                        world.setBlockState(player.getPosition().down(), Blocks.dirt.getDefaultState());
+                        world.setBlockState(player.getPosition().down(), Blocks.DIRT.getDefaultState());
                     }
                     stack.attemptDamageItem(1, new Random(5));
                 }

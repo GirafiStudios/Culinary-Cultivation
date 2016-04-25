@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class ItemCakeKnife extends ItemTool {
 
-    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.cake);
+    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.CAKE);
 
     public ItemCakeKnife(ToolMaterial material) {
         super(-2.0F, -3.1F, material, EFFECTIVE_ON);

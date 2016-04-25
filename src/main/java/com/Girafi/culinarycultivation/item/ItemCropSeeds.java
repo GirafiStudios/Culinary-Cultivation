@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.reference.Paths;
+import com.Girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +35,7 @@ public class ItemCropSeeds extends Item implements IPlantable {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return "item." + Paths.ModAssets + SeedType.byItemStack(stack).getSeedName();
+        return "item." + Paths.MOD_ASSETS + SeedType.byItemStack(stack).getSeedName();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ItemCropSeeds extends Item implements IPlantable {
     }
 
     public enum SeedType {
-        BLACKPEPPERDRUPE(0, "blackPepperDrupe", ModBlocks.blackPepper);
+        BLACKPEPPERDRUPE(0, "blackPepperDrupe", ModBlocks.BLACK_PEPPER);
 
         private static final Map<Integer, SeedType> META_LOOKUP = Maps.newHashMap();
         private final int meta;

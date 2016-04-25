@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.block.tileentity;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.reference.LogHelper;
+import com.Girafi.culinarycultivation.util.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
@@ -11,7 +11,7 @@ public class TileEntityCauldron extends TileEntity implements ITickable {
 
     @Override
     public void update() {
-        if (worldObj.getBlockState(pos).getBlock() == ModBlocks.cauldron && getBlockMetadata() == 12) {
+        if (worldObj.getBlockState(pos).getBlock() == ModBlocks.CAULDRON && getBlockMetadata() == 12) {
             LogHelper.debug(timer);
             if (timer > 0) timer--;
             if (timer == 0 && !worldObj.isRemote) {

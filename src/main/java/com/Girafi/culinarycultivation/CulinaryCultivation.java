@@ -1,13 +1,13 @@
 package com.Girafi.culinarycultivation;
 
-import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
 import com.Girafi.culinarycultivation.init.*;
 import com.Girafi.culinarycultivation.init.recipes.Recipes;
 import com.Girafi.culinarycultivation.modSupport.ModSupport;
 import com.Girafi.culinarycultivation.network.NetworkHandler;
 import com.Girafi.culinarycultivation.proxy.CommonProxy;
-import com.Girafi.culinarycultivation.reference.LogHelper;
-import com.Girafi.culinarycultivation.reference.Reference;
+import com.Girafi.culinarycultivation.util.ConfigurationHandler;
+import com.Girafi.culinarycultivation.util.LogHelper;
+import com.Girafi.culinarycultivation.util.reference.Reference;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

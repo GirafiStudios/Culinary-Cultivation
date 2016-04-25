@@ -20,7 +20,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public BlockSeparator() {
-        super(Material.iron);
+        super(Material.IRON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.setSoundType(SoundType.METAL);
         this.setHardness(3.5F);

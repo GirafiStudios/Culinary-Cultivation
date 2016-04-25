@@ -1,6 +1,6 @@
 package com.Girafi.culinarycultivation.item;
 
-import com.Girafi.culinarycultivation.reference.Paths;
+import com.Girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,10 +49,10 @@ public class ItemModFishFood extends ItemFood {
 
         if (fishType == FishType.CLOWNFISH) {
             if (potionEffectProbability <= 0.001F) {
-                player.addPotionEffect(new PotionEffect(MobEffects.poison, 60));
+                player.addPotionEffect(new PotionEffect(MobEffects.POISON, 60));
             }
             if (potionEffectProbability <= 0.08F) {
-                player.addPotionEffect(new PotionEffect(MobEffects.confusion, 160));
+                player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 160));
             }
         }
         super.onFoodEaten(stack, world, player);
@@ -80,7 +80,7 @@ public class ItemModFishFood extends ItemFood {
         if (fishtype.isHaveRawFish() & !this.cooked) {
             return this.getUnlocalizedName() + "_" + fishtype.getFishName();
         } else {
-            return "item." + Paths.ModAssets + "fish_" + fishtype.getFishName() + "_cooked";
+            return "item." + Paths.MOD_ASSETS + "fish_" + fishtype.getFishName() + "_cooked";
         }
     }
 

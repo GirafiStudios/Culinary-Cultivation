@@ -1,6 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
-import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
+import com.Girafi.culinarycultivation.util.ConfigurationHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -66,7 +66,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     protected boolean canSustainBush(IBlockState state) {
-        return state.getBlock() == Blocks.farmland || state.getBlock() instanceof BlockDoubleCrop;
+        return state.getBlock() == Blocks.FARMLAND || state.getBlock() instanceof BlockDoubleCrop;
     }
 
     @Override

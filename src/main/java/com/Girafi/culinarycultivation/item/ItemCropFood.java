@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.reference.Paths;
+import com.Girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -50,7 +50,7 @@ public class ItemCropFood extends ItemFood implements IPlantable {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return "item." + Paths.ModAssets + CropType.byItemStack(stack).getCropName();
+        return "item." + Paths.MOD_ASSETS + CropType.byItemStack(stack).getCropName();
     }
 
     @Override
@@ -82,8 +82,8 @@ public class ItemCropFood extends ItemFood implements IPlantable {
     }
 
     public enum CropType { //TODO Make proper values
-        CUCUMBER(0, "cucumber", 3, 0.4F, ModBlocks.cucumber),
-        TOMATO(1, "tomato", 4, 0.5F, ModBlocks.tomato);
+        CUCUMBER(0, "cucumber", 3, 0.4F, ModBlocks.CUCUMBER),
+        TOMATO(1, "tomato", 4, 0.5F, ModBlocks.TOMATO);
 
         private static final Map<Integer, CropType> META_LOOKUP = Maps.newHashMap();
         private final int meta;

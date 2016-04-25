@@ -27,7 +27,7 @@ public class ItemLargeHoe extends ItemHoe {
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        RayTraceResult rayTraceResult = this.getMovingObjectPositionFromPlayer(world, player, true);
+        RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
         if (rayTraceResult == null) {
             return EnumActionResult.PASS;
@@ -44,13 +44,13 @@ public class ItemLargeHoe extends ItemHoe {
                 } else {
                     IBlockState state = world.getBlockState(rayTracePos);
 
-                    if (state.getMaterial() == Material.water && state.getValue(BlockLiquid.LEVEL) == 0) {
-                        if (this.getMaterialName().equals("GOLD") && state.getMaterial() == Material.water && state.getValue(BlockLiquid.LEVEL) == 0) {
+                    if (state.getMaterial() == Material.WATER && state.getValue(BlockLiquid.LEVEL) == 0) {
+                        if (this.getMaterialName().equals("GOLD") && state.getMaterial() == Material.WATER && state.getValue(BlockLiquid.LEVEL) == 0) {
                             for (int x = -4; x <= 4; x++) {
                                 for (int z = -4; z <= 4; z++) {
 
                                     if (facing != EnumFacing.DOWN) {
-                                        this.useHoe(stack, player, world, rayTracePos.add(x, 0, z), Blocks.farmland.getDefaultState());
+                                        this.setBlock(stack, player, world, rayTracePos.add(x, 0, z), Blocks.FARMLAND.getDefaultState());
                                     }
                                 }
                             }
@@ -71,18 +71,18 @@ public class ItemLargeHoe extends ItemHoe {
             Block block = state.getBlock();
 
             if (facing != EnumFacing.DOWN && world.isAirBlock(pos.up())) {
-                if (block == Blocks.grass || block == Blocks.grass_path) {
-                    this.useLargeHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
+                    this.useLargeHoe(stack, player, world, pos, Blocks.FARMLAND.getDefaultState());
                     return EnumActionResult.SUCCESS;
                 }
 
-                if (block == Blocks.dirt) {
+                if (block == Blocks.DIRT) {
                     switch (state.getValue(BlockDirt.VARIANT)) {
                         case DIRT:
-                            this.useLargeHoe(stack, player, world, pos, Blocks.farmland.getDefaultState());
+                            this.useLargeHoe(stack, player, world, pos, Blocks.FARMLAND.getDefaultState());
                             return EnumActionResult.SUCCESS;
                         case COARSE_DIRT:
-                            this.useLargeHoe(stack, player, world, pos, Blocks.dirt.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                            this.useLargeHoe(stack, player, world, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
                             return EnumActionResult.SUCCESS;
                         case PODZOL:
                             break;
@@ -95,42 +95,38 @@ public class ItemLargeHoe extends ItemHoe {
 
     private EnumActionResult useLargeHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         if (this.getMaterialName().equals("WOOD")) {
-            this.useHoe(stack, player, world, pos, newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
+            this.setBlock(stack, player, world, pos, newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
         }
         if (this.getMaterialName().equals("STONE")) {
-            this.useHoe(stack, player, world, pos, newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
+            this.setBlock(stack, player, world, pos, newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
         }
         if (this.getMaterialName().equals("IRON")) {
-            this.useHoe(stack, player, world, pos, newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY(), 2), newState);
-            this.useHoe(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY(), 2), newState);
+            this.setBlock(stack, player, world, pos, newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY(), 2), newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY(), 2), newState);
         }
         if (this.getMaterialName().equals("GOLD") || this.getMaterialName().equals("DIAMOND")) {
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
-                    this.useHoe(stack, player, world, pos.add(x, 0, z), newState);
+                    this.setBlock(stack, player, world, pos.add(x, 0, z), newState);
                 }
             }
         }
         return EnumActionResult.PASS;
     }
 
-    private void useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
-        this.func_185071_a(stack, player, world, pos, newState);
-    }
-
     @Override
-    protected void func_185071_a(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    protected void setBlock(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         IBlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof BlockDirt || state.getBlock() instanceof BlockGrass || state.getBlock() instanceof BlockGrassPath) {
-            world.playSound(player, pos, SoundEvents.item_hoe_till, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
             if (!world.isRemote) {
                 world.setBlockState(pos, newState);

@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.reference;
+package com.Girafi.culinarycultivation.util.reference;
 
 public class Reference {
     public static final String MOD_ID = "CulinaryCultivation";

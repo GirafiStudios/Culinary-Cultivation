@@ -11,12 +11,7 @@
       "transform": "forge:default-block"
     }],
     "facing": {
-      "north": {
-        "transform": {
-          "translation": [-0.5, 1.5, -0.5],
-          "rotation": {"y": 180}
-        }
-      },
+      "north": { "transform": { "translation": [-0.5, 1.5, -0.5], "rotation": {"y": 180} } },
       "south": { "transform": { "translation": [0.5, 1.5, 0.5] } },
       "west": { "transform": { "translation": [-0.5, 1.5, 0.5], "rotation": {"y": 270} } },
       "east": { "transform": { "translation": [0.5, 1.5, -0.5], "rotation": {"y": 90} } }

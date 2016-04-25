@@ -46,22 +46,22 @@ public class MobDropEvent {
     }
 
     public MobDropEvent setDrop(Class<? extends EntityLivingBase> entityLivingClass, ItemStack drop, ItemStack dropBurning, int dropMin, int dropMax) {
-        this.setFullDrop(entityLivingClass, false, drop, dropBurning, true, ModItems.meatCleaver, -1, dropMin, dropMax);
+        this.setFullDrop(entityLivingClass, false, drop, dropBurning, true, ModItems.MEAT_CLEAVER, -1, dropMin, dropMax);
         return this;
     }
 
     public MobDropEvent setModifiedDrop(Class<? extends EntityLivingBase> entityLivingClass, ItemStack drop, ItemStack dropBurning, int vanillaDropChance, int dropMin, int dropMax) {
-        this.setFullDrop(entityLivingClass, false, drop, dropBurning, true, ModItems.meatCleaver, vanillaDropChance, dropMin, dropMax);
+        this.setFullDrop(entityLivingClass, false, drop, dropBurning, true, ModItems.MEAT_CLEAVER, vanillaDropChance, dropMin, dropMax);
         return this;
     }
 
     public MobDropEvent setChildDrop(Class<? extends EntityLivingBase> entityLivingClass, ItemStack drop, ItemStack dropBurning, int dropMin, int dropMax) {
-        this.setFullDrop(entityLivingClass, true, drop, dropBurning, true, ModItems.meatCleaver, -1, dropMin, dropMax);
+        this.setFullDrop(entityLivingClass, true, drop, dropBurning, true, ModItems.MEAT_CLEAVER, -1, dropMin, dropMax);
         return this;
     }
 
     public MobDropEvent setWaterDrop(Class<? extends EntityLivingBase> entityLivingClass, ItemStack drop, int dropMin, int dropMax) {
-        this.setFullDrop(entityLivingClass, false, drop, null, false, ModItems.meatCleaver, 25, dropMin, dropMax);
+        this.setFullDrop(entityLivingClass, false, drop, null, false, ModItems.MEAT_CLEAVER, 25, dropMin, dropMax);
         return this;
     }
 

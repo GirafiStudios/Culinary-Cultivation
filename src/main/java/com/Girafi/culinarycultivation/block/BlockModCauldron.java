@@ -42,7 +42,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     private static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
 
     public BlockModCauldron() {
-        super(Material.iron);
+        super(Material.IRON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0));
         this.setHardness(2.0F);
     }
@@ -83,14 +83,14 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
         if (!world.isRemote && entity.isBurning() && i > 0 && i < 13 && entity.getEntityBoundingBox().minY <= (double) f) {
             entity.extinguish();
-            world.setBlockState(pos, ModBlocks.cauldron.getDefaultState());
+            world.setBlockState(pos, ModBlocks.CAULDRON.getDefaultState());
         }
     }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (state.getValue(LEVEL) == 13) {
-            ItemStack cheese = new ItemStack(ModBlocks.cheese);
+            ItemStack cheese = new ItemStack(ModBlocks.CHEESE);
             if (!player.inventory.addItemStackToInventory(cheese)) {
                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, cheese));
             } else if (player instanceof EntityPlayerMP) {
@@ -109,52 +109,52 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 int level = state.getValue(LEVEL);
                 Item item = heldItem.getItem();
 
-                if (item == Items.water_bucket) {
+                if (item == Items.WATER_BUCKET) {
                     if (level < 3 && level <= 3) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.BUCKET));
                         }
-                        player.addStat(StatList.cauldronFilled);
+                        player.addStat(StatList.CAULDRON_FILLED);
                         this.setWaterLevel(world, pos, state, 3);
                     }
                     return true;
                 }
-                if (item == Items.bucket) {
+                if (item == Items.BUCKET) {
                     if (level > 0 && level == 3) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.water_bucket));
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.WATER_BUCKET));
                         }
-                        player.addStat(StatList.cauldronUsed);
+                        player.addStat(StatList.CAULDRON_USED);
                         this.setWaterLevel(world, pos, state, -3);
                     }
                     if (level > 0 && level == 6) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.milk_bucket));
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.MILK_BUCKET));
                         }
                         world.setBlockState(pos, world.getBlockState(pos).getBlock().getDefaultState(), 2);
                     }
                     return true;
                 }
-                if (item == Items.milk_bucket) {
+                if (item == Items.MILK_BUCKET) {
                     if (level == 0) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.bucket));
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.BUCKET));
                         }
                         world.setBlockState(pos, world.getBlockState(pos).getBlock().getStateFromMeta(6));
                     }
                     return true;
                 } else {
-                    if (item == Items.glass_bottle) {
+                    if (item == Items.GLASS_BOTTLE) {
                         if (level > 0 && level <= 3) {
                             if (!player.capabilities.isCreativeMode) {
-                                ItemStack itemStack1 = new ItemStack(Items.potionitem, 1, 0);
+                                ItemStack itemStack1 = new ItemStack(Items.POTIONITEM, 1, 0);
 
                                 if (!player.inventory.addItemStackToInventory(itemStack1)) {
                                     world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, itemStack1));
                                 } else if (player instanceof EntityPlayerMP) {
                                     ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                                 }
-                                player.addStat(StatList.cauldronUsed);
+                                player.addStat(StatList.CAULDRON_USED);
                                 --heldItem.stackSize;
                                 if (heldItem.stackSize <= 0) {
                                     player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
@@ -164,17 +164,17 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         }
                     }
                 }
-                if (item == ModItems.storageJar && heldItem.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
+                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
                     if (level > 0 && level <= 3) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.WATER.getMetaData());
+                            ItemStack stackStorageJar = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getZ() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJar));
                             } else if (player instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                             }
-                            player.addStat(StatList.cauldronUsed);
+                            player.addStat(StatList.CAULDRON_USED);
                             --heldItem.stackSize;
                             if (heldItem.stackSize <= 0) {
                                 player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
@@ -184,7 +184,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                     }
                     if (level > 0 && level >= 4 && level <= 6) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJarMilk = new ItemStack(ModItems.storageJar, 1, StorageJarType.MILK.getMetaData());
+                            ItemStack stackStorageJarMilk = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.MILK.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJarMilk)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getZ() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJarMilk));
@@ -209,7 +209,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                     }
                     if (level > 0 && level >= 7 && level <= 9) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJarRennet = new ItemStack(ModItems.storageJar, 1, StorageJarType.RENNET.getMetaData());
+                            ItemStack stackStorageJarRennet = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.RENNET.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJarRennet)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJarRennet));
@@ -232,10 +232,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         }
                     }
                 }
-                if (item == ModItems.storageJar && heldItem.getItemDamage() == StorageJarType.WATER.getMetaData()) {
+                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.WATER.getMetaData()) {
                     if (level > 0 && level <= 3 || level == 0) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+                            ItemStack stackStorageJar = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJar));
@@ -258,10 +258,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         }
                     }
                 }
-                if (item == ModItems.storageJar && heldItem.getItemDamage() == StorageJarType.MILK.getMetaData()) {
+                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.MILK.getMetaData()) {
                     if (level > 0 && level >= 4 && level <= 6 || level == 0) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+                            ItemStack stackStorageJar = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJar));
@@ -284,10 +284,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         }
                     }
                 }
-                if (item == ModItems.storageJar && heldItem.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
+                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
                     if (level > 0 && level >= 7 && level <= 9 || level == 0) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+                            ItemStack stackStorageJar = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJar));
@@ -311,10 +311,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                     }
                 }
                     /* CheeseMass starts here */
-                if (item == ModItems.storageJar && heldItem.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
+                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
                     if (level > 0 && level == 4 || level == 5) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+                            ItemStack stackStorageJar = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJar));
@@ -334,10 +334,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         }
                     }
                 }
-                if (item == ModItems.storageJar && heldItem.getItemDamage() == StorageJarType.MILK.getMetaData()) {
+                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.MILK.getMetaData()) {
                     if (level > 0 && level == 7 || level == 11) {
                         if (!player.capabilities.isCreativeMode) {
-                            ItemStack stackStorageJar = new ItemStack(ModItems.storageJar, 1, StorageJarType.EMPTY.getMetaData());
+                            ItemStack stackStorageJar = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
                             if (!player.inventory.addItemStackToInventory(stackStorageJar)) {
                                 world.spawnEntityInWorld(new EntityItem(world, (double) pos.getZ() + 0.5D, (double) pos.getY() + 1.5D, (double) pos.getZ() + 0.5D, stackStorageJar));
@@ -360,7 +360,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         ItemArmor armor = (ItemArmor) item;
                         if (armor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && armor.hasColor(heldItem) || armor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && armor.hasColor(heldItem)) {
                             armor.removeColor(heldItem);
-                            player.addStat(StatList.armorCleaned);
+                            player.addStat(StatList.ARMOR_CLEANED);
                             setWaterLevel(world, pos, state, level - 1);
                             return true;
                         }
@@ -370,7 +370,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             ItemStack bannerStack = heldItem.copy();
                             bannerStack.stackSize = 1;
                             TileEntityBanner.removeBannerData(bannerStack);
-                            player.addStat(StatList.bannerCleaned);
+                            player.addStat(StatList.BANNER_CLEANED);
 
                             if (!player.capabilities.isCreativeMode) {
                                 --heldItem.stackSize;
@@ -379,7 +379,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             if (heldItem.stackSize == 0) {
                                 player.setHeldItem(hand, bannerStack);
                             } else if (!player.inventory.addItemStackToInventory(bannerStack)) {
-                                player.dropPlayerItemWithRandomChoice(bannerStack, false);
+                                player.dropItem(bannerStack, false);
                             } else if (player instanceof EntityPlayerMP) {
                                 ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
                             }
@@ -419,12 +419,12 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Items.cauldron;
+        return Items.CAULDRON;
     }
 
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(Items.cauldron);
+        return new ItemStack(Items.CAULDRON);
     }
 
     @Override

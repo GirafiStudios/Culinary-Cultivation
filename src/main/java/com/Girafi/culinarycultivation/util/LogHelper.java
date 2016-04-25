@@ -1,5 +1,6 @@
-package com.Girafi.culinarycultivation.reference;
+package com.Girafi.culinarycultivation.util;
 
+import com.Girafi.culinarycultivation.util.reference.Reference;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 

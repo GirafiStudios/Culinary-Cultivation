@@ -24,7 +24,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
             ItemStack craftingStack = crafting.getStackInSlot(i);
 
             if (craftingStack != null) {
-                if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.farmerStrawhat) {
+                if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     ItemFarmerArmor armor = (ItemFarmerArmor) craftingStack.getItem();
 
                     if (armor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial || stack != null) {
@@ -33,7 +33,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
 
                     stack = craftingStack;
                 } else {
-                    if (craftingStack.getItem() != Items.dye) {
+                    if (craftingStack.getItem() != Items.DYE) {
                         return false;
                     }
 
@@ -56,7 +56,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
             ItemStack craftingStack = crafting.getStackInSlot(k);
 
             if (craftingStack != null) {
-                if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.farmerStrawhat) {
+                if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     farmerArmor = (ItemFarmerArmor) craftingStack.getItem();
 
                     if (farmerArmor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial || stack != null) {
@@ -78,7 +78,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                         ++j;
                     }
                 } else {
-                    if (craftingStack.getItem() != Items.dye) {
+                    if (craftingStack.getItem() != Items.DYE) {
                         return null;
                     }
 

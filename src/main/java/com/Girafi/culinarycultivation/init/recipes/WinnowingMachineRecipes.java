@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.init.recipes;
 
 import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.reference.LogHelper;
+import com.Girafi.culinarycultivation.util.LogHelper;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -20,11 +20,11 @@ public class WinnowingMachineRecipes {
     }
 
     private WinnowingMachineRecipes() {
-        this.addRecipe(Blocks.tallgrass, new ItemStack(ModItems.cropSeeds, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()));
+        this.addRecipe(Blocks.TALLGRASS, new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()));
     }
 
     private void addRecipe(Block input, ItemStack output) {
-        this.addRecipe(new ItemStack(input), output, new ItemStack(ModItems.pileOfChaff));
+        this.addRecipe(new ItemStack(input), output, new ItemStack(ModItems.CHAFF_PILE));
     }
 
     public void addRecipe(ItemStack input, ItemStack output, ItemStack junkOutput) { //TODO Fix Junk Output

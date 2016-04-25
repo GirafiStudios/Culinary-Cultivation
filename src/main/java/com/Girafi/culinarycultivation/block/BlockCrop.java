@@ -1,6 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
-import com.Girafi.culinarycultivation.handler.ConfigurationHandler;
+import com.Girafi.culinarycultivation.util.ConfigurationHandler;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,7 @@
 package com.Girafi.culinarycultivation.item;
 
 import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.reference.Paths;
+import com.Girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,12 +49,12 @@ public class ItemModMeatFood extends ItemFood {
         double potionEffectProbability = (float) Math.random();
 
         if (potionEffectProbability <= 0.3F) {
-            if (meatType == MeatType.CHICKENWING && stack.getItem() == ModItems.meat) {
-                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 440)); //22 seconds
-            } else if (meatType == MeatType.DRUMSTICK && stack.getItem() == ModItems.meat) {
-                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 320)); //16 seconds
-            } else if (meatType == MeatType.CHICKENNUGGET && stack.getItem() == ModItems.meat) {
-                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 160)); //8 seconds
+            if (meatType == MeatType.CHICKENWING && stack.getItem() == ModItems.MEAT) {
+                player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 440)); //22 seconds
+            } else if (meatType == MeatType.DRUMSTICK && stack.getItem() == ModItems.MEAT) {
+                player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 320)); //16 seconds
+            } else if (meatType == MeatType.CHICKENNUGGET && stack.getItem() == ModItems.MEAT) {
+                player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 160)); //8 seconds
             }
         }
         super.onFoodEaten(stack, world, player);
@@ -79,7 +79,7 @@ public class ItemModMeatFood extends ItemFood {
     public String getUnlocalizedName(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (this.cooked && meattype.isHaveCookedMeat()) {
-            return "item." + Paths.ModAssets + "meat_" + meattype.getMeatName() + "_cooked";
+            return "item." + Paths.MOD_ASSETS + "meat_" + meattype.getMeatName() + "_cooked";
         } else {
             return this.getUnlocalizedName() + "_" + meattype.getMeatName();
         }
