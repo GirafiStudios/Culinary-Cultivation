@@ -1,55 +1,74 @@
 package com.Girafi.culinarycultivation.init.recipes;
 
+import com.Girafi.culinarycultivation.api.IWinnowingMachineHandler;
+import com.Girafi.culinarycultivation.api.IWinnowingMachineRecipe;
 import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.util.LogHelper;
-import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.Callable;
 
-import static com.Girafi.culinarycultivation.item.ItemCropSeeds.SeedType;
-
-public class WinnowingMachineRecipes {
-    private static final WinnowingMachineRecipes WINNOWING_MACHINE_INSTANCE = new WinnowingMachineRecipes();
-    private Map<ItemStack, ItemStack> processingList = Maps.newHashMap();
+public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
+    private static WinnowingMachineRecipes WINNOWING_MACHINE_INSTANCE = new WinnowingMachineRecipes();
+    private Cache<Pair<Item, Integer>, IWinnowingMachineRecipe> cacheList = CacheBuilder.newBuilder().build();
+    private Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> processingList = HashMultimap.create();
 
     public static WinnowingMachineRecipes instance() {
         return WINNOWING_MACHINE_INSTANCE;
     }
 
-    private WinnowingMachineRecipes() {
-        this.addRecipe(Blocks.TALLGRASS, new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()));
+    private WinnowingMachineRecipes() {}
+
+    @Override
+    public void addRecipe(ItemStack input, ItemStack output, int outputChance, ItemStack junkOutput, int junkChance) {
+        addRecipe(input, new WinnowingMachineRecipe(output, outputChance, junkOutput, junkChance));
     }
 
-    private void addRecipe(Block input, ItemStack output) {
-        this.addRecipe(new ItemStack(input), output, new ItemStack(ModItems.CHAFF_PILE));
+    @Override
+    public void addRecipe(ItemStack input, ItemStack output, int outputChance) {
+        addRecipe(input, new WinnowingMachineRecipe(output, outputChance, new ItemStack(ModItems.CHAFF_PILE), 25));
     }
 
-    public void addRecipe(ItemStack input, ItemStack output, ItemStack junkOutput) { //TODO Fix Junk Output
-        if (this.getProccessingResult(input) != null) {
-            LogHelper.info("Ignored winnowing machine recipe with conflicting input: " + input + " = " + output);
-            return;
-        }
-        this.processingList.put(input, output);
+    @Override
+    public void addRecipe(ItemStack input, IWinnowingMachineRecipe recipe) {
+        this.processingList.put(Pair.of(input.getItem(), input.getItemDamage()), recipe);
     }
 
-    public ItemStack getProccessingResult(ItemStack stack) {
-        for (Map.Entry<ItemStack, ItemStack> entry : this.processingList.entrySet()) {
-            if (this.compareItemStacks(stack, entry.getKey())) {
-                return entry.getValue();
-            }
-        }
+    @Override
+    public IWinnowingMachineRecipe getProcessingResult(final ItemStack stack) {
+        try {
+            return cacheList.get(Pair.of(stack.getItem(), stack.getItemDamage()), new Callable<IWinnowingMachineRecipe>() {
+                @Override
+                public IWinnowingMachineRecipe call() throws Exception {
+                    ArrayList<IWinnowingMachineRecipe> recipes = new ArrayList<IWinnowingMachineRecipe>();
+                    Collection<IWinnowingMachineRecipe> collection = processingList.get(Pair.of(stack.getItem(), stack.getItemDamage()));
+                    if (collection != null && collection.size() > 0) recipes.addAll(collection);
+                    Collection<IWinnowingMachineRecipe> collection2 = processingList.get(Pair.of(stack.getItem(), OreDictionary.WILDCARD_VALUE));
+                    if (collection2 != null && collection2.size() > 0) recipes.addAll(collection2);
+                    if (recipes.size() == 0) return null;
+                    IWinnowingMachineRecipe result = null;
+                    for (IWinnowingMachineRecipe recipe: recipes) {
+                        if (result == null || recipe.getOutputChance() > result.getOutputChance()) {
+                            result = recipe;
+                        }
+                    }
 
-        return null;
+                    return result;
+                }
+            });
+        } catch (Exception e) { return null; }
     }
 
-    private boolean compareItemStacks(ItemStack stack1, ItemStack stack2) {
-        return stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata());
-    }
-
-    public Map<ItemStack, ItemStack> getProcessingList() {
+    @Override
+    public Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> getProcessingList() {
         return this.processingList;
     }
 }

@@ -1,5 +1,6 @@
 package com.Girafi.culinarycultivation.block;
 
+import com.Girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.SoundType;
@@ -11,7 +12,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -45,7 +48,10 @@ public class BlockFanHousing extends Block {
         if (!world.isRemote) {
             if (neighborBlock instanceof BlockLever) {
                 if (isFrontPowered(world, pos, state)) {
-                    //Send signal to the Separator
+                    BlockPos right = pos.offset(state.getValue(FACING).rotateAround(Axis.Y).getOpposite());
+                    if (world.getTileEntity(right) instanceof TileEntitySeparator) {
+                        ((TileEntitySeparator)world.getTileEntity(right)).onPowered();
+                    }
                 }
             }
         }
@@ -56,8 +62,33 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.setDefaultFacing(worldIn, pos, state);
+    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+        this.setDefaultFacing(world, pos, state);
+        //Check for a block on the world
+        BlockPos right = pos.offset(state.getValue(FACING).rotateAround(Axis.Y).getOpposite());
+        if (world.getTileEntity(right) instanceof TileEntitySeparator) {
+            ((TileEntitySeparator)world.getTileEntity(right)).checkForFanHousing();
+        }
+    }
+
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        //Check for a block on the world
+        BlockPos right = pos.offset(state.getValue(FACING).rotateAround(Axis.Y).getOpposite());
+        if (world.getTileEntity(right) instanceof TileEntitySeparator) {
+            ((TileEntitySeparator)world.getTileEntity(right)).checkForFanHousing();
+        }
+
+        super.breakBlock(world, pos, state);
+    }
+
+    @Override
+    public void onBlockDestroyedByExplosion(World world, BlockPos pos, Explosion explosionIn) {
+        //Check for a block on the world
+        BlockPos right = pos.offset(world.getBlockState(pos).getValue(FACING).rotateAround(Axis.Y).getOpposite());
+        if (world.getTileEntity(right) instanceof TileEntitySeparator) {
+            ((TileEntitySeparator)world.getTileEntity(right)).checkForFanHousing();
+        }
     }
 
     private void setDefaultFacing(World world, BlockPos pos, IBlockState state) {
