@@ -47,8 +47,11 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.setDefaultFacing(worldIn, pos, state);
+    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+        this.setDefaultFacing(world, pos, state);
+        if (world.getTileEntity(pos) instanceof TileEntitySeparator) {
+            ((TileEntitySeparator)world.getTileEntity(pos)).checkForFanHousing();
+        }
     }
 
     private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
@@ -90,6 +93,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
         if (tileentity instanceof TileEntitySeparator) {
             InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntitySeparator) tileentity);
         }
+
         super.breakBlock(worldIn, pos, state);
     }
 
