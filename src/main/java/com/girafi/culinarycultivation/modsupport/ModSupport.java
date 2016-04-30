@@ -1,0 +1,96 @@
+package com.girafi.culinarycultivation.modsupport;
+
+import com.girafi.culinarycultivation.modsupport.waila.Waila;
+import com.girafi.culinarycultivation.util.ConfigurationHandler;
+import com.girafi.culinarycultivation.util.LogHelper;
+import com.girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.util.reference.SupportedModIDs;
+import net.minecraftforge.fml.common.Loader;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/*
+ * This class is highly inspired from PneumaticCrafts ThirdPartyManager. Credits to MineMaarten for letting me use this. PneumaticCraft repo: https://github.com/MineMaarten/PneumaticCraft
+ */
+public class ModSupport {
+
+    private static ModSupport INSTANCE = new ModSupport();
+    private final List<IModSupport> modSupportMods = new ArrayList<IModSupport>();
+
+    public static ModSupport instance() {
+        return INSTANCE;
+    }
+
+    public void modSupportIndex() {
+        Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
+        //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
+        modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
+
+
+        List<String> enabledModSupport = new ArrayList<String>();
+        for (String modid : modSupportClasses.keySet()) {
+            if (ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MOD_SUPPORT_ENABLING, modid, true).getBoolean()) {
+                enabledModSupport.add(modid);
+            }
+        }
+        ConfigurationHandler.config.save();
+
+        for (Map.Entry<String, Class<? extends IModSupport>> entry : modSupportClasses.entrySet()) {
+            if (enabledModSupport.contains(entry.getKey()) && Loader.isModLoaded(entry.getKey())) {
+                try {
+                    modSupportMods.add(entry.getValue().newInstance());
+                } catch (Exception e) {
+                    LogHelper.error("Failed to load mod support handler");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void preInit() {
+        for (IModSupport modSupport : modSupportMods) {
+            try {
+                modSupport.preInit();
+            } catch (Exception e) {
+                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " in PreInit");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void init() {
+        for (IModSupport modSupport : modSupportMods) {
+            try {
+                modSupport.init();
+            } catch (Exception e) {
+                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " in Init");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void postInit() {
+        for (IModSupport modSupport : modSupportMods) {
+            try {
+                modSupport.postInit();
+            } catch (Exception e) {
+                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " in PostInit");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void clientSide() {
+        for (IModSupport modSupport : modSupportMods) {
+            try {
+                modSupport.clientSide();
+            } catch (Exception e) {
+                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " on client side!");
+                e.printStackTrace();
+            }
+        }
+    }
+}
