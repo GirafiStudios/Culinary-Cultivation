@@ -1,6 +1,6 @@
-package com.Girafi.culinarycultivation.init.recipes;
+package com.girafi.culinarycultivation.init.recipes;
 
-import com.Girafi.culinarycultivation.api.IWinnowingMachineRecipe;
+import com.girafi.culinarycultivation.api.IWinnowingMachineRecipe;
 import net.minecraft.item.ItemStack;
 
 public class WinnowingMachineRecipe implements IWinnowingMachineRecipe {

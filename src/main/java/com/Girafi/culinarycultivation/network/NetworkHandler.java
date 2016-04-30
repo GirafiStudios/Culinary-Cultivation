@@ -1,7 +1,7 @@
-package com.Girafi.culinarycultivation.network;
+package com.girafi.culinarycultivation.network;
 
-import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
-import com.Girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.network.packet.PacketDebugItemMode;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

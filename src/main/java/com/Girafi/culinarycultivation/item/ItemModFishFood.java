@@ -1,6 +1,6 @@
-package com.Girafi.culinarycultivation.item;
+package com.girafi.culinarycultivation.item;
 
-import com.Girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

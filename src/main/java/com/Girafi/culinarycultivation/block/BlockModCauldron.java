@@ -1,10 +1,10 @@
-package com.Girafi.culinarycultivation.block;
+package com.girafi.culinarycultivation.block;
 
-import com.Girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
+import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;

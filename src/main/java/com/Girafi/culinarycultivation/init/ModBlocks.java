@@ -1,12 +1,12 @@
-package com.Girafi.culinarycultivation.init;
+package com.girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.CulinaryCultivation;
-import com.Girafi.culinarycultivation.block.*;
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
-import com.Girafi.culinarycultivation.item.ItemCropFood;
-import com.Girafi.culinarycultivation.item.ItemCropSeeds;
-import com.Girafi.culinarycultivation.util.reference.Paths;
-import com.Girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.CulinaryCultivation;
+import com.girafi.culinarycultivation.block.*;
+import com.girafi.culinarycultivation.creativetab.CreativeTab;
+import com.girafi.culinarycultivation.item.ItemCropFood;
+import com.girafi.culinarycultivation.item.ItemCropSeeds;
+import com.girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

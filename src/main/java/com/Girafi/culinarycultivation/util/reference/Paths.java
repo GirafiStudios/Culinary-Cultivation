@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.util.reference;
+package com.girafi.culinarycultivation.util.reference;
 
 public class Paths {
     public static final String MOD_ASSETS = Reference.MOD_ID.toLowerCase() + ":";

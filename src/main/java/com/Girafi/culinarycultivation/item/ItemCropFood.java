@@ -1,7 +1,7 @@
-package com.Girafi.culinarycultivation.item;
+package com.girafi.culinarycultivation.item;
 
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

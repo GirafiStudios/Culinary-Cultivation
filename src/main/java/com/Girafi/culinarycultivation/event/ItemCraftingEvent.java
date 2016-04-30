@@ -1,11 +1,11 @@
-package com.Girafi.culinarycultivation.event;
+package com.girafi.culinarycultivation.event;
 
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemModFishFood;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemCakeKnife;
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemKitchenKnife;
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemMeatCleaver;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemModFishFood;
+import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
+import com.girafi.culinarycultivation.item.equipment.tool.ItemCakeKnife;
+import com.girafi.culinarycultivation.item.equipment.tool.ItemKitchenKnife;
+import com.girafi.culinarycultivation.item.equipment.tool.ItemMeatCleaver;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.AchievementList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

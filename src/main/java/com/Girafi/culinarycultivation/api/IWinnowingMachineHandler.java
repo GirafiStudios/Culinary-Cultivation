@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.api;
+package com.girafi.culinarycultivation.api;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.item.Item;

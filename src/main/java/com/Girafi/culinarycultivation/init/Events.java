@@ -1,15 +1,15 @@
-package com.Girafi.culinarycultivation.init;
+package com.girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.event.MobDropEvent;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
+import com.girafi.culinarycultivation.event.MobDropEvent;
+import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import net.minecraft.entity.passive.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 
-import static com.Girafi.culinarycultivation.event.InteractEvents.*;
-import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.AchievementTriggerEvent;
-import static com.Girafi.culinarycultivation.event.ItemCraftingEvent.CraftedEvent;
-import static com.Girafi.culinarycultivation.util.ConfigurationHandler.*;
+import static com.girafi.culinarycultivation.event.InteractEvents.*;
+import static com.girafi.culinarycultivation.event.ItemCraftingEvent.AchievementTriggerEvent;
+import static com.girafi.culinarycultivation.event.ItemCraftingEvent.CraftedEvent;
+import static com.girafi.culinarycultivation.util.ConfigurationHandler.*;
 
 public class Events {
     public static void init() {

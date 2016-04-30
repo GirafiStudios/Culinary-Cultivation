@@ -1,8 +1,8 @@
-package com.Girafi.culinarycultivation.item.equipment.tool;
+package com.girafi.culinarycultivation.item.equipment.tool;
 
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.network.NetworkHandler;
-import com.Girafi.culinarycultivation.network.packet.PacketDebugItemMode;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.network.NetworkHandler;
+import com.girafi.culinarycultivation.network.packet.PacketDebugItemMode;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

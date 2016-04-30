@@ -1,7 +1,7 @@
-package com.Girafi.culinarycultivation.init.recipes;
+package com.girafi.culinarycultivation.init.recipes;
 
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;

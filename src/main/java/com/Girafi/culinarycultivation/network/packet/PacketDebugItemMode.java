@@ -1,6 +1,6 @@
-package com.Girafi.culinarycultivation.network.packet;
+package com.girafi.culinarycultivation.network.packet;
 
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
+import com.girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

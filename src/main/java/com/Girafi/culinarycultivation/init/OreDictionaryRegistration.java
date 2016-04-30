@@ -1,7 +1,7 @@
-package com.Girafi.culinarycultivation.init;
+package com.girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
+import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
+import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;

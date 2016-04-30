@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.modSupport;
+package com.girafi.culinarycultivation.modsupport;
 
 public interface IModSupport {
 

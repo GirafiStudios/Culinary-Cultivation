@@ -1,6 +1,6 @@
-package com.Girafi.culinarycultivation.event;
+package com.girafi.culinarycultivation.event;
 
-import com.Girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.init.ModItems;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.util.reference;
+package com.girafi.culinarycultivation.util.reference;
 
 public class SupportedModIDs {
     public static final String EE3 = "EE3";

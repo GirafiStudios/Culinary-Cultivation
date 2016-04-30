@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.item.equipment.tool;
+package com.girafi.culinarycultivation.item.equipment.tool;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

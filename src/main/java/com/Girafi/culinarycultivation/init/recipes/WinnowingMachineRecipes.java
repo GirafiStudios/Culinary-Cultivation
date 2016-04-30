@@ -1,8 +1,8 @@
-package com.Girafi.culinarycultivation.init.recipes;
+package com.girafi.culinarycultivation.init.recipes;
 
-import com.Girafi.culinarycultivation.api.IWinnowingMachineHandler;
-import com.Girafi.culinarycultivation.api.IWinnowingMachineRecipe;
-import com.Girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.api.IWinnowingMachineHandler;
+import com.girafi.culinarycultivation.api.IWinnowingMachineRecipe;
+import com.girafi.culinarycultivation.init.ModItems;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.HashMultimap;
@@ -25,7 +25,8 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
         return WINNOWING_MACHINE_INSTANCE;
     }
 
-    private WinnowingMachineRecipes() {}
+    private WinnowingMachineRecipes() {
+    }
 
     @Override
     public void addRecipe(ItemStack input, ItemStack output, int outputChance, ItemStack junkOutput, int junkChance) {
@@ -55,7 +56,7 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
                     if (collection2 != null && collection2.size() > 0) recipes.addAll(collection2);
                     if (recipes.size() == 0) return null;
                     IWinnowingMachineRecipe result = null;
-                    for (IWinnowingMachineRecipe recipe: recipes) {
+                    for (IWinnowingMachineRecipe recipe : recipes) {
                         if (result == null || recipe.getOutputChance() > result.getOutputChance()) {
                             result = recipe;
                         }
@@ -64,7 +65,9 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
                     return result;
                 }
             });
-        } catch (Exception e) { return null; }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

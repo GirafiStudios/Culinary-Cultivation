@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.item.equipment.tool;
+package com.girafi.culinarycultivation.item.equipment.tool;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;

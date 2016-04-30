@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.block;
+package com.girafi.culinarycultivation.block;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

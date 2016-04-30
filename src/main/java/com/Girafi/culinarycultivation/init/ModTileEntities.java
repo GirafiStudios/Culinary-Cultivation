@@ -1,8 +1,8 @@
-package com.Girafi.culinarycultivation.init;
+package com.girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
-import com.Girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
-import com.Girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
+import com.girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
+import com.girafi.culinarycultivation.util.reference.Paths;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModTileEntities {

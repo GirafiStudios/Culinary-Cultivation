@@ -1,10 +1,10 @@
-package com.Girafi.culinarycultivation.modSupport;
+package com.girafi.culinarycultivation.modsupport;
 
-import com.Girafi.culinarycultivation.modSupport.waila.Waila;
-import com.Girafi.culinarycultivation.util.ConfigurationHandler;
-import com.Girafi.culinarycultivation.util.LogHelper;
-import com.Girafi.culinarycultivation.util.reference.Reference;
-import com.Girafi.culinarycultivation.util.reference.SupportedModIDs;
+import com.girafi.culinarycultivation.modsupport.waila.Waila;
+import com.girafi.culinarycultivation.util.ConfigurationHandler;
+import com.girafi.culinarycultivation.util.LogHelper;
+import com.girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.util.reference.SupportedModIDs;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;

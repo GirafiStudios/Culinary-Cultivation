@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.proxy;
+package com.girafi.culinarycultivation.proxy;
 
 import net.minecraft.item.Item;
 

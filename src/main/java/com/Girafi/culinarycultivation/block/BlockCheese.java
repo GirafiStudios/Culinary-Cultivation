@@ -1,6 +1,6 @@
-package com.Girafi.culinarycultivation.block;
+package com.girafi.culinarycultivation.block;
 
-import com.Girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModBlocks;
 import net.minecraft.block.BlockCake;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;

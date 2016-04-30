@@ -1,7 +1,7 @@
-package com.Girafi.culinarycultivation.modSupport.waila;
+package com.girafi.culinarycultivation.modsupport.waila;
 
-import com.Girafi.culinarycultivation.block.BlockDoubleCrop;
-import com.Girafi.culinarycultivation.modSupport.IModSupport;
+import com.girafi.culinarycultivation.block.BlockDoubleCrop;
+import com.girafi.culinarycultivation.modsupport.IModSupport;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 

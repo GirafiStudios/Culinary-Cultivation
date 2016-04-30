@@ -1,7 +1,7 @@
-package com.Girafi.culinarycultivation.block.tileentity;
+package com.girafi.culinarycultivation.block.tileentity;
 
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.util.LogHelper;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.util.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;

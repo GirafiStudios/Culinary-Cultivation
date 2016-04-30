@@ -1,8 +1,8 @@
-package com.Girafi.culinarycultivation.item.equipment.armor.farmer;
+package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.util.reference.Paths;
-import com.Girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

@@ -1,6 +1,6 @@
-package com.Girafi.culinarycultivation.modSupport.jei;
+package com.girafi.culinarycultivation.modsupport.jei;
 
-import com.Girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModBlocks;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IItemBlacklist;
 import mezz.jei.api.IModRegistry;

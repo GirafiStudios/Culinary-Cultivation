@@ -1,14 +1,14 @@
-package com.Girafi.culinarycultivation.init;
+package com.girafi.culinarycultivation.init;
 
-import com.Girafi.culinarycultivation.creativetab.CreativeTab;
-import com.Girafi.culinarycultivation.item.*;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerBoots;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOveralls;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerStrawhat;
-import com.Girafi.culinarycultivation.item.equipment.tool.*;
-import com.Girafi.culinarycultivation.util.reference.Paths;
-import com.Girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.creativetab.CreativeTab;
+import com.girafi.culinarycultivation.item.*;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerBoots;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOveralls;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerStrawhat;
+import com.girafi.culinarycultivation.item.equipment.tool.*;
+import com.girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

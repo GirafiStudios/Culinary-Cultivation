@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.util;
+package com.girafi.culinarycultivation.util;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;

@@ -1,11 +1,11 @@
-package com.Girafi.culinarycultivation.event;
+package com.girafi.culinarycultivation.event;
 
-import com.Girafi.culinarycultivation.block.BlockCrop;
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
+import com.girafi.culinarycultivation.block.BlockCrop;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
+import com.girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;

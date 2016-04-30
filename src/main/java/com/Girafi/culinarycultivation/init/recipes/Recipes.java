@@ -1,12 +1,12 @@
-package com.Girafi.culinarycultivation.init.recipes;
+package com.girafi.culinarycultivation.init.recipes;
 
-import com.Girafi.culinarycultivation.api.CulinaryCultivationAPI;
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemCropSeeds.SeedType;
-import com.Girafi.culinarycultivation.item.ItemModFishFood.FishType;
-import com.Girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
-import com.Girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemCropSeeds.SeedType;
+import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
+import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
+import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import static com.Girafi.culinarycultivation.init.ModItems.*;
+import static com.girafi.culinarycultivation.init.ModItems.*;
 
 public class Recipes {
     public static void initHandlers() {
@@ -54,7 +54,7 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(CALF_BELLY), STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
 
         //Winnowing recipes
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS), new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()), 100);
+        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()), 100);
 
         //Furnace recipes
         GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(COOKED_FISH, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);

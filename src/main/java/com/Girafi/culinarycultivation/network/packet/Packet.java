@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.network.packet;
+package com.girafi.culinarycultivation.network.packet;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;

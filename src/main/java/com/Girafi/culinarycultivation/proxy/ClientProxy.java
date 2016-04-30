@@ -1,13 +1,13 @@
-package com.Girafi.culinarycultivation.proxy;
+package com.girafi.culinarycultivation.proxy;
 
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.init.ModItems;
-import com.Girafi.culinarycultivation.item.ItemStorageJar;
-import com.Girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
-import com.Girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
-import com.Girafi.culinarycultivation.modSupport.ModSupport;
-import com.Girafi.culinarycultivation.util.reference.Paths;
-import com.Girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemStorageJar;
+import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
+import com.girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
+import com.girafi.culinarycultivation.modsupport.ModSupport;
+import com.girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

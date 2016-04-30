@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.client.gui;
+package com.girafi.culinarycultivation.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

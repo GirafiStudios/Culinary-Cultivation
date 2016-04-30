@@ -1,11 +1,11 @@
-package com.Girafi.culinarycultivation.block.tileentity;
+package com.girafi.culinarycultivation.block.tileentity;
 
-import com.Girafi.culinarycultivation.api.CulinaryCultivationAPI;
-import com.Girafi.culinarycultivation.api.IWinnowingMachineRecipe;
-import com.Girafi.culinarycultivation.block.BlockFanHousing;
-import com.Girafi.culinarycultivation.block.BlockSeparator;
-import com.Girafi.culinarycultivation.init.ModBlocks;
-import com.Girafi.culinarycultivation.util.InventoryHandlerHelper;
+import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
+import com.girafi.culinarycultivation.api.IWinnowingMachineRecipe;
+import com.girafi.culinarycultivation.block.BlockFanHousing;
+import com.girafi.culinarycultivation.block.BlockSeparator;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;

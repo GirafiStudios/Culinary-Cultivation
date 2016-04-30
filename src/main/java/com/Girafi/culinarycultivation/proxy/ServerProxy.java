@@ -1,4 +1,4 @@
-package com.Girafi.culinarycultivation.proxy;
+package com.girafi.culinarycultivation.proxy;
 
 public class ServerProxy extends CommonProxy {
 
