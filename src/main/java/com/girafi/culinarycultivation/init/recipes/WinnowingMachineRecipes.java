@@ -1,7 +1,7 @@
 package com.girafi.culinarycultivation.init.recipes;
 
-import com.girafi.culinarycultivation.api.IWinnowingMachineHandler;
-import com.girafi.culinarycultivation.api.IWinnowingMachineRecipe;
+import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineHandler;
+import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineRecipe;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

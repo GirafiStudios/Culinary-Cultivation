@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 
+import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
@@ -7,7 +8,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -16,17 +16,15 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.util.EnumHelper;
 
 import java.util.List;
 import java.util.Locale;
 
 public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     private final String armorPieceName;
-    public static ArmorMaterial farmerArmorMaterial = EnumHelper.addArmorMaterial("farmerArmor", "farmerArmor", 9, new int[]{1, 2, 3, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC);
 
     public ItemFarmerArmor(EntityEquipmentSlot equipmentSlot, String name) {
-        this(equipmentSlot, name, farmerArmorMaterial);
+        this(equipmentSlot, name, CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL);
     }
 
     private ItemFarmerArmor(EntityEquipmentSlot equipmentSlot, String name, ArmorMaterial mat) {
@@ -134,7 +132,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     @Override
     public boolean hasColor(ItemStack stack) {
-        return ((ItemFarmerArmor) stack.getItem()).getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && (stack.hasTagCompound() && (stack.getTagCompound().hasKey("display", 10) && stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
+        return ((ItemFarmerArmor) stack.getItem()).getArmorMaterial() == CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL && (stack.hasTagCompound() && (stack.getTagCompound().hasKey("display", 10) && stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
     }
 
     @Override

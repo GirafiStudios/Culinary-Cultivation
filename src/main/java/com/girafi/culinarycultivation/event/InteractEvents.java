@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.event;
 
+import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
@@ -132,7 +133,7 @@ public class InteractEvents {
             if (heldItem != null && heldItem.getItem() instanceof ItemFarmerArmor && iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock() == Blocks.CAULDRON) {
                 int i = iEvent.getWorld().getBlockState(iEvent.getPos()).getValue(BlockCauldron.LEVEL);
                 ItemFarmerArmor farmerArmor = (ItemFarmerArmor) heldItem.getItem();
-                if (farmerArmor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && farmerArmor.hasColor(heldItem) && i > 0 && !iEvent.getWorld().isRemote) {
+                if (farmerArmor.getArmorMaterial() == CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL && farmerArmor.hasColor(heldItem) && i > 0 && !iEvent.getWorld().isRemote) {
                     farmerArmor.removeColor(heldItem);
                     this.setWaterLevel(iEvent.getWorld(), iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()), i - 1);
                     iEvent.getEntityPlayer().addStat(StatList.ARMOR_CLEANED);

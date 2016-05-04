@@ -1,10 +1,10 @@
 package com.girafi.culinarycultivation.block;
 
+import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
-import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -358,7 +358,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 } else {
                     if (level > 0 && level <= 3 && item instanceof ItemArmor) {
                         ItemArmor armor = (ItemArmor) item;
-                        if (armor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && armor.hasColor(heldItem) || armor.getArmorMaterial() == ItemFarmerArmor.farmerArmorMaterial && armor.hasColor(heldItem)) {
+                        if (armor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && armor.hasColor(heldItem) || armor.getArmorMaterial() == CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL && armor.hasColor(heldItem)) {
                             armor.removeColor(heldItem);
                             player.addStat(StatList.ARMOR_CLEANED);
                             setWaterLevel(world, pos, state, level - 1);

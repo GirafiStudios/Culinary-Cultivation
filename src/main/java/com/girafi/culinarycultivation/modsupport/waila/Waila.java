@@ -2,6 +2,7 @@ package com.girafi.culinarycultivation.modsupport.waila;
 
 import com.girafi.culinarycultivation.block.BlockDoubleCrop;
 import com.girafi.culinarycultivation.modsupport.IModSupport;
+import com.girafi.culinarycultivation.util.reference.SupportedModIDs;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
@@ -12,7 +13,7 @@ public class Waila implements IModSupport {
 
     @Override
     public void init() {
-        FMLInterModComms.sendMessage("Waila", "register", "com.Girafi.culinarycultivation.modSupport.waila.Waila.callbackRegister");
+        FMLInterModComms.sendMessage(SupportedModIDs.WAILA, "register", "com.girafi.culinarycultivation.modsupport.waila.Waila.callbackRegister");
     }
 
     @Override

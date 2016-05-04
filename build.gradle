@@ -37,6 +37,7 @@ minecraft {
 
     replace "@VERSION@", project.mod_version
     replaceIn "Reference.java"
+	replaceIn "package-info.java"
 }
 
 dependencies {

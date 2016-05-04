@@ -1,7 +1,7 @@
 package com.girafi.culinarycultivation.block.tileentity;
 
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
-import com.girafi.culinarycultivation.api.IWinnowingMachineRecipe;
+import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineRecipe;
 import com.girafi.culinarycultivation.block.BlockFanHousing;
 import com.girafi.culinarycultivation.block.BlockSeparator;
 import com.girafi.culinarycultivation.init.ModBlocks;
@@ -42,7 +42,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
 
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
-        return new int[] { 0 };
+        return new int[]{0};
     }
 
     @Override
@@ -77,7 +77,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     public void update() {
         if (!worldObj.isRemote) {
             if (isMultiblockFormed) {
-                if (worldObj.getTotalWorldTime() %8 == 0) {
+                if (worldObj.getTotalWorldTime() % 8 == 0) {
                     //Pull from Chest
                     if (!inputItems()) { //If there is a block above or it is full, don't try to pickup items
                         pickupItems();
@@ -93,7 +93,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
         if (inventory != null && inventory.getSizeInventory() > 0) {
             if (inventory instanceof ISidedInventory) {
                 int[] slots = ((ISidedInventory) inventory).getSlotsForFace(EnumFacing.DOWN);
-                for (int i: slots) {
+                for (int i : slots) {
                     if (((ISidedInventory) inventory).canExtractItem(i, inventory.getStackInSlot(i), EnumFacing.DOWN)) {
                         if (removeFromAbove(inventory, i)) {
                             return true;
@@ -136,9 +136,9 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 timer = 0;
 
                 IWinnowingMachineRecipe recipe = CulinaryCultivationAPI.winnowing.getProcessingResult(input);
-                if (recipe != null){
+                if (recipe != null) {
                     IBlockState state = worldObj.getBlockState(getPos());
-                    ItemStack output = getWorld().rand.nextInt(100) < recipe.getOutputChance() ? recipe.getOutput(): null;
+                    ItemStack output = getWorld().rand.nextInt(100) < recipe.getOutputChance() ? recipe.getOutput() : null;
                     ItemStack junk = getWorld().rand.nextInt(100) < recipe.getJunkChance() ? recipe.getJunk() : null;
                     EnumFacing facing = state.getValue(BlockFanHousing.FACING);
                     if (output != null) outputItems(output, getPos(), facing);
@@ -170,10 +170,10 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
         if (tileEntity instanceof IInventory) {
             Block block = tileEntity.getBlockType();
             if (tileEntity instanceof TileEntityChest && block instanceof BlockChest) {
-                return ((BlockChest)block).getLockableContainer(worldObj, tileEntity.getPos());
+                return ((BlockChest) block).getLockableContainer(worldObj, tileEntity.getPos());
             }
 
-            return ((IInventory)tileEntity);
+            return ((IInventory) tileEntity);
         }
 
         return null;
@@ -187,8 +187,8 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 clone.stackSize = stack.stackSize - 1;
                 if (clone.stackSize <= 0) clone = null;
                 inventory.setInventorySlotContents(slot, clone);
-                int stackSize = this.inventory[0] == null ? 1: this.inventory[0].stackSize + 1;
-                setInventorySlotContents(0, new ItemStack(stack.getItem(), stackSize , stack.getItemDamage()));
+                int stackSize = this.inventory[0] == null ? 1 : this.inventory[0].stackSize + 1;
+                setInventorySlotContents(0, new ItemStack(stack.getItem(), stackSize, stack.getItemDamage()));
                 return true;
             }
         }

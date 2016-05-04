@@ -1,4 +1,4 @@
-package com.girafi.culinarycultivation.api;
+package com.girafi.culinarycultivation.api.crafting;
 
 import net.minecraft.item.ItemStack;
 

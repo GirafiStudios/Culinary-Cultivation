@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.init.recipes;
 
+import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.google.common.collect.Lists;
@@ -27,7 +28,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                 if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     ItemFarmerArmor armor = (ItemFarmerArmor) craftingStack.getItem();
 
-                    if (armor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial || stack != null) {
+                    if (armor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || stack != null) {
                         return false;
                     }
 
@@ -59,7 +60,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                 if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     farmerArmor = (ItemFarmerArmor) craftingStack.getItem();
 
-                    if (farmerArmor.getArmorMaterial() != ItemFarmerArmor.farmerArmorMaterial || stack != null) {
+                    if (farmerArmor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || stack != null) {
                         return null;
                     }
 
