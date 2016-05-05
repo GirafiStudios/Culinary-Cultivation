@@ -1,30 +1,36 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
-import com.girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.modsupport.jei.JEIPlugin;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.*;
+import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.api.gui.IGuiItemStackGroup;
+import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
+import javax.annotation.Nonnull;
+
 public class WinnowingRecipeCategory extends BlankRecipeCategory {
-    private final ICraftingGridHelper craftingGridHelper;
+    protected static final int inputSlot = 0;
+    protected static final int outputSlot = 1;
+    protected static final int junkSlot = 2;
     private final IDrawableStatic background;
 
     public WinnowingRecipeCategory(IGuiHelper guiHelper) {
-        craftingGridHelper = guiHelper.createCraftingGridHelper(1, 0);
-        background = guiHelper.createDrawable(new ResourceLocation("textures/gui/container/crafting_table.png"), 29, 16, 116, 54);
+        background = guiHelper.createDrawable(new ResourceLocation("culinarycultivation:textures/gui/winnow.png"), 19, 13, 137, 54);
     }
 
     @Override
     public String getUid() {
-        return Reference.MOD_ID + "." + "winnowing";
+        return JEIPlugin.WINNOWING;
     }
 
     @Override
     public String getTitle() {
-        return I18n.translateToLocal(Reference.MOD_ID + "." + "winnowing");
+        return I18n.translateToLocal(getUid());
     }
 
     @Override
@@ -32,22 +38,19 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory {
         return background;
     }
 
-    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper) {
+
+    //MINUS WHAT
+    //14, 8
+    @Override
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
-        guiItemStacks.init(0, false, 94, 18);
+        guiItemStacks.init(inputSlot, true, 4, 21);
+        guiItemStacks.init(outputSlot, false, 94, 21);
+        guiItemStacks.init(junkSlot, false, 119, 25);
 
-        for (int y = 0; y < 3; ++y) {
-            for (int x = 0; x < 3; ++x) {
-                int index = 1 + x + (y * 3);
-                guiItemStacks.init(index, true, x * 18, y * 18);
-            }
-        }
-
-        if (recipeWrapper instanceof WinnowingRecipeWrapper) {
-            WinnowingRecipeWrapper wrapper = (WinnowingRecipeWrapper) recipeWrapper;
-            craftingGridHelper.setInput(guiItemStacks, wrapper.getInputs());
-            craftingGridHelper.setOutput(guiItemStacks, wrapper.getOutputs());
-        }
+        guiItemStacks.setFromRecipe(inputSlot, recipeWrapper.getInputs());
+        guiItemStacks.setFromRecipe(outputSlot, recipeWrapper.getOutputs().get(0));
+        guiItemStacks.setFromRecipe(junkSlot, recipeWrapper.getOutputs().get(1));
     }
 }

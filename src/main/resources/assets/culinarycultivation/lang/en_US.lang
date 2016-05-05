@@ -93,3 +93,6 @@ itemGroup.culinarycultivation=Culinary Cultivation
 culinarycultivation.armorset.farmer.desc=(1/4) Set : 2% less exhaustion (WIP)
 culinarycultivation.armorset.farmer.descFull=(4/4) Set : 15% less exhaustion (WIP)
 culinarycultivation.armorset.farmer.name=&6Farmer Armor
+
+#Jei
+culinarycultivation.winnowing=Winnowing Machine
