@@ -58,6 +58,8 @@ public class Recipes {
 
         //Winnowing recipes
         CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()), 100);
+        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Items.WHEAT, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.WHEAT_SEEDS), 65);
+        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Items.BEETROOT, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.BEETROOT_SEEDS), 70);
 
         //Furnace recipes
         GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(COOKED_FISH, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);
