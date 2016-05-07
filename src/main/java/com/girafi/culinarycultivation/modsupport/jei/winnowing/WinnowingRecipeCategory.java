@@ -11,8 +11,6 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-import javax.annotation.Nonnull;
-
 public class WinnowingRecipeCategory extends BlankRecipeCategory {
     protected static final int inputSlot = 0;
     protected static final int outputSlot = 1;
@@ -42,7 +40,7 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory {
     //MINUS WHAT
     //14, 8
     @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+    public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper) {
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
         guiItemStacks.init(inputSlot, true, 4, 21);

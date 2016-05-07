@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin extends BlankModPlugin {
-    public static final String WINNOWING = Reference.MOD_ID.toLowerCase() + "." + "winnowing";
+    public static final String WINNOWING = Reference.MOD_ID + "." + "winnowing";
 
     @Override
     public void register(IModRegistry registry) {
@@ -24,7 +24,7 @@ public class JEIPlugin extends BlankModPlugin {
         registry.addRecipes(WinnowingRecipeHandler.getRecipes());
     }
 
-    public void addBlacklist(IModRegistry registry) {
+    private void addBlacklist(IModRegistry registry) {
         IItemBlacklist blacklist = registry.getJeiHelpers().getItemBlacklist();
 
         blacklist.addItemToBlacklist(new ItemStack(ModBlocks.BLACK_PEPPER));

@@ -18,7 +18,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.ISpecialArmor;
 
 import java.util.List;
-import java.util.Locale;
 
 public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     private final String armorPieceName;
@@ -65,7 +64,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
             }
             addArmorStatsDesc(list);
         } else
-            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".misc.shift"), list);
+            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".misc.shift"), list);
     }
 
     private void addStringToTooltip(String s, List<String> tooltip) {
@@ -117,7 +116,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     private String getArmorSetName() {
-        return I18n.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".armorset.farmer.name");
+        return I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.name");
     }
 
     private String getArmorSetTitle(EntityPlayer player) {
@@ -126,8 +125,8 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     private void addArmorStatsDesc(List<String> list) {
         addStringToTooltip("", list);
-        addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".armorset.farmer.desc"), list);
-        addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID.toLowerCase(Locale.US) + ".armorset.farmer.descFull"), list);
+        addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.desc"), list);
+        addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.descFull"), list);
     }
 
     @Override

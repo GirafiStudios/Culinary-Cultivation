@@ -24,8 +24,8 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
         ModSupport.instance().clientSide();
         OBJLoader.INSTANCE.addDomain(Reference.MOD_ID);
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.FAN_HOUSING), 0, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + "fanHousing", "inventory"));
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.SEPARATOR), 0, new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + "separator", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.FAN_HOUSING), 0, new ModelResourceLocation(Reference.MOD_ID + ":" + "fanHousing", "inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.SEPARATOR), 0, new ModelResourceLocation(Reference.MOD_ID + ":" + "separator", "inventory"));
         for (int i = 0; i <= ItemDebugItem.getModeName(i).length() + 1; i++) {
             ModelLoader.setCustomModelResourceLocation(ModItems.DEBUG_ITEM, i, new ModelResourceLocation(Paths.MOD_ASSETS + "debugItem" + WordUtils.capitalize(ItemDebugItem.getModeName(i)), "inventory"));
         }

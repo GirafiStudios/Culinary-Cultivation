@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 
-import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +21,7 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
     private String chanceNormal = "";
     private String chanceJunk = "";
 
-    public WinnowingRecipeWrapper(@Nonnull Pair<Item, Integer> input, IWinnowingMachineRecipe recipe) {
+    public WinnowingRecipeWrapper(Pair<Item, Integer> input, IWinnowingMachineRecipe recipe) {
         Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> map = CulinaryCultivationAPI.winnowing.getProcessingList();
         this.inputs = Collections.singletonList(new ItemStack(input.getKey(), 1, input.getValue()));
         this.outputs = new ArrayList<ItemStack>();
@@ -48,7 +47,7 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
     }
 
     @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+    public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         if (chanceNormal != null && !chanceNormal.equals("")) {
             FontRenderer fontRendererObj = minecraft.fontRendererObj;
             int stringWidth = fontRendererObj.getStringWidth(chanceNormal);
@@ -60,5 +59,4 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
             int stringWidth = fontRendererObj.getStringWidth(chanceNormal);
             fontRendererObj.drawString(chanceJunk, recipeWidth - 16, 16, Color.gray.getRGB());
         }
-    }
-}
+    }}

@@ -24,9 +24,9 @@ public class GuiCulinaryCultivationConfig extends GuiConfig {
         List<IConfigElement> rightClickHarvesting = new ConfigElement(ConfigurationHandler.config.getCategory(ConfigurationHandler.CATEGORY_RIGHT_CLICK_HARVESTING)).getChildElements();
 
 
-        list.add(new DummyConfigElement.DummyCategoryElement("Mob Drops", Reference.MOD_ID.toLowerCase() + ".config.category.mobDrops", mobDrops));
-        list.add(new DummyConfigElement.DummyCategoryElement("Mod Support", Reference.MOD_ID.toLowerCase() + ".config.category.modSupport", modSupport));
-        list.add(new DummyConfigElement.DummyCategoryElement("Right Click Harvesting", Reference.MOD_ID.toLowerCase() + ".config.category.rightClickHarvesting", rightClickHarvesting));
+        list.add(new DummyConfigElement.DummyCategoryElement("Mob Drops", Reference.MOD_ID + ".config.category.mobDrops", mobDrops));
+        list.add(new DummyConfigElement.DummyCategoryElement("Mod Support", Reference.MOD_ID + ".config.category.modSupport", modSupport));
+        list.add(new DummyConfigElement.DummyCategoryElement("Right Click Harvesting", Reference.MOD_ID + ".config.category.rightClickHarvesting", rightClickHarvesting));
 
         return list;
     }

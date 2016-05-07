@@ -55,7 +55,7 @@ public class ModSupport {
             try {
                 modSupport.preInit();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " in PreInit");
+                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in PreInit");
                 e.printStackTrace();
             }
         }
@@ -66,7 +66,7 @@ public class ModSupport {
             try {
                 modSupport.init();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " in Init");
+                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in Init");
                 e.printStackTrace();
             }
         }
@@ -77,7 +77,7 @@ public class ModSupport {
             try {
                 modSupport.postInit();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " in PostInit");
+                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in PostInit");
                 e.printStackTrace();
             }
         }
@@ -88,7 +88,7 @@ public class ModSupport {
             try {
                 modSupport.clientSide();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME_ + "could not load mod support content from " + modSupport.getClass() + " on client side!");
+                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " on client side!");
                 e.printStackTrace();
             }
         }

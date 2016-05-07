@@ -27,7 +27,7 @@ if (System.getenv().BUILD_NUMBER) {
 }
 
 version = "${minecraft_version}-${mod_version}${buildnumber}"
-group = "com.Girafi.CulinaryCultivation"
+group = "com.girafi.culinarycultivation"
 archivesBaseName = "CulinaryCultivation"
 
 minecraft {

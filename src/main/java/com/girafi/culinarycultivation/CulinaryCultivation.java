@@ -36,7 +36,7 @@ public class CulinaryCultivation {
         proxy.preInit();
         Recipes.initHandlers();
         ModSupport.instance().preInit();
-        LogHelper.info(Reference.MOD_NAME_ + "Pre Initialization Complete.");
+        LogHelper.info(Reference.MOD_NAME + " Pre Initialization Complete.");
     }
 
     @Mod.EventHandler
@@ -46,12 +46,12 @@ public class CulinaryCultivation {
         OreDictionaryRegistration.init();
         proxy.postInit();
         ModSupport.instance().init();
-        LogHelper.info(Reference.MOD_NAME_ + "Initialization Complete.");
+        LogHelper.info(Reference.MOD_NAME + " Initialization Complete.");
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         ModSupport.instance().postInit();
-        LogHelper.info(Reference.MOD_NAME_ + "Post Initialization Complete.");
+        LogHelper.info(Reference.MOD_NAME + " Post Initialization Complete.");
     }
 }
