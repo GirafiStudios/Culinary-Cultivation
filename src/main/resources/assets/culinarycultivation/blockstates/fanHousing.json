@@ -1,9 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "textures": {},
-    "custom": { "flip-v": true },
-    "model": "culinarycultivation:fanHousing.obj"
+    "model": "culinarycultivation:fan_housing"
   },
   "variants": {
     "normal": [{}],
@@ -11,10 +9,10 @@
       "transform": "forge:default-block"
     }],
     "facing": {
-      "north": { "transform": { "translation": [-0.5, 1.5, -0.5], "rotation": {"y": 180} } },
-      "south": { "transform": { "translation": [0.5, 1.5, 0.5] } },
-      "west": { "transform": { "translation": [-0.5, 1.5, 0.5], "rotation": {"y": 270} } },
-      "east": { "transform": { "translation": [0.5, 1.5, -0.5], "rotation": {"y": 90} } }
+      "north": { "transform": {} },
+      "south": { "transform": { "rotation": { "y": 180} } },
+      "west": { "transform": { "rotation": { "y": 90} } },
+      "east": { "transform": { "rotation": { "y": 270} } }
     }
   }
 }

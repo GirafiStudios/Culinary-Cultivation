@@ -16,8 +16,7 @@ import java.util.Map;
  * This class is highly inspired from PneumaticCrafts ThirdPartyManager. Credits to MineMaarten for letting me use this. PneumaticCraft repo: https://github.com/MineMaarten/PneumaticCraft
  */
 public class ModSupport {
-
-    private static ModSupport INSTANCE = new ModSupport();
+    private static final ModSupport INSTANCE = new ModSupport();
     private final List<IModSupport> modSupportMods = new ArrayList<IModSupport>();
 
     public static ModSupport instance() {
