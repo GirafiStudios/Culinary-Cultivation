@@ -105,12 +105,12 @@ public class ItemLargeHoe extends ItemHoe {
             this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
         }
         if (this.getMaterialName().equals("IRON")) {
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY(), -1), newState);
+            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY(), -1), newState);
             this.setBlock(stack, player, world, pos, newState);
             this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
             this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
             this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
-            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY(), 2), newState);
-            this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY(), 2), newState);
         }
         if (this.getMaterialName().equals("GOLD") || this.getMaterialName().equals("DIAMOND")) {
             for (int x = -1; x <= 1; x++) {
