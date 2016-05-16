@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.init;
 
+import com.girafi.culinarycultivation.event.FishingLootEvent;
 import com.girafi.culinarycultivation.event.MobDropEvent;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import net.minecraft.entity.passive.*;
@@ -33,6 +34,7 @@ public class Events {
         register(new CauldronTransformation());
         register(new DebugItemEvent());
         register(new StorageJarMilkFill());
+        register(new FishingLootEvent());
     }
 
     public static void register(Object eventClass) {
