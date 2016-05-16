@@ -1,0 +1,82 @@
+{
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "culinarycultivation:fish",
+          "entryName": "fish_mackerel",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            }
+          ],
+          "weight": 48
+        },
+        {
+          "type": "item",
+          "name": "culinarycultivation:fish",
+          "entryName": "fish_tuna",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 1
+            }
+          ],
+          "weight": 40
+        },
+        {
+          "type": "item",
+          "name": "culinarycultivation:fish",
+          "entryName": "fish_trout",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 2
+            }
+          ],
+          "weight": 25
+        },
+        {
+          "type": "item",
+          "name": "culinarycultivation:fish",
+          "entryName": "fish_herring",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 3
+            }
+          ],
+          "weight": 30
+        },
+        {
+          "type": "item",
+          "name": "culinarycultivation:fish",
+          "entryName": "fish_plaice",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 4
+            }
+          ],
+          "weight": 18
+        },
+        {
+          "type": "item",
+          "name": "culinarycultivation:fish",
+          "entryName": "fish_squid",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 5
+            }
+          ],
+          "weight": 11
+        }
+      ]
+    }
+  ]
+}
