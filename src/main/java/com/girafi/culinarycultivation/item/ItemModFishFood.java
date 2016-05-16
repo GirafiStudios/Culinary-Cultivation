@@ -90,7 +90,7 @@ public class ItemModFishFood extends ItemFood {
         TROUT(2, "trout", 2, 0.1F, 6, 0.4F),
         HERRING(3, "herring", 2, 0.1F, 6, 0.4F),
         PLAICE(4, "plaice", 2, 0.2F, 4, 0.6F),
-        SMALLSQUID(5, "smallSquid", 2, 0.3F),
+        SMALL_SQUID(5, "small_squid", 2, 0.3F),
         CLOWNFISH(6, "clownfish", 0.2F, 3),
         FILLET(7, "fillet", 2, 0.3F, 5, 0.6F);
         private static final Map<Integer, FishType> META_LOOKUP = Maps.newHashMap();

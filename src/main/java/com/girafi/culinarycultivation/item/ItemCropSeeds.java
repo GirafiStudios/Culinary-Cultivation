@@ -65,7 +65,7 @@ public class ItemCropSeeds extends Item implements IPlantable {
     }
 
     public enum SeedType {
-        BLACKPEPPERDRUPE(0, "blackPepperDrupe", ModBlocks.BLACK_PEPPER);
+        BLACK_PEPPER_DRUPE(0, "black_pepper_drupe", ModBlocks.BLACK_PEPPER);
 
         private static final Map<Integer, SeedType> META_LOOKUP = Maps.newHashMap();
         private final int meta;
@@ -88,11 +88,11 @@ public class ItemCropSeeds extends Item implements IPlantable {
 
         public static SeedType byMetadata(int meta) {
             SeedType seedType = META_LOOKUP.get(meta);
-            return seedType == null ? BLACKPEPPERDRUPE : seedType;
+            return seedType == null ? BLACK_PEPPER_DRUPE : seedType;
         }
 
         public static SeedType byItemStack(ItemStack stack) {
-            return stack.getItem() instanceof ItemCropSeeds ? byMetadata(stack.getMetadata()) : BLACKPEPPERDRUPE;
+            return stack.getItem() instanceof ItemCropSeeds ? byMetadata(stack.getMetadata()) : BLACK_PEPPER_DRUPE;
         }
 
         static {

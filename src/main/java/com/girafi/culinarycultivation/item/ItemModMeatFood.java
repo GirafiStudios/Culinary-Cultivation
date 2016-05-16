@@ -21,7 +21,7 @@ public class ItemModMeatFood extends ItemFood {
     private final boolean cooked;
 
     public ItemModMeatFood(boolean cooked) {
-        super(0, 0.0F, true); //TODO Fix what Food wolves can eat
+        super(0, 0.0F, true);
         this.cooked = cooked;
     }
 
@@ -49,11 +49,11 @@ public class ItemModMeatFood extends ItemFood {
         double potionEffectProbability = (float) Math.random();
 
         if (potionEffectProbability <= 0.3F) {
-            if (meatType == MeatType.CHICKENWING && stack.getItem() == ModItems.MEAT) {
+            if (meatType == MeatType.CHICKEN_WING && stack.getItem() == ModItems.MEAT) {
                 player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 440)); //22 seconds
             } else if (meatType == MeatType.DRUMSTICK && stack.getItem() == ModItems.MEAT) {
                 player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 320)); //16 seconds
-            } else if (meatType == MeatType.CHICKENNUGGET && stack.getItem() == ModItems.MEAT) {
+            } else if (meatType == MeatType.CHICKEN_NUGGET && stack.getItem() == ModItems.MEAT) {
                 player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 160)); //8 seconds
             }
         }
@@ -87,20 +87,20 @@ public class ItemModMeatFood extends ItemFood {
 
     public enum MeatType {
         LAMB(0, "lamb", 2, 0.3F, 5, 1.1F),
-        LEGSHEEP(1, "legSheep", 2, 0.3F, 7, 0.6F),
+        LEG_SHEEP(1, "leg_sheep", 2, 0.3F, 7, 0.6F),
         VEAL(2, "veal", 2, 0.3F, 6, 1.0F),
         ROAST(3, "roast", 3, 0.3F, 8, 0.8F),
-        RIBSBEEF(4, "ribsBeef", 3, 0.3F),
+        RIBS_BEEF(4, "ribs_beef", 3, 0.3F),
         RIBS(5, "ribs", 3, 0.3F, 7, 0.9F),
         HAM(6, "ham", 3, 0.3F, 8, 0.7F),
         BACON(7, "bacon", 1, 0.3F, 4, 0.6F),
         PATTY(8, "patty", 2, 0.3F, 6, 0.7F),
-        CHICKENWING(9, "chickenWing", 2, 0.3F, 5, 0.5F),
+        CHICKEN_WING(9, "chicken_wing", 2, 0.3F, 5, 0.5F),
         DRUMSTICK(10, "drumstick", 2, 0.3F, 5, 0.6F),
-        CHICKENNUGGET(11, "chickenNugget", 1, 0.3F, 3, 0.5F),
-        SQUIDTENTACLE(12, "squidTentacle", 2, 0.2F, 4, 0.4F),
-        SQUIDMANTLE(13, "squidMantle", 2, 0.3F, 5, 0.4F),
-        SQUIDRING(14, "squidRing", 1, 0.1F, 2, 0.2F);
+        CHICKEN_NUGGET(11, "chicken_nugget", 1, 0.3F, 3, 0.5F),
+        SQUID_TENTACLE(12, "squid_tentacle", 2, 0.2F, 4, 0.4F),
+        SQUID_MANTLE(13, "squid_mantle", 2, 0.3F, 5, 0.4F),
+        SQUID_RING(14, "squid_ring", 1, 0.1F, 2, 0.2F);
 
         private static final Map<Integer, MeatType> META_LOOKUP = Maps.newHashMap();
         private final int metaData;

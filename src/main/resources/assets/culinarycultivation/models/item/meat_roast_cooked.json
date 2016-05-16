@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "culinarycultivation:items/roastCooked"
+    "layer0": "culinarycultivation:items/roast_cooked"
   }
 }

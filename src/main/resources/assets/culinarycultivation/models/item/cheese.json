@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "culinarycultivation:items/cheeseWheel"
+    "layer0": "culinarycultivation:items/cheese_wheel"
   }
 }

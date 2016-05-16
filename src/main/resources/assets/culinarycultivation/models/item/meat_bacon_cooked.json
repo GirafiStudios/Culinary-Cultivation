@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "culinarycultivation:items/baconCooked"
+    "layer0": "culinarycultivation:items/bacon_cooked"
   }
 }

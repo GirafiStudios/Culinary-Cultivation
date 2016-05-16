@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "culinarycultivation:items/farmer_overalls",
+    "layer1": "culinarycultivation:items/farmer_overalls_overlay"
+  }
+}

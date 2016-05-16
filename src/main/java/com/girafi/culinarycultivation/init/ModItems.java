@@ -1,6 +1,6 @@
 package com.girafi.culinarycultivation.init;
 
-import com.girafi.culinarycultivation.creativetab.CreativeTab;
+import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.item.*;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerBoots;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOveralls;
@@ -59,37 +59,36 @@ public class ModItems {
     //public static final Item sausage = new SourceFood(0, 0.0F, true).setUnlocalizedName("sausage"));
 
     public static void init() {
-        registerItem(CHEESE_SLICE, "cheeseSlice");
-        registerItem(CAKE_PIECE, "pieceOfCake");
-        registerItem(CALF_BELLY, "calfBelly");
+        registerItem(CHEESE_SLICE, "cheese_slice");
+        registerItem(CAKE_PIECE, "cake_piece");
+        registerItem(CALF_BELLY, "calf_belly");
         registerItem(MEAT, "meat");
         registerItem(COOKED_MEAT, "cooked_meat");
         registerItem(FISH, "fish");
         registerItem(COOKED_FISH, "cooked_fish");
-        registerItem(CROP_FOOD, "cropFood");
-        registerItem(CROP_SEEDS, "cropSeeds");
-        registerItem(CHAFF_PILE, "pileOfChaff");
-        registerItem(STORAGE_JAR, "storageJar");
-        registerItem(TOOL_HANDLE, "toolHandle");
-        registerItem(KITCHEN_KNIFE, "kitchenKnife");
-        registerItem(CAKE_KNIFE, "cakeKnife");
-        registerItem(MEAT_CLEAVER, "meatCleaver");
-        registerItem(CANE_KNIFE, "caneKnife");
-        registerItem(WOODEN_HOE_LARGE, "wooden_hoeLarge");
-        registerItem(STONE_HOE_LARGE, "stone_hoeLarge");
-        registerItem(IRON_HOE_LARGE, "iron_hoeLarge");
-        registerItem(GOLDEN_HOE_LARGE, "golden_hoeLarge");
-        registerItem(DIAMOND_HOE_LARGE, "diamond_hoeLarge");
-        registerItem(DEBUG_ITEM, "debugItem");
-        registerItem(FARMER_STRAWHAT, "farmerStrawhat");
-        registerItem(FARMER_SHIRT, "farmerShirt");
-        registerItem(FARMER_OVERALLS, "farmerOveralls");
-        registerItem(FARMER_BOOTS, "farmerBoots");
-        Events.register(new ItemDebugItem());
+        registerItem(CROP_FOOD, "crop_food");
+        registerItem(CROP_SEEDS, "crop_seeds");
+        registerItem(CHAFF_PILE, "chaff_pile");
+        registerItem(STORAGE_JAR, "storage_jar");
+        registerItem(TOOL_HANDLE, "tool_handle");
+        registerItem(KITCHEN_KNIFE, "kitchen_knife");
+        registerItem(CAKE_KNIFE, "cake_knife");
+        registerItem(MEAT_CLEAVER, "meat_cleaver");
+        registerItem(CANE_KNIFE, "cane_knife");
+        registerItem(WOODEN_HOE_LARGE, "wooden_hoe_large");
+        registerItem(STONE_HOE_LARGE, "stone_hoe_large");
+        registerItem(IRON_HOE_LARGE, "iron_hoe_large");
+        registerItem(GOLDEN_HOE_LARGE, "golden_hoe_large");
+        registerItem(DIAMOND_HOE_LARGE, "diamond_hoe_large");
+        registerItem(DEBUG_ITEM, "debug_item");
+        registerItem(FARMER_STRAWHAT, "farmer_strawhat");
+        registerItem(FARMER_SHIRT, "farmer_shirt");
+        registerItem(FARMER_OVERALLS, "farmer_overalls");
+        registerItem(FARMER_BOOTS, "farmer_boots");
     }
-    
+
     private static Item registerItem(Item item, String name) {
-        return registerItem(item, name, CreativeTab.CulinaryCultivation_Tab);
+        return registerItem(item, name, CulinaryCultivation.TAB);
     }
 
     private static Item registerItem(Item item, String name, CreativeTabs tab) {

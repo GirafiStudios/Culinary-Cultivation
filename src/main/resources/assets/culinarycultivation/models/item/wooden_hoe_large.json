@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "culinarycultivation:items/wooden_hoe_large"
+  }
+}

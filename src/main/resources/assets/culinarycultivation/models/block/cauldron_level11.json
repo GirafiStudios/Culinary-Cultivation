@@ -6,7 +6,7 @@
         "bottom": "blocks/cauldron_bottom",
         "side": "blocks/cauldron_side",
         "inside": "blocks/cauldron_inner",
-        "cheeseMass": "culinarycultivation:blocks/cheeseMass_still"
+        "cheeseMass": "culinarycultivation:blocks/cheese_mass_still"
     },
     "elements": [
         {   "from": [ 0, 3, 0 ],

@@ -8,6 +8,8 @@ import com.girafi.culinarycultivation.proxy.CommonProxy;
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import com.girafi.culinarycultivation.util.LogHelper;
 import com.girafi.culinarycultivation.util.reference.Reference;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,6 +23,14 @@ public class CulinaryCultivation {
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_ClASS)
     public static CommonProxy proxy;
+
+
+    public static final CreativeTabs TAB = new CreativeTabs(Reference.MOD_ID) {
+        @Override
+        public Item getTabIconItem() {
+            return ModItems.MEAT_CLEAVER;
+        }
+    };
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

@@ -50,20 +50,20 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(FISH, 1, FishType.FILLET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), "filletFish"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 1, MeatType.PATTY.getMetaData()), new ItemStack(MEAT_CLEAVER, 1, OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 3, MeatType.BACON.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.PORKCHOP)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 2, MeatType.CHICKENNUGGET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.CHICKEN)));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 3, MeatType.SQUIDRING.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(MEAT, 1, MeatType.SQUIDMANTLE.getMetaData())));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 2, MeatType.SQUIDRING.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(FISH, 1, FishType.SMALLSQUID.getMetaData())));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 2, MeatType.CHICKEN_NUGGET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.CHICKEN)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 3, MeatType.SQUID_RING.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(MEAT, 1, MeatType.SQUID_MANTLE.getMetaData())));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 2, MeatType.SQUID_RING.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(FISH, 1, FishType.SMALL_SQUID.getMetaData())));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CAKE_PIECE, 7), new ItemStack(CAKE_KNIFE, 1, OreDictionary.WILDCARD_VALUE), Items.CAKE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CHEESE_SLICE, 7), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.CHEESE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
 
         //Winnowing recipes
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta()), new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()), 30);
+        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta()), new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACK_PEPPER_DRUPE.getMetadata()), 30);
         CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Items.WHEAT, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.WHEAT_SEEDS), 20, new ItemStack(ModItems.CHAFF_PILE), 90);
 
         //Furnace recipes
         GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(COOKED_FISH, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);
-        GameRegistry.addSmelting(new ItemStack(MEAT, 1, MeatType.RIBSBEEF.getMetaData()), new ItemStack(COOKED_MEAT, 1, MeatType.RIBS.getMetaData()), 0.35F);
+        GameRegistry.addSmelting(new ItemStack(MEAT, 1, MeatType.RIBS_BEEF.getMetaData()), new ItemStack(COOKED_MEAT, 1, MeatType.RIBS.getMetaData()), 0.35F);
 
         for (FishType fishtype : FishType.values()) {
             if (fishtype.isHaveCookedFish() && fishtype.isHaveRawFish()) {

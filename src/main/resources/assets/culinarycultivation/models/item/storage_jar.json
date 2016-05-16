@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "culinarycultivation:items/storage_jar_overlay",
+    "layer1": "culinarycultivation:items/storage_jar_default"
+  }
+}

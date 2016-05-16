@@ -14,7 +14,7 @@ public class OreDictionaryRegistration {
         for (FishType fishtype : FishType.values()) {
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getFishName()) + "Raw", new ItemStack(ModItems.FISH, 1, fishtype.getMetaData()));
             OreDictionary.registerOre("food" + WordUtils.capitalize(fishtype.getFishName()) + "Cooked", new ItemStack(ModItems.COOKED_FISH, 1, fishtype.getMetaData()));
-            if (fishtype.isHaveRawFish() && fishtype.getMetaData() != FishType.FILLET.getMetaData() && fishtype.getMetaData() != FishType.SMALLSQUID.getMetaData()) {
+            if (fishtype.isHaveRawFish() && fishtype.getMetaData() != FishType.FILLET.getMetaData() && fishtype.getMetaData() != FishType.SMALL_SQUID.getMetaData()) {
                 OreDictionary.registerOre("filletFish", new ItemStack(ModItems.FISH, 1, fishtype.getMetaData()));
                 OreDictionary.registerOre("fish", new ItemStack(ModItems.FISH, 1, fishtype.getMetaData()));
             }
@@ -28,7 +28,7 @@ public class OreDictionaryRegistration {
             OreDictionary.registerOre("food" + WordUtils.capitalize(meatType.getMeatName()) + "Cooked", new ItemStack(ModItems.COOKED_MEAT, 1, meatType.getMetaData()));
         }
 
-        OreDictionary.registerOre("foodRibsRaw", new ItemStack(ModItems.MEAT, 1, MeatType.RIBSBEEF.getMetaData()));
+        OreDictionary.registerOre("foodRibsRaw", new ItemStack(ModItems.MEAT, 1, MeatType.RIBS_BEEF.getMetaData()));
         OreDictionary.registerOre("foodRibsPorkRaw", new ItemStack(ModItems.MEAT, 1, MeatType.RIBS.getMetaData()));
 
         //Minced Meat recipe

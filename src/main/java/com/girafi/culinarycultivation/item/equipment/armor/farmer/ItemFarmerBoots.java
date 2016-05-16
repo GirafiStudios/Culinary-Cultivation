@@ -14,7 +14,7 @@ import java.util.Random;
 public class ItemFarmerBoots extends ItemFarmerArmor {
 
     public ItemFarmerBoots() {
-        super(EntityEquipmentSlot.FEET, "farmerArmorBoots");
+        super(EntityEquipmentSlot.FEET, "farmer_armor_boots");
     }
 
     @Override

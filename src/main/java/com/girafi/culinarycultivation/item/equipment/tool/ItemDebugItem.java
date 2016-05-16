@@ -32,7 +32,7 @@ public class ItemDebugItem extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName(stack) + "." + getModeName(stack.getItemDamage());
+        return super.getUnlocalizedName(stack) + "_" + getModeName(stack.getItemDamage());
     }
 
     public static String getModeName(int metadata) {
@@ -40,7 +40,7 @@ public class ItemDebugItem extends Item {
             case 1:
                 return "hunger";
             case 2:
-                return "hungerPlus";
+                return "hunger_plus";
             case 3:
                 return "fertilizer";
             case 4:

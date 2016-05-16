@@ -13,12 +13,12 @@ import static com.girafi.culinarycultivation.util.reference.Reference.MOD_ID;
 
 public class FishingLootEvent {
     private static final String FISHING = "gameplay/fishing/";
-    private static final String[] LOOT_TABLES = new String[] { FISHING + "fish", FISHING + "junk", FISHING + "treasure"};
+    private static final String[] LOOT_TABLES = new String[]{FISHING + "fish", FISHING + "junk", FISHING + "treasure"};
 
     @SubscribeEvent
     public void onLootLoading(LootTableLoadEvent event) {
         if (event.getName().getResourceDomain().equals("minecraft")) {
-            for (String table: LOOT_TABLES) {
+            for (String table : LOOT_TABLES) {
                 if (table.equals(event.getName().getResourcePath())) {
                     event.getTable().addPool(getPool(table));
                 }
@@ -27,7 +27,7 @@ public class FishingLootEvent {
     }
 
     private LootPool getPool(String entry) {
-        return new LootPool(new LootEntry[] { getEntry(entry, 1) }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), MOD_ID + "_pool");
+        return new LootPool(new LootEntry[]{getEntry(entry, 1)}, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), MOD_ID + "_pool");
     }
 
     private LootEntryTable getEntry(String name, int weight) {

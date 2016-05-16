@@ -5,6 +5,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 public class ItemFarmerShirt extends ItemFarmerArmor {
 
     public ItemFarmerShirt() {
-        super(EntityEquipmentSlot.CHEST, "farmerArmorShirt");
+        super(EntityEquipmentSlot.CHEST, "farmer_armor_shirt");
     }
 }

@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
-import org.apache.commons.lang3.text.WordUtils;
 
 public class ClientProxy extends CommonProxy {
 
@@ -21,7 +20,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
         ModSupport.instance().clientSide();
         for (int i = 0; i <= ItemDebugItem.getModeName(i).length() + 1; i++) {
-            ModelLoader.setCustomModelResourceLocation(ModItems.DEBUG_ITEM, i, new ModelResourceLocation(Paths.MOD_ASSETS + "debugItem" + WordUtils.capitalize(ItemDebugItem.getModeName(i)), "inventory"));
+            ModelLoader.setCustomModelResourceLocation(ModItems.DEBUG_ITEM, i, new ModelResourceLocation(ModItems.DEBUG_ITEM.getRegistryName() + "_" + ItemDebugItem.getModeName(i), "inventory"));
         }
     }
 
