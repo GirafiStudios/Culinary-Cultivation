@@ -29,7 +29,6 @@ public class CulinaryCultivation {
         ModSupport.instance().modSupportIndex();
         ModItems.init();
         ModBlocks.init();
-        ModItems.setup();
         ModBlocks.setup();
         Events.init();
         NetworkHandler.init();
