@@ -7,6 +7,7 @@ import com.girafi.culinarycultivation.item.ItemCropSeeds.SeedType;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,10 +21,10 @@ import static com.girafi.culinarycultivation.init.ModItems.*;
 public class Recipes {
     public static void initHandlers() {
         CulinaryCultivationAPI.winnowing = WinnowingMachineRecipes.instance();
+        GameRegistry.addRecipe(new RecipesFarmerArmorDyes());
     }
 
     public static void init() {
-        GameRegistry.addRecipe(new RecipesFarmerArmorDyes());
         //Machine recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.FAN_HOUSING), "PPP", "PRD", "I  ", 'P', "plankWood", 'R', "blockRedstone", 'D', Blocks.DISPENSER , 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.SEPARATOR), "PHP", "PBF", "  I", 'H', Blocks.HOPPER, 'P', "plankWood", 'B', Items.BOWL, 'F', Blocks.IRON_BARS, 'I', "ingotIron"));
@@ -32,7 +33,7 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(CANE_KNIFE), " II", " I ", " H ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(DIAMOND_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "gemDiamond"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_BOOTS), " B ", "LLL", 'B', Items.LEATHER_BOOTS, 'L', Items.LEATHER));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_OVERALLS), "S S", "#L#", 'S', Items.STRING, 'L', Items.LEATHER_LEGGINGS, '#', new ItemStack(Items.DYE, 1, 12)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_OVERALLS), "S S", "#L#", 'S', Items.STRING, 'L', Items.LEATHER_LEGGINGS, '#', "dyeLightBlue"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_SHIRT), "# #", "###", "###", '#', new ItemStack(Blocks.WOOL, 1, 14)));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_STRAWHAT), "SHS", "W W", 'W', Items.WHEAT, 'H', Blocks.HAY_BLOCK, 'S', Items.STRING));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GOLDEN_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "ingotGold"));
@@ -45,7 +46,7 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(WOODEN_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "plankWood"));
 
         //Food
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.CAKE), " C ", "CCC", "CCC", 'C', ModItems.CAKE_PIECE));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.CAKE), " C ", "CCC", "CCC", 'C', CAKE_PIECE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(FISH, 1, FishType.FILLET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), "filletFish"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 1, MeatType.PATTY.getMetaData()), new ItemStack(MEAT_CLEAVER, 1, OreDictionary.WILDCARD_VALUE), "foodMincedMeat"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 3, MeatType.BACON.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.PORKCHOP)));
@@ -54,12 +55,11 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 2, MeatType.SQUIDRING.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(FISH, 1, FishType.SMALLSQUID.getMetaData())));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CAKE_PIECE, 7), new ItemStack(CAKE_KNIFE, 1, OreDictionary.WILDCARD_VALUE), Items.CAKE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CHEESE_SLICE, 7), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.CHEESE));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(CALF_BELLY), STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
 
         //Winnowing recipes
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()), 100);
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Items.WHEAT, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.WHEAT_SEEDS), 65);
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Items.BEETROOT, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.BEETROOT_SEEDS), 70);
+        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta()), new ItemStack(ModItems.CROP_SEEDS, 1, SeedType.BLACKPEPPERDRUPE.getMetadata()), 30);
+        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Items.WHEAT, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.WHEAT_SEEDS), 20, new ItemStack(ModItems.CHAFF_PILE), 90);
 
         //Furnace recipes
         GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(COOKED_FISH, 1, FishType.CLOWNFISH.getMetaData()), 0.35F);

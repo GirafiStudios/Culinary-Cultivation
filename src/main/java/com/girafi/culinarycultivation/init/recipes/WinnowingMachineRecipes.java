@@ -35,7 +35,7 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
 
     @Override
     public void addRecipe(ItemStack input, ItemStack output, int outputChance) {
-        addRecipe(input, new WinnowingMachineRecipe(output, outputChance, new ItemStack(ModItems.CHAFF_PILE), 25));
+        addRecipe(input, new WinnowingMachineRecipe(output, outputChance, new ItemStack(ModItems.CHAFF_PILE), 10));
     }
 
     @Override
