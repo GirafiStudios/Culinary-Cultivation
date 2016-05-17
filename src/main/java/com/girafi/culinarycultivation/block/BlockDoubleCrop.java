@@ -73,9 +73,9 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         int age = state.getValue(AGE);
         if (age == 14 || age == 7) {
-            if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
+            if (ConfigurationHandler.canRightClickHarvestAllCulinaryCultivationCrops) {
                 this.rightClickHarvest(world, pos, state);
-            } else if (canRightClickHarvest && ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationDoubleCrops) {
+            } else if (canRightClickHarvest && ConfigurationHandler.canRightClickHarvestAllCulinaryCultivationDoubleCrops) {
                 this.rightClickHarvest(world, pos, state);
             }
         }

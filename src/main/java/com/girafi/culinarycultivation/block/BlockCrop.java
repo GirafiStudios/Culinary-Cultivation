@@ -48,9 +48,9 @@ public class BlockCrop extends BlockCrops {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (ConfigurationHandler.CanRightClickHarvestAllCulinaryCultivationCrops) {
+        if (ConfigurationHandler.canRightClickHarvestAllCulinaryCultivationCrops) {
             this.rightClickHarvest(world, pos, state);
-        } else if (canRightClickHarvest && ConfigurationHandler.CanRightClickHarvestCulinaryCultivationCrops) {
+        } else if (canRightClickHarvest && ConfigurationHandler.canRightClickHarvestCulinaryCultivationCrops) {
             this.rightClickHarvest(world, pos, state);
         }
         return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ);

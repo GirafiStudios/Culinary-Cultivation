@@ -9,10 +9,12 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
@@ -50,7 +52,8 @@ public class BlockFanHousing extends Block {
                 if (isFrontPowered(world, pos, state)) {
                     BlockPos right = pos.offset(state.getValue(FACING).rotateAround(Axis.Y).getOpposite());
                     if (world.getTileEntity(right) instanceof TileEntitySeparator) {
-                        ((TileEntitySeparator)world.getTileEntity(right)).onPowered();
+                        ((TileEntitySeparator) world.getTileEntity(right)).onPowered();
+                        world.playSound(null, pos, SoundEvents.ENTITY_MINECART_RIDING, SoundCategory.BLOCKS, 0.4F, 0.6F);
                     }
                 }
             }
@@ -67,7 +70,7 @@ public class BlockFanHousing extends Block {
         //Check for a block on the world
         BlockPos right = pos.offset(state.getValue(FACING).rotateAround(Axis.Y).getOpposite());
         if (world.getTileEntity(right) instanceof TileEntitySeparator) {
-            ((TileEntitySeparator)world.getTileEntity(right)).checkForFanHousing();
+            ((TileEntitySeparator) world.getTileEntity(right)).checkForFanHousing();
         }
     }
 
@@ -76,7 +79,7 @@ public class BlockFanHousing extends Block {
         //Check for a block on the world
         BlockPos right = pos.offset(state.getValue(FACING).rotateAround(Axis.Y).getOpposite());
         if (world.getTileEntity(right) instanceof TileEntitySeparator) {
-            ((TileEntitySeparator)world.getTileEntity(right)).checkForFanHousing();
+            ((TileEntitySeparator) world.getTileEntity(right)).checkForFanHousing();
         }
 
         super.breakBlock(world, pos, state);
@@ -87,7 +90,7 @@ public class BlockFanHousing extends Block {
         //Check for a block on the world
         BlockPos right = pos.offset(world.getBlockState(pos).getValue(FACING).rotateAround(Axis.Y).getOpposite());
         if (world.getTileEntity(right) instanceof TileEntitySeparator) {
-            ((TileEntitySeparator)world.getTileEntity(right)).checkForFanHousing();
+            ((TileEntitySeparator) world.getTileEntity(right)).checkForFanHousing();
         }
     }
 
