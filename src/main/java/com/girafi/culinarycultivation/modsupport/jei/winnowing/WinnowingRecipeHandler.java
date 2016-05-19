@@ -11,6 +11,7 @@ import mezz.jei.util.Log;
 import net.minecraft.item.Item;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,22 +29,25 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
     }
 
     @Override
+    @Nonnull
     public Class<WinnowingRecipeWrapper> getRecipeClass() {
         return WinnowingRecipeWrapper.class;
     }
 
     @Override
+    @Nonnull
     public String getRecipeCategoryUid() {
         return JEIPlugin.WINNOWING;
     }
 
     @Override
-    public IRecipeWrapper getRecipeWrapper(WinnowingRecipeWrapper recipe) {
+    @Nonnull
+    public IRecipeWrapper getRecipeWrapper(@Nonnull WinnowingRecipeWrapper recipe) {
         return recipe;
     }
 
     @Override
-    public boolean isRecipeValid(WinnowingRecipeWrapper recipe) {
+    public boolean isRecipeValid(@Nonnull WinnowingRecipeWrapper recipe) {
         if (recipe.getInputs().isEmpty()) {
             String recipeInfo = ErrorUtil.getInfoFromBrokenRecipe(recipe, this);
             Log.error("Recipe has no inputs. {}", recipeInfo);

@@ -19,7 +19,6 @@ public abstract  class Packet<REQ extends Packet<REQ>> implements IMessage, IMes
 
     @Override
     public REQ onMessage(REQ message, MessageContext ctx) {
-
         if (ctx.side == Side.SERVER) {
             if (message.getClass() == getClass())
                 message.handleServerSide(ctx.getServerHandler().playerEntity);
@@ -41,7 +40,6 @@ public abstract  class Packet<REQ extends Packet<REQ>> implements IMessage, IMes
 
     @Override
     public void fromBytes(ByteBuf buf) {
-
         try {
             ByteBufInputStream bbis = new ByteBufInputStream(buf);
             read(bbis);

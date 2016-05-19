@@ -25,6 +25,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileEntitySeparator extends TileEntityInventory implements ITickable, ISidedInventory {
@@ -69,7 +70,6 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 isMultiblockFormed = true;
             }
         }
-
         markDirty();
     }
 
@@ -85,6 +85,10 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 }
             }
         }
+        /*if (worldObj.isRemote) { //TODO Particle
+            EnumFacing facing = worldObj.getBlockState(pos).getValue(BlockSeparator.FACING).rotateY().getOpposite();
+            worldObj.playEvent(2000, pos, facing.getFrontOffsetX() + 1 + (facing.getFrontOffsetZ() + 1) * 3);
+        }*/
     }
 
     private boolean inputItems() {
@@ -108,7 +112,6 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 }
             }
         }
-
         return inventory != null;
     }
 
@@ -123,7 +126,9 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                     ItemStack ret = InventoryHandlerHelper.insertStackIntoInventory(this, stack, EnumFacing.UP);
                     if (ret == null || ret.stackSize <= 0) {
                         entityItem.setDead();
-                    } else entityItem.setEntityItemStack(ret);
+                    } else {
+                        entityItem.setEntityItemStack(ret);
+                    }
                 }
             }
         }
@@ -165,6 +170,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
         }
     }
 
+    @Nullable
     private IInventory getInventoryAbove() {
         TileEntity tileEntity = worldObj.getTileEntity(pos.up());
         if (tileEntity instanceof IInventory) {
@@ -172,14 +178,12 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
             if (tileEntity instanceof TileEntityChest && block instanceof BlockChest) {
                 return ((BlockChest) block).getLockableContainer(worldObj, tileEntity.getPos());
             }
-
             return ((IInventory) tileEntity);
         }
-
         return null;
     }
 
-    public boolean removeFromAbove(IInventory inventory, int slot) {
+    private boolean removeFromAbove(IInventory inventory, int slot) {
         ItemStack stack = inventory.getStackInSlot(slot);
         if (stack != null && (this.inventory[0] == null || stack.isItemEqual(this.inventory[0]))) {
             if (CulinaryCultivationAPI.winnowing.getProcessingResult(stack) != null) {
@@ -192,7 +196,6 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 return true;
             }
         }
-
         return false;
     }
 
@@ -211,9 +214,11 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setBoolean("IsMultiBlockFormed", isMultiblockFormed);
         compound.setInteger("Timer", timer);
+
+        return compound;
     }
 }

@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -42,7 +42,7 @@ minecraft {
 
 dependencies {
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
-    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${minecraft_version}"
+    //deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${minecraft_version}"
 }
 
 processResources {

@@ -15,6 +15,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
+import javax.annotation.Nullable;
+
 public class TileEntityInventory extends TileEntity implements IInventory {
     protected ItemStack[] inventory;
 
@@ -28,22 +30,25 @@ public class TileEntityInventory extends TileEntity implements IInventory {
     }
 
     @Override
+    @Nullable
     public ItemStack getStackInSlot(int index) {
         return this.inventory[index];
     }
 
     @Override
+    @Nullable
     public ItemStack decrStackSize(int index, int count) {
         return ItemStackHelper.getAndSplit(this.inventory, index, count);
     }
 
     @Override
+    @Nullable
     public ItemStack removeStackFromSlot(int index) {
         return ItemStackHelper.getAndRemove(this.inventory, index);
     }
 
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
         this.inventory[index] = stack;
 
         if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
@@ -118,7 +123,7 @@ public class TileEntityInventory extends TileEntity implements IInventory {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
         NBTTagList nbttaglist = new NBTTagList();
@@ -132,6 +137,8 @@ public class TileEntityInventory extends TileEntity implements IInventory {
         }
 
         compound.setTag("Items", nbttaglist);
+
+        return compound;
     }
 
     @Override

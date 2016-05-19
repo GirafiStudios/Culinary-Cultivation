@@ -7,14 +7,18 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class BlockSeparator extends SourceBlockTileEntity {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -42,7 +46,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntitySeparator();
     }
 
@@ -54,12 +58,12 @@ public class BlockSeparator extends SourceBlockTileEntity {
         }
     }
 
-    private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
-        if (!worldIn.isRemote) {
-            IBlockState stateNorth = worldIn.getBlockState(pos.north());
-            IBlockState stateSouth = worldIn.getBlockState(pos.south());
-            IBlockState stateWest = worldIn.getBlockState(pos.west());
-            IBlockState stateEast = worldIn.getBlockState(pos.east());
+    private void setDefaultFacing(World world, BlockPos pos, IBlockState state) {
+        if (!world.isRemote) {
+            IBlockState stateNorth = world.getBlockState(pos.north());
+            IBlockState stateSouth = world.getBlockState(pos.south());
+            IBlockState stateWest = world.getBlockState(pos.west());
+            IBlockState stateEast = world.getBlockState(pos.east());
             EnumFacing enumfacing = state.getValue(FACING);
 
             if (enumfacing == EnumFacing.NORTH && stateNorth.isFullBlock() && !stateSouth.isFullBlock()) {
@@ -71,8 +75,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
             } else if (enumfacing == EnumFacing.EAST && stateEast.isFullBlock() && !stateWest.isFullBlock()) {
                 enumfacing = EnumFacing.WEST;
             }
-
-            worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
+            world.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
         }
     }
 
@@ -87,14 +90,25 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        TileEntity tileentity = worldIn.getTileEntity(pos);
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (player.isSneaking()) {
+            TileEntity tileentity = world.getTileEntity(pos);
+            if (tileentity instanceof TileEntitySeparator) {
+                InventoryHelper.dropInventoryItems(world, pos.offset(state.getValue(FACING).rotateAround(EnumFacing.Axis.Y).getOpposite()), (TileEntitySeparator) tileentity);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        TileEntity tileentity = world.getTileEntity(pos);
 
         if (tileentity instanceof TileEntitySeparator) {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntitySeparator) tileentity);
+            InventoryHelper.dropInventoryItems(world, pos, (TileEntitySeparator) tileentity);
         }
-
-        super.breakBlock(worldIn, pos, state);
+        super.breakBlock(world, pos, state);
     }
 
     @Override

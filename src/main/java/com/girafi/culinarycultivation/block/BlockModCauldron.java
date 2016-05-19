@@ -5,6 +5,7 @@ import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -30,6 +31,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -42,7 +44,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     private static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
 
     public BlockModCauldron() {
-        super(Material.IRON);
+        super(Material.IRON, MapColor.STONE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LEVEL, 0));
         this.setHardness(2.0F);
     }
@@ -53,7 +55,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn) {
+    public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entity) {
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_LEGS);
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_WEST);
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_NORTH);
@@ -88,7 +90,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (state.getValue(LEVEL) == 13) {
             ItemStack cheese = new ItemStack(ModBlocks.CHEESE);
             if (!player.inventory.addItemStackToInventory(cheese)) {
@@ -418,6 +420,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
+    @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.CAULDRON;
     }

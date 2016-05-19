@@ -42,7 +42,7 @@ public class ItemCropFood extends ItemFood implements IPlantable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems) {
         for (CropType cropType : CropType.values()) {
             subItems.add(new ItemStack(this, 1, cropType.getMetadata()));
         }

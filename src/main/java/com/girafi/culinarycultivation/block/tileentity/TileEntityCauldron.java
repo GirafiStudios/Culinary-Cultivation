@@ -27,8 +27,10 @@ public class TileEntityCauldron extends TileEntity implements ITickable {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {
-        super.writeToNBT(tag);
-        tag.setInteger("timer", timer);
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setInteger("timer", timer);
+
+        return compound;
     }
 }

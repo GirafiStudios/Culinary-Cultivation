@@ -58,8 +58,8 @@ public class ItemModFishFood extends ItemFood {
         super.onFoodEaten(stack, world, player);
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> subItems) {
         for (FishType fishtype : FishType.values()) {
             if (!fishtype.isHaveRawFish() && this.cooked && fishtype.isHaveCookedFish()) {

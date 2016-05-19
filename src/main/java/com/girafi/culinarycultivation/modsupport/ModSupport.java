@@ -26,7 +26,7 @@ public class ModSupport {
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
         //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
-        modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
+        //modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
 
 
         List<String> enabledModSupport = new ArrayList<String>();

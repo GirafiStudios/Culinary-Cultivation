@@ -116,11 +116,10 @@ public class InteractEvents {
         public void cauldronTransformationEvent(PlayerInteractEvent.RightClickBlock iEvent) {
             ItemStack heldItem = iEvent.getEntityPlayer().getHeldItem(iEvent.getHand());
             if (heldItem != null) {
-                boolean nullCheck = heldItem.getItem() != null;
                 Block block = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock();
 
                 if (block == Blocks.CAULDRON) {
-                    if (nullCheck && heldItem.getItem() == ModItems.STORAGE_JAR || nullCheck && heldItem.getItem() == Items.MILK_BUCKET) {
+                    if (heldItem.getItem() == ModItems.STORAGE_JAR || heldItem.getItem() == Items.MILK_BUCKET) {
                         iEvent.getWorld().setBlockState(iEvent.getPos(), ModBlocks.CAULDRON.getDefaultState());
                     }
                 }
@@ -235,6 +234,27 @@ public class InteractEvents {
                             block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
                             world.setBlockToAir(pos.up());
                         }
+                    }
+                }
+            }
+        }
+
+        @SubscribeEvent
+        public void caneKnifeOnDoublePlants(BlockEvent.BreakEvent breakEvent) {
+            if (breakEvent.getPlayer().inventory.getCurrentItem() != null && breakEvent.getPlayer().inventory.getCurrentItem().getItem() instanceof ItemCaneKnife) {
+                World world = breakEvent.getWorld();
+                BlockPos pos = breakEvent.getPos();
+                IBlockState state = world.getBlockState(pos);
+                Block block = state.getBlock();
+                if (block instanceof BlockDoublePlant) {
+                    BlockDoublePlant.EnumPlantType type = world.getBlockState(pos).getValue(BlockDoublePlant.VARIANT);
+                    if (type == BlockDoublePlant.EnumPlantType.GRASS) {
+                        world.spawnEntityInWorld(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta())));
+                        world.setBlockToAir(pos);
+                    }
+                    if (type == BlockDoublePlant.EnumPlantType.FERN) {
+                        world.spawnEntityInWorld(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.FERN.getMeta())));
+                        world.setBlockToAir(pos);
                     }
                 }
             }

@@ -109,11 +109,11 @@ public class ItemDebugItem extends Item {
         if (stack.getItemDamage() == 3) {
             if (player.isSneaking() && applyBonemeal(stack, world, pos, player) && world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                 if (!world.isRemote) {
-                    world.playAuxSFX(2005, pos, 0);
+                    world.playEvent(2005, pos, 0);
                     for (int x = -1; x <= 1; x++) {
                         for (int z = -1; z <= 1; z++) {
                             if (applyBonemeal(stack, world, pos.add(x, 0, z), player)) {
-                                world.playAuxSFX(2005, pos.add(x, 0, z), 0);
+                                world.playEvent(2005, pos.add(x, 0, z), 0);
                             }
                         }
                     }
@@ -121,7 +121,7 @@ public class ItemDebugItem extends Item {
                 return EnumActionResult.SUCCESS;
             } else if (applyBonemeal(stack, world, pos, player)) {
                 if (!world.isRemote) {
-                    world.playAuxSFX(2005, pos, 0);
+                    world.playEvent(2005, pos, 0);
                 }
                 return EnumActionResult.SUCCESS;
             }

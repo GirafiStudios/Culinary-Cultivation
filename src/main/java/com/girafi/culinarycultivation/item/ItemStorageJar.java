@@ -83,6 +83,7 @@ public class ItemStorageJar extends Item {
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list) {
         super.getSubItems(item, creativeTab, list);

@@ -1,8 +1,6 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
-import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineRecipe;
-import com.google.common.collect.Multimap;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -10,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +21,6 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
     private String chanceJunk = "";
 
     public WinnowingRecipeWrapper(Pair<Item, Integer> input, IWinnowingMachineRecipe recipe) {
-        Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> map = CulinaryCultivationAPI.winnowing.getProcessingList();
         this.inputs = Collections.singletonList(new ItemStack(input.getKey(), 1, input.getValue()));
         this.outputs = new ArrayList<ItemStack>();
         if (recipe.getOutput() != null) {
@@ -37,17 +35,19 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
     }
 
     @Override
+    @Nonnull
     public List getInputs() {
         return inputs;
     }
 
     @Override
+    @Nonnull
     public List getOutputs() {
         return outputs;
     }
 
     @Override
-    public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+    public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         if (chanceNormal != null && !chanceNormal.equals("")) {
             FontRenderer fontRendererObj = minecraft.fontRendererObj;
             int stringWidth = fontRendererObj.getStringWidth(chanceNormal);
@@ -59,4 +59,5 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
             int stringWidth = fontRendererObj.getStringWidth(chanceNormal);
             fontRendererObj.drawString(chanceJunk, recipeWidth - 16, 16, Color.gray.getRGB());
         }
-    }}
+    }
+}

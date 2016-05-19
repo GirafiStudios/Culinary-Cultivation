@@ -31,7 +31,7 @@ public class NetworkHandler {
         networkWrapper.registerMessage(messageHandler, requestMessageType, lastDiscriminator++, side);
     }
 
-    public <REQ extends IMessage, REPLY extends IMessage> void registerPacket(Class packetType, Side side) {
+    private <REQ extends IMessage, REPLY extends IMessage> void registerPacket(Class packetType, Side side) {
         networkWrapper.registerMessage(packetType, packetType, lastDiscriminator++, side);
     }
 

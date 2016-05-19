@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class RecipesFarmerArmorDyes implements IRecipe {
@@ -46,6 +47,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     }
 
     @Override
+    @Nullable
     public ItemStack getCraftingResult(InventoryCrafting crafting) {
         ItemStack stack = null;
         int[] aint = new int[3];
@@ -120,6 +122,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     }
 
     @Override
+    @Nullable
     public ItemStack getRecipeOutput() {
         return null;
     }

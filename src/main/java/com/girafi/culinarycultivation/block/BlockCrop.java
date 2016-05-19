@@ -15,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -92,6 +93,7 @@ public class BlockCrop extends BlockCrops {
     }
 
     @Override
+    @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
     }

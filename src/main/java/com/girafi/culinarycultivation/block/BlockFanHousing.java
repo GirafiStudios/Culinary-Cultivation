@@ -46,7 +46,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock) {
         if (!world.isRemote) {
             if (neighborBlock instanceof BlockLever) {
                 if (isFrontPowered(world, pos, state)) {
