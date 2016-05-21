@@ -17,9 +17,9 @@ import java.util.Collection;
 import java.util.concurrent.Callable;
 
 public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
-    private static WinnowingMachineRecipes WINNOWING_MACHINE_INSTANCE = new WinnowingMachineRecipes();
-    private Cache<Pair<Item, Integer>, IWinnowingMachineRecipe> cacheList = CacheBuilder.newBuilder().build();
-    private Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> processingList = HashMultimap.create();
+    private static final WinnowingMachineRecipes WINNOWING_MACHINE_INSTANCE = new WinnowingMachineRecipes();
+    private final Cache<Pair<Item, Integer>, IWinnowingMachineRecipe> CACHE_LIST = CacheBuilder.newBuilder().build();
+    private final Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> PROCESSING_LIST = HashMultimap.create();
 
     public static WinnowingMachineRecipes instance() {
         return WINNOWING_MACHINE_INSTANCE;
@@ -40,19 +40,19 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
 
     @Override
     public void addRecipe(ItemStack input, IWinnowingMachineRecipe recipe) {
-        this.processingList.put(Pair.of(input.getItem(), input.getItemDamage()), recipe);
+        this.PROCESSING_LIST.put(Pair.of(input.getItem(), input.getItemDamage()), recipe);
     }
 
     @Override
     public IWinnowingMachineRecipe getProcessingResult(final ItemStack stack) {
         try {
-            return cacheList.get(Pair.of(stack.getItem(), stack.getItemDamage()), new Callable<IWinnowingMachineRecipe>() {
+            return CACHE_LIST.get(Pair.of(stack.getItem(), stack.getItemDamage()), new Callable<IWinnowingMachineRecipe>() {
                 @Override
                 public IWinnowingMachineRecipe call() throws Exception {
                     ArrayList<IWinnowingMachineRecipe> recipes = new ArrayList<IWinnowingMachineRecipe>();
-                    Collection<IWinnowingMachineRecipe> collection = processingList.get(Pair.of(stack.getItem(), stack.getItemDamage()));
+                    Collection<IWinnowingMachineRecipe> collection = PROCESSING_LIST.get(Pair.of(stack.getItem(), stack.getItemDamage()));
                     if (collection != null && collection.size() > 0) recipes.addAll(collection);
-                    Collection<IWinnowingMachineRecipe> collection2 = processingList.get(Pair.of(stack.getItem(), OreDictionary.WILDCARD_VALUE));
+                    Collection<IWinnowingMachineRecipe> collection2 = PROCESSING_LIST.get(Pair.of(stack.getItem(), OreDictionary.WILDCARD_VALUE));
                     if (collection2 != null && collection2.size() > 0) recipes.addAll(collection2);
                     if (recipes.size() == 0) return null;
                     IWinnowingMachineRecipe result = null;
@@ -72,6 +72,6 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
 
     @Override
     public Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> getProcessingList() {
-        return this.processingList;
+        return this.PROCESSING_LIST;
     }
 }

@@ -17,14 +17,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModBlocks {
 
-    public static BlockDoubleCrop BLACK_PEPPER = new BlockDoubleCrop();
-    public static BlockCrop CUCUMBER = new BlockCrop();
-    public static BlockCrop TOMATO = new BlockCrop();
+    public static final BlockDoubleCrop BLACK_PEPPER = new BlockDoubleCrop();
+    public static final BlockCrop CUCUMBER = new BlockCrop();
+    public static final BlockCrop TOMATO = new BlockCrop();
 
-    public static Block CHEESE = new BlockCheese();
-    public static Block CAULDRON = new BlockModCauldron();
-    public static Block FAN_HOUSING = new BlockFanHousing();
-    public static Block SEPARATOR = new BlockSeparator();
+    public static final Block CHEESE = new BlockCheese();
+    public static final Block CAULDRON = new BlockModCauldron();
+    public static final Block FAN_HOUSING = new BlockFanHousing();
+    public static final Block SEPARATOR = new BlockSeparator();
 
     public static void init() {
         //Crops

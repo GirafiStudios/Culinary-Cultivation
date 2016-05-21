@@ -5,6 +5,7 @@ import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.ISpecialArmor;
 
 import java.util.List;
@@ -64,7 +64,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
             }
             addArmorStatsDesc(list);
         } else
-            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".misc.shift"), list);
+            addStringToTooltip(I18n.format(Reference.MOD_ID + ".misc.shift"), list);
     }
 
     private void addStringToTooltip(String s, List<String> tooltip) {
@@ -116,7 +116,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     private String getArmorSetName() {
-        return I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.name");
+        return I18n.format(Reference.MOD_ID + ".armorset.farmer.name");
     }
 
     private String getArmorSetTitle(EntityPlayer player) {
@@ -125,8 +125,8 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     private void addArmorStatsDesc(List<String> list) {
         addStringToTooltip("", list);
-        addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.desc"), list);
-        addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.descFull"), list);
+        addStringToTooltip(I18n.format(Reference.MOD_ID + ".armorset.farmer.desc"), list);
+        addStringToTooltip(I18n.format(Reference.MOD_ID + ".armorset.farmer.descFull"), list);
     }
 
     @Override

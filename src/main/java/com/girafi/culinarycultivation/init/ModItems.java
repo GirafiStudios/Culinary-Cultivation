@@ -25,8 +25,8 @@ import java.util.List;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
-    public static final Item CAKE_KNIFE = new ItemCakeKnife(Item.ToolMaterial.IRON);
-    public static final Item CANE_KNIFE = new ItemCaneKnife(Item.ToolMaterial.STONE);
+    public static final Item CAKE_KNIFE = new ItemCakeKnife();
+    public static final Item CANE_KNIFE = new ItemCaneKnife();
     public static final Item DEBUG_ITEM = new ItemDebugItem();
     public static final Item FARMER_BOOTS = new ItemFarmerBoots();
     public static final Item FARMER_OVERALLS = new ItemFarmerOveralls();

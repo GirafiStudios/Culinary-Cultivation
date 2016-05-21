@@ -13,8 +13,8 @@ public class ItemCakeKnife extends ItemTool {
 
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.CAKE);
 
-    public ItemCakeKnife(ToolMaterial material) {
-        super(-2.0F, -3.1F, material, EFFECTIVE_ON);
+    public ItemCakeKnife() {
+        super(-2.0F, -3.1F, ToolMaterial.IRON, EFFECTIVE_ON);
         maxStackSize = 1;
     }
 

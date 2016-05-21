@@ -11,8 +11,8 @@ import java.util.Set;
 public class ItemCaneKnife extends ItemTool {
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.REEDS, Blocks.VINE, Blocks.COCOA, Blocks.DEADBUSH, Blocks.LEAVES, Blocks.LEAVES2, Blocks.TALLGRASS, Blocks.DOUBLE_PLANT);
 
-    public ItemCaneKnife(ToolMaterial material) {
-        super(3.0F, -2.0F, material, EFFECTIVE_ON);
+    public ItemCaneKnife() {
+        super(3.0F, -2.0F, ToolMaterial.STONE, EFFECTIVE_ON);
     }
 
     @Override

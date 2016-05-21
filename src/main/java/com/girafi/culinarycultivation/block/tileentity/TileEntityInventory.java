@@ -18,7 +18,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import javax.annotation.Nullable;
 
 public class TileEntityInventory extends TileEntity implements IInventory {
-    protected ItemStack[] inventory;
+    protected final ItemStack[] inventory;
 
     public TileEntityInventory(int slots) {
         this.inventory = new ItemStack[slots];

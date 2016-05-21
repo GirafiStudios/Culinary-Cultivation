@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.Random;
 
 public class MobDropEvent {
-    private Random random = new Random();
+    private static final Random RANDOM = new Random();
     private Class<? extends EntityLivingBase> entityLivingClass;
     private boolean isChild;
     private ItemStack drop;
@@ -29,10 +29,10 @@ public class MobDropEvent {
             EntityPlayer player = (EntityPlayer) dropsEvent.getSource().getSourceOfDamage();
             if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == this.killTool) {
                 if (dropsEvent.getEntityLiving().getClass().isAssignableFrom(this.entityLivingClass) && isChild == dropsEvent.getEntityLiving().isChild()) {
-                    if (this.vanillaDropChance == -1 ? random.nextInt(100) <= 35 : random.nextInt(100) <= this.vanillaDropChance) {
+                    if (this.vanillaDropChance == -1 ? RANDOM.nextInt(100) <= 35 : RANDOM.nextInt(100) <= this.vanillaDropChance) {
                         dropsEvent.getDrops().clear();
                     }
-                    int drop = MathHelper.getRandomIntegerInRange(random, dropMin, dropMax);
+                    int drop = MathHelper.getRandomIntegerInRange(RANDOM, dropMin, dropMax);
                     for (int k = 0; k < drop + dropsEvent.getLootingLevel(); ++k) {
                         if (dropsEvent.getEntityLiving().isBurning() && canDropBurned) {
                             dropsEvent.getEntityLiving().entityDropItem(this.dropBurning.copy(), 1F);

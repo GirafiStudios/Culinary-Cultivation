@@ -1,6 +1,5 @@
 package com.girafi.culinarycultivation.modsupport.waila;
 
-/*
 import com.girafi.culinarycultivation.block.BlockDoubleCrop;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -67,4 +66,4 @@ public class WailaDoubleCropHandler implements IWailaDataProvider {
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
         return tag;
     }
-}*/
+}
