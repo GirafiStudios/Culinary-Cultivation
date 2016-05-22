@@ -204,10 +204,10 @@ public class ItemDebugItem extends Item {
         if (event.getButton() < 0) {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player.isSneaking()) {
-                ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+                ItemStack stack = player.getHeldItemMainhand();
                 if (stack != null && stack.getItem() == ModItems.DEBUG_ITEM) {
                     if (event.getDwheel() != 0) {
-                        NetworkHandler.instance().sendToServer(new PacketDebugItemMode(player.inventory.currentItem, event.getDwheel() < 0));
+                        NetworkHandler.WRAPPER.sendToServer(new PacketDebugItemMode(player.inventory.currentItem, event.getDwheel() < 0));
                     }
                     event.setCanceled(true);
                 }

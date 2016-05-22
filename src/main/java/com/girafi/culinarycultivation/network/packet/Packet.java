@@ -1,36 +1,59 @@
 package com.girafi.culinarycultivation.network.packet;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufInputStream;
-import io.netty.buffer.ByteBufOutputStream;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
-public abstract  class Packet<REQ extends Packet<REQ>> implements IMessage, IMessageHandler<REQ, REQ> {
+public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMessageHandler<REQ, REQ> {
 
     @Override
     public REQ onMessage(REQ message, MessageContext ctx) {
         if (ctx.side == Side.SERVER) {
-            if (message.getClass() == getClass())
-                message.handleServerSide(ctx.getServerHandler().playerEntity);
-            else
-                message.handleServerSide(ctx.getServerHandler().playerEntity);
+            runServer(message, ctx.getServerHandler().playerEntity);
         } else {
-            if (message.getClass() == getClass())
-                message.handleClientSide(Minecraft.getMinecraft().thePlayer);
-            else
-                message.handleClientSide(Minecraft.getMinecraft().thePlayer);
+            runClient(message, getPlayerClient());
         }
         return null;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void runClient(final REQ packet, final EntityPlayer player) {
+        Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+            @Override
+            public void run() {
+                packet.handleClientSide(player);
+            }
+        });
+    }
+
+    private void runServer(final REQ packet, final EntityPlayer player) {
+        player.getServer().addScheduledTask(new Runnable() {
+            @Override
+            public void run() {
+                packet.handleServerSide(player);
+            }
+        });
+    }
+
+    @SideOnly(Side.CLIENT)
+    public EntityPlayer getPlayerClient() {
+        return Minecraft.getMinecraft().thePlayer;
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        fromBytes(new PacketBuffer(buf));
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        toBytes(new PacketBuffer(buf));
     }
 
     @SideOnly(Side.CLIENT)
@@ -38,30 +61,7 @@ public abstract  class Packet<REQ extends Packet<REQ>> implements IMessage, IMes
 
     public abstract void handleServerSide(EntityPlayer player);
 
-    @Override
-    public void fromBytes(ByteBuf buf) {
-        try {
-            ByteBufInputStream bbis = new ByteBufInputStream(buf);
-            read(bbis);
-            bbis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    public abstract void toBytes(PacketBuffer buffer);
 
-    @Override
-    public void toBytes(ByteBuf buf) {
-        try {
-            ByteBufOutputStream out = new ByteBufOutputStream(buf);
-            write(out);
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public abstract void read(DataInput buffer) throws IOException;
-
-    public abstract void write(DataOutput buffer) throws IOException;
+    public abstract void fromBytes(PacketBuffer buffer);
 }
