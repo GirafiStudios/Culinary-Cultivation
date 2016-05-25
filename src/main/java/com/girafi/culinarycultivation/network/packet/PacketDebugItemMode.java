@@ -9,12 +9,12 @@ public class PacketDebugItemMode extends Packet<PacketDebugItemMode> {
     private int slot;
     private boolean direction;
 
+    public PacketDebugItemMode() {
+    }
+
     public PacketDebugItemMode(int slot, boolean direction) {
         this.slot = slot;
         this.direction = direction;
-    }
-
-    public PacketDebugItemMode() {
     }
 
     @Override
