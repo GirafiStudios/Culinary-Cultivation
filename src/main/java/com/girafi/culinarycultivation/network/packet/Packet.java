@@ -57,11 +57,11 @@ public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMess
     }
 
     @SideOnly(Side.CLIENT)
-    public abstract void handleClientSide(EntityPlayer player);
+    protected abstract void handleClientSide(EntityPlayer player);
 
-    public abstract void handleServerSide(EntityPlayer player);
+    protected abstract void handleServerSide(EntityPlayer player);
 
-    public abstract void toBytes(PacketBuffer buffer);
+    protected abstract void toBytes(PacketBuffer buffer);
 
-    public abstract void fromBytes(PacketBuffer buffer);
+    protected abstract void fromBytes(PacketBuffer buffer);
 }

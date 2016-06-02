@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -28,7 +29,7 @@ public class FarmableDoubleAgingCrop extends FarmableAgingCrop {
         if (replantAge != null) {
             IBlockState replantState = getReplantState(world, pos.up(), blockState);
             for (int i = 0; i <= 1; i++) {
-                return new CropDestroy(world, blockState, pos.up(i), replantState);
+                return new CropDestroy(world, blockState, pos.offset(EnumFacing.UP, i), replantState);
             }
         }
         return new CropDestroy(world, blockState, pos, null);
