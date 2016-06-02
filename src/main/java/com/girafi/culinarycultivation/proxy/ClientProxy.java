@@ -18,7 +18,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit() {
-        ModSupport.instance().clientSide();
+        ModSupport.INSTANCE.clientSide();
         for (int i = 0; i <= ItemDebugItem.getModeName(i).length() + 1; i++) {
             ModelLoader.setCustomModelResourceLocation(ModItems.DEBUG_ITEM, i, new ModelResourceLocation(ModItems.DEBUG_ITEM.getRegistryName() + "_" + ItemDebugItem.getModeName(i), "inventory"));
         }

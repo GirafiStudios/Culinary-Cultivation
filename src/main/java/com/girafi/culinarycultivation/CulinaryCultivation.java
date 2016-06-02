@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import java.io.File;
+
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.DEPENDENCIES, guiFactory = Reference.GUI_FACTORY_CLASS)
 public class CulinaryCultivation {
     @Mod.Instance(Reference.MOD_ID)
@@ -34,9 +36,9 @@ public class CulinaryCultivation {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+        ConfigurationHandler.init(new File(event.getModConfigurationDirectory(), "CulinaryCultivation.cfg"));
         Events.register(new ConfigurationHandler());
-        ModSupport.instance().modSupportIndex();
+        ModSupport.INSTANCE.modSupportIndex();
         ModItems.init();
         ModBlocks.init();
         ModBlocks.setup();
@@ -44,7 +46,8 @@ public class CulinaryCultivation {
         NetworkHandler.init();
         proxy.preInit();
         Recipes.initHandlers();
-        ModSupport.instance().preInit();
+        OreDictionaryRegistration.preInit();
+        ModSupport.INSTANCE.preInit();
         LogHelper.info(Reference.MOD_NAME + " Pre Initialization Complete.");
     }
 
@@ -52,15 +55,14 @@ public class CulinaryCultivation {
     public void init(FMLInitializationEvent event) {
         ModTileEntities.init();
         Recipes.init();
-        OreDictionaryRegistration.init();
-        proxy.postInit();
-        ModSupport.instance().init();
+        ModSupport.INSTANCE.init();
         LogHelper.info(Reference.MOD_NAME + " Initialization Complete.");
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        ModSupport.instance().postInit();
+        proxy.postInit();
+        ModSupport.INSTANCE.postInit();
         LogHelper.info(Reference.MOD_NAME + " Post Initialization Complete.");
     }
 }

@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.modsupport;
 
+import com.girafi.culinarycultivation.modsupport.forestry.Forestry;
 import com.girafi.culinarycultivation.modsupport.waila.Waila;
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import com.girafi.culinarycultivation.util.LogHelper;
@@ -16,15 +17,12 @@ import java.util.Map;
  * This class is highly inspired from PneumaticCrafts ThirdPartyManager. Credits to MineMaarten for letting me use this. PneumaticCraft repo: https://github.com/MineMaarten/PneumaticCraft
  */
 public class ModSupport {
-    private static final ModSupport INSTANCE = new ModSupport();
+    public static final ModSupport INSTANCE = new ModSupport();
     private final List<IModSupport> modSupportMods = new ArrayList<IModSupport>();
-
-    public static ModSupport instance() {
-        return INSTANCE;
-    }
 
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
+        modSupportClasses.put(SupportedModIDs.FORESTRY, Forestry.class);
         //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
         modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
 

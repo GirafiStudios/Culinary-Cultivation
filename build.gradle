@@ -13,6 +13,9 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 repositories {
+ maven {
+   url = "http://maven.ic2.player.to/"
+ }
   maven {
     url "http://dvs1.progwml6.com/files/maven"
   }
@@ -43,6 +46,7 @@ minecraft {
 dependencies {
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
     deobfCompile "mcp.mobius.waila:Waila:${waila_version}_${minecraft_version}"
+	deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
 }
 
 processResources {
