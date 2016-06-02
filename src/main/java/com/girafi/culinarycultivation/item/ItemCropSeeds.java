@@ -86,6 +86,10 @@ public class ItemCropSeeds extends Item implements IPlantable {
             return this.name;
         }
 
+        public Block getCropBlock() {
+            return this.crop;
+        }
+
         public static SeedType byMetadata(int meta) {
             SeedType seedType = META_LOOKUP.get(meta);
             return seedType == null ? BLACK_PEPPER_DRUPE : seedType;

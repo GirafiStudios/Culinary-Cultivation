@@ -127,6 +127,10 @@ public class ItemCropFood extends ItemFood implements IPlantable {
             return this.saturationModifier;
         }
 
+        public Block getCropBlock() {
+            return this.crop;
+        }
+
         public static CropType byMetadata(int meta) {
             CropType cropType = META_LOOKUP.get(meta);
             return cropType == null ? CUCUMBER : cropType;
