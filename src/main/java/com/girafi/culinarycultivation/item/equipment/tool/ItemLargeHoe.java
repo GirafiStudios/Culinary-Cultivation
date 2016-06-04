@@ -125,6 +125,8 @@ public class ItemLargeHoe extends ItemHoe {
     @Override
     protected void setBlock(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         IBlockState state = world.getBlockState(pos);
+        if (!world.isAirBlock(pos.up()))
+            return;
         if (state.getBlock() instanceof BlockDirt || state.getBlock() instanceof BlockGrass || state.getBlock() instanceof BlockGrassPath) {
             world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
