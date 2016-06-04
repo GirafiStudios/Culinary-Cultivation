@@ -16,6 +16,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -55,6 +57,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean b) {
         if (GuiScreen.isShiftKeyDown()) {
             addStringToTooltip(getArmorSetTitle(player), list);
