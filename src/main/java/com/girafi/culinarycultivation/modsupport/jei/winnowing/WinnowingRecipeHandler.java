@@ -19,8 +19,8 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
     public static List<WinnowingRecipeWrapper> getRecipes() {
         List<WinnowingRecipeWrapper> wrappers = new ArrayList<WinnowingRecipeWrapper>();
         Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> recipes = CulinaryCultivationAPI.winnowing.getProcessingList();
-        for (Pair<Item, Integer> pair: recipes.keySet()) {
-            for (IWinnowingMachineRecipe recipe: recipes.get(pair)) {
+        for (Pair<Item, Integer> pair : recipes.keySet()) {
+            for (IWinnowingMachineRecipe recipe : recipes.get(pair)) {
                 wrappers.add(new WinnowingRecipeWrapper(pair, recipe));
             }
         }
@@ -42,6 +42,12 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
 
     @Override
     @Nonnull
+    public String getRecipeCategoryUid(@Nonnull WinnowingRecipeWrapper recipe) {
+        return JEIPlugin.WINNOWING;
+    }
+
+    @Override
+    @Nonnull
     public IRecipeWrapper getRecipeWrapper(@Nonnull WinnowingRecipeWrapper recipe) {
         return recipe;
     }
@@ -57,7 +63,6 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
             String recipeInfo = ErrorUtil.getInfoFromBrokenRecipe(recipe, this);
             Log.error("Recipe has no outputs. {}", recipeInfo);
         }
-
         return true;
     }
 }
