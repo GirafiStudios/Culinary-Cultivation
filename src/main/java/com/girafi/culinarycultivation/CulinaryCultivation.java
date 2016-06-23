@@ -15,6 +15,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
 
@@ -29,6 +31,7 @@ public class CulinaryCultivation {
 
     public static final CreativeTabs TAB = new CreativeTabs(Reference.MOD_ID) {
         @Override
+        @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
             return ModItems.MEAT_CLEAVER;
         }

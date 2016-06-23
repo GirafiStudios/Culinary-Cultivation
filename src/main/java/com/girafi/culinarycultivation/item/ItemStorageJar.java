@@ -191,8 +191,7 @@ public class ItemStorageJar extends Item {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
-        return I18n.translateToLocal("item." + this.getRegistryName() + "_" + storageJarType.getUnlocalizedName() + ".name").trim();
+        return I18n.translateToLocal("item." + this.getRegistryName() + "_" + StorageJarType.getStorageJarType(stack).getUnlocalizedName() + ".name").trim();
     }
 
     private static int setColor(int r, int g, int b) {
