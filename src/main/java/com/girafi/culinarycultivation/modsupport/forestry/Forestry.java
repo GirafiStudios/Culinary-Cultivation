@@ -3,8 +3,7 @@ package com.girafi.culinarycultivation.modsupport.forestry;
 import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.block.BlockDoubleCrop;
 import com.girafi.culinarycultivation.init.ModItems;
-import com.girafi.culinarycultivation.item.ItemCropFood;
-import com.girafi.culinarycultivation.item.ItemCropSeeds;
+import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.item.ItemModMeatFood;
 import com.girafi.culinarycultivation.modsupport.IModSupport;
 import forestry.api.farming.Farmables;
@@ -13,20 +12,15 @@ import forestry.farming.logic.FarmableAgingCrop;
 import net.minecraft.item.ItemStack;
 
 public class Forestry implements IModSupport {
+    //TODO Add seed oil recipes for all types of seeds
+
     @Override
     public void preInit() {
-        for (ItemCropFood.CropType cropType : ItemCropFood.CropType.values()) {
-            if (cropType.getCropBlock() instanceof BlockDoubleCrop) {
-                Farmables.farmables.put("farmVegetables", new FarmableDoubleAgingCrop(new ItemStack(ModItems.CROP_FOOD, 1, cropType.getMetadata()), cropType.getCropBlock(), BlockDoubleCrop.AGE, 7));
+        for (ItemCropProduct.ProductType productType : ItemCropProduct.ProductType.values()) { //TODO Check if this still works after moving to new crop drop/seed system
+            if (productType.getCropBlock() instanceof BlockDoubleCrop) {
+                Farmables.farmables.put("farmVegetables", new FarmableDoubleAgingCrop(new ItemStack(ModItems.CROP_FOOD, 1, productType.getMetadata()), productType.getCropBlock(), BlockDoubleCrop.AGE, 7));
             } else {
-                Farmables.farmables.put("farmVegetables", new FarmableAgingCrop(new ItemStack(ModItems.CROP_FOOD, 1, cropType.getMetadata()), cropType.getCropBlock(), BlockCrop.AGE, 7));
-            }
-        }
-        for (ItemCropSeeds.SeedType seedType : ItemCropSeeds.SeedType.values()) {
-            if (seedType.getCropBlock() instanceof BlockDoubleCrop) {
-                Farmables.farmables.put("farmVegetables", new FarmableDoubleAgingCrop(new ItemStack(ModItems.CROP_SEEDS, 1, seedType.getMetadata()), seedType.getCropBlock(), BlockDoubleCrop.AGE, 7));
-            } else {
-                Farmables.farmables.put("farmVegetables", new FarmableAgingCrop(new ItemStack(ModItems.CROP_SEEDS, 1, seedType.getMetadata()), seedType.getCropBlock(), BlockCrop.AGE, 7));
+                Farmables.farmables.put("farmVegetables", new FarmableAgingCrop(new ItemStack(ModItems.CROP_FOOD, 1, productType.getMetadata()), productType.getCropBlock(), BlockCrop.AGE, 7));
             }
         }
     }
@@ -34,8 +28,8 @@ public class Forestry implements IModSupport {
     @Override
     public void init() {
         for (ItemModMeatFood.MeatType meattype : ItemModMeatFood.MeatType.values()) {
-            addToHunterBackpack(new ItemStack(ModItems.MEAT, 1, meattype.getMetaData()));
-            addToHunterBackpack(new ItemStack(ModItems.COOKED_MEAT, 1, meattype.getMetaData()));
+            addToHunterBackpack(new ItemStack(ModItems.MEAT, 1, meattype.getMetadata()));
+            addToHunterBackpack(new ItemStack(ModItems.COOKED_MEAT, 1, meattype.getMetadata()));
         }
         addToHunterBackpack(new ItemStack(ModItems.CALF_BELLY));
     }

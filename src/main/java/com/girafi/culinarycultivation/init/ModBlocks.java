@@ -2,8 +2,7 @@ package com.girafi.culinarycultivation.init;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.block.*;
-import com.girafi.culinarycultivation.item.ItemCropFood;
-import com.girafi.culinarycultivation.item.ItemCropSeeds;
+import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
@@ -39,9 +38,9 @@ public class ModBlocks {
     }
 
     public static void setup() {
-        CUCUMBER.setModCrop(new ItemStack(ModItems.CROP_FOOD, 1, ItemCropFood.CropType.CUCUMBER.getMetadata()), 0, 4).setRightClickHarvest();
-        BLACK_PEPPER.setModCrop(new ItemStack(ModItems.CROP_SEEDS, 1, ItemCropSeeds.SeedType.BLACK_PEPPER_DRUPE.getMetadata()), 1, 5).setRightClickHarvest();
-        TOMATO.setModCrop(new ItemStack(ModItems.CROP_FOOD, 1, ItemCropFood.CropType.TOMATO.getMetadata()), 1, 4).setRightClickHarvest();
+        CUCUMBER.setModCrop(new ItemStack(ModItems.CROP_FOOD, 1, ItemCropProduct.ProductType.CUCUMBER.getMetadata()), 0, 4).setRightClickHarvest();
+        BLACK_PEPPER.setModCrop(new ItemStack(ModItems.CROP_SEEDS, 1, ItemCropProduct.ProductType.BLACK_PEPPER_DRUPE.getMetadata()), 1, 5).setRightClickHarvest();
+        TOMATO.setModCrop(new ItemStack(ModItems.CROP_FOOD, 1, ItemCropProduct.ProductType.TOMATO.getMetadata()), 1, 4).setRightClickHarvest();
     }
 
     private static Block registerCrop(Block block, String name) {

@@ -22,6 +22,7 @@ public class ItemModFishFood extends ItemFood {
     public ItemModFishFood(boolean cooked) {
         super(0, 0.0F, false);
         this.cooked = cooked;
+        this.setHasSubtypes(true);
     }
 
     @Override
@@ -63,11 +64,11 @@ public class ItemModFishFood extends ItemFood {
     public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> subItems) {
         for (FishType fishtype : FishType.values()) {
             if (!fishtype.isHaveRawFish() && this.cooked && fishtype.isHaveCookedFish()) {
-                subItems.add(new ItemStack(this, 1, fishtype.getMetaData()));
+                subItems.add(new ItemStack(this, 1, fishtype.getMetadata()));
             }
             if (fishtype.haveRawFish) {
                 if (!this.cooked || fishtype.isHaveCookedFish()) {
-                    subItems.add(new ItemStack(this, 1, fishtype.getMetaData()));
+                    subItems.add(new ItemStack(this, 1, fishtype.getMetadata()));
                 }
             }
 
@@ -94,7 +95,7 @@ public class ItemModFishFood extends ItemFood {
         CLOWNFISH(6, "clownfish", 0.2F, 3),
         FILLET(7, "fillet", 2, 0.3F, 5, 0.6F);
         private static final Map<Integer, FishType> META_LOOKUP = Maps.newHashMap();
-        private final int metaData;
+        private final int metadata;
         private final String name;
         private final int healAmountRaw;
         private final float saturationAmountRaw;
@@ -103,8 +104,8 @@ public class ItemModFishFood extends ItemFood {
         private boolean haveRawFish = false;
         private boolean haveCookedFish = false;
 
-        FishType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
-            this.metaData = metaData;
+        FishType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+            this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
@@ -114,8 +115,8 @@ public class ItemModFishFood extends ItemFood {
             this.haveCookedFish = true;
         }
 
-        FishType(int metaData, String name, int healAmountRaw, float saturationAmountRaw) {
-            this.metaData = metaData;
+        FishType(int metadata, String name, int healAmountRaw, float saturationAmountRaw) {
+            this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
@@ -125,8 +126,8 @@ public class ItemModFishFood extends ItemFood {
             this.haveCookedFish = false;
         }
 
-        FishType(int metaData, String name, float saturationAmountCooked, int healAmountCooked) {
-            this.metaData = metaData;
+        FishType(int metadata, String name, float saturationAmountCooked, int healAmountCooked) {
+            this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = 0;
             this.saturationAmountRaw = 0.0F;
@@ -136,8 +137,8 @@ public class ItemModFishFood extends ItemFood {
             this.haveCookedFish = true;
         }
 
-        public int getMetaData() {
-            return this.metaData;
+        public int getMetadata() {
+            return this.metadata;
         }
 
         public String getFishName() {
@@ -179,7 +180,7 @@ public class ItemModFishFood extends ItemFood {
 
         static {
             for (FishType fishType : values()) {
-                META_LOOKUP.put(fishType.getMetaData(), fishType);
+                META_LOOKUP.put(fishType.getMetadata(), fishType);
             }
         }
     }

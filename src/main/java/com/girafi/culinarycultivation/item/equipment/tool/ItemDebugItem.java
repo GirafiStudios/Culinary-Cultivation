@@ -52,13 +52,10 @@ public class ItemDebugItem extends Item {
 
     @Override
     public EnumAction getItemUseAction(ItemStack stack) {
-        if (stack.getItemDamage() == 1) {
-            return EnumAction.EAT;
-        }
-        if (stack.getItemDamage() == 2) {
+        if (stack.getItemDamage() == 1 || stack.getItemDamage() == 2) {
             return EnumAction.EAT;
         } else {
-            return null;
+            return EnumAction.NONE;
         }
     }
 
