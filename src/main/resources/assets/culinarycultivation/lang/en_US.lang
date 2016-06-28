@@ -7,6 +7,7 @@ item.culinarycultivation:cane_knife.name=Cane Knife
 item.culinarycultivation:chaff_pile.name=Pile of Chaff
 item.culinarycultivation:cheese_slice.name=Cheese Slice
 item.culinarycultivation:cucumber.name=Cucumber
+item.culinarycultivation:cucumber_seed.name=Cucumber Seeds
 item.culinarycultivation:debug_item_debug.name=Debug Item
 item.culinarycultivation:debug_item_fertilizer.name=Debug Item (Bone Meal)
 item.culinarycultivation:debug_item_hoe.name=Debug Item (Hoe 9x9)
@@ -71,6 +72,7 @@ item.culinarycultivation:storage_jar_milk.name=Storage Jar (Milk)
 item.culinarycultivation:storage_jar_rennet.name=Storage Jar (Rennet)
 item.culinarycultivation:storage_jar_water.name=Storage Jar (Water)
 item.culinarycultivation:tomato.name=Tomato
+item.culinarycultivation:tomato_seed.name=Tomato Seeds
 item.culinarycultivation:tool_handle.name=Tool Handle
 item.culinarycultivation:wooden_hoe_large.name=Wooden Large Hoe
 
