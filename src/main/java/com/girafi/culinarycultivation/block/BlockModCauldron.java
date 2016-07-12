@@ -407,7 +407,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     public void fillWithRain(World world, BlockPos pos) {
         if (world.rand.nextInt(20) == 1) {
-            float f = world.getBiomeGenForCoords(pos).getFloatTemperature(pos);
+            float f = world.getBiome(pos).getFloatTemperature(pos);
 
             if (world.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F) {
                 IBlockState state = world.getBlockState(pos);
