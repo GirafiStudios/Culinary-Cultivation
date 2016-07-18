@@ -1,7 +1,10 @@
 package com.girafi.culinarycultivation.init;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
-import com.girafi.culinarycultivation.item.*;
+import com.girafi.culinarycultivation.item.ItemCropProduct;
+import com.girafi.culinarycultivation.item.ItemModFishFood;
+import com.girafi.culinarycultivation.item.ItemModMeatFood;
+import com.girafi.culinarycultivation.item.ItemStorageJar;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerBoots;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOveralls;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
@@ -44,12 +47,12 @@ public class ModItems {
 
     /* Food */
     public static final Item CHEESE_SLICE = new ItemFood(2, 0.4F, false);
-    public static final Item COOKED_FISH = new ItemModFishFood(true).setHasSubtypes(true);
-    public static final Item COOKED_MEAT = new ItemModMeatFood(true).setHasSubtypes(true);
-    public static final Item FISH = new ItemModFishFood(false).setHasSubtypes(true);
-    public static final Item CROP_FOOD = new ItemCropFood().setHasSubtypes(true);
-    public static final Item CROP_SEEDS = new ItemCropSeeds().setHasSubtypes(true);
-    public static final Item MEAT = new ItemModMeatFood(false).setHasSubtypes(true);
+    public static final Item COOKED_FISH = new ItemModFishFood(true);
+    public static final Item COOKED_MEAT = new ItemModMeatFood(true);
+    public static final Item FISH = new ItemModFishFood(false);
+    public static final Item CROP_FOOD = new ItemCropProduct(false);
+    public static final Item CROP_SEEDS = new ItemCropProduct(true);
+    public static final Item MEAT = new ItemModMeatFood(false);
     public static final Item CAKE_PIECE = new ItemFood(2, 0.1F, false);
     public static final Item CALF_BELLY = new Item().setMaxStackSize(1);
 

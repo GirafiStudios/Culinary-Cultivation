@@ -1,4 +1,4 @@
-package com.girafi.culinarycultivation.client.gui;
+package com.girafi.culinarycultivation.client.gui.config;
 
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import com.girafi.culinarycultivation.util.reference.Reference;

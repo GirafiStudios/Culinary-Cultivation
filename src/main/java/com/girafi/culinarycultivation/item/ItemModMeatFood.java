@@ -23,6 +23,7 @@ public class ItemModMeatFood extends ItemFood {
     public ItemModMeatFood(boolean cooked) {
         super(0, 0.0F, true);
         this.cooked = cooked;
+        this.setHasSubtypes(true);
     }
 
     @Override
@@ -60,16 +61,16 @@ public class ItemModMeatFood extends ItemFood {
         super.onFoodEaten(stack, world, player);
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
         for (MeatType meattype : MeatType.values()) {
             if (!meattype.isHaveRawMeat() && this.cooked && meattype.isHaveCookedMeat()) {
-                list.add(new ItemStack(this, 1, meattype.getMetaData()));
+                list.add(new ItemStack(this, 1, meattype.getMetadata()));
             }
             if (meattype.isHaveRawMeat()) {
                 if (!this.cooked || meattype.isHaveCookedMeat()) {
-                    list.add(new ItemStack(this, 1, meattype.getMetaData()));
+                    list.add(new ItemStack(this, 1, meattype.getMetadata()));
                 }
             }
         }
@@ -103,7 +104,7 @@ public class ItemModMeatFood extends ItemFood {
         SQUID_RING(14, "squid_ring", 1, 0.1F, 2, 0.2F);
 
         private static final Map<Integer, MeatType> META_LOOKUP = Maps.newHashMap();
-        private final int metaData;
+        private final int metadata;
         private final String name;
         private final int healAmountRaw;
         private final float saturationAmountRaw;
@@ -112,8 +113,8 @@ public class ItemModMeatFood extends ItemFood {
         private boolean haveRawMeat = false;
         private boolean haveCookedMeat = false;
 
-        MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
-            this.metaData = metaData;
+        MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+            this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
@@ -123,8 +124,8 @@ public class ItemModMeatFood extends ItemFood {
             this.haveCookedMeat = true;
         }
 
-        MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw) {
-            this.metaData = metaData;
+        MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw) {
+            this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
@@ -134,8 +135,8 @@ public class ItemModMeatFood extends ItemFood {
             this.haveCookedMeat = false;
         }
 
-        MeatType(int metaData, String name, float saturationAmountCooked, int healAmountCooked) {
-            this.metaData = metaData;
+        MeatType(int metadata, String name, float saturationAmountCooked, int healAmountCooked) {
+            this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = 0;
             this.saturationAmountRaw = 0.0F;
@@ -145,8 +146,8 @@ public class ItemModMeatFood extends ItemFood {
             this.haveCookedMeat = true;
         }
 
-/*        MeatType(int metaData, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
-            this.metaData = metaData;
+/*        MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
+            this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
@@ -156,8 +157,8 @@ public class ItemModMeatFood extends ItemFood {
             this.haveCookedMeat = true;
         }*/
 
-        public int getMetaData() {
-            return this.metaData;
+        public int getMetadata() {
+            return this.metadata;
         }
 
         public String getMeatName() {
@@ -199,7 +200,7 @@ public class ItemModMeatFood extends ItemFood {
 
         static {
             for (MeatType meatType : values()) {
-                META_LOOKUP.put(meatType.getMetaData(), meatType);
+                META_LOOKUP.put(meatType.getMetadata(), meatType);
             }
         }
     }
