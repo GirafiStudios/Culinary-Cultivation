@@ -1,38 +1,52 @@
 package com.girafi.culinarycultivation.init.recipes;
 
-import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineRecipe;
+import gnu.trove.map.TObjectDoubleMap;
+import gnu.trove.map.hash.TObjectDoubleHashMap;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
-public class WinnowingMachineRecipe implements IWinnowingMachineRecipe {
-    private final ItemStack output;
-    private final ItemStack junk;
-    private final int outputChance;
-    private final int junkChance;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeMap;
 
-    public WinnowingMachineRecipe(ItemStack output, int outputChance, ItemStack junk, int junkChance) {
-        this.output = output;
-        this.outputChance = Math.min(100, Math.max(0, outputChance));
-        this.junk = junk;
-        this.junkChance = Math.min(100, Math.max(0, junkChance));
-    }
+public class WinnowingMachineRecipe {
+    private final WeightedItems output = new WeightedItems();
+    private final WeightedItems junk = new WeightedItems();
 
-    @Override
-    public ItemStack getOutput() {
+    public WeightedItems getOutput() {
         return output;
     }
 
-    @Override
-    public int getOutputChance() {
-        return outputChance;
-    }
-
-    @Override
-    public ItemStack getJunk() {
+    public WeightedItems getJunk() {
         return junk;
     }
 
-    @Override
-    public int getJunkChance() {
-        return junkChance;
+    public static class WeightedItems {
+        private final NavigableMap<Double, ItemStack> map = new TreeMap<Double, ItemStack>();
+        private final TObjectDoubleMap<ItemStack> actual = new TObjectDoubleHashMap();
+        private double total = 0;
+
+        public void add(ItemStack stack, double weight) {
+            if (weight <= 0) return;
+            if (weight + total > 100D) return; //Stop at 100%
+            total += weight;
+            map.put(total, stack);
+            actual.put(stack, weight);
+        }
+
+        public Set<ItemStack> getSet() {
+            return actual.keySet();
+        }
+
+        public double get(ItemStack stack) {
+            return actual.get(stack);
+        }
+
+        //Returns the result
+        public ItemStack get(World world) {
+            //Let's update the map so that it reaches maximum effectiveness
+            if (total < 100D) add(null, 100D - total);
+            return map.ceilingEntry((world.rand.nextDouble() * total)).getValue();
+        }
     }
 }

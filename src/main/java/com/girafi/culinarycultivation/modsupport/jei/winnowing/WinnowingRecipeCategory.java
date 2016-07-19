@@ -8,16 +8,15 @@ import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.BlankRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
-public class WinnowingRecipeCategory extends BlankRecipeCategory {
-    private static final int inputSlot = 0;
-    private static final int outputSlot = 1;
-    private static final int junkSlot = 2;
+public class WinnowingRecipeCategory extends BlankRecipeCategory<WinnowingRecipeWrapper> {
+    static final int inputSlot = 0;
+    static final int outputSlot = 1;
+    static final int junkSlot = 2;
     private final IDrawableStatic background;
 
     public WinnowingRecipeCategory(IGuiHelper guiHelper) {
@@ -42,11 +41,8 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory {
         return background;
     }
 
-
-    //MINUS WHAT
-    //14, 8
     @Override
-    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+    public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull WinnowingRecipeWrapper recipeWrapper) {
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
         guiItemStacks.init(inputSlot, true, 4, 21);
@@ -54,7 +50,8 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory {
         guiItemStacks.init(junkSlot, false, 119, 25);
 
         guiItemStacks.setFromRecipe(inputSlot, recipeWrapper.getInputs());
-        guiItemStacks.setFromRecipe(outputSlot, recipeWrapper.getOutputs().get(0));
-        guiItemStacks.setFromRecipe(junkSlot, recipeWrapper.getOutputs().get(1));
+        guiItemStacks.setFromRecipe(outputSlot, recipeWrapper.getOutput());
+        guiItemStacks.setFromRecipe(junkSlot, recipeWrapper.getJunk());
+        recipeWrapper.set(recipeLayout);
     }
 }

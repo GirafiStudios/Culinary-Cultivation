@@ -1,10 +1,10 @@
 package com.girafi.culinarycultivation.block.tileentity;
 
-import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
-import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineRecipe;
 import com.girafi.culinarycultivation.block.BlockFanHousing;
 import com.girafi.culinarycultivation.block.BlockSeparator;
 import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipe;
+import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipes;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -38,7 +38,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return isMultiblockFormed && CulinaryCultivationAPI.winnowing.getProcessingResult(stack) != null;
+        return isMultiblockFormed && WinnowingMachineRecipes.instance().getProcessingResult(stack) != null;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     private void pickupItems() {
         for (EntityItem entityItem : getCaptureItems(worldObj, pos)) {
             ItemStack stack = entityItem.getEntityItem().copy();
-            if (CulinaryCultivationAPI.winnowing.getProcessingResult(stack) != null) {
+            if (WinnowingMachineRecipes.instance().getProcessingResult(stack) != null) {
                 if (inventory[0] == null) {
                     inventory[0] = stack;
                     entityItem.setDead();
@@ -140,11 +140,11 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
             if (timer >= 20) {
                 timer = 0;
 
-                IWinnowingMachineRecipe recipe = CulinaryCultivationAPI.winnowing.getProcessingResult(input);
+                WinnowingMachineRecipe recipe = WinnowingMachineRecipes.instance().getProcessingResult(input);
                 if (recipe != null) {
                     IBlockState state = worldObj.getBlockState(getPos());
-                    ItemStack output = getWorld().rand.nextInt(100) < recipe.getOutputChance() ? recipe.getOutput() : null;
-                    ItemStack junk = getWorld().rand.nextInt(100) < recipe.getJunkChance() ? recipe.getJunk() : null;
+                    ItemStack output = recipe.getOutput().get(worldObj);
+                    ItemStack junk = recipe.getJunk().get(worldObj);
                     EnumFacing facing = state.getValue(BlockFanHousing.FACING);
                     if (output != null) outputItems(output, getPos(), facing);
                     if (junk != null) outputItems(junk, getPos(), facing.rotateAround(Axis.Y).getOpposite());
@@ -186,7 +186,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     private boolean removeFromAbove(IInventory inventory, int slot) {
         ItemStack stack = inventory.getStackInSlot(slot);
         if (stack != null && (this.inventory[0] == null || stack.isItemEqual(this.inventory[0]))) {
-            if (CulinaryCultivationAPI.winnowing.getProcessingResult(stack) != null) {
+            if (WinnowingMachineRecipes.instance().getProcessingResult(stack) != null) {
                 ItemStack clone = stack.copy();
                 clone.stackSize = stack.stackSize - 1;
                 if (clone.stackSize <= 0) clone = null;
