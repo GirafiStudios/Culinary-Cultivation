@@ -1,9 +1,8 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
-import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
-import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineRecipe;
+import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipe;
+import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipes;
 import com.girafi.culinarycultivation.modsupport.jei.JEIPlugin;
-import com.google.common.collect.Multimap;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.util.ErrorUtil;
@@ -14,15 +13,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWrapper> {
     public static List<WinnowingRecipeWrapper> getRecipes() {
         List<WinnowingRecipeWrapper> wrappers = new ArrayList<WinnowingRecipeWrapper>();
-        Multimap<Pair<Item, Integer>, IWinnowingMachineRecipe> recipes = CulinaryCultivationAPI.winnowing.getProcessingList();
+        Map<Pair<Item, Integer>, WinnowingMachineRecipe> recipes = WinnowingMachineRecipes.instance().getRecipes();
         for (Pair<Item, Integer> pair : recipes.keySet()) {
-            for (IWinnowingMachineRecipe recipe : recipes.get(pair)) {
-                wrappers.add(new WinnowingRecipeWrapper(pair, recipe));
-            }
+            wrappers.add(new WinnowingRecipeWrapper(pair, recipes.get(pair)));
         }
 
         return wrappers;
