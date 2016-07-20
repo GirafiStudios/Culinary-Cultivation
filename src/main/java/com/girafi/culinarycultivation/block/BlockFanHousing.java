@@ -86,12 +86,15 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public void onBlockDestroyedByExplosion(World world, BlockPos pos, Explosion explosionIn) {
+    public void onBlockDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
         //Check for a block on the world
-        BlockPos right = pos.offset(world.getBlockState(pos).getValue(FACING).rotateAround(Axis.Y).getOpposite());
-        if (world.getTileEntity(right) instanceof TileEntitySeparator) {
-            ((TileEntitySeparator) world.getTileEntity(right)).checkForFanHousing();
+        if (!world.isAirBlock(pos)) {
+            BlockPos right = pos.offset(world.getBlockState(pos).getValue(FACING).rotateAround(Axis.Y).getOpposite());
+            if (world.getTileEntity(right) instanceof TileEntitySeparator) {
+                ((TileEntitySeparator) world.getTileEntity(right)).checkForFanHousing();
+            }
         }
+        super.onBlockDestroyedByExplosion(world, pos, explosion);
     }
 
     private void setDefaultFacing(World world, BlockPos pos, IBlockState state) {
