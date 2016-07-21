@@ -19,6 +19,8 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        super.onArmorTick(world, player, stack);
+
         Block playerStandingOnBlock = player.worldObj.getBlockState(player.getPosition().down()).getBlock();
 
         if (player.onGround) {

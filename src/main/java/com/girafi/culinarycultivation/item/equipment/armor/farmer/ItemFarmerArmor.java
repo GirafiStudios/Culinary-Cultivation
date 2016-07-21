@@ -2,6 +2,7 @@ package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.util.LogHelper;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
@@ -14,14 +15,19 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
+    private static final Field EXHAUSTION = ReflectionHelper.findField(FoodStats.class, "field_75126_c", "foodExhaustionLevel");
     private final String armorPieceName;
 
     public ItemFarmerArmor(EntityEquipmentSlot equipmentSlot, String name) {
@@ -36,6 +42,29 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return type == null ? Paths.ARMOR_MODEL + armorPieceName + ".png" : Paths.ARMOR_MODEL + armorPieceName + "_overlay" + ".png";
+    }
+
+    @Override
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) { //TODO Test and fix
+        int exhaustionLevelOneP = (int) getExhaustionLevel(player) / 100;
+        if (this.hasFullArmorSet(player)) {
+            player.addExhaustion(-exhaustionLevelOneP * 50);
+        } else {
+            for (int i = 0; i < getArmorSetStacks().length; i++) {
+                if (this.hasArmorSetPiece(player, i)) {
+                    player.addExhaustion((-exhaustionLevelOneP * 2) * this.getPiecesEquipped(player));
+                }
+            }
+        }
+    }
+
+    private float getExhaustionLevel(EntityPlayer player) {
+        try {
+            return EXHAUSTION.getFloat(player.getFoodStats());
+        } catch (Exception ignored) {
+            LogHelper.error("Farmer Armor could not reduce exhaustion properly.");
+        }
+        return 0;
     }
 
     @Override
