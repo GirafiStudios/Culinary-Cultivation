@@ -6,7 +6,6 @@ import com.girafi.culinarycultivation.util.LogHelper;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -45,14 +45,16 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
-    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) { //TODO Test and fix
-        int exhaustionLevelOneP = (int) getExhaustionLevel(player) / 100;
-        if (this.hasFullArmorSet(player)) {
-            player.addExhaustion(-exhaustionLevelOneP * 50);
-        } else {
-            for (int i = 0; i < getArmorSetStacks().length; i++) {
-                if (this.hasArmorSetPiece(player, i)) {
-                    player.addExhaustion((-exhaustionLevelOneP * 2) * this.getPiecesEquipped(player));
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        float exhaustionLevel = getExhaustionLevel(player) / 100;
+        if (player.motionX != 0 && !player.isInWater()) {
+            if (this.hasFullArmorSet(player)) {
+                player.addExhaustion((-exhaustionLevel * 0.15F));
+            } else {
+                for (int i = 0; i < getArmorSetStacks().length; i++) {
+                    if (this.hasArmorSetPiece(player, i)) {
+                        player.addExhaustion((-exhaustionLevel * 0.02F) * this.getPiecesEquipped(player));
+                    }
                 }
             }
         }
@@ -87,19 +89,21 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean b) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         if (GuiScreen.isShiftKeyDown()) {
-            addStringToTooltip(getArmorSetTitle(player), list);
+            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.name") + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")", tooltip);
             ItemStack[] stacks = getArmorSetStacks();
             for (int i = 0; i < stacks.length; i++) {
-                addStringToTooltip((hasArmorSetPiece(player, i) ? TextFormatting.YELLOW : "") + " " + stacks[i].getDisplayName(), list);
+                addStringToTooltip((hasArmorSetPiece(player, i) ? TextFormatting.YELLOW : "") + " " + stacks[i].getDisplayName(), tooltip);
             }
-            addArmorStatsDesc(list);
+            addStringToTooltip("", tooltip);
+            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.desc"), tooltip);
+            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.descFull"), tooltip);
         } else
-            addStringToTooltip(I18n.format(Reference.MOD_ID + ".misc.shift"), list);
+            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".misc.shift"), tooltip);
     }
 
-    private void addStringToTooltip(String s, List<String> tooltip) {
+    protected void addStringToTooltip(String s, List<String> tooltip) {
         tooltip.add(s.replaceAll("&", "\u00a7"));
     }
 
@@ -145,20 +149,6 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
                 pieces++;
             }
         return pieces;
-    }
-
-    private String getArmorSetName() {
-        return I18n.format(Reference.MOD_ID + ".armorset.farmer.name");
-    }
-
-    private String getArmorSetTitle(EntityPlayer player) {
-        return getArmorSetName() + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
-    }
-
-    private void addArmorStatsDesc(List<String> list) {
-        addStringToTooltip("", list);
-        addStringToTooltip(I18n.format(Reference.MOD_ID + ".armorset.farmer.desc"), list);
-        addStringToTooltip(I18n.format(Reference.MOD_ID + ".armorset.farmer.descFull"), list);
     }
 
     @Override

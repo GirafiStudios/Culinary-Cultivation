@@ -1,6 +1,8 @@
 package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -8,7 +10,10 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
 import java.util.Random;
 
 public class ItemFarmerBoots extends ItemFarmerArmor {
@@ -34,5 +39,13 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
                 }
             }
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format(Reference.MOD_ID + ".armorset.farmer.boots.desc"));
+        tooltip.add("");
+        super.addInformation(stack, player, tooltip, advanced);
     }
 }
