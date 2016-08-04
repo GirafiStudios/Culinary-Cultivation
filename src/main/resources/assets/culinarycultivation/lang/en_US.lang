@@ -91,8 +91,8 @@ itemGroup.culinarycultivation=Culinary Cultivation
 
 #Armor
 culinarycultivation.armorset.farmer.boots.desc=Good to stomp on things with
-culinarycultivation.armorset.farmer.desc=(1/4) Set : 2% less exhaustion (WIP)
-culinarycultivation.armorset.farmer.descFull=(4/4) Set : 15% less exhaustion (WIP)
+culinarycultivation.armorset.farmer.desc=(1/4) Set : 2% less exhaustion
+culinarycultivation.armorset.farmer.descFull=(4/4) Set : 15% less exhaustion
 culinarycultivation.armorset.farmer.name=&6Farmer Armor
 
 #JEI
