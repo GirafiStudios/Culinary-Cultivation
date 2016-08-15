@@ -46,7 +46,7 @@ public class Forestry implements IModSupport {
         addToBackpack(BackpackManager.HUNTER_UID, stack);
     }
 
-    private void addToBackpack(String backpackUID, ItemStack stack) {
-        BackpackManager.backpackInterface.getBackpack(backpackUID).addValidItem(stack);
+    private void addToBackpack(String backpackUid, ItemStack stack) {
+        BackpackManager.backpackInterface.addItemToForestryBackpack(backpackUid, stack);
     }
 }
