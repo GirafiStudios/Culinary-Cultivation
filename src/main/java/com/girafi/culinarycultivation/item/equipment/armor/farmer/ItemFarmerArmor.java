@@ -46,17 +46,14 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-        float exhaustionLevel = getExhaustionLevel(player) / 100;
-        if (player.motionX != 0 && !player.isInWater()) {
-            if (this.hasFullArmorSet(player)) {
-                player.addExhaustion((-exhaustionLevel * 0.15F));
-            } else {
-                for (int i = 0; i < getArmorSetStacks().length; i++) {
-                    if (this.hasArmorSetPiece(player, i)) {
-                        player.addExhaustion((-exhaustionLevel * 0.02F) * this.getPiecesEquipped(player));
-                    }
-                }
-            }
+        int exhaustionReductionChance;
+        if (hasFullArmorSet(player)) {
+            exhaustionReductionChance = 15;
+        } else {
+            exhaustionReductionChance = 2;
+        }
+        if (world.rand.nextInt(100) == exhaustionReductionChance && getExhaustionLevel(player) > 0 && player.onGround) {
+            player.addExhaustion(-(getExhaustionLevel(player) / 100) * 0.15F);
         }
     }
 
