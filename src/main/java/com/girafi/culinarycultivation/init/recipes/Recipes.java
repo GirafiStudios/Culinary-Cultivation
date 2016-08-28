@@ -39,19 +39,19 @@ public class Recipes {
         //Tools, armor and other stuff
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(CAKE_KNIFE), "  H", "II ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(CANE_KNIFE), " II", " I ", " H ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(DIAMOND_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "gemDiamond"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_DIAMOND), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "gemDiamond"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_BOOTS), " B ", "LLL", 'B', Items.LEATHER_BOOTS, 'L', Items.LEATHER));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_OVERALLS), "S S", "#L#", 'S', Items.STRING, 'L', Items.LEATHER_LEGGINGS, '#', "dyeLightBlue"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_SHIRT), "# #", "###", "###", '#', new ItemStack(Blocks.WOOL, 1, 14)));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FARMER_STRAWHAT), "SHS", "W W", 'W', Items.WHEAT, 'H', Blocks.HAY_BLOCK, 'S', Items.STRING));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(GOLDEN_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "ingotGold"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(IRON_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "ingotIron"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_GOLDEN), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "ingotGold"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_IRON), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KITCHEN_KNIFE), "  I", " I ", "H  ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MEAT_CLEAVER), " II", " II", "H  ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(STONE_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "cobblestone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_STONE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "cobblestone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TOOL_HANDLE), "S", "S", 'S', "stickWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(WOODEN_HOE_LARGE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "plankWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_WOODEN), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "plankWood"));
 
         //Food
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.CAKE), " C ", "CCC", "CCC", 'C', CAKE_PIECE));

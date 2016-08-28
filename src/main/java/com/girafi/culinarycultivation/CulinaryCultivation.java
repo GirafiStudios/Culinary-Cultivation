@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation;
 
+import com.girafi.culinarycultivation.client.gui.GuiHandler;
 import com.girafi.culinarycultivation.init.*;
 import com.girafi.culinarycultivation.init.recipes.Recipes;
 import com.girafi.culinarycultivation.modsupport.ModSupport;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -56,6 +58,7 @@ public class CulinaryCultivation {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         ModTileEntities.init();
         Recipes.init();
         ModSupport.INSTANCE.init();

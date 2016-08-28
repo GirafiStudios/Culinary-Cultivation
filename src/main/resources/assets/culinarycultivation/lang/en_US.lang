@@ -66,6 +66,7 @@ item.culinarycultivation:meat_squid_tentacle.name=Squid Tentacle
 item.culinarycultivation:meat_squid_tentacle_cooked.name=Cooked Squid Tentacle
 item.culinarycultivation:meat_veal.name=Raw Veal
 item.culinarycultivation:meat_veal_cooked.name=Cooked Veal
+item.culinarycultivation:seed_bag.name=Seed Bag
 item.culinarycultivation:stone_hoe_large.name=Stone Large Hoe
 item.culinarycultivation:storage_jar_empty.name=Storage Jar (Empty)
 item.culinarycultivation:storage_jar_milk.name=Storage Jar (Milk)
@@ -84,6 +85,9 @@ tile.culinarycultivation:cucumber.name=Cucumbers
 tile.culinarycultivation:tomato.name=Tomatoes
 tile.culinarycultivation:fan_housing.name=Winnowing Machine Fan Housing
 tile.culinarycultivation:separator.name=Winnowing Machine Separator
+
+#GUI
+culinarycultivation:container.seed_bag=Seed Bag
 
 #Misc
 culinarycultivation.misc.shift=Press &3&oShift&r&7 for info
