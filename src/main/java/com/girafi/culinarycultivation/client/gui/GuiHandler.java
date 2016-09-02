@@ -2,7 +2,7 @@ package com.girafi.culinarycultivation.client.gui;
 
 import com.girafi.culinarycultivation.client.gui.inventory.GuiSeedBag;
 import com.girafi.culinarycultivation.inventory.ContainerSeedBag;
-import com.girafi.culinarycultivation.inventory.InventorySeedBag;
+import com.girafi.culinarycultivation.inventory.InventoryItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -14,7 +14,7 @@ public class GuiHandler implements IGuiHandler {
 
         switch (GuiID.values()[ID]) {
             case SEED_BAG:
-                return new ContainerSeedBag(player.inventory, new InventorySeedBag(), player);
+                return new ContainerSeedBag(player.inventory, new InventoryItem(player.getHeldItemMainhand(), "seed_bag", 1, 1280), player);
         }
 
         return null;
@@ -25,7 +25,7 @@ public class GuiHandler implements IGuiHandler {
 
         switch (GuiID.values()[ID]) {
             case SEED_BAG:
-                return new GuiSeedBag(player.inventory, new InventorySeedBag());
+                return new GuiSeedBag(player.inventory, new InventoryItem(player.getHeldItemMainhand(), "seed_bag", 1, 1280));
         }
 
         return null;
