@@ -1,18 +1,18 @@
 package com.girafi.culinarycultivation.inventory;
 
+import com.girafi.culinarycultivation.item.equipment.tool.ItemSeedBag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
 
 public class ContainerSeedBag extends Container {
-    private final IInventory seedBagInventory;
+    private SeedBagInventory seedBagInventory;
 
-    public ContainerSeedBag(InventoryPlayer playerInventory, IInventory seedBagInv, EntityPlayer player) {
+    public ContainerSeedBag(InventoryPlayer playerInventory, SeedBagInventory seedBagInv, EntityPlayer player) {
         this.seedBagInventory = seedBagInv;
         seedBagInventory.openInventory(player);
 
@@ -33,10 +33,12 @@ public class ContainerSeedBag extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return true;
+        ItemStack heldStack = player.getHeldItemMainhand();
+        return seedBagInventory != null && heldStack != null && heldStack.getItem() instanceof ItemSeedBag;
     }
 
     @Nullable
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack stack = null;
         Slot slot = this.inventorySlots.get(index);

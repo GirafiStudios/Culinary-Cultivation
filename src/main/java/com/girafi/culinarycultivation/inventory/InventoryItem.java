@@ -48,7 +48,7 @@ public class InventoryItem extends InventoryBasic {
         for (int index = 0; index < getSizeInventory(); index++) {
             ItemStack stack = this.getStackInSlot(index);
 
-            if (stack != null && stack.getItem() != null) {
+            if (stack != null) {
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setInteger("Slot", index);
                 stack.writeToNBT(compound);
@@ -67,7 +67,7 @@ public class InventoryItem extends InventoryBasic {
     public ItemStack decrStackSize(int index, int count) {
         ItemStack stack = getStackInSlot(index);
 
-        if (stack != null && stack.getItem() != null) {
+        if (stack != null) {
             if (stack.stackSize > count) {
                 stack = stack.splitStack(count);
                 this.markDirty();

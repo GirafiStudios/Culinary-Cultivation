@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.client.gui.inventory;
 
 import com.girafi.culinarycultivation.inventory.ContainerSeedBag;
+import com.girafi.culinarycultivation.inventory.SeedBagInventory;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -15,9 +16,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class GuiSeedBag extends GuiContainer {
     private static final ResourceLocation SEED_BAG_GUI_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/gui/container/seed_bag.png");
     private final IInventory playerInventory;
-    private final IInventory seedBagInventory;
+    private final SeedBagInventory seedBagInventory;
 
-    public GuiSeedBag(InventoryPlayer playerInv, IInventory seedBagInv) {
+    public GuiSeedBag(InventoryPlayer playerInv, SeedBagInventory seedBagInv) {
         super(new ContainerSeedBag(playerInv, seedBagInv, Minecraft.getMinecraft().thePlayer));
         this.playerInventory = playerInv;
         this.seedBagInventory = seedBagInv;

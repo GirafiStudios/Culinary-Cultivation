@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GuiCulinaryCultivationConfig extends GuiConfig {
     public GuiCulinaryCultivationConfig(GuiScreen parentScreen) {
-        super(parentScreen, GuiCulinaryCultivationConfig.getConfigElements(), Reference.MOD_ID, true, true, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
+        super(parentScreen, getConfigElements(), Reference.MOD_ID, true, true, GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
     }
 
     private static List<IConfigElement> getConfigElements() {
