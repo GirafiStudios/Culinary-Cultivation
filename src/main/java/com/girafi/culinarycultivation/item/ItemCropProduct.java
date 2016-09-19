@@ -86,7 +86,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ProductType productType = ProductType.byItemStack(stack);
         IBlockState state = world.getBlockState(pos);
-        if ((productType.isHasSeed() && productType.canPlantCrop() || this.isSeed) && facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
+        if ((productType.canPlantCrop() || this.isSeed) && facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
             world.setBlockState(pos.up(), productType.crop.getDefaultState(), 11);
             --stack.stackSize;
             return EnumActionResult.SUCCESS;
@@ -103,7 +103,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     @Override
     public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
         for (ProductType productType : ProductType.values()) {
-            if (productType.isHasSeed() && productType.canPlantCrop() || this.isSeed) {
+            if (productType.canPlantCrop() || this.isSeed) {
                 return productType.crop.getDefaultState();
             }
         }
@@ -125,37 +125,27 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
         private final boolean isCropPlantable;
         private final Block crop;
 
-        ProductType(int meta, String name, int hungerAmount, float saturationModifier, Block crop) {
+        ProductType(int meta, String name, int hungerAmount, float saturationModifier, boolean hasSeed, boolean hasCrop, boolean isCropPlantable, Block crop) {
             this.meta = meta;
             this.name = name;
             this.hungerAmount = hungerAmount;
             this.saturationModifier = saturationModifier;
-            this.hasSeed = true;
-            this.hasCrop = true;
-            this.isCropPlantable = false;
-            this.crop = crop;
-        }
-
-        ProductType(int meta, String name, int hungerAmount, float saturationModifier, Block crop, boolean isCropPlantable) {
-            this.meta = meta;
-            this.name = name;
-            this.hungerAmount = hungerAmount;
-            this.saturationModifier = saturationModifier;
-            this.hasSeed = true;
-            this.hasCrop = true;
+            this.hasSeed = hasSeed;
+            this.hasCrop = hasCrop;
             this.isCropPlantable = isCropPlantable;
             this.crop = crop;
         }
 
+        ProductType(int meta, String name, int hungerAmount, float saturationModifier, Block crop) {
+            this(meta, name, hungerAmount, saturationModifier, true, true, false, crop);
+        }
+
+        ProductType(int meta, String name, int hungerAmount, float saturationModifier, Block crop, boolean isCropPlantable) {
+            this(meta, name, hungerAmount, saturationModifier, true, true, isCropPlantable, crop);
+        }
+
         ProductType(int meta, String name, Block crop) {
-            this.meta = meta;
-            this.name = name;
-            this.hungerAmount = 0;
-            this.saturationModifier = 0.0F;
-            this.hasSeed = true;
-            this.hasCrop = false;
-            this.isCropPlantable = false;
-            this.crop = crop;
+            this(meta, name, 0, 0.0F, true, false, false, crop);
         }
 
         public int getMetadata() {

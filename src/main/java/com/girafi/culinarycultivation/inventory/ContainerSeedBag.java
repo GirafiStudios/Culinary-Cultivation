@@ -1,8 +1,10 @@
 package com.girafi.culinarycultivation.inventory;
 
+import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemSeedBag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -14,11 +16,15 @@ public class ContainerSeedBag extends Container {
 
     public ContainerSeedBag(InventoryPlayer playerInventory, SeedBagInventory seedBagInv, EntityPlayer player) {
         this.seedBagInventory = seedBagInv;
-        seedBagInventory.openInventory(player);
+        this.seedBagInventory.openInventory(player);
 
-        for (int j = 0; j < seedBagInventory.getSizeInventory(); ++j) {
-            this.addSlotToContainer(new Slot(seedBagInventory, j, 80 + j * 22, 20));
-        }
+        this.addSlotToContainer(new Slot(this.seedBagInventory, 0, 80, 20) {
+            @Override
+            public boolean isItemValid(@Nullable ItemStack stack) {
+                return seedBagInventory.isItemValidForSlot(0, stack);
+            }
+        });
+
 
         for (int l = 0; l < 3; ++l) {
             for (int k = 0; k < 9; ++k) {
@@ -34,7 +40,17 @@ public class ContainerSeedBag extends Container {
     @Override
     public boolean canInteractWith(EntityPlayer player) {
         ItemStack heldStack = player.getHeldItemMainhand();
-        return seedBagInventory != null && heldStack != null && heldStack.getItem() instanceof ItemSeedBag;
+        return this.seedBagInventory != null && heldStack != null && heldStack.getItem() instanceof ItemSeedBag;
+    }
+
+    @Nullable
+    @Override
+    public ItemStack slotClick(int slotId, int dragType, ClickType clickType, EntityPlayer player) {
+        ItemStack slotStack = slotId < 0 || slotId > this.inventorySlots.size() ? null : this.inventorySlots.get(slotId).getStack();
+        if (slotStack != null && slotStack.getItem() == ModItems.SEED_BAG) {
+            return null;
+        }
+        return super.slotClick(slotId, dragType, clickType, player);
     }
 
     @Nullable

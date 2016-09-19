@@ -104,37 +104,27 @@ public class ItemModFishFood extends ItemFood {
         private boolean haveRawFish = false;
         private boolean haveCookedFish = false;
 
-        FishType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+        FishType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, boolean haveRawFish, boolean haveCookedFish) {
             this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = healAmountCooked;
             this.saturationAmountCooked = saturationAmountCooked;
-            this.haveRawFish = true;
-            this.haveCookedFish = true;
+            this.haveRawFish = haveRawFish;
+            this.haveCookedFish = haveCookedFish;
+        }
+
+        FishType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+            this(metadata, name, healAmountRaw, saturationAmountRaw, healAmountCooked, saturationAmountCooked, true, true);
         }
 
         FishType(int metadata, String name, int healAmountRaw, float saturationAmountRaw) {
-            this.metadata = metadata;
-            this.name = name;
-            this.healAmountRaw = healAmountRaw;
-            this.saturationAmountRaw = saturationAmountRaw;
-            this.healAmountCooked = 0;
-            this.saturationAmountCooked = 0.0F;
-            this.haveRawFish = true;
-            this.haveCookedFish = false;
+            this(metadata, name, healAmountRaw, saturationAmountRaw, 0, 0.0F, true, false);
         }
 
         FishType(int metadata, String name, float saturationAmountCooked, int healAmountCooked) {
-            this.metadata = metadata;
-            this.name = name;
-            this.healAmountRaw = 0;
-            this.saturationAmountRaw = 0.0F;
-            this.healAmountCooked = healAmountCooked;
-            this.saturationAmountCooked = saturationAmountCooked;
-            this.haveRawFish = false;
-            this.haveCookedFish = true;
+            this(metadata, name, 0, 0.0F, healAmountCooked, saturationAmountCooked, false, true);
         }
 
         public int getMetadata() {

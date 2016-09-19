@@ -27,9 +27,9 @@ import java.util.Map;
 public class ItemStorageJar extends Item {
 
     public ItemStorageJar() {
-        setHasSubtypes(true);
-        setMaxDamage(0);
-        setContainerItem(this);
+        this.setHasSubtypes(true);
+        this.setMaxDamage(0);
+        this.setContainerItem(this);
     }
 
     public enum StorageJarType {
@@ -38,21 +38,19 @@ public class ItemStorageJar extends Item {
         MILK(2, "milk", setColor(255, 255, 255)),
         RENNET(3, "rennet", setColor(184, 185, 151));
 
-        private static final Map<Integer, StorageJarType> StorageJarTypeMap = Maps.newHashMap();
+        private static final Map<Integer, StorageJarType> STORAGE_JAR_TYPE_MAP = Maps.newHashMap();
         private final int metaData;
         private final String unlocalizedName;
         private final int colorNumber;
-
-        StorageJarType(int metaData, String unlocalizedName) {
-            this.metaData = metaData;
-            this.unlocalizedName = unlocalizedName;
-            this.colorNumber = 0;
-        }
 
         StorageJarType(int metaData, String unlocalizedName, int colorNumber) {
             this.metaData = metaData;
             this.unlocalizedName = unlocalizedName;
             this.colorNumber = colorNumber;
+        }
+
+        StorageJarType(int metaData, String unlocalizedName) {
+            this(metaData, unlocalizedName, 0);
         }
 
         public int getMetaData() {
@@ -68,7 +66,7 @@ public class ItemStorageJar extends Item {
         }
 
         public static StorageJarType getStorageJarTypeList(int storageJar) {
-            StorageJarType storageJarType = StorageJarTypeMap.get(storageJar);
+            StorageJarType storageJarType = STORAGE_JAR_TYPE_MAP.get(storageJar);
             return storageJarType == null ? EMPTY : storageJarType;
         }
 
@@ -78,7 +76,7 @@ public class ItemStorageJar extends Item {
 
         static {
             for (StorageJarType jarType : values()) {
-                StorageJarTypeMap.put(jarType.getMetaData(), jarType);
+                STORAGE_JAR_TYPE_MAP.put(jarType.getMetaData(), jarType);
             }
         }
     }
@@ -139,24 +137,24 @@ public class ItemStorageJar extends Item {
             RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
             if (rayTraceResult == null) {
-                return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+                return new ActionResult<>(EnumActionResult.PASS, stack);
             } else {
                 if (rayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK) {
                     BlockPos pos = rayTraceResult.getBlockPos();
 
                     if (!world.isBlockModifiable(player, pos) || !player.canPlayerEdit(pos.offset(rayTraceResult.sideHit), rayTraceResult.sideHit, stack)) {
-                        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+                        return new ActionResult<>(EnumActionResult.PASS, stack);
                     }
 
                     if (world.getBlockState(pos).getMaterial() == Material.WATER) {
                         world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, this.fillJar(stack, player, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData())));
+                        return new ActionResult<>(EnumActionResult.SUCCESS, this.fillJar(stack, player, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData())));
                     }
                 }
             }
         }
         player.setActiveHand(hand);
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+        return new ActionResult<>(EnumActionResult.PASS, stack);
     }
 
     private ItemStack fillJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {

@@ -113,49 +113,24 @@ public class ItemModMeatFood extends ItemFood {
         private boolean haveRawMeat = false;
         private boolean haveCookedMeat = false;
 
-        MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+        MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, boolean haveRawMeat, boolean haveCookedMeat) {
             this.metadata = metadata;
             this.name = name;
             this.healAmountRaw = healAmountRaw;
             this.saturationAmountRaw = saturationAmountRaw;
             this.healAmountCooked = healAmountCooked;
             this.saturationAmountCooked = saturationAmountCooked;
-            this.haveRawMeat = true;
-            this.haveCookedMeat = true;
+            this.haveRawMeat = haveRawMeat;
+            this.haveCookedMeat = haveCookedMeat;
+        }
+
+        MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked) {
+            this(metadata, name, healAmountRaw, saturationAmountRaw, healAmountCooked, saturationAmountCooked, true, true);
         }
 
         MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw) {
-            this.metadata = metadata;
-            this.name = name;
-            this.healAmountRaw = healAmountRaw;
-            this.saturationAmountRaw = saturationAmountRaw;
-            this.healAmountCooked = 0;
-            this.saturationAmountCooked = 0.0F;
-            this.haveRawMeat = true;
-            this.haveCookedMeat = false;
+            this(metadata, name, healAmountRaw, saturationAmountRaw, 0, 0.0F, true, false);
         }
-
-        MeatType(int metadata, String name, float saturationAmountCooked, int healAmountCooked) {
-            this.metadata = metadata;
-            this.name = name;
-            this.healAmountRaw = 0;
-            this.saturationAmountRaw = 0.0F;
-            this.healAmountCooked = healAmountCooked;
-            this.saturationAmountCooked = saturationAmountCooked;
-            this.haveRawMeat = false;
-            this.haveCookedMeat = true;
-        }
-
-/*        MeatType(int metadata, String name, int healAmountRaw, float saturationAmountRaw, int healAmountCooked, float saturationAmountCooked, int healAmountSeasoned, float saturationAmountSeasoned) { //W.I.P. Seasoned meat
-            this.metadata = metadata;
-            this.name = name;
-            this.healAmountRaw = healAmountRaw;
-            this.saturationAmountRaw = saturationAmountRaw;
-            this.healAmountCooked = healAmountCooked;
-            this.saturationAmountCooked = saturationAmountCooked;
-            this.haveRawMeat = true;
-            this.haveCookedMeat = true;
-        }*/
 
         public int getMetadata() {
             return this.metadata;
