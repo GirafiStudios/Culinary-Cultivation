@@ -24,21 +24,11 @@ public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMess
 
     @SideOnly(Side.CLIENT)
     private void runClient(final REQ packet, final EntityPlayer player) {
-        Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-            @Override
-            public void run() {
-                packet.handleClientSide(player);
-            }
-        });
+        Minecraft.getMinecraft().addScheduledTask(() -> packet.handleClientSide(player));
     }
 
     private void runServer(final REQ packet, final EntityPlayer player) {
-        player.getServer().addScheduledTask(new Runnable() {
-            @Override
-            public void run() {
-                packet.handleServerSide(player);
-            }
-        });
+        player.getServer().addScheduledTask(() -> packet.handleServerSide(player));
     }
 
     @SideOnly(Side.CLIENT)

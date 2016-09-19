@@ -12,6 +12,9 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
  maven {
    url = "http://maven.ic2.player.to/"

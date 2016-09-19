@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWrapper> {
     public static List<WinnowingRecipeWrapper> getRecipes() {
-        List<WinnowingRecipeWrapper> wrappers = new ArrayList<WinnowingRecipeWrapper>();
+        List<WinnowingRecipeWrapper> wrappers = new ArrayList<>();
         Map<Pair<Item, Integer>, WinnowingMachineRecipe> recipes = WinnowingMachineRecipes.instance().getRecipes();
         for (Pair<Item, Integer> pair : recipes.keySet()) {
             wrappers.add(new WinnowingRecipeWrapper(pair, recipes.get(pair)));

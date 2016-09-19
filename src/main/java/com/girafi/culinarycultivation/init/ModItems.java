@@ -103,7 +103,7 @@ public class ModItems {
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             if (item.getHasSubtypes()) {
-                List<ItemStack> subItems = new ArrayList<ItemStack>();
+                List<ItemStack> subItems = new ArrayList<>();
                 item.getSubItems(item, tab, subItems);
                 for (ItemStack stack : subItems) {
                     String subItemName = item.getUnlocalizedName(stack).replace("item.culinarycultivation:", "");

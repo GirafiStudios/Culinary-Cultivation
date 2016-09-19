@@ -32,10 +32,10 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
 
     public WinnowingRecipeWrapper(Pair<Item, Integer> input, WinnowingMachineRecipe recipe) {
         this.inputs = Collections.singletonList(new ItemStack(input.getKey(), 1, input.getValue()));
-        this.outputs = new ArrayList<ItemStack>();
-        this.junks = new ArrayList<ItemStack>();
-        this.outputChances = new HashMap<Pair<Item, Integer>, String>();
-        this.junkChances = new HashMap<Pair<Item, Integer>, String>();
+        this.outputs = new ArrayList<>();
+        this.junks = new ArrayList<>();
+        this.outputChances = new HashMap<>();
+        this.junkChances = new HashMap<>();
         if (recipe.getOutput() != null) {
             for (ItemStack stack: recipe.getOutput().getSet()) {
                 if (stack != null) {
@@ -54,7 +54,7 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
             }
         } else this.junks.add(null);
 
-        this.all = new ArrayList<ItemStack>();
+        this.all = new ArrayList<>();
         this.all.addAll(outputs);
         this.all.addAll(junks);
     }

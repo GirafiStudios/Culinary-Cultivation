@@ -88,7 +88,7 @@ public class ItemDebugItem extends Item {
                 player.setActiveHand(hand);
             }
         }
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
     @Override

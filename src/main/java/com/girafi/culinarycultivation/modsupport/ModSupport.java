@@ -12,39 +12,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /*
  * This class is highly inspired from PneumaticCrafts ThirdPartyManager. Credits to MineMaarten for letting me use this. PneumaticCraft repo: https://github.com/MineMaarten/PneumaticCraft
  */
 public class ModSupport {
     public static final ModSupport INSTANCE = new ModSupport();
-    private final List<IModSupport> modSupportMods = new ArrayList<IModSupport>();
+    private final List<IModSupport> modSupportMods = new ArrayList<>();
 
     public void modSupportIndex() {
-        Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<String, Class<? extends IModSupport>>();
+        Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<>();
         modSupportClasses.put(SupportedModIDs.FORESTRY, Forestry.class);
         //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
         modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
 
 
-        List<String> enabledModSupport = new ArrayList<String>();
-        for (String modid : modSupportClasses.keySet()) {
-            if (ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MOD_SUPPORT_ENABLING, modid, true).getBoolean()) {
-                enabledModSupport.add(modid);
-            }
-        }
+        List<String> enabledModSupport = modSupportClasses.keySet().stream().filter(modid -> ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MOD_SUPPORT_ENABLING, modid, true).getBoolean()).collect(Collectors.toList());
+
         ConfigurationHandler.config.save();
 
-        for (Map.Entry<String, Class<? extends IModSupport>> entry : modSupportClasses.entrySet()) {
-            if (enabledModSupport.contains(entry.getKey()) && Loader.isModLoaded(entry.getKey())) {
-                try {
-                    modSupportMods.add(entry.getValue().newInstance());
-                } catch (Exception e) {
-                    LogHelper.error("Failed to load mod support handler");
-                    e.printStackTrace();
-                }
+        modSupportClasses.entrySet().stream().filter(entry -> enabledModSupport.contains(entry.getKey()) && Loader.isModLoaded(entry.getKey())).forEach(entry -> {
+            try {
+                modSupportMods.add(entry.getValue().newInstance());
+            } catch (Exception e) {
+                LogHelper.error("Failed to load mod support handler");
+                e.printStackTrace();
             }
-        }
+        });
     }
 
     public void preInit() {
