@@ -23,7 +23,7 @@ public class WinnowingMachineRecipe {
 
     public static class WeightedItems {
         private final NavigableMap<Double, ItemStack> map = new TreeMap<>();
-        private final TObjectDoubleMap<ItemStack> actual = new TObjectDoubleHashMap();
+        private final TObjectDoubleMap<ItemStack> actual = new TObjectDoubleHashMap<>();
         private double total = 0;
 
         public void add(ItemStack stack, double weight) {

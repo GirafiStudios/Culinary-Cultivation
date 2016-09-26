@@ -2,6 +2,7 @@ package com.girafi.culinarycultivation.init.recipes;
 
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
@@ -66,13 +67,19 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
 
         //Winnowing recipes
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta()), new ItemStack(CROP_SEEDS, 1, ProductType.CUCUMBER.getMetadata()), 10);
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta()), new ItemStack(CROP_SEEDS, 1, ProductType.TOMATO.getMetadata()), 8);
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta()), new ItemStack(CROP_SEEDS, 1, ProductType.BLACK_PEPPER_DRUPE.getMetadata()), 20);
+        ItemStack tallGrass = new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta());
+        ItemStack doubleTallGrass = new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta());
 
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta()), new ItemStack(Items.WHEAT_SEEDS), 10);
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta()), new ItemStack(Items.BEETROOT_SEEDS), 2);
-        CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta()), new ItemStack(Items.PUMPKIN_SEEDS), 1);
+        //Culinary Cultivation outputs
+        CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.CUCUMBER.getMetadata()), 10);
+        CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.TOMATO.getMetadata()), 8);
+        CulinaryCultivationAPI.winnowing.addJunk(tallGrass, new ItemStack(ModItems.CHAFF_PILE), 10);
+        CulinaryCultivationAPI.winnowing.addRecipe(doubleTallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.BLACK_PEPPER_DRUPE.getMetadata()), 20);
+
+        //Vanilla outputs
+        CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(Items.WHEAT_SEEDS), 10);
+        CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(Items.BEETROOT_SEEDS), 2);
+        CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(Items.PUMPKIN_SEEDS), 1);
         CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.getMetadata()), new ItemStack(Items.MELON_SEEDS), 1, new ItemStack(Blocks.DEADBUSH), 10);
         CulinaryCultivationAPI.winnowing.addRecipe(new ItemStack(Items.WHEAT), new ItemStack(Items.WHEAT_SEEDS), 15, new ItemStack(CHAFF_PILE), 90);
 
