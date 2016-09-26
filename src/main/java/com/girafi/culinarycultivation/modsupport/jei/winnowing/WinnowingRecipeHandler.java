@@ -14,14 +14,13 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWrapper> {
     public static List<WinnowingRecipeWrapper> getRecipes() {
         List<WinnowingRecipeWrapper> wrappers = new ArrayList<>();
         Map<Pair<Item, Integer>, WinnowingMachineRecipe> recipes = WinnowingMachineRecipes.instance().getRecipes();
-        for (Pair<Item, Integer> pair : recipes.keySet()) {
-            wrappers.add(new WinnowingRecipeWrapper(pair, recipes.get(pair)));
-        }
+        wrappers.addAll(recipes.keySet().stream().map(pair -> new WinnowingRecipeWrapper(pair, recipes.get(pair))).collect(Collectors.toList()));
 
         return wrappers;
     }
@@ -52,12 +51,12 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
 
     @Override
     public boolean isRecipeValid(@Nonnull WinnowingRecipeWrapper recipe) {
-        if (recipe.getInputs().isEmpty()) {
+        if (recipe.getInputList().isEmpty()) {
             String recipeInfo = ErrorUtil.getInfoFromBrokenRecipe(recipe, this);
             Log.error("Recipe has no inputs. {}", recipeInfo);
         }
 
-        if (recipe.getOutputs().isEmpty()) {
+        if (recipe.getOutputList().isEmpty()) {
             String recipeInfo = ErrorUtil.getInfoFromBrokenRecipe(recipe, this);
             Log.error("Recipe has no outputs. {}", recipeInfo);
         }
