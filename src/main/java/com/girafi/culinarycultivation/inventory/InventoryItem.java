@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.inventory;
 
+import com.girafi.culinarycultivation.util.NBTHelper;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,7 @@ public class InventoryItem extends InventoryBasic {
         this.inventory = new ItemStack[size];
         this.stackLimit = stackLimit;
 
-        this.prepareTag(invItem);
+        NBTHelper.getTag(invItem);
         this.readFromNBT();
     }
 
@@ -108,12 +109,5 @@ public class InventoryItem extends InventoryBasic {
             }
         }
         this.writeToNBT();
-    }
-
-    private NBTTagCompound prepareTag(ItemStack stack) {
-        if (!stack.hasTagCompound()) {
-            stack.setTagCompound(new NBTTagCompound());
-        }
-        return stack.getTagCompound();
     }
 }

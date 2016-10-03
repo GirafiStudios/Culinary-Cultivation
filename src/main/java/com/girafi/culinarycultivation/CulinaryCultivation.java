@@ -30,7 +30,6 @@ public class CulinaryCultivation {
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_ClASS)
     public static CommonProxy proxy;
 
-
     public static final CreativeTabs TAB = new CreativeTabs(Reference.MOD_ID) {
         @Override
         @SideOnly(Side.CLIENT)

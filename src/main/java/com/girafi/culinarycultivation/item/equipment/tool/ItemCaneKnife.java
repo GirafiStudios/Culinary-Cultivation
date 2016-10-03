@@ -1,22 +1,37 @@
 package com.girafi.culinarycultivation.item.equipment.tool;
 
-import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemStack;
 
-import java.util.Set;
-
-public class ItemCaneKnife extends ItemTool {
-    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.REEDS, Blocks.VINE, Blocks.COCOA, Blocks.DEADBUSH, Blocks.LEAVES, Blocks.LEAVES2, Blocks.TALLGRASS, Blocks.DOUBLE_PLANT);
+public class ItemCaneKnife extends ItemAxe {
 
     public ItemCaneKnife() {
-        super(3.0F, -2.0F, ToolMaterial.STONE, EFFECTIVE_ON);
+        super(ToolMaterial.IRON, 2.0F, 2.0F);
     }
 
     @Override
-    public int getItemEnchantability() {
-        return Item.ToolMaterial.WOOD.getHarvestLevel();
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        stack.damageItem(1, attacker);
+        return true;
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockState state) {
+        return state.getBlock() == Blocks.WEB;
+    }
+
+    @Override
+    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+        for (String type : getToolClasses(stack)) {
+            if (state.getBlock().isToolEffective(type, state)) {
+                return efficiencyOnProperMaterial;
+            }
+        }
+        Material material = state.getMaterial();
+        return material == Material.PLANTS || material == Material.VINE || material == Material.LEAVES || material == Material.GOURD || material == Material.CACTUS ? this.efficiencyOnProperMaterial : 1.0F;
     }
 }
