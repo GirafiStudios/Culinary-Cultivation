@@ -23,6 +23,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
+    @Nonnull
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return type == null ? Paths.ARMOR_MODEL + armorPieceName + ".png" : Paths.ARMOR_MODEL + armorPieceName + "_overlay" + ".png";
     }
@@ -149,12 +151,12 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
-    public boolean hasColor(ItemStack stack) {
+    public boolean hasColor(@Nonnull ItemStack stack) {
         return ((ItemFarmerArmor) stack.getItem()).getArmorMaterial() == CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL && (stack.hasTagCompound() && (stack.getTagCompound().hasKey("display", 10) && stack.getTagCompound().getCompoundTag("display").hasKey("color", 3)));
     }
 
     @Override
-    public int getColor(ItemStack stack) {
+    public int getColor(@Nonnull ItemStack stack) {
         if (!this.hasColor(stack)) {
             if (stack.getItem() == ModItems.FARMER_SHIRT) {
                 return 0x971212;
@@ -171,7 +173,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
             if (tag != null) {
                 NBTTagCompound displayTag = tag.getCompoundTag("display");
 
-                if (displayTag != null && displayTag.hasKey("color", 3)) {
+                if (displayTag.hasKey("color", 3)) {
                     return displayTag.getInteger("color");
                 }
             }
@@ -180,7 +182,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
-    public void removeColor(ItemStack stack) {
+    public void removeColor(@Nonnull ItemStack stack) {
         NBTTagCompound tag = stack.getTagCompound();
         if (tag != null) {
             NBTTagCompound displayTag = tag.getCompoundTag("display");

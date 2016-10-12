@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,7 @@ public class ItemStorageJar extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list) {
+    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTab, List<ItemStack> list) {
         super.getSubItems(item, creativeTab, list);
         for (StorageJarType storageJarType : StorageJarType.values()) {
             if (storageJarType.getMetaData() != 0) {
@@ -93,8 +94,9 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    public ItemStack getContainerItem(ItemStack itemStack) {
-        if (!hasContainerItem(itemStack) || itemStack.getItemDamage() == 0) {
+    @Nonnull
+    public ItemStack getContainerItem(@Nonnull ItemStack stack) {
+        if (!hasContainerItem(stack) || stack.getItemDamage() == 0) {
             return null;
         }
         return new ItemStack(getContainerItem());
@@ -106,6 +108,7 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
+    @Nonnull
     public EnumAction getItemUseAction(ItemStack stack) {
         if (stack.getItemDamage() == 0) {
             return EnumAction.NONE;
@@ -114,7 +117,7 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
+    public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase entityLiving) {
         ItemStack emptyJarStack = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
         if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
@@ -132,24 +135,21 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if (stack.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
             RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
-            if (rayTraceResult == null) {
-                return new ActionResult<>(EnumActionResult.PASS, stack);
-            } else {
-                if (rayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    BlockPos pos = rayTraceResult.getBlockPos();
+            if (rayTraceResult.typeOfHit == RayTraceResult.Type.BLOCK) {
+                BlockPos pos = rayTraceResult.getBlockPos();
 
-                    if (!world.isBlockModifiable(player, pos) || !player.canPlayerEdit(pos.offset(rayTraceResult.sideHit), rayTraceResult.sideHit, stack)) {
-                        return new ActionResult<>(EnumActionResult.PASS, stack);
-                    }
+                if (!world.isBlockModifiable(player, pos) || !player.canPlayerEdit(pos.offset(rayTraceResult.sideHit), rayTraceResult.sideHit, stack)) {
+                    return new ActionResult<>(EnumActionResult.PASS, stack);
+                }
 
-                    if (world.getBlockState(pos).getMaterial() == Material.WATER) {
-                        world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                        return new ActionResult<>(EnumActionResult.SUCCESS, this.fillJar(stack, player, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData())));
-                    }
+                if (world.getBlockState(pos).getMaterial() == Material.WATER) {
+                    world.playSound(player, player.posX, player.posY, player.posZ, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                    return new ActionResult<>(EnumActionResult.SUCCESS, this.fillJar(stack, player, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData())));
                 }
             }
         }
@@ -173,11 +173,13 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
+    @Nonnull
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.FAIL;
     }
 
     @Override
+    @Nonnull
     public String getUnlocalizedName(ItemStack stack) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
         if (storageJarType.getMetaData() == 0) {
@@ -188,7 +190,8 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
+    @Nonnull
+    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
         return I18n.translateToLocal("item." + this.getRegistryName() + "_" + StorageJarType.getStorageJarType(stack).getUnlocalizedName() + ".name").trim();
     }
 

@@ -15,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
@@ -38,11 +39,13 @@ public class BlockCrop extends BlockCrops {
     }
 
     @Override
+    @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return CROP_AAAB[state.getValue(AGE)];
     }
 
     @Override
+    @Nonnull
     public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
         return EnumPlantType.Crop;
     }
@@ -94,12 +97,13 @@ public class BlockCrop extends BlockCrops {
 
     @Override
     @Nullable
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+    public Item getItemDropped(@Nullable IBlockState state, Random rand, int fortune) {
         return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
     }
 
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    @Nonnull
+    public List<ItemStack> getDrops(@Nullable IBlockAccess world, @Nullable BlockPos pos, @Nullable IBlockState state, int fortune) {
         List<ItemStack> ret = new java.util.ArrayList<>();
         int age = state.getValue(AGE);
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;

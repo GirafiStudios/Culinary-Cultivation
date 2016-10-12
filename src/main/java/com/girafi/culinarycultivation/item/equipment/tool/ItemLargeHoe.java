@@ -16,6 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class ItemLargeHoe extends ItemHoe {
 
     public ItemLargeHoe(ToolMaterial material) {
@@ -26,12 +29,11 @@ public class ItemLargeHoe extends ItemHoe {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    @Nonnull
+    public EnumActionResult onItemUse(@Nullable ItemStack stack, EntityPlayer player, @Nullable World world, BlockPos pos, EnumHand hand, @Nullable EnumFacing facing, float hitX, float hitY, float hitZ) {
         RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
-        if (rayTraceResult == null) {
-            return EnumActionResult.PASS;
-        } else if (rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
+        if (rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
             return EnumActionResult.PASS;
         } else {
             BlockPos rayTracePos = rayTraceResult.getBlockPos();
@@ -123,7 +125,7 @@ public class ItemLargeHoe extends ItemHoe {
     }
 
     @Override
-    protected void setBlock(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    protected void setBlock(@Nonnull ItemStack stack, @Nonnull EntityPlayer player, World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState) {
         IBlockState state = world.getBlockState(pos);
         if (!world.isAirBlock(pos.up()))
             return;

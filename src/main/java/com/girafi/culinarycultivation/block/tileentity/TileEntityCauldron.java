@@ -5,6 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 
+import javax.annotation.Nonnull;
+
 public class TileEntityCauldron extends TileEntity implements ITickable {
     private int timer = 2400;
 
@@ -25,6 +27,7 @@ public class TileEntityCauldron extends TileEntity implements ITickable {
     }
 
     @Override
+    @Nonnull
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setInteger("timer", timer);

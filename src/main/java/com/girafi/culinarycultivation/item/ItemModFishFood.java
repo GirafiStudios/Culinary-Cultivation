@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class ItemModFishFood extends ItemFood {
     }
 
     @Override
-    protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
+    protected void onFoodEaten(ItemStack stack, World world, @Nonnull EntityPlayer player) {
         FishType fishType = FishType.getFishType(stack);
         double potionEffectProbability = Math.random();
 
@@ -61,7 +62,7 @@ public class ItemModFishFood extends ItemFood {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> subItems) {
+    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTabs, List<ItemStack> subItems) {
         for (FishType fishtype : FishType.values()) {
             if (!fishtype.isHaveRawFish() && this.cooked && fishtype.isHaveCookedFish()) {
                 subItems.add(new ItemStack(this, 1, fishtype.getMetadata()));
@@ -76,6 +77,7 @@ public class ItemModFishFood extends ItemFood {
     }
 
     @Override
+    @Nonnull
     public String getUnlocalizedName(ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish() & !this.cooked) {

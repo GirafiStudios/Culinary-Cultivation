@@ -16,20 +16,20 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
- maven {
-   url = "http://maven.ic2.player.to/"
- }
-  maven {
-    url "http://dvs1.progwml6.com/files/maven"
-  }
-  maven {
-    url "http://mobiusstrip.eu/maven"
-  }
+    maven {
+        url "http://maven.ic2.player.to/"
+    }
+    maven {
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        url "http://mobiusstrip.eu/maven"
+    }
 }
 
 ext.buildnumber=""
 if (System.getenv().BUILD_NUMBER) {
-    ext.buildnumber="-Beta" + System.getenv().BUILD_NUMBER
+    ext.buildnumber = "-Beta" + System.getenv().BUILD_NUMBER
 }
 
 version = "${minecraft_version}-${mod_version}${buildnumber}"
@@ -43,13 +43,13 @@ minecraft {
 
     replace "@VERSION@", project.mod_version
     replaceIn "Reference.java"
-	replaceIn "package-info.java"
+    replaceIn "package-info.java"
 }
 
 dependencies {
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
     deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.9.4"
-	deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
+    deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
 }
 
 processResources {
@@ -66,13 +66,4 @@ processResources {
         exclude '**/*.info'
         exclude '**/*.properties'
     }
-}
-
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'dev'
-}
-
-artifacts {
-    archives deobfJar
 }

@@ -18,6 +18,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockSeparator extends SourceBlockTileEntity {
@@ -46,7 +47,8 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world, int meta) {
+    @Nonnull
+    public TileEntity createNewTileEntity(@Nonnull World world, int meta) {
         return new TileEntitySeparator();
     }
 
@@ -80,6 +82,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
+    @Nonnull
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
@@ -102,7 +105,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         TileEntity tileentity = world.getTileEntity(pos);
 
         if (tileentity instanceof TileEntitySeparator) {
@@ -112,6 +115,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
+    @Nonnull
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing enumfacing = EnumFacing.getFront(meta);
 
@@ -123,12 +127,14 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public IBlockState withRotation(IBlockState state, Rotation rot) {
+    @Nonnull
+    public IBlockState withRotation(@Nonnull IBlockState state, Rotation rot) {
         return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public IBlockState withMirror(IBlockState state, Mirror mirror) {
+    @Nonnull
+    public IBlockState withMirror(@Nonnull IBlockState state, Mirror mirror) {
         return state.withRotation(mirror.toRotation(state.getValue(FACING)));
     }
 
@@ -138,6 +144,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
+    @Nonnull
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING);
     }

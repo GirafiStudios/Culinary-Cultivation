@@ -20,6 +20,8 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BlockFanHousing extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
@@ -41,7 +43,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return side == EnumFacing.getFront(state.getBlock().getMetaFromState(state));
     }
 
@@ -75,7 +77,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         //Check for a block on the world
         BlockPos right = pos.offset(state.getValue(FACING).rotateAround(Axis.Y).getOpposite());
         if (world.getTileEntity(right) instanceof TileEntitySeparator) {
@@ -120,6 +122,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
+    @Nonnull
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
@@ -130,11 +133,13 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
+    @Nonnull
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
 
     @Override
+    @Nonnull
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing enumfacing = EnumFacing.getFront(meta);
 
@@ -151,6 +156,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
+    @Nonnull
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING);
     }

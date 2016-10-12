@@ -19,6 +19,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
@@ -42,6 +43,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
+    @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         int age = state.getValue(AGE);
         if (age <= 7) {
@@ -53,12 +55,14 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
+    @Nonnull
     public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
         return EnumPlantType.Crop;
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    @Nonnull
+    public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
         if (itemSeed == null) {
             return itemCrop;
         }
@@ -101,7 +105,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock) {
+    public void neighborChanged(@Nullable IBlockState state, @Nullable World world, @Nullable BlockPos pos, Block neighborBlock) {
         if (state.getValue(AGE) == 7 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
             world.setBlockState(pos, state.withProperty(AGE, 6), 2);
         }
@@ -109,7 +113,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(@Nullable World world, @Nullable BlockPos pos, @Nullable IBlockState state, Random rand) {
         super.updateTick(world, pos, state, rand);
 
         this.checkAndDropBlock(world, pos, state);
@@ -187,7 +191,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
+    public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         int i = state.getValue(AGE) + MathHelper.getRandomIntegerInRange(world.rand, 1, 1);
         int age = state.getValue(AGE);
 
@@ -206,18 +210,18 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float chance, int fortune) {
+    public void dropBlockAsItemWithChance(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, float chance, int fortune) {
         super.dropBlockAsItemWithChance(world, pos, state, chance, 0);
     }
 
     @Override
-    public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean isClient) {
+    public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
         int age = state.getValue(AGE);
         return age < 14 && age != 7;
     }
 
     @Override
-    public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
+    public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         int age = world.getBlockState(pos).getValue(AGE);
         if (age < 14) {
             if (age == 13 && world.getBlockState(pos.down()).getBlock() instanceof BlockDoubleCrop) {
@@ -242,6 +246,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
+    @Nonnull
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(AGE, meta);
     }
@@ -252,6 +257,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
+    @Nonnull
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AGE);
     }
@@ -288,7 +294,8 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    @Nonnull
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
         List<ItemStack> ret = new java.util.ArrayList<>();
         int age = state.getValue(AGE);
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;

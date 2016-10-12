@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 public class ItemDebugItem extends Item {
     private boolean alwaysEdible;
 
@@ -31,6 +33,7 @@ public class ItemDebugItem extends Item {
     }
 
     @Override
+    @Nonnull
     public String getUnlocalizedName(ItemStack stack) {
         return super.getUnlocalizedName(stack) + "_" + getModeName(stack.getItemDamage());
     }
@@ -51,6 +54,7 @@ public class ItemDebugItem extends Item {
     }
 
     @Override
+    @Nonnull
     public EnumAction getItemUseAction(ItemStack stack) {
         if (stack.getItemDamage() == 1 || stack.getItemDamage() == 2) {
             return EnumAction.EAT;
@@ -60,7 +64,7 @@ public class ItemDebugItem extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityLivingBase entityLiving) {
+    public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase entityLiving) {
         EntityPlayer player = (EntityPlayer) entityLiving;
         if (stack.getItemDamage() == 1) {
             player.getFoodStats().addExhaustion(40F);
@@ -77,7 +81,8 @@ public class ItemDebugItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if (stack.getItemDamage() == 1) {
             if (player.canEat(alwaysEdible)) {
                 player.setActiveHand(hand);
@@ -102,6 +107,7 @@ public class ItemDebugItem extends Item {
     }
 
     @Override
+    @Nonnull
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (stack.getItemDamage() == 3) {
             if (player.isSneaking() && applyBonemeal(stack, world, pos, player) && world.getBlockState(pos).getBlock() instanceof BlockCrops) {

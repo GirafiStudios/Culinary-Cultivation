@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.DEPENDENCIES, guiFactory = Reference.GUI_FACTORY_CLASS)
@@ -33,6 +34,7 @@ public class CulinaryCultivation {
     public static final CreativeTabs TAB = new CreativeTabs(Reference.MOD_ID) {
         @Override
         @SideOnly(Side.CLIENT)
+        @Nonnull
         public Item getTabIconItem() {
             return ModItems.MEAT_CLEAVER;
         }

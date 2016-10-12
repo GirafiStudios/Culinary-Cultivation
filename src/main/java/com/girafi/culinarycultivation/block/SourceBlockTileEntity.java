@@ -6,6 +6,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumBlockRenderType;
 
+import javax.annotation.Nonnull;
+
 public abstract class SourceBlockTileEntity extends BlockContainer {
 
     public SourceBlockTileEntity(Material material) {
@@ -17,6 +19,7 @@ public abstract class SourceBlockTileEntity extends BlockContainer {
     }
 
     @Override
+    @Nonnull
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }

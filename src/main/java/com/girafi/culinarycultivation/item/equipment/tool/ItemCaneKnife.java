@@ -7,6 +7,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 public class ItemCaneKnife extends ItemAxe {
 
     public ItemCaneKnife() {
@@ -14,7 +16,7 @@ public class ItemCaneKnife extends ItemAxe {
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nullable EntityLivingBase attacker) {
         stack.damageItem(1, attacker);
         return true;
     }
@@ -25,7 +27,7 @@ public class ItemCaneKnife extends ItemAxe {
     }
 
     @Override
-    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    public float getStrVsBlock(@Nullable ItemStack stack, IBlockState state) {
         for (String type : getToolClasses(stack)) {
             if (state.getBlock().isToolEffective(type, state)) {
                 return efficiencyOnProperMaterial;

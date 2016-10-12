@@ -22,6 +22,7 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
 
 
     @Override
+    @Nonnull
     public EnumAction getItemUseAction(ItemStack stack) {
         if (!this.isSeed) {
             return super.getItemUseAction(stack);
@@ -63,7 +65,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems) {
+    public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> subItems) {
         for (ProductType productType : ProductType.values()) {
             if (!productType.isHasCrop() && this.isSeed && productType.isHasSeed()) {
                 subItems.add(new ItemStack(this, 1, productType.getMetadata()));
@@ -75,6 +77,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     }
 
     @Override
+    @Nonnull
     public String getUnlocalizedName(ItemStack stack) {
         if (this.isSeed) {
             return "item." + Paths.MOD_ASSETS + ProductType.byItemStack(stack).getCropName() + "_seed";
@@ -83,6 +86,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     }
 
     @Override
+    @Nonnull
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ProductType productType = ProductType.byItemStack(stack);
         IBlockState state = world.getBlockState(pos);

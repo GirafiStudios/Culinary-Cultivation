@@ -12,13 +12,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class RecipesFarmerArmorDyes implements IRecipe {
 
     @Override
-    public boolean matches(InventoryCrafting crafting, World world) {
+    public boolean matches(@Nonnull InventoryCrafting crafting, @Nonnull World world) {
         ItemStack stack = null;
         List<ItemStack> list = Lists.newArrayList();
 
@@ -32,13 +33,11 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                     if (armor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || stack != null) {
                         return false;
                     }
-
                     stack = craftingStack;
                 } else {
                     if (craftingStack.getItem() != Items.DYE) {
                         return false;
                     }
-
                     list.add(craftingStack);
                 }
             }
@@ -48,7 +47,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
 
     @Override
     @Nullable
-    public ItemStack getCraftingResult(InventoryCrafting crafting) {
+    public ItemStack getCraftingResult(@Nonnull InventoryCrafting crafting) {
         ItemStack stack = null;
         int[] aint = new int[3];
         int i = 0;
@@ -128,7 +127,8 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     }
 
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting crafting) {
+    @Nonnull
+    public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting crafting) {
         ItemStack[] aStack = new ItemStack[crafting.getSizeInventory()];
 
         for (int i = 0; i < aStack.length; ++i) {

@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class ItemModMeatFood extends ItemFood {
     }
 
     @Override
-    protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player) {
+    protected void onFoodEaten(ItemStack stack, World world, @Nonnull EntityPlayer player) {
         MeatType meatType = MeatType.getMeatType(stack);
         double potionEffectProbability = (float) Math.random();
 
@@ -63,7 +64,7 @@ public class ItemModMeatFood extends ItemFood {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
+    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
         for (MeatType meattype : MeatType.values()) {
             if (!meattype.isHaveRawMeat() && this.cooked && meattype.isHaveCookedMeat()) {
                 list.add(new ItemStack(this, 1, meattype.getMetadata()));
@@ -77,6 +78,7 @@ public class ItemModMeatFood extends ItemFood {
     }
 
     @Override
+    @Nonnull
     public String getUnlocalizedName(ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (this.cooked && meattype.isHaveCookedMeat()) {

@@ -9,6 +9,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ContainerSeedBag extends Container {
@@ -38,7 +39,7 @@ public class ContainerSeedBag extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         ItemStack heldStack = player.getHeldItemMainhand();
         return this.seedBagInventory != null && heldStack != null && heldStack.getItem() instanceof ItemSeedBag;
     }

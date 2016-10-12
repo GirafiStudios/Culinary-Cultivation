@@ -25,6 +25,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -37,22 +38,23 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     }
 
     @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
+    public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack) {
         return isMultiblockFormed && WinnowingMachineRecipes.instance().getProcessingResult(stack) != null;
     }
 
     @Override
-    public int[] getSlotsForFace(EnumFacing side) {
+    @Nonnull
+    public int[] getSlotsForFace(@Nonnull EnumFacing side) {
         return new int[]{0};
     }
 
     @Override
-    public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
+    public boolean canInsertItem(int index, @Nonnull ItemStack stack, @Nonnull EnumFacing direction) {
         return direction == EnumFacing.UP && isItemValidForSlot(index, stack);
     }
 
     @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+    public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull EnumFacing direction) {
         return false;
     }
 
@@ -70,7 +72,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 isMultiblockFormed = true;
             }
         }
-        markDirty();
+        this.markDirty();
     }
 
     @Override
