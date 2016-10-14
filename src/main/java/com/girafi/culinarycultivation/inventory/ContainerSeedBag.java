@@ -5,27 +5,25 @@ import com.girafi.culinarycultivation.item.equipment.tool.ItemSeedBag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-public class ContainerSeedBag extends Container {
+public class ContainerSeedBag extends ContainerBase {
     private SeedBagInventory seedBagInventory;
 
     public ContainerSeedBag(InventoryPlayer playerInventory, SeedBagInventory seedBagInv, EntityPlayer player) {
         this.seedBagInventory = seedBagInv;
         this.seedBagInventory.openInventory(player);
+        this.setMaxStackSize(seedBagInventory.getInventoryStackLimit());
 
         this.addSlotToContainer(new Slot(this.seedBagInventory, 0, 80, 20) {
             @Override
-            public boolean isItemValid(@Nullable ItemStack stack) {
+            public boolean isItemValid(ItemStack stack) {
                 return seedBagInventory.isItemValidForSlot(0, stack);
             }
         });
-
 
         for (int l = 0; l < 3; ++l) {
             for (int k = 0; k < 9; ++k) {
@@ -44,7 +42,6 @@ public class ContainerSeedBag extends Container {
         return this.seedBagInventory != null && heldStack != null && heldStack.getItem() instanceof ItemSeedBag;
     }
 
-    @Nullable
     @Override
     public ItemStack slotClick(int slotId, int dragType, ClickType clickType, EntityPlayer player) {
         ItemStack slotStack = slotId < 0 || slotId > this.inventorySlots.size() ? null : this.inventorySlots.get(slotId).getStack();
@@ -54,7 +51,6 @@ public class ContainerSeedBag extends Container {
         return super.slotClick(slotId, dragType, clickType, player);
     }
 
-    @Nullable
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack stack = null;
@@ -78,7 +74,6 @@ public class ContainerSeedBag extends Container {
                 slot.onSlotChanged();
             }
         }
-
         return stack;
     }
 

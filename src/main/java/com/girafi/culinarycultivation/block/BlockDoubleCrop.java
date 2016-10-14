@@ -138,19 +138,19 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         }
     }
 
-    private static float getGrowthChance(Block blockIn, World world, BlockPos pos) {
+    private static float getGrowthChance(Block block, World world, BlockPos pos) {
         float f = 1.0F;
-        BlockPos blockpos = pos.down();
+        BlockPos posDown = pos.down();
 
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
-                IBlockState iblockstate = world.getBlockState(blockpos.add(i, 0, j));
+                IBlockState iblockstate = world.getBlockState(posDown.add(i, 0, j));
 
-                if (iblockstate.getBlock().canSustainPlant(iblockstate, world, blockpos.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) blockIn)) {
+                if (iblockstate.getBlock().canSustainPlant(iblockstate, world, posDown.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) block)) {
                     f1 = 1.0F;
 
-                    if (iblockstate.getBlock().isFertile(world, blockpos.add(i, 0, j))) {
+                    if (iblockstate.getBlock().isFertile(world, posDown.add(i, 0, j))) {
                         f1 = 3.0F;
                     }
                 }
@@ -166,13 +166,13 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         BlockPos posSouth = pos.south();
         BlockPos posWest = pos.west();
         BlockPos posEast = pos.east();
-        boolean isWestOrEast = blockIn == world.getBlockState(posWest).getBlock() || blockIn == world.getBlockState(posEast).getBlock();
-        boolean isNorthOrSouth = blockIn == world.getBlockState(posNorth).getBlock() || blockIn == world.getBlockState(posSouth).getBlock();
+        boolean isWestOrEast = block == world.getBlockState(posWest).getBlock() || block == world.getBlockState(posEast).getBlock();
+        boolean isNorthOrSouth = block == world.getBlockState(posNorth).getBlock() || block == world.getBlockState(posSouth).getBlock();
 
         if (isWestOrEast && isNorthOrSouth) {
             f /= 2.0F;
         } else {
-            boolean flag2 = blockIn == world.getBlockState(posWest.north()).getBlock() || blockIn == world.getBlockState(posEast.north()).getBlock() || blockIn == world.getBlockState(posEast.south()).getBlock() || blockIn == world.getBlockState(posWest.south()).getBlock();
+            boolean flag2 = block == world.getBlockState(posWest.north()).getBlock() || block == world.getBlockState(posEast.north()).getBlock() || block == world.getBlockState(posEast.south()).getBlock() || block == world.getBlockState(posWest.south()).getBlock();
 
             if (flag2) {
                 f /= 2.0F;

@@ -4,6 +4,7 @@ import com.girafi.culinarycultivation.event.FishingLootEvent;
 import com.girafi.culinarycultivation.event.MobDropEvent;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
+import com.girafi.culinarycultivation.item.equipment.tool.ItemSeedBag;
 import net.minecraft.entity.passive.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,6 +38,7 @@ public class Events {
         register(new StorageJarMilkFill());
         register(new FishingLootEvent());
         register(new ItemDebugItem());
+        register(new ItemSeedBag());
     }
 
     public static void register(Object eventClass) {

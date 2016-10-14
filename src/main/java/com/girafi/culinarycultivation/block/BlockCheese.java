@@ -29,21 +29,21 @@ public class BlockCheese extends BlockCake {
         return true;
     }
 
-    private void eatCheese(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+    private void eatCheese(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         if (player.canEat(false)) {
             player.getFoodStats().addStats(2, 0.4F);
             int i = state.getValue(BITES);
 
             if (i < 6) {
-                worldIn.setBlockState(pos, state.withProperty(BITES, i + 1), 3);
+                world.setBlockState(pos, state.withProperty(BITES, i + 1), 3);
             } else {
-                worldIn.setBlockToAir(pos);
+                world.setBlockToAir(pos);
             }
         }
     }
 
     @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(ModBlocks.CHEESE));
     }
 }

@@ -38,7 +38,7 @@ public class InventoryItem extends InventoryBasic {
             int slot = compound.getInteger("Slot");
 
             if (slot >= 0 && slot < getSizeInventory()) {
-                this.inventory[slot] = ItemStack.loadItemStackFromNBT(compound);
+                this.inventory[slot] = NBTHelper.readItemStack(compound);
             }
         }
     }
@@ -52,7 +52,7 @@ public class InventoryItem extends InventoryBasic {
             if (stack != null) {
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setInteger("Slot", index);
-                stack.writeToNBT(compound);
+                NBTHelper.writeItemStack(stack, compound);
                 items.appendTag(compound);
             }
         }

@@ -36,6 +36,7 @@ public class Recipes {
         //Machine recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.FAN_HOUSING), "PPP", "PRD", "I  ", 'P', "plankWood", 'R', "blockRedstone", 'D', Blocks.DISPENSER, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.SEPARATOR), "PHP", "PBF", "  I", 'H', Blocks.HOPPER, 'P', "plankWood", 'B', Items.BOWL, 'F', Blocks.IRON_BARS, 'I', "ingotIron"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.SEED_BAG), " S ", "CXC", " C ",  'C', new ItemStack(Blocks.CARPET, 1, OreDictionary.WILDCARD_VALUE), 'S', Items.STRING, 'X', new ItemStack(ModItems.CROP_SEEDS, 1, OreDictionary.WILDCARD_VALUE)));
 
         //Tools, armor and other stuff
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(CAKE_KNIFE), "  H", "II ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
