@@ -7,10 +7,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class InventoryHandlerHelper {
-    public static ItemStack insertStackIntoInventory(IInventory inventory, ItemStack stack, EnumFacing facing) {
+   public static ItemStack insertStackIntoInventory(IInventory inventory, ItemStack stack, EnumFacing facing, boolean ignoreStackLimit) {
         if (stack == null || inventory == null) {
             return null;
         }
+
         int stackSize = stack.stackSize;
         if (inventory instanceof ISidedInventory) {
             ISidedInventory sidedInv = (ISidedInventory) inventory;
@@ -18,17 +19,21 @@ public class InventoryHandlerHelper {
             if (slots == null) {
                 return stack;
             }
+
             for (int i = 0; i < slots.length && stack != null; i++) {
                 ItemStack existingStack = inventory.getStackInSlot(slots[i]);
                 if (existingStack == null) {
                     continue;
                 }
-                ItemStack toInsert = copyStackWithAmount(stack, Math.min(existingStack.getMaxStackSize(), inventory.getInventoryStackLimit()) - existingStack.stackSize);
+
+                int stackLimit = ignoreStackLimit ? inventory.getInventoryStackLimit() : Math.min(existingStack.getMaxStackSize(), inventory.getInventoryStackLimit());
+                ItemStack toInsert = copyStackWithAmount(stack, stackLimit - existingStack.stackSize);
                 if (sidedInv.canInsertItem(slots[i], toInsert, facing)) {
                     if (OreDictionary.itemMatches(existingStack, stack, true) && ItemStack.areItemStackTagsEqual(stack, existingStack))
-                        stack = addToOccupiedSlot(sidedInv, slots[i], stack, existingStack);
+                        stack = addToOccupiedSlot(sidedInv, slots[i], stack, existingStack, ignoreStackLimit);
                 }
             }
+
             for (int i = 0; i < slots.length && stack != null; i++)
                 if (inventory.getStackInSlot(slots[i]) == null && sidedInv.canInsertItem(slots[i], copyStackWithAmount(stack, inventory.getInventoryStackLimit()), facing)) {
                     stack = addToEmptyInventorySlot(sidedInv, slots[i], stack);
@@ -38,7 +43,7 @@ public class InventoryHandlerHelper {
             for (int i = 0; i < invSize && stack != null; i++) {
                 ItemStack existingStack = inventory.getStackInSlot(i);
                 if (OreDictionary.itemMatches(existingStack, stack, true) && ItemStack.areItemStackTagsEqual(stack, existingStack)) {
-                    stack = addToOccupiedSlot(inventory, i, stack, existingStack);
+                    stack = addToOccupiedSlot(inventory, i, stack, existingStack, ignoreStackLimit);
                 }
             }
             for (int i = 0; i < invSize && stack != null; i++)
@@ -46,9 +51,11 @@ public class InventoryHandlerHelper {
                     stack = addToEmptyInventorySlot(inventory, i, stack);
                 }
         }
+
         if (stack == null || stack.stackSize != stackSize) {
             inventory.markDirty();
         }
+
         return stack;
     }
 
@@ -56,13 +63,14 @@ public class InventoryHandlerHelper {
         if (!inventory.isItemValidForSlot(slot, stack)) {
             return stack;
         }
+
         int stackLimit = inventory.getInventoryStackLimit();
         inventory.setInventorySlotContents(slot, copyStackWithAmount(stack, Math.min(stack.stackSize, stackLimit)));
         return stackLimit >= stack.stackSize ? null : stack.splitStack(stack.stackSize - stackLimit);
     }
 
-    private static ItemStack addToOccupiedSlot(IInventory inventory, int slot, ItemStack stack, ItemStack existingStack) {
-        int stackLimit = Math.min(inventory.getInventoryStackLimit(), stack.getMaxStackSize());
+    private static ItemStack addToOccupiedSlot(IInventory inventory, int slot, ItemStack stack, ItemStack existingStack, boolean ignoreStackSize) {
+        int stackLimit = ignoreStackSize ? inventory.getInventoryStackLimit() : Math.min(inventory.getInventoryStackLimit(), stack.getMaxStackSize());
         if (stack.stackSize + existingStack.stackSize > stackLimit) {
             int stackDiff = stackLimit - existingStack.stackSize;
             existingStack.stackSize = stackLimit;
@@ -70,6 +78,7 @@ public class InventoryHandlerHelper {
             inventory.setInventorySlotContents(slot, existingStack);
             return stack;
         }
+
         existingStack.stackSize += Math.min(stack.stackSize, stackLimit);
         inventory.setInventorySlotContents(slot, existingStack);
         return null;
@@ -79,6 +88,7 @@ public class InventoryHandlerHelper {
         if (stack == null) {
             return null;
         }
+
         ItemStack copyStack = stack.copy();
         copyStack.stackSize = amount;
         return copyStack;

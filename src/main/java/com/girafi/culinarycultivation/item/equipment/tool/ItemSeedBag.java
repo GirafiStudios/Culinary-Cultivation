@@ -3,16 +3,15 @@ package com.girafi.culinarycultivation.item.equipment.tool;
 import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.client.gui.GuiHandler;
 import com.girafi.culinarycultivation.inventory.SeedBagInventory;
+import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -21,8 +20,10 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemSeedBag extends Item {
@@ -92,30 +93,37 @@ public class ItemSeedBag extends Item {
     }
 
     @SubscribeEvent
-    public void pickupSeeds(EntityItemPickupEvent event) { //TODO Fix stuff about when it is almost full
+    public void pickupSeeds(EntityItemPickupEvent event) {
+        boolean handled = false;
         EntityItem entityItem = event.getItem();
-
         if (entityItem != null) {
-            ItemStack entityStack = entityItem.getEntityItem();
+            ItemStack leftover = entityItem.getEntityItem();
             InventoryPlayer playerInv = event.getEntityPlayer().inventory;
-
             for (int i = 0; i < playerInv.getSizeInventory(); i++) {
                 ItemStack playerSlotStack = playerInv.getStackInSlot(i);
-
                 if (playerSlotStack != null && playerSlotStack.getItem() instanceof ItemSeedBag) {
                     SeedBagInventory seedBagInventory = new SeedBagInventory(playerSlotStack);
-                    ItemStack slotStack = seedBagInventory.getStackInSlot(0);
+                    ItemStack original = leftover.copy();
+                    leftover = InventoryHandlerHelper.insertStackIntoInventory(seedBagInventory, leftover, EnumFacing.DOWN, true);
+                    if (leftover != null) {
+                        if (leftover.stackSize <= 0) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
+                    } else return; //Do nothing
 
-                    if (seedBagInventory.isItemValidForSlot(0, entityStack) && slotStack != null && entityStack.getItem() == slotStack.getItem() && entityStack.getItemDamage() == slotStack.getItemDamage()) {
-                        int stackSize = entityStack.stackSize;
-
-                        if (!(slotStack.stackSize + stackSize >= seedBagInventory.getInventoryStackLimit())) {
-                            entityStack.stackSize = 0;
-                            seedBagInventory.setInventorySlotContents(0, new ItemStack(slotStack.getItem(), slotStack.stackSize + stackSize, slotStack.getItemDamage()));
-                        }
-                    }
+                    //We had seed bags
+                    if (!handled) handled = original.stackSize != leftover.stackSize;
                 }
             }
+
+            if (handled) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
+        }
+    }
+
+    private void finishSeeds(EntityItemPickupEvent event, EntityItem entity, EntityPlayer player, @Nullable ItemStack leftover) {
+        entity.setDead();
+        event.setCanceled(true);
+        player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        if (leftover != null && leftover.stackSize > 0) {
+            ItemHandlerHelper.giveItemToPlayer(player, leftover);
         }
     }
 
