@@ -10,7 +10,6 @@ import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOver
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerStrawhat;
 import com.girafi.culinarycultivation.item.equipment.tool.*;
-import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -96,7 +95,7 @@ public class ModItems {
     }
 
     private static Item registerItem(Item item, String name, CreativeTabs tab) {
-        item.setUnlocalizedName(Paths.MOD_ASSETS + name);
+        item.setUnlocalizedName(new ResourceLocation(Reference.MOD_ID, name).toString());
         item.setCreativeTab(tab);
 
         GameRegistry.register(item, new ResourceLocation(Reference.MOD_ID, name));
@@ -108,10 +107,10 @@ public class ModItems {
                 for (ItemStack stack : subItems) {
                     String subItemName = item.getUnlocalizedName(stack).replace("item.culinarycultivation:", "");
 
-                    ModelLoader.setCustomModelResourceLocation(item, stack.getItemDamage(), new ModelResourceLocation(Paths.MOD_ASSETS + subItemName, "inventory"));
+                    ModelLoader.setCustomModelResourceLocation(item, stack.getItemDamage(), new ModelResourceLocation(new ResourceLocation(Reference.MOD_ID, subItemName), "inventory"));
                 }
             } else {
-                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Paths.MOD_ASSETS + name, "inventory"));
+                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(new ResourceLocation(Reference.MOD_ID, name), "inventory"));
             }
         }
         return item;

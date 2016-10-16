@@ -3,7 +3,6 @@ package com.girafi.culinarycultivation.init;
 import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.block.*;
 import com.girafi.culinarycultivation.item.ItemCropProduct;
-import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -52,7 +51,7 @@ public class ModBlocks {
     }
 
     private static Block registerBlock(Block block, String name, CreativeTabs tab) {
-        block.setUnlocalizedName(Paths.MOD_ASSETS + name);
+        block.setUnlocalizedName(new ResourceLocation(Reference.MOD_ID, name).toString());
         block.setCreativeTab(tab);
 
         GameRegistry.register(block, new ResourceLocation(Reference.MOD_ID, name));

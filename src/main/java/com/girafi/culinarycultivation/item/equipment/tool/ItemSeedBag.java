@@ -109,7 +109,7 @@ public class ItemSeedBag extends Item {
                     if (seedBagInventory.isItemValidForSlot(0, entityStack) && slotStack != null && entityStack.getItem() == slotStack.getItem() && entityStack.getItemDamage() == slotStack.getItemDamage()) {
                         int stackSize = entityStack.stackSize;
 
-                        if (!(slotStack.stackSize >= seedBagInventory.getInventoryStackLimit())) {
+                        if (!(slotStack.stackSize + stackSize >= seedBagInventory.getInventoryStackLimit())) {
                             entityStack.stackSize = 0;
                             seedBagInventory.setInventorySlotContents(0, new ItemStack(slotStack.getItem(), slotStack.stackSize + stackSize, slotStack.getItemDamage()));
                         }

@@ -1,7 +1,7 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
 import com.girafi.culinarycultivation.modsupport.jei.JEIPlugin;
-import com.girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
@@ -23,7 +23,7 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory<WinnowingRecipe
     private final IDrawableStatic background;
 
     public WinnowingRecipeCategory(IGuiHelper guiHelper) {
-        background = guiHelper.createDrawable(new ResourceLocation(Paths.MOD_ASSETS + "textures/gui/winnow.png"), 19, 13, 137, 54);
+        background = guiHelper.createDrawable(new ResourceLocation(Reference.MOD_ID, "textures/gui/winnow.png"), 19, 13, 137, 54);
     }
 
     @Override

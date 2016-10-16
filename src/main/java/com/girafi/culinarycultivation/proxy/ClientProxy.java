@@ -5,10 +5,11 @@ import com.girafi.culinarycultivation.item.ItemStorageJar;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
 import com.girafi.culinarycultivation.modsupport.ModSupport;
-import com.girafi.culinarycultivation.util.reference.Paths;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
 public class ClientProxy extends CommonProxy {
@@ -35,7 +36,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerItemVariantModel(Item item, final String name) {
         if (item != null) {
-            ModelLoader.setCustomMeshDefinition(item, stack -> new ModelResourceLocation(Paths.MOD_ASSETS + name, "inventory"));
+            ModelLoader.setCustomMeshDefinition(item, stack -> new ModelResourceLocation(new ResourceLocation(Reference.MOD_ID, name), "inventory"));
         }
     }
 }
