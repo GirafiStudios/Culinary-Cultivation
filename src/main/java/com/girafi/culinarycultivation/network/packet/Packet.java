@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.io.IOException;
+
 public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMessageHandler<REQ, REQ> {
 
     @Override
@@ -38,7 +40,11 @@ public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMess
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        fromBytes(new PacketBuffer(buf));
+        try {
+            fromBytes(new PacketBuffer(buf));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -53,5 +59,5 @@ public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMess
 
     protected abstract void toBytes(PacketBuffer buffer);
 
-    protected abstract void fromBytes(PacketBuffer buffer);
+    protected abstract void fromBytes(PacketBuffer buffer) throws IOException;
 }

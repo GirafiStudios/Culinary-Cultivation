@@ -1,6 +1,6 @@
 package com.girafi.culinarycultivation.network;
 
-import com.girafi.culinarycultivation.network.packet.PacketDebugItemMode;
+import com.girafi.culinarycultivation.network.packet.PacketChangeMode;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -15,7 +15,7 @@ public class NetworkHandler {
     }
 
     public static void init() {
-        registerPacket(PacketDebugItemMode.class, Side.SERVER);
+        registerPacket(PacketChangeMode.class, Side.SERVER);
     }
 
     private static void registerPacket(Class packetType, Side side) {

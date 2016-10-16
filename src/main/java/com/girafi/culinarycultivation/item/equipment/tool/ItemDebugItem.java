@@ -2,7 +2,7 @@ package com.girafi.culinarycultivation.item.equipment.tool;
 
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.network.NetworkHandler;
-import com.girafi.culinarycultivation.network.packet.PacketDebugItemMode;
+import com.girafi.culinarycultivation.network.packet.PacketChangeMode;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -210,7 +210,7 @@ public class ItemDebugItem extends Item {
                 ItemStack stack = player.getHeldItemMainhand();
                 if (stack != null && stack.getItem() == ModItems.DEBUG_ITEM) {
                     if (event.getDwheel() != 0) {
-                        NetworkHandler.WRAPPER.sendToServer(new PacketDebugItemMode(player.inventory.currentItem, event.getDwheel() < 0));
+                        NetworkHandler.WRAPPER.sendToServer(new PacketChangeMode(4, stack, player.inventory.currentItem, event.getDwheel() < 0));
                     }
                     event.setCanceled(true);
                 }
