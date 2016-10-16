@@ -1,6 +1,0 @@
-{
-    "parent": "block/crop",
-    "textures": {
-        "crop": "culinarycultivation:blocks/black_pepper_stage_2"
-    }
-}

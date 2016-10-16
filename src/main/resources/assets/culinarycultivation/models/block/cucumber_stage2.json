@@ -1,6 +1,0 @@
-{
-    "parent": "block/crop",
-    "textures": {
-        "crop": "culinarycultivation:blocks/cucumber_stage_2"
-    }
-}

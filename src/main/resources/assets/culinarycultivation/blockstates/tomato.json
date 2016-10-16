@@ -1,12 +1,18 @@
 {
+    "forge_marker": 1,
+    "defaults": {
+        "model": "crop"
+    },
     "variants": {
-        "age=0": { "model": "culinarycultivation:tomato_stage0" },
-        "age=1": { "model": "culinarycultivation:tomato_stage0" },
-        "age=2": { "model": "culinarycultivation:tomato_stage1" },
-        "age=3": { "model": "culinarycultivation:tomato_stage1" },
-        "age=4": { "model": "culinarycultivation:tomato_stage2" },
-        "age=5": { "model": "culinarycultivation:tomato_stage2" },
-        "age=6": { "model": "culinarycultivation:tomato_stage2" },
-        "age=7": { "model": "culinarycultivation:tomato_stage3" }
+        "age": {
+            "0": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_0" }},
+            "1": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_0" }},
+            "2": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_1" }},
+            "3": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_1" }},
+            "4": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_2" }},
+            "5": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_2" }},
+            "6": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_3" }},
+            "7": { "textures": { "crop": "culinarycultivation:blocks/tomato_stage_3" }}
+        }
     }
 }

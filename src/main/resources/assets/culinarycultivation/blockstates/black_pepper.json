@@ -1,19 +1,25 @@
 {
+    "forge_marker": 1,
+    "defaults": {
+        "model": "crop"
+    },
     "variants": {
-        "age=0": { "model": "culinarycultivation:black_pepper_stage0" },
-        "age=1": { "model": "culinarycultivation:black_pepper_stage1" },
-        "age=2": { "model": "culinarycultivation:black_pepper_stage1" },
-        "age=3": { "model": "culinarycultivation:black_pepper_stage2" },
-        "age=4": { "model": "culinarycultivation:black_pepper_stage2" },
-        "age=5": { "model": "culinarycultivation:black_pepper_stage3" },
-        "age=6": { "model": "culinarycultivation:black_pepper_stage3" },
-        "age=7": { "model": "culinarycultivation:black_pepper_stage3_2" },
-        "age=8": { "model": "culinarycultivation:black_pepper_stage4" },
-        "age=9": { "model": "culinarycultivation:black_pepper_stage4" },
-        "age=10": { "model": "culinarycultivation:black_pepper_stage4" },
-        "age=11": { "model": "culinarycultivation:black_pepper_stage5" },
-        "age=12": { "model": "culinarycultivation:black_pepper_stage5" },
-        "age=13": { "model": "culinarycultivation:black_pepper_stage5" },
-        "age=14": { "model": "culinarycultivation:black_pepper_stage5_2" }
+        "age": {
+            "0": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_0" }},
+            "1": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_1" }},
+            "2": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_1" }},
+            "3": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_2" }},
+            "4": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_2" }},
+            "5": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_3" }},
+            "6": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_3" }},
+            "7": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_3_2" }},
+            "8": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_4" }},
+            "9": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_4" }},
+            "10": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_4" }},
+            "11": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_5" }},
+            "12": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_5" }},
+            "13": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_5" }},
+            "14": { "textures": { "crop": "culinarycultivation:blocks/black_pepper_stage_5_2" }}
+        }
     }
 }

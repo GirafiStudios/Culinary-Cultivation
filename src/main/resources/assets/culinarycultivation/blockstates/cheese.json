@@ -1,11 +1,14 @@
 {
+    "forge_marker": 1,
     "variants": {
-        "bites=0": { "model": "culinarycultivation:cheese_uneaten" },
-        "bites=1": { "model": "culinarycultivation:cheese_slice1" },
-        "bites=2": { "model": "culinarycultivation:cheese_slice2" },
-        "bites=3": { "model": "culinarycultivation:cheese_slice3" },
-        "bites=4": { "model": "culinarycultivation:cheese_slice4" },
-        "bites=5": { "model": "culinarycultivation:cheese_slice5" },
-        "bites=6": { "model": "culinarycultivation:cheese_slice6" }
+        "bites": {
+            "0": { "model": "cake_uneaten", "textures": { "particle": "culinarycultivation:blocks/cheese_side", "bottom": "culinarycultivation:blocks/cheese_bottom", "top": "culinarycultivation:blocks/cheese_top", "side": "culinarycultivation:blocks/cheese_side", "inside": "culinarycultivation:blocks/cheese_inner" }},
+            "1": { "model": "cake_slice1", "textures": { "particle": "culinarycultivation:blocks/cheese_side", "bottom": "culinarycultivation:blocks/cheese_bottom", "top": "culinarycultivation:blocks/cheese_top", "side": "culinarycultivation:blocks/cheese_side", "inside": "culinarycultivation:blocks/cheese_inner" }},
+            "2": { "model": "cake_slice2", "textures": { "particle": "culinarycultivation:blocks/cheese_side", "bottom": "culinarycultivation:blocks/cheese_bottom", "top": "culinarycultivation:blocks/cheese_top", "side": "culinarycultivation:blocks/cheese_side", "inside": "culinarycultivation:blocks/cheese_inner" }},
+            "3": { "model": "cake_slice3", "textures": { "particle": "culinarycultivation:blocks/cheese_side", "bottom": "culinarycultivation:blocks/cheese_bottom", "top": "culinarycultivation:blocks/cheese_top", "side": "culinarycultivation:blocks/cheese_side", "inside": "culinarycultivation:blocks/cheese_inner" }},
+            "4": { "model": "cake_slice4", "textures": { "particle": "culinarycultivation:blocks/cheese_side", "bottom": "culinarycultivation:blocks/cheese_bottom", "top": "culinarycultivation:blocks/cheese_top", "side": "culinarycultivation:blocks/cheese_side", "inside": "culinarycultivation:blocks/cheese_inner" }},
+            "5": { "model": "cake_slice5", "textures": { "particle": "culinarycultivation:blocks/cheese_side", "bottom": "culinarycultivation:blocks/cheese_bottom", "top": "culinarycultivation:blocks/cheese_top", "side": "culinarycultivation:blocks/cheese_side", "inside": "culinarycultivation:blocks/cheese_inner" }},
+            "6": { "model": "cake_slice6", "textures": { "particle": "culinarycultivation:blocks/cheese_side", "bottom": "culinarycultivation:blocks/cheese_bottom", "top": "culinarycultivation:blocks/cheese_top", "side": "culinarycultivation:blocks/cheese_side", "inside": "culinarycultivation:blocks/cheese_inner" }}
+        }
     }
 }
