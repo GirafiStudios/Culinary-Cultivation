@@ -125,7 +125,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                     inventory[0] = stack;
                     entityItem.setDead();
                 } else {
-                    ItemStack ret = InventoryHandlerHelper.insertStackIntoInventory(this, stack, EnumFacing.UP);
+                    ItemStack ret = InventoryHandlerHelper.insertStackIntoInventory(this, stack, EnumFacing.UP, false);
                     if (ret == null || ret.stackSize <= 0) {
                         entityItem.setDead();
                     } else {
@@ -160,7 +160,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
         TileEntity tileEntity = worldObj.getTileEntity(pos.offset(facing));
         if (tileEntity instanceof ISidedInventory && ((ISidedInventory) tileEntity).getSlotsForFace(facing).length > 0 || tileEntity instanceof IInventory && ((IInventory) tileEntity).getSizeInventory() > 0) {
             IInventory inventory = ((IInventory) tileEntity);
-            stack = InventoryHandlerHelper.insertStackIntoInventory(inventory, stack, facing);
+            stack = InventoryHandlerHelper.insertStackIntoInventory(inventory, stack, facing, false);
         }
 
         if (stack != null) {
