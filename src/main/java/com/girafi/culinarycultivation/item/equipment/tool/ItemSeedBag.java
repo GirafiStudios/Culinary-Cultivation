@@ -37,7 +37,7 @@ public class ItemSeedBag extends Item {
     @Override
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-        if (!world.isRemote && player.isSneaking()) {
+        if (!world.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND) {
             player.openGui(CulinaryCultivation.instance, GuiHandler.GuiID.SEED_BAG.ordinal(), world, 0, 0, 0);
         }
         return new ActionResult<>(EnumActionResult.PASS, stack);
@@ -70,10 +70,16 @@ public class ItemSeedBag extends Item {
     @Override
     @Nonnull
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        useSeedBag(stack, player, world, pos, hand, player.getHeldItem(hand), facing);
+
+        return super.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+    }
+
+    public static EnumActionResult useSeedBag(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, ItemStack heldStack, EnumFacing facing) {
         if (player.isSneaking()) return EnumActionResult.PASS;
 
-        SeedBagInventory seedBagInventory = new SeedBagInventory(player.getHeldItemMainhand());
-        ItemStack seedStack = this.getSeedStack(stack);
+        SeedBagInventory seedBagInventory = new SeedBagInventory(heldStack);
+        ItemStack seedStack = getSeedStack(stack);
 
         if (seedStack != null && seedStack.getItem() instanceof IPlantable) {
             IPlantable plantable = (IPlantable) seedStack.getItem();
@@ -82,7 +88,7 @@ public class ItemSeedBag extends Item {
                 for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
                     ItemStack slotStack = seedBagInventory.getStackInSlot(i);
                     if (slotStack != null) {
-                        slotStack.getItem().onItemUse(slotStack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+                        slotStack.onItemUse(player, world, pos, hand, facing, 0, 0, 0);
                         seedBagInventory.decrStackSize(i, 0);
                         return EnumActionResult.SUCCESS;
                     }
@@ -107,13 +113,12 @@ public class ItemSeedBag extends Item {
                     leftover = InventoryHandlerHelper.insertStackIntoInventory(seedBagInventory, leftover, EnumFacing.DOWN, true);
                     if (leftover != null) {
                         if (leftover.stackSize <= 0) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
-                    } else return; //Do nothing
+                    } else return;
 
                     //We had seed bags
                     if (!handled) handled = original.stackSize != leftover.stackSize;
                 }
             }
-
             if (handled) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
         }
     }
@@ -139,7 +144,7 @@ public class ItemSeedBag extends Item {
         return amount;
     }
 
-    private ItemStack getSeedStack(ItemStack stack) {
+    private static ItemStack getSeedStack(ItemStack stack) {
         ItemStack seedStack = null;
         SeedBagInventory seedBagInventory = new SeedBagInventory(stack);
         for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {

@@ -11,7 +11,7 @@ import net.minecraftforge.common.IPlantable;
 public class SeedBagInventory extends InventoryItem {
 
     public SeedBagInventory(ItemStack stack) {
-        super(stack, "seed_bag", 1, 1280);
+        super(stack, "seed_bag", 1, 960);
     }
 
     @Override
