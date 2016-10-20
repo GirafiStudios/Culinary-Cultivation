@@ -82,7 +82,6 @@ public class ItemLargeHoe extends ItemHoe {
                     this.useLargeHoe(stack, player, world, pos, Blocks.FARMLAND.getDefaultState());
                     return EnumActionResult.SUCCESS;
                 } else if (block instanceof BlockFarmland) {
-                    System.out.println("hoe on farmland");
                     this.useLargeHoe(stack, player, world, pos, null);
                     return EnumActionResult.SUCCESS;
                 }
@@ -107,28 +106,28 @@ public class ItemLargeHoe extends ItemHoe {
     private EnumActionResult useLargeHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         switch (this.getMaterialName()) {
             case "WOOD":
-                this.setBlock(stack, player, world, pos, newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
+                this.setBlockOrSeed(stack, player, world, pos, newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
                 break;
             case "STONE":
-                this.setBlock(stack, player, world, pos, newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
+                this.setBlockOrSeed(stack, player, world, pos, newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
                 break;
             case "IRON":
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY(), -1), newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY(), -1), newState);
-                this.setBlock(stack, player, world, pos, newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
-                this.setBlock(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY(), -1), newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY(), -1), newState);
+                this.setBlockOrSeed(stack, player, world, pos, newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing()), newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing().rotateY()), newState);
+                this.setBlockOrSeed(stack, player, world, pos.offset(player.getHorizontalFacing()).offset(player.getHorizontalFacing().rotateY()), newState);
                 break;
             case "GOLD":
             case "DIAMOND":
                 for (int x = -1; x <= 1; x++) {
                     for (int z = -1; z <= 1; z++) {
-                        this.setBlock(stack, player, world, pos.add(x, 0, z), newState);
+                        this.setBlockOrSeed(stack, player, world, pos.add(x, 0, z), newState);
                     }
                 }
                 break;
@@ -148,11 +147,17 @@ public class ItemLargeHoe extends ItemHoe {
                 world.setBlockState(pos, newState);
                 stack.damageItem(1, player);
             }
-        } else if (state.getBlock() instanceof BlockFarmland) {
+        }
+    }
+
+    private void setBlockOrSeed(@Nonnull ItemStack stack, @Nonnull EntityPlayer player, World world, @Nonnull BlockPos pos, IBlockState newState) {
+        IBlockState state = world.getBlockState(pos);
+        if (state.getBlock() instanceof BlockFarmland && newState == null) {
             if (!world.isRemote) {
-                System.out.println("Set Block instance of BlockFarmland");
                 this.plantSeed(stack, player, world, pos, EnumHand.OFF_HAND, EnumFacing.UP);
             }
+        } else if (newState != null) {
+            this.setBlock(stack, player, world, pos, newState);
         }
     }
 
