@@ -7,6 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class InventoryHandlerHelper {
+
    public static ItemStack insertStackIntoInventory(IInventory inventory, ItemStack stack, EnumFacing facing, boolean ignoreStackLimit) {
         if (stack == null || inventory == null) {
             return null;
