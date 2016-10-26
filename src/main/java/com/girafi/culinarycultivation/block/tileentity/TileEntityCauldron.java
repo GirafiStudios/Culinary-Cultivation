@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.block.tileentity;
 
 import com.girafi.culinarycultivation.init.ModBlocks;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
@@ -12,10 +13,11 @@ public class TileEntityCauldron extends TileEntity implements ITickable {
 
     @Override
     public void update() {
-        if (worldObj.getBlockState(pos).getBlock() == ModBlocks.CAULDRON && getBlockMetadata() == 12) {
+        IBlockState state = worldObj.getBlockState(pos);
+        if (state == ModBlocks.CAULDRON.getStateFromMeta(12)) {
             if (timer > 0) timer--;
             if (timer == 0 && !worldObj.isRemote) {
-                worldObj.setBlockState(pos, worldObj.getBlockState(pos).getBlock().getStateFromMeta(13), 2);
+                worldObj.setBlockState(pos, state.getBlock().getStateFromMeta(13), 2);
             }
         }
     }

@@ -97,7 +97,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
         if (level == 13) {
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModBlocks.CHEESE));
-            world.setBlockState(pos, state.getBlock().getDefaultState());
+            this.setLevel(world, pos, 13, 13, level - 1);
             return true;
         }
         if (world.isRemote) {
@@ -109,149 +109,111 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 Item item = heldItem.getItem();
 
                 if (item == Items.WATER_BUCKET) {
-                    if (level < 3 && level <= 3) {
+                    if (level < 3) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.BUCKET));
+                            player.setHeldItem(hand, new ItemStack(Items.BUCKET));
                         }
                         player.addStat(StatList.CAULDRON_FILLED);
-                        this.setWaterLevel(world, pos, state, 3);
+                        this.setLevel(world, pos, 0, 3, 3);
                     }
                     return true;
                 }
                 if (item == Items.BUCKET) {
-                    if (level > 0 && level == 3) {
+                    if (level == 3) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.WATER_BUCKET));
+                            player.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
                         }
                         player.addStat(StatList.CAULDRON_USED);
-                        this.setWaterLevel(world, pos, state, -3);
+                        this.setLevel(world, pos, 0, 3, -3);
                     }
-                    if (level > 0 && level == 6) {
+                    if (level == 6) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.MILK_BUCKET));
+                            player.setHeldItem(hand, new ItemStack(Items.MILK_BUCKET));
                         }
-                        world.setBlockState(pos, state.getBlock().getDefaultState(), 2);
+                        this.setLevel(world, pos, 4, 6, -6);
                     }
                     return true;
                 }
                 if (item == Items.MILK_BUCKET) {
                     if (level == 0) {
                         if (!player.capabilities.isCreativeMode) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.BUCKET));
+                            player.setHeldItem(hand, new ItemStack(Items.BUCKET));
                         }
-                        world.setBlockState(pos, state.getBlock().getStateFromMeta(6));
+                        this.setLevel(world, pos, 4, 6, 6);
                     }
                     return true;
                 } else {
                     if (item == Items.GLASS_BOTTLE) {
                         if (level > 0 && level <= 3) {
                             this.useJar(player, heldItem, new ItemStack(Items.POTIONITEM, 1, 0));
-
-                            this.setWaterLevel(world, pos, state, level - 1);
+                            this.setLevel(world, pos, 0, 3, level - 1);
                         }
                     }
                 }
-                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
-                    if (level > 0 && level <= 3) {
-                        this.useJar(player, heldItem, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData()));
+                if (item == ModItems.STORAGE_JAR) {
+                    int damage = heldItem.getItemDamage();
+                    if (damage == StorageJarType.EMPTY.getMetaData()) {
+                        ItemStack jarItem = null;
 
-                        setWaterLevel(world, pos, state, level - 1);
-                    }
-                    if (level > 0 && level >= 4 && level <= 6) {
-                        this.useJar(player, heldItem, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.MILK.getMetaData()));
+                        if (level > 0 && level <= 3) {
+                            jarItem = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.WATER.getMetaData());
+                            this.setLevel(world, pos, 0, 3, level - 1);
+                        }
+                        if (level >= 4 && level <= 6) {
+                            jarItem = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.MILK.getMetaData());
+                            this.setLevel(world, pos, 4, 6, level - 1);
+                        }
 
-                        if (level == 4) {
-                            world.setBlockState(pos, state.getBlock().getDefaultState(), 2);
+                        if (level >= 7 && level <= 9) {
+                            jarItem = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.RENNET.getMetaData());
+                            this.setLevel(world, pos, 7, 9, level - 1);
                         }
-                        if (level == 5) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(6 - 2));
-                        }
-                        if (level == 6) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(6 - 1));
 
-                        }
-                    }
-                    if (level > 0 && level >= 7 && level <= 9) {
-                        this.useJar(player, heldItem, new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.RENNET.getMetaData()));
-
-                        if (level == 7) {
-                            world.setBlockState(pos, state.getBlock().getDefaultState(), 2);
-                        }
-                        if (level == 8) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(9 - 2));
-                        }
-                        if (level == 9) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(9 - 1));
+                        if (level > 0) {
+                            this.useJar(player, heldItem, jarItem);
                         }
                     }
-                }
-                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.WATER.getMetaData()) {
-                    if (level > 0 && level <= 3 || level == 0) {
+                    if (damage == StorageJarType.WATER.getMetaData() && level <= 3) {
+                        this.useJar(player, heldItem);
+                        this.setLevel(world, pos, 0, 3, level + 1);
+                    }
+                    if (damage == StorageJarType.MILK.getMetaData() && (level == 0 || level >= 4 && level <= 6)) {
                         this.useJar(player, heldItem);
 
                         if (level == 0) {
-                            setWaterLevel(world, pos, state, level + 1);
-                        }
-                        if (level == 1 || level == 2) {
-                            setWaterLevel(world, pos, state, level + 1);
-                        }
-                        if (level == 3) {
-                            setWaterLevel(world, pos, state, level);
+                            this.setLevel(world, pos, 4, 6, 4);
+                        } else {
+                            this.setLevel(world, pos, 4, 6, level + 1);
                         }
                     }
-                }
-                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.MILK.getMetaData()) {
-                    if (level > 0 && level >= 4 && level <= 6 || level == 0) {
+                    if (damage == StorageJarType.RENNET.getMetaData() && (level == 0 || level >= 7 && level <= 9)) {
                         this.useJar(player, heldItem);
 
                         if (level == 0) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(4));
-                        }
-                        if (level == 4) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(4 + 1));
-                        }
-                        if (level == 5 || level == 6) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(4 + 2));
+                            this.setLevel(world, pos, 7, 9, 7);
+                        } else {
+                            this.setLevel(world, pos, 7, 9, level + 1);
                         }
                     }
-                }
-                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
-                    if (level > 0 && level >= 7 && level <= 9 || level == 0) {
-                        this.useJar(player, heldItem);
-
-                        if (level == 0) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(7));
-                        }
-                        if (level == 7) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(7 + 1));
-                        }
-                        if (level == 8 || level == 9) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(7 + 2));
-                        }
-                    }
-                }
                     /* CheeseMass starts here */
-                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.RENNET.getMetaData()) {
-                    if (level > 0 && level == 4 || level == 5) {
+                    if (damage == StorageJarType.RENNET.getMetaData() && (level == 4 || level == 5)) {
                         this.useJar(player, heldItem);
 
                         if (level == 4) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(11));
+                            this.setLevel(world, pos, 10, 12, 11);
                         }
                         if (level == 5) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(12));
+                            this.setLevel(world, pos, 10, 12, 12);
                         }
                     }
-                }
-                if (item == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.MILK.getMetaData()) {
-                    if (level > 0 && level == 7 || level == 11) {
+                    if (damage == StorageJarType.MILK.getMetaData() && (level == 7 || level == 11)) {
                         this.useJar(player, heldItem);
 
                         if (level == 7) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(11));
+                            this.setLevel(world, pos, 10, 12, 11);
                         }
                         if (level == 11) {
-                            world.setBlockState(pos, state.getBlock().getStateFromMeta(12));
+                            this.setLevel(world, pos, 10, 12, 12);
                         }
                     }
                 } else {
@@ -260,11 +222,11 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                         if (armor.getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER && armor.hasColor(heldItem) || armor.getArmorMaterial() == CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL && armor.hasColor(heldItem)) {
                             armor.removeColor(heldItem);
                             player.addStat(StatList.ARMOR_CLEANED);
-                            setWaterLevel(world, pos, state, level - 1);
+                            this.setLevel(world, pos, 0, 3, level - 1);
                             return true;
                         }
                     }
-                    if (level > 0 && item instanceof ItemBanner) {
+                    if (level > 0 && level <= 3 && item instanceof ItemBanner) {
                         if (TileEntityBanner.getPatterns(heldItem) > 0) {
                             ItemStack bannerStack = heldItem.copy();
                             bannerStack.stackSize = 1;
@@ -282,7 +244,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             }
 
                             if (!player.capabilities.isCreativeMode) {
-                                this.setWaterLevel(world, pos, state, level - 1);
+                                this.setLevel(world, pos, 0, 3, level - 1);
                             }
                         }
                         return true;
@@ -311,8 +273,13 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         }
     }
 
-    private void setWaterLevel(World world, BlockPos pos, IBlockState state, int level) {
-        world.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(level, 0, 3)), 2);
+    private void setLevel(World world, BlockPos pos, int minLevel, int maxLevel, int level) {
+        IBlockState state = world.getBlockState(pos);
+        if (level < minLevel) {
+            world.setBlockState(pos, state.getBlock().getDefaultState(), 2);
+        } else {
+            world.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(level, minLevel, maxLevel)), 2);
+        }
         world.updateComparatorOutputLevel(pos, this);
     }
 

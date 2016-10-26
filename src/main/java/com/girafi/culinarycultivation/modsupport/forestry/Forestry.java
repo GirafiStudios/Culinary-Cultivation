@@ -34,14 +34,6 @@ public class Forestry implements IModSupport {
         addToHunterBackpack(new ItemStack(ModItems.CALF_BELLY));
     }
 
-    @Override
-    public void postInit() {
-    }
-
-    @Override
-    public void clientSide() {
-    }
-
     private void addToHunterBackpack(ItemStack stack) {
         addToBackpack(BackpackManager.HUNTER_UID, stack);
     }

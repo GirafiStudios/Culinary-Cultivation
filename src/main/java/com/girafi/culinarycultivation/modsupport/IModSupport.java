@@ -2,11 +2,15 @@ package com.girafi.culinarycultivation.modsupport;
 
 public interface IModSupport {
 
-    void preInit();
+    default void preInit() {
+    }
 
-    void init();
+    default void init() {
+    }
 
-    void postInit();
+    default void postInit() {
+    }
 
-    void clientSide();
+    default void clientSide() {
+    }
 }
