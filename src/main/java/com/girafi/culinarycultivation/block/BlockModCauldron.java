@@ -173,11 +173,11 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             this.useJar(player, heldItem, jarItem);
                         }
                     }
-                    if (damage == StorageJarType.WATER.getMetaData() && level <= 3) {
+                    if (damage == StorageJarType.WATER.getMetaData() && level < 3) {
                         this.useJar(player, heldItem);
                         this.setLevel(world, pos, 0, 3, level + 1);
                     }
-                    if (damage == StorageJarType.MILK.getMetaData() && (level == 0 || level >= 4 && level <= 6)) {
+                    if (damage == StorageJarType.MILK.getMetaData() && (level == 0 || level >= 4 && level < 6)) {
                         this.useJar(player, heldItem);
 
                         if (level == 0) {
@@ -186,7 +186,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                             this.setLevel(world, pos, 4, 6, level + 1);
                         }
                     }
-                    if (damage == StorageJarType.RENNET.getMetaData() && (level == 0 || level >= 7 && level <= 9)) {
+                    if (damage == StorageJarType.RENNET.getMetaData() && (level == 0 || level >= 7 && level < 9)) {
                         this.useJar(player, heldItem);
 
                         if (level == 0) {
