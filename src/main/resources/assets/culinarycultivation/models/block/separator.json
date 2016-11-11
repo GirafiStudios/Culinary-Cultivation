@@ -1,7 +1,7 @@
 {
 "textures": {
   "texture": "culinarycultivation:models/separator",
-  "texture1": "culinarycultivation:models/separator1",
+  "texture1": "culinarycultivation:models/separator_1",
   "particle": "culinarycultivation:models/separator"
 },
   "elements": [
