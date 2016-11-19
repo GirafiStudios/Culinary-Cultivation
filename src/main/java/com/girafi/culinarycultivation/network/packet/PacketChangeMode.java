@@ -29,7 +29,7 @@ public class PacketChangeMode extends Packet<PacketChangeMode> {
     @Override
     public void handleServerSide(EntityPlayer player) {
         ItemStack slotStack = player.inventory.getStackInSlot(slot);
-        if (slotStack.getItem() == this.stack.getItem()) {
+        if (!slotStack.isEmpty() && slotStack.getItem() == this.stack.getItem()) {
             int damage = (slotStack.getItemDamage() + (direction ? 1 : -1)) % this.damage;
             if (damage < 0) {
                 damage += this.damage;

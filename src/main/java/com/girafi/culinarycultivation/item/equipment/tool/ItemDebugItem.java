@@ -64,6 +64,7 @@ public class ItemDebugItem extends Item {
     }
 
     @Override
+    @Nonnull
     public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase entityLiving) {
         EntityPlayer player = (EntityPlayer) entityLiving;
         if (stack.getItemDamage() == 1) {

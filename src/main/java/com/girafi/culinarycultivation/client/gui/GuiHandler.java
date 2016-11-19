@@ -4,7 +4,6 @@ import com.girafi.culinarycultivation.client.gui.inventory.GuiSeedBag;
 import com.girafi.culinarycultivation.inventory.ContainerSeedBag;
 import com.girafi.culinarycultivation.inventory.SeedBagInventory;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
@@ -16,7 +15,7 @@ public class GuiHandler implements IGuiHandler {
             case SEED_BAG:
                 return new ContainerSeedBag(player.inventory, new SeedBagInventory(player.getHeldItemMainhand()), player);
         }
-        return ItemStack.EMPTY;
+        return null;
     }
 
     @Override
@@ -25,7 +24,7 @@ public class GuiHandler implements IGuiHandler {
             case SEED_BAG:
                 return new GuiSeedBag(player.inventory, new SeedBagInventory(player.getHeldItemMainhand()));
         }
-        return ItemStack.EMPTY;
+        return null;
     }
 
     public enum GuiID {

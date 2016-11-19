@@ -87,7 +87,7 @@ public class ItemSeedBag extends Item {
             if (state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, plantable) && world.isAirBlock(pos.up())) {
                 for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
                     ItemStack slotStack = seedBagInventory.getStackInSlot(i);
-                    if (slotStack != null) {
+                    if (!slotStack.isEmpty()) {
                         slotStack.onItemUse(player, world, pos, hand, facing, 0, 0, 0);
                         seedBagInventory.decrStackSize(i, 0);
                         return EnumActionResult.SUCCESS;
@@ -111,7 +111,7 @@ public class ItemSeedBag extends Item {
                     SeedBagInventory seedBagInventory = new SeedBagInventory(playerSlotStack);
                     ItemStack original = leftover.copy();
                     leftover = InventoryHandlerHelper.insertStackIntoInventory(seedBagInventory, leftover, EnumFacing.DOWN, true);
-                    if (leftover != null) {
+                    if (!leftover.isEmpty()) {
                         if (leftover.isEmpty()) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
                     } else return;
 
@@ -137,7 +137,7 @@ public class ItemSeedBag extends Item {
         SeedBagInventory seedBagInventory = new SeedBagInventory(stack);
         for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
             ItemStack slotStack = seedBagInventory.getStackInSlot(i);
-            if (slotStack != null) {
+            if (!slotStack.isEmpty()) {
                 amount += slotStack.getCount();
             }
         }

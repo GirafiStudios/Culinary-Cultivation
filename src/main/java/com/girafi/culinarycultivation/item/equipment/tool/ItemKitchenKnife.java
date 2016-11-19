@@ -25,7 +25,7 @@ public class ItemKitchenKnife extends ItemTool implements ICraftingTool {
     }
 
     @Override
-    public boolean onBlockDestroyed(@Nullable ItemStack stack, @Nullable World world, IBlockState state, @Nullable BlockPos pos, @Nullable EntityLivingBase entityLiving) {
+    public boolean onBlockDestroyed(@Nullable ItemStack stack, @Nullable World world, @Nullable IBlockState state, @Nullable BlockPos pos, @Nullable EntityLivingBase entityLiving) {
         if ((double) state.getBlockHardness(world, pos) != 0.0D) {
             stack.damageItem(2, entityLiving);
         }

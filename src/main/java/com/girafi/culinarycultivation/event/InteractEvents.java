@@ -40,7 +40,7 @@ public class InteractEvents {
             double y = player.posY;
             double z = player.posZ;
 
-            if (heldItem.getItem() == ModItems.CAKE_KNIFE && state.getBlock() instanceof BlockCake) {
+            if (!heldItem.isEmpty() && heldItem.getItem() == ModItems.CAKE_KNIFE && state.getBlock() instanceof BlockCake) {
                 int bites = state.getValue(BlockCake.BITES);
 
                 if (iEvent instanceof PlayerInteractEvent.LeftClickBlock) {
@@ -118,7 +118,7 @@ public class InteractEvents {
             Block block = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock();
 
             if (block == Blocks.CAULDRON) {
-                if (heldItem.getItem() == ModItems.STORAGE_JAR || heldItem.getItem() == Items.MILK_BUCKET) {
+                if (!heldItem.isEmpty() && heldItem.getItem() == ModItems.STORAGE_JAR || heldItem.getItem() == Items.MILK_BUCKET) {
                     iEvent.getWorld().setBlockState(iEvent.getPos(), ModBlocks.CAULDRON.getDefaultState());
                 }
             }
@@ -127,7 +127,7 @@ public class InteractEvents {
         @SubscribeEvent
         public void removeDyeEvent(PlayerInteractEvent.RightClickBlock iEvent) {
             ItemStack heldItem = iEvent.getEntityPlayer().getHeldItem(iEvent.getHand());
-            if (heldItem.getItem() instanceof ItemFarmerArmor && iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock() == Blocks.CAULDRON) {
+            if (!heldItem.isEmpty() && heldItem.getItem() instanceof ItemFarmerArmor && iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock() == Blocks.CAULDRON) {
                 int i = iEvent.getWorld().getBlockState(iEvent.getPos()).getValue(BlockCauldron.LEVEL);
                 ItemFarmerArmor farmerArmor = (ItemFarmerArmor) heldItem.getItem();
                 if (farmerArmor.getArmorMaterial() == CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL && farmerArmor.hasColor(heldItem) && i > 0 && !iEvent.getWorld().isRemote) {
@@ -151,13 +151,13 @@ public class InteractEvents {
             Block block = state.getBlock();
             ItemStack heldItem = iEvent.getEntityPlayer().getHeldItem(iEvent.getHand());
             boolean isSneaking = iEvent.getEntityPlayer().onGround && iEvent.getEntityPlayer().isSneaking();
-            if (iEvent instanceof PlayerInteractEvent.LeftClickBlock && heldItem.getItem() == ModItems.DEBUG_ITEM && heldItem.getItemDamage() == 0) {
+            if (iEvent instanceof PlayerInteractEvent.LeftClickBlock && !heldItem.isEmpty() && heldItem.getItem() == ModItems.DEBUG_ITEM && heldItem.getItemDamage() == 0) {
                 if (!iEvent.getWorld().isRemote) {
                     iEvent.getEntityPlayer().sendStatusMessage(new TextComponentString(block.getLocalizedName() + " | " + "Meta: " + block.getMetaFromState(state) + " | " + "State: " + state), true);
                 }
                 iEvent.setCanceled(true);
             }
-            if (iEvent instanceof PlayerInteractEvent.RightClickBlock && heldItem.getItem() == ModItems.DEBUG_ITEM && heldItem.getItemDamage() == 0) {
+            if (iEvent instanceof PlayerInteractEvent.RightClickBlock && !heldItem.isEmpty() && heldItem.getItem() == ModItems.DEBUG_ITEM && heldItem.getItemDamage() == 0) {
                 if (!isSneaking) {
                     int l = block.getMetaFromState(state) + 1;
                     if (l >= block.getBlockState().getValidStates().size()) {
@@ -183,7 +183,7 @@ public class InteractEvents {
         public void storageJarMilkFillEvent(PlayerInteractEvent.EntityInteract iEvent) {
             ItemStack heldItem = iEvent.getEntityPlayer().getHeldItem(iEvent.getHand());
             if (iEvent.getTarget() instanceof EntityCow & !iEvent.getEntityLiving().isChild()) {
-                if (heldItem.getItem() == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.EMPTY.getMetaData() && !iEvent.getEntityPlayer().capabilities.isCreativeMode) {
+                if (!heldItem.isEmpty() && heldItem.getItem() == ModItems.STORAGE_JAR && heldItem.getItemDamage() == StorageJarType.EMPTY.getMetaData() && !iEvent.getEntityPlayer().capabilities.isCreativeMode) {
                     ItemStack milkJarStack = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.MILK.getMetaData());
 
                     iEvent.getEntityPlayer().playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
@@ -200,50 +200,42 @@ public class InteractEvents {
 
     public static class CaneKnife {
         @SubscribeEvent
-        public void caneKnifeOnSugarCane(BlockEvent.BreakEvent breakEvent) {
-            if (breakEvent.getPlayer().inventory.getCurrentItem().getItem() instanceof ItemCaneKnife) {
-                World world = breakEvent.getWorld();
-                BlockPos pos = breakEvent.getPos();
+        public void caneKnifeBreakEvent(BlockEvent.BreakEvent event) {
+            ItemStack heldStack = event.getPlayer().inventory.getCurrentItem();
+            if (!heldStack.isEmpty() && heldStack.getItem() instanceof ItemCaneKnife) {
+                World world = event.getWorld();
+                BlockPos pos = event.getPos();
                 Block block = world.getBlockState(pos).getBlock();
+
                 if (block == Blocks.REEDS) {
                     //4 Tall
                     if (world.getBlockState(pos.up()).getBlock() != Blocks.REEDS) {
                         if (world.getBlockState(pos.down(4)) != Blocks.REEDS && world.getBlockState(pos.down(3)).getBlock() == Blocks.REEDS) {
-                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
+                            block.dropBlockAsItem(world, pos, event.getState(), 0);
                             world.setBlockToAir(pos.down(2));
                         }
                         //3 Tall
                         if (world.getBlockState(pos.down(3)) != Blocks.REEDS && world.getBlockState(pos.down(2)).getBlock() == Blocks.REEDS) {
-                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
+                            block.dropBlockAsItem(world, pos, event.getState(), 0);
                             world.setBlockToAir(pos.down());
                         }
                     }
                     //4 Tall, 3th block
                     if (world.getBlockState(pos.down()).getBlock() == Blocks.REEDS && world.getBlockState(pos.up()).getBlock() == Blocks.REEDS && world.getBlockState(pos.up(2)).getBlock() != Blocks.REEDS) {
                         if (world.getBlockState(pos.down(2)).getBlock() == Blocks.REEDS) {
-                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
+                            block.dropBlockAsItem(world, pos, event.getState(), 0);
                             world.setBlockToAir(pos.down());
                         }
                     }
                     //Harvesting bottom block
                     if (world.getBlockState(pos.down()).getBlock() != Blocks.REEDS) {
-                        breakEvent.setCanceled(true);
+                        event.setCanceled(true);
                         if (world.getBlockState(pos.up()).getBlock() == Blocks.REEDS) {
-                            block.dropBlockAsItem(world, pos, breakEvent.getState(), 0);
+                            block.dropBlockAsItem(world, pos, event.getState(), 0);
                             world.setBlockToAir(pos.up());
                         }
                     }
                 }
-            }
-        }
-
-        @SubscribeEvent
-        public void caneKnifeOnDoublePlants(BlockEvent.BreakEvent breakEvent) {
-            if (breakEvent.getPlayer().inventory.getCurrentItem().getItem() instanceof ItemCaneKnife) {
-                World world = breakEvent.getWorld();
-                BlockPos pos = breakEvent.getPos();
-                IBlockState state = world.getBlockState(pos);
-                Block block = state.getBlock();
                 if (block instanceof BlockDoublePlant) {
                     BlockDoublePlant.EnumPlantType type = world.getBlockState(pos).getValue(BlockDoublePlant.VARIANT);
                     if (type == BlockDoublePlant.EnumPlantType.GRASS) {

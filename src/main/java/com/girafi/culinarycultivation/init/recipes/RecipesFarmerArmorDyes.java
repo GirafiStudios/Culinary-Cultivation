@@ -82,7 +82,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                     }
                 } else {
                     if (craftingStack.getItem() != Items.DYE) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
 
                     float[] afloat = EntitySheep.getDyeRgb(EnumDyeColor.byDyeDamage(craftingStack.getMetadata()));
@@ -99,7 +99,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
         }
 
         if (farmerArmor == null) {
-            return null;
+            return ItemStack.EMPTY;
         } else {
             int i1 = aint[0] / j;
             int j1 = aint[1] / j;
@@ -130,7 +130,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     @Override
     @Nonnull
     public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting crafting) {
-        NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(crafting.getSizeInventory(), ItemStack.EMPTY);
+        NonNullList<ItemStack> stacks = NonNullList.withSize(crafting.getSizeInventory(), ItemStack.EMPTY);
 
         for (int i = 0; i < stacks.size(); ++i) {
             ItemStack stack = crafting.getStackInSlot(i);

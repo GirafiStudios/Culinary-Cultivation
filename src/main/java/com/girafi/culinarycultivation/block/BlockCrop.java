@@ -96,7 +96,7 @@ public class BlockCrop extends BlockCrops {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public Item getItemDropped(@Nullable IBlockState state, Random rand, int fortune) {
         return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
     }
