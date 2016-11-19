@@ -26,7 +26,7 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
         super.onArmorTick(world, player, stack);
 
-        Block playerStandingOnBlock = player.worldObj.getBlockState(player.getPosition().down()).getBlock();
+        Block playerStandingOnBlock = player.world.getBlockState(player.getPosition().down()).getBlock();
 
         if (player.onGround) {
             if (player.isSneaking()) {

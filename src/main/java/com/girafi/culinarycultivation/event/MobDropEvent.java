@@ -27,12 +27,12 @@ public class MobDropEvent {
     public void livingDropsEvent(LivingDropsEvent dropsEvent) {
         if (dropsEvent.getSource().getSourceOfDamage() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) dropsEvent.getSource().getSourceOfDamage();
-            if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == this.killTool) {
+            if (player.inventory.getCurrentItem().getItem() == this.killTool) {
                 if (dropsEvent.getEntityLiving().getClass().isAssignableFrom(this.entityLivingClass) && isChild == dropsEvent.getEntityLiving().isChild()) {
                     if (this.vanillaDropChance == -1 ? RANDOM.nextInt(100) <= 35 : RANDOM.nextInt(100) <= this.vanillaDropChance) {
                         dropsEvent.getDrops().clear();
                     }
-                    int drop = MathHelper.getRandomIntegerInRange(RANDOM, dropMin, dropMax);
+                    int drop = MathHelper.getInt(RANDOM, dropMin, dropMax);
                     for (int k = 0; k < drop + dropsEvent.getLootingLevel(); ++k) {
                         if (dropsEvent.getEntityLiving().isBurning() && canDropBurned) {
                             dropsEvent.getEntityLiving().entityDropItem(this.dropBurning.copy(), 1F);

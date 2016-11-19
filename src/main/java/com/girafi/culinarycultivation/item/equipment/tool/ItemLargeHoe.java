@@ -31,7 +31,8 @@ public class ItemLargeHoe extends ItemHoe {
 
     @Override
     @Nonnull
-    public EnumActionResult onItemUse(@Nullable ItemStack stack, EntityPlayer player, @Nullable World world, BlockPos pos, EnumHand hand, @Nullable EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, @Nullable World world, BlockPos pos, @Nullable EnumHand hand, @Nullable EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack stack = player.getHeldItem(hand);
         RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
         if (rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
@@ -163,13 +164,13 @@ public class ItemLargeHoe extends ItemHoe {
 
     private void plantSeed(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing) {
         ItemStack heldOff = player.getHeldItemOffhand();
-        if (heldOff != null && heldOff.getItem() == ModItems.SEED_BAG) {
+        if (!heldOff.isEmpty() && heldOff.getItem() == ModItems.SEED_BAG) {
             IBlockState state = world.getBlockState(pos);
             if (!world.isAirBlock(pos.up()))
                 return;
             if (state.getBlock() instanceof BlockFarmland) {
                 if (!world.isRemote) {
-                    EnumActionResult result = ItemSeedBag.useSeedBag(heldOff, player, world, pos, hand, heldOff, facing);
+                    EnumActionResult result = ItemSeedBag.useSeedBag(player, world, pos, hand, heldOff, facing);
                     if (result == EnumActionResult.SUCCESS) {
                         stack.damageItem(1, player);
                     }

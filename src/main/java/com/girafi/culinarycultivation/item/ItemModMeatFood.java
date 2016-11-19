@@ -10,12 +10,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.Map;
 
 public class ItemModMeatFood extends ItemFood {
@@ -64,7 +64,7 @@ public class ItemModMeatFood extends ItemFood {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
+    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
         for (MeatType meattype : MeatType.values()) {
             if (!meattype.isHaveRawMeat() && this.cooked && meattype.isHaveCookedMeat()) {
                 list.add(new ItemStack(this, 1, meattype.getMetadata()));

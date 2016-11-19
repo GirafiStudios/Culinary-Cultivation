@@ -22,7 +22,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.util.List;
 import java.util.Map;
 
 public class ItemStorageJar extends Item {
@@ -84,7 +83,7 @@ public class ItemStorageJar extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTab, List<ItemStack> list) {
+    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTab, NonNullList<ItemStack> list) {
         super.getSubItems(item, creativeTab, list);
         for (StorageJarType storageJarType : StorageJarType.values()) {
             if (storageJarType.getMetaData() != 0) {
@@ -97,7 +96,7 @@ public class ItemStorageJar extends Item {
     @Nonnull
     public ItemStack getContainerItem(@Nonnull ItemStack stack) {
         if (!hasContainerItem(stack) || stack.getItemDamage() == 0) {
-            return null;
+            return ItemStack.EMPTY;
         }
         return new ItemStack(getContainerItem());
     }
@@ -121,7 +120,9 @@ public class ItemStorageJar extends Item {
         ItemStack emptyJarStack = new ItemStack(ModItems.STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData());
 
         if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode) {
-            if (--stack.stackSize == 0) {
+            stack.shrink(1);
+
+            if (stack.isEmpty()) {
                 entityLiving.setHeldItem(EnumHand.MAIN_HAND, emptyJarStack);
             } else if (!((EntityPlayer) entityLiving).inventory.addItemStackToInventory(emptyJarStack)) {
                 ((EntityPlayer) entityLiving).dropItem(emptyJarStack, false);
@@ -131,12 +132,13 @@ public class ItemStorageJar extends Item {
                 entityLiving.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
             }
         }
-        return stack.stackSize <= 0 ? emptyJarStack : stack;
+        return stack.isEmpty() ? emptyJarStack : stack;
     }
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (stack.getItemDamage() == StorageJarType.EMPTY.getMetaData()) {
             RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
@@ -154,14 +156,14 @@ public class ItemStorageJar extends Item {
             }
         }
         player.setActiveHand(hand);
-        return new ActionResult<>(EnumActionResult.PASS, stack);
+        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
     private ItemStack fillJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {
-        --stack.stackSize;
+        stack.shrink(1);
         player.addStat(StatList.getObjectUseStats(this));
 
-        if (stack.stackSize <= 0) {
+        if (stack.isEmpty()) {
             return jarStack;
         } else {
             if (!player.inventory.addItemStackToInventory(jarStack)) {
@@ -174,7 +176,7 @@ public class ItemStorageJar extends Item {
 
     @Override
     @Nonnull
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.FAIL;
     }
 

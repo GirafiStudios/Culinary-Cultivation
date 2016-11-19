@@ -75,7 +75,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         int age = state.getValue(AGE);
         if (age == 14 || age == 7) {
             if (ConfigurationHandler.canRightClickHarvestAllCulinaryCultivationCrops) {
@@ -84,7 +84,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                 this.rightClickHarvest(world, pos, state);
             }
         }
-        return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ);
+        return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
     }
 
     private boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
@@ -105,11 +105,11 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    public void neighborChanged(@Nullable IBlockState state, @Nullable World world, @Nullable BlockPos pos, Block neighborBlock) {
+    public void neighborChanged(@Nullable IBlockState state, @Nullable World world, @Nullable BlockPos pos, Block neighborBlock, BlockPos neighborPos) {
         if (state.getValue(AGE) == 7 && world.getBlockState(pos.up()).getBlock() instanceof BlockAir) {
             world.setBlockState(pos, state.withProperty(AGE, 6), 2);
         }
-        super.neighborChanged(state, world, pos, neighborBlock);
+        super.neighborChanged(state, world, pos, neighborBlock, neighborPos);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
 
     @Override
     public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        int i = state.getValue(AGE) + MathHelper.getRandomIntegerInRange(world.rand, 1, 1);
+        int i = state.getValue(AGE) + MathHelper.getInt(world.rand, 1, 1);
         int age = state.getValue(AGE);
 
         if (i > 14) {
@@ -288,7 +288,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
     }
@@ -301,7 +301,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
         if (age == 14) {
-            int cropDrop = MathHelper.getRandomIntegerInRange(rand, minDropValueCrop, maxDropValueCrop);
+            int cropDrop = MathHelper.getInt(rand, minDropValueCrop, maxDropValueCrop);
             if (cropDrop == 0) {
                 if (rand.nextInt(100) >= 50) {
                     ret.add(itemCrop.copy());
@@ -312,7 +312,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
             }
 
             if (itemSeed != null) {
-                int seedDrop = MathHelper.getRandomIntegerInRange(rand, minDropValueSeed, maxDropValueSeed);
+                int seedDrop = MathHelper.getInt(rand, minDropValueSeed, maxDropValueSeed);
                 if (seedDrop == 0) {
                     if (rand.nextInt(100) >= 25) {
                         ret.add(itemSeed.copy());

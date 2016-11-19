@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class NBTHelper {
 
     public static NBTTagCompound getTag(ItemStack stack) {
@@ -30,11 +32,12 @@ public class NBTHelper {
         return hasTag(stack) ? getTag(stack).getInteger(key) : 0;
     }
 
+    @Nonnull
     public static ItemStack readItemStack(NBTTagCompound compound) {
         Item item = Item.getByNameOrId(compound.getString("id"));
-        if (item == null) return null;
+        if (item == null) return ItemStack.EMPTY;
         ItemStack stack = new ItemStack(item);
-        stack.stackSize = compound.getInteger("Count");
+        stack.setCount(compound.getInteger("Count"));
         int damage = compound.getShort("Damage");
 
         if (damage < 0) {
@@ -47,14 +50,13 @@ public class NBTHelper {
         } else {
             stack.setTagCompound(null);
         }
-
         return stack;
     }
 
     public static NBTTagCompound writeItemStack(ItemStack stack, NBTTagCompound compound) {
         ResourceLocation resource = Item.REGISTRY.getNameForObject(stack.getItem());
         compound.setString("id", resource == null ? "minecraft:air" : resource.toString());
-        compound.setInteger("Count", stack.stackSize);
+        compound.setInteger("Count", stack.getCount());
         compound.setShort("Damage", (short) stack.getItemDamage());
 
         if (stack.getTagCompound() != null) {

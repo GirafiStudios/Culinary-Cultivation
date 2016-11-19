@@ -10,7 +10,7 @@ import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import com.girafi.culinarycultivation.util.LogHelper;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -35,8 +35,8 @@ public class CulinaryCultivation {
         @Override
         @SideOnly(Side.CLIENT)
         @Nonnull
-        public Item getTabIconItem() {
-            return ModItems.MEAT_CLEAVER;
+        public ItemStack getTabIconItem() {
+            return new ItemStack(ModItems.MEAT_CLEAVER);
         }
     };
 

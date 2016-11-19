@@ -82,7 +82,8 @@ public class ItemDebugItem extends Item {
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (stack.getItemDamage() == 1) {
             if (player.canEat(alwaysEdible)) {
                 player.setActiveHand(hand);
@@ -108,7 +109,8 @@ public class ItemDebugItem extends Item {
 
     @Override
     @Nonnull
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        ItemStack stack = player.getHeldItem(hand);
         if (stack.getItemDamage() == 3) {
             if (player.isSneaking() && applyBonemeal(stack, world, pos, player) && world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                 if (!world.isRemote) {
@@ -205,10 +207,10 @@ public class ItemDebugItem extends Item {
     @SubscribeEvent
     public void onMouseEvent(MouseEvent event) {
         if (event.getButton() < 0) {
-            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayer player = Minecraft.getMinecraft().player;
             if (player.isSneaking()) {
                 ItemStack stack = player.getHeldItemMainhand();
-                if (stack != null && stack.getItem() == ModItems.DEBUG_ITEM) {
+                if (stack.getItem() == ModItems.DEBUG_ITEM) {
                     if (event.getDwheel() != 0) {
                         NetworkHandler.WRAPPER.sendToServer(new PacketChangeMode(4, stack, player.inventory.currentItem, event.getDwheel() < 0));
                     }

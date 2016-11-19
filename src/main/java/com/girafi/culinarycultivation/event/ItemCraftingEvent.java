@@ -18,7 +18,7 @@ public class ItemCraftingEvent {
         public void craftingHandler(ItemCraftedEvent craftedEvent) {
             for (int i = 0; i < craftedEvent.craftMatrix.getSizeInventory(); i++) {
                 ItemStack stack = craftedEvent.craftMatrix.getStackInSlot(i);
-                if (stack != null && stack.getItem() instanceof ICraftingTool && !(craftedEvent.crafting.getItem() instanceof ICraftingTool)) {
+                if (!stack.isEmpty() && stack.getItem() instanceof ICraftingTool && !(craftedEvent.crafting.getItem() instanceof ICraftingTool)) {
                     ItemStack craftingTool = new ItemStack(stack.getItem(), 2, stack.getItemDamage() + 1);
 
                     if (NBTHelper.hasTag(stack) && stack.getTagCompound() != null) {
@@ -26,7 +26,7 @@ public class ItemCraftingEvent {
                     }
 
                     if (craftingTool.getItemDamage() >= craftingTool.getMaxDamage()) {
-                        craftingTool.stackSize--;
+                        craftingTool.shrink(1);
                     }
                     craftedEvent.craftMatrix.setInventorySlotContents(i, craftingTool);
                 }
@@ -37,7 +37,7 @@ public class ItemCraftingEvent {
         @SubscribeEvent
         public void drumstickCraftedEvent(ItemCraftedEvent craftedEvent) {
             ItemStack stack = craftedEvent.crafting;
-            if (stack != null && stack.getItem() == ModItems.MEAT && stack.getItemDamage() == MeatType.CHICKEN_NUGGET.getMetadata()) {
+            if (!stack.isEmpty() && stack.getItem() == ModItems.MEAT && stack.getItemDamage() == MeatType.CHICKEN_NUGGET.getMetadata()) {
                 if (!craftedEvent.player.inventory.addItemStackToInventory(new ItemStack(ModItems.MEAT, 1, MeatType.DRUMSTICK.getMetadata()))) {
                     craftedEvent.player.dropItem(new ItemStack(ModItems.MEAT, 1, MeatType.DRUMSTICK.getMetadata()), false);
                 }

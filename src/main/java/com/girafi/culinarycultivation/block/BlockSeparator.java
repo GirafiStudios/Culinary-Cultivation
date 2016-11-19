@@ -19,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockSeparator extends SourceBlockTileEntity {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -37,7 +36,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public boolean isVisuallyOpaque() {
+    public boolean causesSuffocation(IBlockState state) {
         return false;
     }
 
@@ -83,7 +82,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
 
     @Override
     @Nonnull
-    public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
@@ -93,7 +92,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (player.isSneaking()) {
             TileEntity tileentity = world.getTileEntity(pos);
             if (tileentity instanceof TileEntitySeparator) {

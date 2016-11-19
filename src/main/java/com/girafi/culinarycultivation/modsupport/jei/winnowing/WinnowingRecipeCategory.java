@@ -56,7 +56,7 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory<WinnowingRecipe
         if (inputs != null) {
             guiItemStacks.set(inputSlot, inputs);
         }
-        guiItemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class));
+        guiItemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class).get(0));
         guiItemStacks.set(junkSlot, recipeWrapper.getJunk());
         recipeWrapper.setValues(recipeLayout);
     }

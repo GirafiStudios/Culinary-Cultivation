@@ -38,7 +38,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public boolean isVisuallyOpaque() {
+    public boolean causesSuffocation(IBlockState state) {
         return false;
     }
 
@@ -48,7 +48,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock) {
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighborPos) {
         if (!world.isRemote) {
             if (neighborBlock instanceof BlockLever) {
                 if (isFrontPowered(world, pos, state)) {
@@ -123,7 +123,7 @@ public class BlockFanHousing extends Block {
 
     @Override
     @Nonnull
-    public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 

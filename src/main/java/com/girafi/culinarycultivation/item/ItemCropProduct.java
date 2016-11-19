@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -23,7 +24,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.Map;
 
 public class ItemCropProduct extends ItemFood implements IPlantable {
@@ -65,7 +65,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> subItems) {
+    public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (ProductType productType : ProductType.values()) {
             if (!productType.isHasCrop() && this.isSeed && productType.isHasSeed()) {
                 subItems.add(new ItemStack(this, 1, productType.getMetadata()));
@@ -87,12 +87,13 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
 
     @Override
     @Nonnull
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack stack = player.getHeldItem(hand);
         ProductType productType = ProductType.byItemStack(stack);
         IBlockState state = world.getBlockState(pos);
         if ((productType.canPlantCrop() || this.isSeed) && facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
             world.setBlockState(pos.up(), productType.crop.getDefaultState(), 11);
-            --stack.stackSize;
+            stack.shrink(1);
             return EnumActionResult.SUCCESS;
         } else {
             return EnumActionResult.FAIL;

@@ -29,7 +29,7 @@ public class PacketChangeMode extends Packet<PacketChangeMode> {
     @Override
     public void handleServerSide(EntityPlayer player) {
         ItemStack slotStack = player.inventory.getStackInSlot(slot);
-        if (slotStack != null && slotStack.getItem() == this.stack.getItem()) {
+        if (slotStack.getItem() == this.stack.getItem()) {
             int damage = (slotStack.getItemDamage() + (direction ? 1 : -1)) % this.damage;
             if (damage < 0) {
                 damage += this.damage;
@@ -41,7 +41,7 @@ public class PacketChangeMode extends Packet<PacketChangeMode> {
     @Override
     public void toBytes(PacketBuffer buffer) {
         buffer.writeInt(damage);
-        buffer.writeItemStackToBuffer(stack);
+        buffer.writeItemStack(stack);
         buffer.writeInt(slot);
         buffer.writeBoolean(direction);
     }
@@ -49,7 +49,7 @@ public class PacketChangeMode extends Packet<PacketChangeMode> {
     @Override
     public void fromBytes(PacketBuffer buffer) throws IOException {
         damage = buffer.readInt();
-        stack = buffer.readItemStackFromBuffer();
+        stack = buffer.readItemStack();
         slot = buffer.readInt();
         direction = buffer.readBoolean();
     }

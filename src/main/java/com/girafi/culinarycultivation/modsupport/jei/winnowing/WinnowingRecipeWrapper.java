@@ -20,9 +20,9 @@ import static com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingR
 import static com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory.outputSlot;
 
 public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
-    private final List<ItemStack> inputs;
-    private final List<ItemStack> junks;
-    private final List<ItemStack> outputs;
+    public final List<ItemStack> inputs;
+    public final List<ItemStack> junks;
+    public final List<ItemStack> outputs;
     private final Map<Pair<Item, Integer>, String> outputChances;
     private final Map<Pair<Item, Integer>, String> junkChances;
     private IGuiIngredient<ItemStack> output;
@@ -68,17 +68,7 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
     }
 
     @Nonnull
-    public List getInputList() {
-        return inputs;
-    }
-
-    @Nonnull
-    public List getOutputList() {
-        return outputs;
-    }
-
-    @Nonnull
-    public List<ItemStack> getJunk() {
+    List<ItemStack> getJunk() {
         return junks;
     }
 

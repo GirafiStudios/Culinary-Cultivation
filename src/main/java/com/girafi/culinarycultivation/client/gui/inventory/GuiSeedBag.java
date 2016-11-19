@@ -20,7 +20,7 @@ public class GuiSeedBag extends GuiContainer {
     private final SeedBagInventory seedBagInventory;
 
     public GuiSeedBag(InventoryPlayer playerInv, SeedBagInventory seedBagInv) {
-        super(new ContainerSeedBag(playerInv, seedBagInv, Minecraft.getMinecraft().thePlayer));
+        super(new ContainerSeedBag(playerInv, seedBagInv, Minecraft.getMinecraft().player));
         this.playerInventory = playerInv;
         this.seedBagInventory = seedBagInv;
         this.ySize = 133;

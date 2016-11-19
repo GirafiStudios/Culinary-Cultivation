@@ -13,11 +13,11 @@ public class TileEntityCauldron extends TileEntity implements ITickable {
 
     @Override
     public void update() {
-        IBlockState state = worldObj.getBlockState(pos);
+        IBlockState state = world.getBlockState(pos);
         if (state == ModBlocks.CAULDRON.getStateFromMeta(12)) {
             if (timer > 0) timer--;
-            if (timer == 0 && !worldObj.isRemote) {
-                worldObj.setBlockState(pos, state.getBlock().getStateFromMeta(13), 2);
+            if (timer == 0 && !world.isRemote) {
+                world.setBlockState(pos, state.getBlock().getStateFromMeta(13), 2);
             }
         }
     }

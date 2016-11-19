@@ -33,12 +33,6 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
 
     @Override
     @Nonnull
-    public String getRecipeCategoryUid() {
-        return JEIPlugin.WINNOWING;
-    }
-
-    @Override
-    @Nonnull
     public String getRecipeCategoryUid(@Nonnull WinnowingRecipeWrapper recipe) {
         return JEIPlugin.WINNOWING;
     }
@@ -51,14 +45,17 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
 
     @Override
     public boolean isRecipeValid(@Nonnull WinnowingRecipeWrapper recipe) {
-        if (recipe.getInputList().isEmpty()) {
+        if (recipe.inputs.isEmpty()) {
             String recipeInfo = ErrorUtil.getInfoFromBrokenRecipe(recipe, this);
             Log.error("Recipe has no inputs. {}", recipeInfo);
         }
-
-        if (recipe.getOutputList().isEmpty()) {
+        if (recipe.outputs.isEmpty()) {
             String recipeInfo = ErrorUtil.getInfoFromBrokenRecipe(recipe, this);
             Log.error("Recipe has no outputs. {}", recipeInfo);
+        }
+        if (recipe.junks.isEmpty()) {
+            String recipeInfo = ErrorUtil.getInfoFromBrokenRecipe(recipe, this);
+            Log.error("Recipe has no junk outputs. {}", recipeInfo);
         }
         return true;
     }

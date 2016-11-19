@@ -39,21 +39,23 @@ public class ContainerSeedBag extends ContainerBase {
     @Override
     public boolean canInteractWith(@Nonnull EntityPlayer player) {
         ItemStack heldStack = player.getHeldItemMainhand();
-        return this.seedBagInventory != null && heldStack != null && heldStack.getItem() instanceof ItemSeedBag;
+        return this.seedBagInventory != null && heldStack.getItem() instanceof ItemSeedBag;
     }
 
     @Override
+    @Nonnull
     public ItemStack slotClick(int slotId, int dragType, ClickType clickType, EntityPlayer player) {
-        ItemStack slotStack = slotId < 0 || slotId > this.inventorySlots.size() ? null : this.inventorySlots.get(slotId).getStack();
-        if (slotStack != null && slotStack.getItem() == ModItems.SEED_BAG) {
-            return null;
+        ItemStack slotStack = slotId < 0 || slotId > this.inventorySlots.size() ? ItemStack.EMPTY : this.inventorySlots.get(slotId).getStack();
+        if (!slotStack.isEmpty() && slotStack.getItem() == ModItems.SEED_BAG) {
+            return ItemStack.EMPTY;
         }
         return super.slotClick(slotId, dragType, clickType, player);
     }
 
     @Override
+    @Nonnull
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-        ItemStack stack = null;
+        ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
@@ -62,14 +64,14 @@ public class ContainerSeedBag extends ContainerBase {
 
             if (index < this.seedBagInventory.getSizeInventory()) {
                 if (!this.mergeItemStack(slotStack, this.seedBagInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(slotStack, 0, this.seedBagInventory.getSizeInventory(), false)) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
-            if (slotStack.stackSize == 0) {
-                slot.putStack(null);
+            if (slotStack.getCount() == 0) {
+                slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }

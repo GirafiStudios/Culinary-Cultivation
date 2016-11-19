@@ -51,13 +51,13 @@ public class BlockCrop extends BlockCrops {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (ConfigurationHandler.canRightClickHarvestAllCulinaryCultivationCrops) {
             this.rightClickHarvest(world, pos, state);
         } else if (canRightClickHarvest && ConfigurationHandler.canRightClickHarvestCulinaryCultivationCrops) {
             this.rightClickHarvest(world, pos, state);
         }
-        return super.onBlockActivated(world, pos, state, player, hand, heldItem, side, hitX, hitY, hitZ);
+        return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
     }
 
     private boolean rightClickHarvest(World world, BlockPos pos, IBlockState state) {
@@ -109,7 +109,7 @@ public class BlockCrop extends BlockCrops {
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
         if (age >= 7) {
-            int cropDrop = MathHelper.getRandomIntegerInRange(rand, minDropValueCrop, maxDropValueCrop);
+            int cropDrop = MathHelper.getInt(rand, minDropValueCrop, maxDropValueCrop);
             if (cropDrop == 0) {
                 if (rand.nextInt(100) >= 50) {
                     ret.add(itemCrop.copy());
@@ -120,7 +120,7 @@ public class BlockCrop extends BlockCrops {
             }
 
             if (itemSeed != null) {
-                int seedDrop = MathHelper.getRandomIntegerInRange(rand, minDropValueSeed, maxDropValueSeed);
+                int seedDrop = MathHelper.getInt(rand, minDropValueSeed, maxDropValueSeed);
                 if (seedDrop == 0) {
                     if (rand.nextInt(100) >= 25) {
                         ret.add(itemSeed.copy());

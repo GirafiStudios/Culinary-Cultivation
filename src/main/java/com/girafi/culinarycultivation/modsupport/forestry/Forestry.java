@@ -1,3 +1,4 @@
+/*
 package com.girafi.culinarycultivation.modsupport.forestry;
 
 import com.girafi.culinarycultivation.block.BlockCrop;
@@ -41,4 +42,4 @@ public class Forestry implements IModSupport {
     private void addToBackpack(String backpackUid, ItemStack stack) {
         BackpackManager.backpackInterface.addItemToForestryBackpack(backpackUid, stack);
     }
-}
+}*/

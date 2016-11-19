@@ -62,9 +62,9 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
         //Reset
         isMultiblockFormed = false;
 
-        IBlockState state = worldObj.getBlockState(pos);
+        IBlockState state = world.getBlockState(pos);
         BlockPos left = pos.offset(state.getValue(BlockSeparator.FACING).rotateAround(Axis.Y));
-        IBlockState leftState = worldObj.getBlockState(left);
+        IBlockState leftState = world.getBlockState(left);
         if (leftState.getBlock() == ModBlocks.FAN_HOUSING) {
             EnumFacing leftFacing = leftState.getValue(BlockFanHousing.FACING);
             EnumFacing thisFacing = state.getValue(BlockSeparator.FACING);
@@ -77,9 +77,9 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
 
     @Override
     public void update() {
-        if (!worldObj.isRemote) {
+        if (!world.isRemote) {
             if (isMultiblockFormed) {
-                if (worldObj.getTotalWorldTime() % 8 == 0) {
+                if (world.getTotalWorldTime() % 8 == 0) {
                     //Pull from Chest
                     if (!inputItems()) { //If there is a block above or it is full, don't try to pickup items
                         pickupItems();
@@ -94,7 +94,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     }
 
     private boolean inputItems() {
-        if (inventory[0] != null && inventory[0].stackSize >= 64) return true;
+        if (!inventory.get(0).isEmpty() && inventory.get(0).getCount() >= 64) return true;
         IInventory inventory = getInventoryAbove();
         if (inventory != null && inventory.getSizeInventory() > 0) {
             if (inventory instanceof ISidedInventory) {
@@ -118,15 +118,15 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     }
 
     private void pickupItems() {
-        for (EntityItem entityItem : getCaptureItems(worldObj, pos)) {
+        for (EntityItem entityItem : getCaptureItems(world, pos)) {
             ItemStack stack = entityItem.getEntityItem().copy();
             if (WinnowingMachineRecipes.instance().getProcessingResult(stack) != null) {
-                if (inventory[0] == null) {
-                    inventory[0] = stack;
+                if (inventory.get(0).isEmpty()) {
+                    inventory.set(0, stack);
                     entityItem.setDead();
                 } else {
                     ItemStack ret = InventoryHandlerHelper.insertStackIntoInventory(this, stack, EnumFacing.UP, false);
-                    if (ret == null || ret.stackSize <= 0) {
+                    if (ret.isEmpty()) {
                         entityItem.setDead();
                     } else {
                         entityItem.setEntityItemStack(ret);
@@ -137,16 +137,16 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     }
 
     public void onPowered() {
-        ItemStack input = inventory[0];
-        if (input != null) {
+        ItemStack input = inventory.get(0);
+        if (!input.isEmpty()) {
             if (timer >= 20) {
                 timer = 0;
 
                 WinnowingMachineRecipe recipe = WinnowingMachineRecipes.instance().getProcessingResult(input);
                 if (recipe != null) {
-                    IBlockState state = worldObj.getBlockState(getPos());
-                    ItemStack output = recipe.getOutput().get(worldObj);
-                    ItemStack junk = recipe.getJunk().get(worldObj);
+                    IBlockState state = world.getBlockState(getPos());
+                    ItemStack output = recipe.getOutput().get(world);
+                    ItemStack junk = recipe.getJunk().get(world);
                     EnumFacing facing = state.getValue(BlockFanHousing.FACING);
                     if (output != null) outputItems(output, getPos(), facing);
                     if (junk != null) outputItems(junk, getPos(), facing.rotateAround(Axis.Y).getOpposite());
@@ -157,28 +157,28 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     }
 
     private void outputItems(ItemStack stack, BlockPos pos, EnumFacing facing) {
-        TileEntity tileEntity = worldObj.getTileEntity(pos.offset(facing));
+        TileEntity tileEntity = world.getTileEntity(pos.offset(facing));
         if (tileEntity instanceof ISidedInventory && ((ISidedInventory) tileEntity).getSlotsForFace(facing).length > 0 || tileEntity instanceof IInventory && ((IInventory) tileEntity).getSizeInventory() > 0) {
             IInventory inventory = ((IInventory) tileEntity);
             stack = InventoryHandlerHelper.insertStackIntoInventory(inventory, stack, facing, false);
         }
 
         if (stack != null) {
-            EntityItem ei = new EntityItem(worldObj, (double) facing.getFrontOffsetX() + pos.getX() + 0.5D, (double) pos.getY() + 0.15D, (double) facing.getFrontOffsetZ() + pos.getZ() + 0.5D, stack.copy());
+            EntityItem ei = new EntityItem(world, (double) facing.getFrontOffsetX() + pos.getX() + 0.5D, (double) pos.getY() + 0.15D, (double) facing.getFrontOffsetZ() + pos.getZ() + 0.5D, stack.copy());
             ei.motionX = (0.055F * facing.getFrontOffsetX());
             ei.motionY = 0.025D;
             ei.motionZ = (0.055F * facing.getFrontOffsetZ());
-            worldObj.spawnEntityInWorld(ei);
+            world.spawnEntity(ei);
         }
     }
 
     @Nullable
     private IInventory getInventoryAbove() {
-        TileEntity tileEntity = worldObj.getTileEntity(pos.up());
+        TileEntity tileEntity = world.getTileEntity(pos.up());
         if (tileEntity instanceof IInventory) {
             Block block = tileEntity.getBlockType();
             if (tileEntity instanceof TileEntityChest && block instanceof BlockChest) {
-                return ((BlockChest) block).getLockableContainer(worldObj, tileEntity.getPos());
+                return ((BlockChest) block).getLockableContainer(world, tileEntity.getPos());
             }
             return ((IInventory) tileEntity);
         }
@@ -187,13 +187,13 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
 
     private boolean removeFromAbove(IInventory inventory, int slot) {
         ItemStack stack = inventory.getStackInSlot(slot);
-        if (stack != null && (this.inventory[0] == null || stack.isItemEqual(this.inventory[0]))) {
+        if (!stack.isEmpty() && (this.inventory.get(0).isEmpty() || stack.isItemEqual(this.inventory.get(0)))) {
             if (WinnowingMachineRecipes.instance().getProcessingResult(stack) != null) {
                 ItemStack clone = stack.copy();
-                clone.stackSize = stack.stackSize - 1;
-                if (clone.stackSize <= 0) clone = null;
+                clone.setCount(stack.getCount() - 1);
+                if (clone.isEmpty()) clone = ItemStack.EMPTY;
                 inventory.setInventorySlotContents(slot, clone);
-                int stackSize = this.inventory[0] == null ? 1 : this.inventory[0].stackSize + 1;
+                int stackSize = this.inventory.get(0).isEmpty() ? 1 : this.inventory.get(0).getCount() + 1;
                 setInventorySlotContents(0, new ItemStack(stack.getItem(), stackSize, stack.getItemDamage()));
                 return true;
             }
@@ -216,6 +216,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
     }
 
     @Override
+    @Nonnull
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setBoolean("IsMultiBlockFormed", isMultiblockFormed);

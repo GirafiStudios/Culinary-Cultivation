@@ -10,10 +10,11 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class RecipesFarmerArmorDyes implements IRecipe {
@@ -26,7 +27,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
         for (int i = 0; i < crafting.getSizeInventory(); ++i) {
             ItemStack craftingStack = crafting.getStackInSlot(i);
 
-            if (craftingStack != null) {
+            if (!craftingStack.isEmpty()) {
                 if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     ItemFarmerArmor armor = (ItemFarmerArmor) craftingStack.getItem();
 
@@ -46,7 +47,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public ItemStack getCraftingResult(@Nonnull InventoryCrafting crafting) {
         ItemStack stack = null;
         int[] aint = new int[3];
@@ -57,16 +58,16 @@ public class RecipesFarmerArmorDyes implements IRecipe {
         for (int k = 0; k < crafting.getSizeInventory(); ++k) {
             ItemStack craftingStack = crafting.getStackInSlot(k);
 
-            if (craftingStack != null) {
+            if (!craftingStack.isEmpty()) {
                 if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     farmerArmor = (ItemFarmerArmor) craftingStack.getItem();
 
                     if (farmerArmor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || stack != null) {
-                        return null;
+                        return ItemStack.EMPTY;
                     }
 
                     stack = craftingStack.copy();
-                    stack.stackSize = 1;
+                    stack.setCount(1);
 
                     if (farmerArmor.hasColor(craftingStack)) {
                         int l = farmerArmor.getColor(stack);
@@ -121,20 +122,20 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public ItemStack getRecipeOutput() {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
     @Nonnull
-    public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting crafting) {
-        ItemStack[] aStack = new ItemStack[crafting.getSizeInventory()];
+    public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting crafting) {
+        NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(crafting.getSizeInventory(), ItemStack.EMPTY);
 
-        for (int i = 0; i < aStack.length; ++i) {
+        for (int i = 0; i < stacks.size(); ++i) {
             ItemStack stack = crafting.getStackInSlot(i);
-            aStack[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(stack);
+            stacks.set(i, ForgeHooks.getContainerItem(stack));
         }
-        return aStack;
+        return stacks;
     }
 }

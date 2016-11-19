@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
@@ -51,7 +52,7 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
         return recipe;
     }
 
-    public WinnowingMachineRecipe getProcessingResult(final ItemStack stack) {
+    public WinnowingMachineRecipe getProcessingResult(@Nonnull final ItemStack stack) {
         return recipes.get(Pair.of(stack.getItem(), stack.getItemDamage()));
     }
 

@@ -1,3 +1,4 @@
+/*
 package com.girafi.culinarycultivation.modsupport.forestry;
 
 import forestry.api.farming.ICrop;
@@ -34,4 +35,4 @@ public class FarmableDoubleAgingCrop extends FarmableAgingCrop {
         }
         return new CropDestroy(world, blockState, pos, null);
     }
-}
+}*/

@@ -16,14 +16,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
@@ -102,7 +100,7 @@ public class ModItems {
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             if (item.getHasSubtypes()) {
-                List<ItemStack> subItems = new ArrayList<>();
+                NonNullList<ItemStack> subItems = NonNullList.create();
                 item.getSubItems(item, tab, subItems);
                 for (ItemStack stack : subItems) {
                     String subItemName = item.getUnlocalizedName(stack).replace("item.culinarycultivation:", "");

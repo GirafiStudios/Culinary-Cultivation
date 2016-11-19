@@ -92,7 +92,8 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        ItemStack heldItem = player.getHeldItem(hand);
         int level = state.getValue(LEVEL);
 
         if (level == 13) {
@@ -103,7 +104,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         if (world.isRemote) {
             return true;
         } else {
-            if (heldItem == null) {
+            if (heldItem.isEmpty()) {
                 return true;
             } else {
                 Item item = heldItem.getItem();
@@ -229,15 +230,15 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                     if (level > 0 && level <= 3 && item instanceof ItemBanner) {
                         if (TileEntityBanner.getPatterns(heldItem) > 0) {
                             ItemStack bannerStack = heldItem.copy();
-                            bannerStack.stackSize = 1;
+                            bannerStack.setCount(1);
                             TileEntityBanner.removeBannerData(bannerStack);
                             player.addStat(StatList.BANNER_CLEANED);
 
                             if (!player.capabilities.isCreativeMode) {
-                                --heldItem.stackSize;
+                                heldItem.shrink(1);
                             }
 
-                            if (heldItem.stackSize == 0) {
+                            if (heldItem.isEmpty()) {
                                 player.setHeldItem(hand, bannerStack);
                             } else {
                                 ItemHandlerHelper.giveItemToPlayer(player, bannerStack);
@@ -266,9 +267,9 @@ public class BlockModCauldron extends SourceBlockTileEntity {
             ItemHandlerHelper.giveItemToPlayer(player, givenStack);
 
             player.addStat(StatList.CAULDRON_USED);
-            --heldItem.stackSize;
-            if (heldItem.stackSize <= 0) {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+            heldItem.shrink(1);
+            if (heldItem.isEmpty()) {
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
             }
         }
     }
@@ -278,7 +279,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         if (level < minLevel) {
             world.setBlockState(pos, state.getBlock().getDefaultState(), 2);
         } else {
-            world.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp_int(level, minLevel, maxLevel)), 2);
+            world.setBlockState(pos, state.withProperty(LEVEL, MathHelper.clamp(level, minLevel, maxLevel)), 2);
         }
         world.updateComparatorOutputLevel(pos, this);
     }
@@ -298,7 +299,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.CAULDRON;
     }

@@ -6,29 +6,32 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
+
 public class InventoryHandlerHelper {
 
+    @Nonnull
    public static ItemStack insertStackIntoInventory(IInventory inventory, ItemStack stack, EnumFacing facing, boolean ignoreStackLimit) {
-        if (stack == null || inventory == null) {
-            return null;
+        if (stack.isEmpty() || inventory.isEmpty()) {
+            return ItemStack.EMPTY;
         }
 
-        int stackSize = stack.stackSize;
+        int stackSize = stack.getCount();
         if (inventory instanceof ISidedInventory) {
             ISidedInventory sidedInv = (ISidedInventory) inventory;
             int slots[] = sidedInv.getSlotsForFace(facing);
-            if (slots == null) {
+            if (slots == null) { //TODO ?
                 return stack;
             }
 
-            for (int i = 0; i < slots.length && stack != null; i++) {
+            for (int i = 0; i < slots.length && !stack.isEmpty(); i++) {
                 ItemStack existingStack = inventory.getStackInSlot(slots[i]);
-                if (existingStack == null) {
+                if (existingStack.isEmpty()) {
                     continue;
                 }
 
                 int stackLimit = ignoreStackLimit ? inventory.getInventoryStackLimit() : Math.min(existingStack.getMaxStackSize(), inventory.getInventoryStackLimit());
-                ItemStack toInsert = copyStackWithAmount(stack, stackLimit - existingStack.stackSize);
+                ItemStack toInsert = copyStackWithAmount(stack, stackLimit - existingStack.getCount());
                 if (sidedInv.canInsertItem(slots[i], toInsert, facing)) {
                     if (OreDictionary.itemMatches(existingStack, stack, true) && ItemStack.areItemStackTagsEqual(stack, existingStack))
                         stack = addToOccupiedSlot(sidedInv, slots[i], stack, existingStack, ignoreStackLimit);
@@ -36,24 +39,24 @@ public class InventoryHandlerHelper {
             }
 
             for (int i = 0; i < slots.length && stack != null; i++)
-                if (inventory.getStackInSlot(slots[i]) == null && sidedInv.canInsertItem(slots[i], copyStackWithAmount(stack, inventory.getInventoryStackLimit()), facing)) {
+                if (inventory.getStackInSlot(slots[i]).isEmpty() && sidedInv.canInsertItem(slots[i], copyStackWithAmount(stack, inventory.getInventoryStackLimit()), facing)) {
                     stack = addToEmptyInventorySlot(sidedInv, slots[i], stack);
                 }
         } else {
             int invSize = inventory.getSizeInventory();
-            for (int i = 0; i < invSize && stack != null; i++) {
+            for (int i = 0; i < invSize && !stack.isEmpty(); i++) {
                 ItemStack existingStack = inventory.getStackInSlot(i);
                 if (OreDictionary.itemMatches(existingStack, stack, true) && ItemStack.areItemStackTagsEqual(stack, existingStack)) {
                     stack = addToOccupiedSlot(inventory, i, stack, existingStack, ignoreStackLimit);
                 }
             }
             for (int i = 0; i < invSize && stack != null; i++)
-                if (inventory.getStackInSlot(i) == null) {
+                if (inventory.getStackInSlot(i).isEmpty()) {
                     stack = addToEmptyInventorySlot(inventory, i, stack);
                 }
         }
 
-        if (stack == null || stack.stackSize != stackSize) {
+        if (stack == null || stack.getCount() != stackSize) {
             inventory.markDirty();
         }
 
@@ -66,32 +69,34 @@ public class InventoryHandlerHelper {
         }
 
         int stackLimit = inventory.getInventoryStackLimit();
-        inventory.setInventorySlotContents(slot, copyStackWithAmount(stack, Math.min(stack.stackSize, stackLimit)));
-        return stackLimit >= stack.stackSize ? null : stack.splitStack(stack.stackSize - stackLimit);
+        inventory.setInventorySlotContents(slot, copyStackWithAmount(stack, Math.min(stack.getCount(), stackLimit)));
+        return stackLimit >= stack.getCount() ? null : stack.splitStack(stack.getCount() - stackLimit);
     }
 
+    @Nonnull
     private static ItemStack addToOccupiedSlot(IInventory inventory, int slot, ItemStack stack, ItemStack existingStack, boolean ignoreStackSize) {
         int stackLimit = ignoreStackSize ? inventory.getInventoryStackLimit() : Math.min(inventory.getInventoryStackLimit(), stack.getMaxStackSize());
-        if (stack.stackSize + existingStack.stackSize > stackLimit) {
-            int stackDiff = stackLimit - existingStack.stackSize;
-            existingStack.stackSize = stackLimit;
-            stack = copyStackWithAmount(stack, stack.stackSize - stackDiff);
+        if (stack.getCount() + existingStack.getCount() > stackLimit) {
+            int stackDiff = stackLimit - existingStack.getCount();
+            existingStack.setCount(stackLimit);
+            stack = copyStackWithAmount(stack, stack.getCount() - stackDiff);
             inventory.setInventorySlotContents(slot, existingStack);
             return stack;
         }
 
-        existingStack.stackSize += Math.min(stack.stackSize, stackLimit);
+        existingStack.shrink(Math.min(stack.getCount(), stackLimit));
         inventory.setInventorySlotContents(slot, existingStack);
-        return null;
+        return ItemStack.EMPTY;
     }
 
+    @Nonnull
     private static ItemStack copyStackWithAmount(ItemStack stack, int amount) {
-        if (stack == null) {
-            return null;
+        if (stack.isEmpty()) {
+            return ItemStack.EMPTY;
         }
 
         ItemStack copyStack = stack.copy();
-        copyStack.stackSize = amount;
+        copyStack.setCount(amount);
         return copyStack;
     }
 }
