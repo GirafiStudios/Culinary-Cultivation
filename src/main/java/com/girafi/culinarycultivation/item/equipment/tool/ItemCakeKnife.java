@@ -22,18 +22,18 @@ public class ItemCakeKnife extends ItemTool implements ICraftingTool {
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nullable EntityLivingBase attacker) {
+    public boolean hitEntity(@Nonnull ItemStack stack, EntityLivingBase target, @Nullable EntityLivingBase attacker) {
         return false;
     }
 
     @Override
     @Nonnull
-    public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack) {
+    public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, @Nonnull ItemStack stack) {
         return HashMultimap.create();
     }
 
     @Override
-    public float getStrVsBlock(@Nullable ItemStack stack, IBlockState state) {
+    public float getStrVsBlock(@Nonnull ItemStack stack, IBlockState state) {
         Material material = state.getMaterial();
         return material == Material.CAKE ? this.efficiencyOnProperMaterial : super.getStrVsBlock(stack, state);
     }

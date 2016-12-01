@@ -36,7 +36,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     }
 
     @Override
-    public int getHealAmount(ItemStack stack) {
+    public int getHealAmount(@Nonnull ItemStack stack) {
         ProductType productType = ProductType.byItemStack(stack);
         if (productType.isHasCrop() &! this.isSeed) {
             return productType.getHungerAmount();
@@ -45,7 +45,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     }
 
     @Override
-    public float getSaturationModifier(ItemStack stack) {
+    public float getSaturationModifier(@Nonnull ItemStack stack) {
         ProductType productType = ProductType.byItemStack(stack);
         if (productType.isHasCrop() &! this.isSeed) {
             return productType.getSaturation();
@@ -56,7 +56,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
 
     @Override
     @Nonnull
-    public EnumAction getItemUseAction(ItemStack stack) {
+    public EnumAction getItemUseAction(@Nonnull ItemStack stack) {
         if (!this.isSeed) {
             return super.getItemUseAction(stack);
         }
@@ -78,7 +78,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getUnlocalizedName(@Nonnull ItemStack stack) {
         if (this.isSeed) {
             return "item." + Paths.MOD_ASSETS + ProductType.byItemStack(stack).getCropName() + "_seed";
         }
@@ -190,7 +190,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
             return productType == null ? CUCUMBER : productType;
         }
 
-        public static ProductType byItemStack(ItemStack stack) {
+        public static ProductType byItemStack(@Nonnull ItemStack stack) {
             return stack.getItem() instanceof ItemCropProduct ? byMetadata(stack.getMetadata()) : CUCUMBER;
         }
 

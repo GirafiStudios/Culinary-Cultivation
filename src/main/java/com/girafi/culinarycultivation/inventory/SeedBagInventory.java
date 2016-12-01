@@ -8,14 +8,16 @@ import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.Nonnull;
+
 public class SeedBagInventory extends InventoryItem {
 
-    public SeedBagInventory(ItemStack stack) {
+    public SeedBagInventory(@Nonnull ItemStack stack) {
         super(stack, "seed_bag", 1, 960);
     }
 
     @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
+    public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack) {
         Item item = stack.getItem();
         ItemCropProduct.ProductType cropProduct = ItemCropProduct.ProductType.byItemStack(stack);
         return (item instanceof ItemSeeds || item instanceof ItemSeedFood || item == ModItems.CROP_SEEDS || item == ModItems.CROP_FOOD && cropProduct.canPlantCrop()) && item instanceof IPlantable;

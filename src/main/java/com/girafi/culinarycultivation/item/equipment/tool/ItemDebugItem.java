@@ -34,7 +34,7 @@ public class ItemDebugItem extends Item {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getUnlocalizedName(@Nonnull ItemStack stack) {
         return super.getUnlocalizedName(stack) + "_" + getModeName(stack.getItemDamage());
     }
 
@@ -55,7 +55,7 @@ public class ItemDebugItem extends Item {
 
     @Override
     @Nonnull
-    public EnumAction getItemUseAction(ItemStack stack) {
+    public EnumAction getItemUseAction(@Nonnull ItemStack stack) {
         if (stack.getItemDamage() == 1 || stack.getItemDamage() == 2) {
             return EnumAction.EAT;
         } else {
@@ -99,7 +99,7 @@ public class ItemDebugItem extends Item {
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack stack) {
+    public int getMaxItemUseDuration(@Nonnull ItemStack stack) {
         return 25;
     }
 
@@ -166,7 +166,7 @@ public class ItemDebugItem extends Item {
         return EnumActionResult.PASS;
     }
 
-    private static boolean applyBonemeal(ItemStack stack, World world, BlockPos target, EntityPlayer player) {
+    private static boolean applyBonemeal(@Nonnull ItemStack stack, World world, BlockPos target, EntityPlayer player) {
         IBlockState state = world.getBlockState(target);
         int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, world, target, state, stack);
         if (hook != 0) return hook > 0;
@@ -184,7 +184,7 @@ public class ItemDebugItem extends Item {
         return false;
     }
 
-    private void useDebugItemHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private void useDebugItemHoe(@Nonnull ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         this.useHoe(stack, player, world, pos, Blocks.WATER.getBlockState().getBaseState());
         for (int x = -4; x <= 4; x++) {
             for (int z = -4; z <= 4; z++) {
@@ -193,7 +193,7 @@ public class ItemDebugItem extends Item {
         }
     }
 
-    private void useHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private void useHoe(@Nonnull ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         if (world.getBlockState(pos).getBlock() instanceof BlockDirt || world.getBlockState(pos).getBlock() instanceof BlockGrass) {
             world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 

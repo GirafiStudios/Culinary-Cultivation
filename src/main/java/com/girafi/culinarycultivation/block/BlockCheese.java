@@ -12,6 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockCheese extends BlockCake {
@@ -43,6 +44,7 @@ public class BlockCheese extends BlockCake {
     }
 
     @Override
+    @Nonnull
     public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(ModBlocks.CHEESE));
     }

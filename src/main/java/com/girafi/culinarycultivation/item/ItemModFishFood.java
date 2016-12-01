@@ -27,7 +27,7 @@ public class ItemModFishFood extends ItemFood {
     }
 
     @Override
-    public int getHealAmount(ItemStack stack) {
+    public int getHealAmount(@Nonnull ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
             return this.cooked && fishtype.isHaveCookedFish() ? fishtype.getHealAmountCooked() : fishtype.getHealAmountRaw();
@@ -36,7 +36,7 @@ public class ItemModFishFood extends ItemFood {
     }
 
     @Override
-    public float getSaturationModifier(ItemStack stack) {
+    public float getSaturationModifier(@Nonnull ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish()) {
             return this.cooked && fishtype.isHaveCookedFish() ? fishtype.getSaturationAmountCooked() : fishtype.getSaturationAmountRaw();
@@ -45,7 +45,7 @@ public class ItemModFishFood extends ItemFood {
     }
 
     @Override
-    protected void onFoodEaten(ItemStack stack, World world, @Nonnull EntityPlayer player) {
+    protected void onFoodEaten(@Nonnull ItemStack stack, World world, @Nonnull EntityPlayer player) {
         FishType fishType = FishType.getFishType(stack);
         double potionEffectProbability = Math.random();
 
@@ -78,7 +78,7 @@ public class ItemModFishFood extends ItemFood {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getUnlocalizedName(@Nonnull ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish() & !this.cooked) {
             return this.getUnlocalizedName() + "_" + fishtype.getFishName();
@@ -166,7 +166,7 @@ public class ItemModFishFood extends ItemFood {
             return fishtype == null ? MACKEREL : fishtype;
         }
 
-        public static FishType getFishType(ItemStack stack) {
+        public static FishType getFishType(@Nonnull ItemStack stack) {
             return stack.getItem() instanceof ItemModFishFood ? getFishTypeList(stack.getItemDamage()) : MACKEREL;
         }
 

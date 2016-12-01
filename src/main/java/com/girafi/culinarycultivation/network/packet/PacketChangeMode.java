@@ -4,10 +4,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class PacketChangeMode extends Packet<PacketChangeMode> {
     private int damage;
+    @Nonnull
     private ItemStack stack;
     private int slot;
     private boolean direction;
@@ -15,7 +17,7 @@ public class PacketChangeMode extends Packet<PacketChangeMode> {
     public PacketChangeMode() {
     }
 
-    public PacketChangeMode(int damage, ItemStack stack, int slot, boolean direction) {
+    public PacketChangeMode(int damage, @Nonnull ItemStack stack, int slot, boolean direction) {
         this.damage = damage + 1;
         this.stack = stack;
         this.slot = slot;

@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public class InventoryHandlerHelper {
 
     @Nonnull
-   public static ItemStack insertStackIntoInventory(IInventory inventory, ItemStack stack, EnumFacing facing, boolean ignoreStackLimit) {
+    public static ItemStack insertStackIntoInventory(IInventory inventory, @Nonnull ItemStack stack, EnumFacing facing, boolean ignoreStackLimit) {
         if (stack.isEmpty() || inventory.isEmpty()) {
             return ItemStack.EMPTY;
         }
@@ -20,7 +20,7 @@ public class InventoryHandlerHelper {
         if (inventory instanceof ISidedInventory) {
             ISidedInventory sidedInv = (ISidedInventory) inventory;
             int slots[] = sidedInv.getSlotsForFace(facing);
-            if (slots == null) { //TODO ?
+            if (slots == null) {
                 return stack;
             }
 
@@ -38,7 +38,7 @@ public class InventoryHandlerHelper {
                 }
             }
 
-            for (int i = 0; i < slots.length && stack != null; i++)
+            for (int i = 0; i < slots.length && !stack.isEmpty(); i++)
                 if (inventory.getStackInSlot(slots[i]).isEmpty() && sidedInv.canInsertItem(slots[i], copyStackWithAmount(stack, inventory.getInventoryStackLimit()), facing)) {
                     stack = addToEmptyInventorySlot(sidedInv, slots[i], stack);
                 }
@@ -50,31 +50,32 @@ public class InventoryHandlerHelper {
                     stack = addToOccupiedSlot(inventory, i, stack, existingStack, ignoreStackLimit);
                 }
             }
-            for (int i = 0; i < invSize && stack != null; i++)
+            for (int i = 0; i < invSize && !stack.isEmpty(); i++)
                 if (inventory.getStackInSlot(i).isEmpty()) {
                     stack = addToEmptyInventorySlot(inventory, i, stack);
                 }
         }
 
-        if (stack == null || stack.getCount() != stackSize) {
+        if (stack.isEmpty() || stack.getCount() != stackSize) {
             inventory.markDirty();
         }
 
         return stack;
     }
 
-    private static ItemStack addToEmptyInventorySlot(IInventory inventory, int slot, ItemStack stack) {
+    @Nonnull
+    private static ItemStack addToEmptyInventorySlot(IInventory inventory, int slot, @Nonnull ItemStack stack) {
         if (!inventory.isItemValidForSlot(slot, stack)) {
             return stack;
         }
 
         int stackLimit = inventory.getInventoryStackLimit();
         inventory.setInventorySlotContents(slot, copyStackWithAmount(stack, Math.min(stack.getCount(), stackLimit)));
-        return stackLimit >= stack.getCount() ? null : stack.splitStack(stack.getCount() - stackLimit);
+        return stackLimit >= stack.getCount() ? ItemStack.EMPTY : stack.splitStack(stack.getCount() - stackLimit);
     }
 
     @Nonnull
-    private static ItemStack addToOccupiedSlot(IInventory inventory, int slot, ItemStack stack, ItemStack existingStack, boolean ignoreStackSize) {
+    private static ItemStack addToOccupiedSlot(IInventory inventory, int slot, @Nonnull ItemStack stack, @Nonnull ItemStack existingStack, boolean ignoreStackSize) {
         int stackLimit = ignoreStackSize ? inventory.getInventoryStackLimit() : Math.min(inventory.getInventoryStackLimit(), stack.getMaxStackSize());
         if (stack.getCount() + existingStack.getCount() > stackLimit) {
             int stackDiff = stackLimit - existingStack.getCount();
@@ -90,7 +91,7 @@ public class InventoryHandlerHelper {
     }
 
     @Nonnull
-    private static ItemStack copyStackWithAmount(ItemStack stack, int amount) {
+    private static ItemStack copyStackWithAmount(@Nonnull ItemStack stack, int amount) {
         if (stack.isEmpty()) {
             return ItemStack.EMPTY;
         }

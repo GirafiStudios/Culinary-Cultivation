@@ -22,8 +22,10 @@ import java.util.Random;
 
 public class BlockCrop extends BlockCrops {
     private static final AxisAlignedBB[] CROP_AAAB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.4375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5625D, 1.0D)};
-    private ItemStack itemCrop;
-    private ItemStack itemSeed;
+    @Nonnull
+    private ItemStack crop;
+    @Nonnull
+    private ItemStack seed;
     private int minDropValueCrop;
     private int maxDropValueCrop;
     private int minDropValueSeed;
@@ -31,11 +33,12 @@ public class BlockCrop extends BlockCrops {
     private boolean canRightClickHarvest;
 
     @Override
+    @Nonnull
     public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
-        if (itemSeed == null) {
-            return itemCrop;
+        if (seed.isEmpty()) {
+            return crop;
         }
-        return itemSeed;
+        return seed;
     }
 
     @Override
@@ -70,15 +73,15 @@ public class BlockCrop extends BlockCrops {
         return true;
     }
 
-    public BlockCrop setModCrop(ItemStack item, int minDropValue, int maxDropValue) {
-        itemCrop = item;
+    public BlockCrop setModCrop(@Nonnull ItemStack stack, int minDropValue, int maxDropValue) {
+        crop = stack;
         minDropValueCrop = minDropValue;
         maxDropValueCrop = maxDropValue;
         return this;
     }
 
-    public BlockCrop setModSeed(ItemStack stack, int minDropValue, int maxDropValue) {
-        itemSeed = stack;
+    public BlockCrop setModSeed(@Nonnull ItemStack stack, int minDropValue, int maxDropValue) {
+        seed = stack;
         minDropValueSeed = minDropValue;
         maxDropValueSeed = maxDropValue;
         return this;
@@ -88,17 +91,18 @@ public class BlockCrop extends BlockCrops {
         return canRightClickHarvest = true;
     }
 
+    @Nonnull
     private ItemStack notGrownDrop() {
-        if (itemSeed == null) {
-            return itemCrop;
+        if (seed.isEmpty()) {
+            return crop;
         }
-        return itemSeed;
+        return seed;
     }
 
     @Override
     @Nonnull
     public Item getItemDropped(@Nullable IBlockState state, Random rand, int fortune) {
-        return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
+        return state.getValue(AGE) == 7 ? crop.getItem() : notGrownDrop().getItem();
     }
 
     @Override
@@ -112,28 +116,28 @@ public class BlockCrop extends BlockCrops {
             int cropDrop = MathHelper.getInt(rand, minDropValueCrop, maxDropValueCrop);
             if (cropDrop == 0) {
                 if (rand.nextInt(100) >= 50) {
-                    ret.add(itemCrop.copy());
+                    ret.add(crop.copy());
                 }
             }
             for (int i = 0; i < cropDrop + fortune; ++i) {
-                ret.add(itemCrop.copy());
+                ret.add(crop.copy());
             }
 
-            if (itemSeed != null) {
+            if (!seed.isEmpty()) {
                 int seedDrop = MathHelper.getInt(rand, minDropValueSeed, maxDropValueSeed);
                 if (seedDrop == 0) {
                     if (rand.nextInt(100) >= 25) {
-                        ret.add(itemSeed.copy());
+                        ret.add(seed.copy());
                     }
                 }
                 for (int i = 0; i < seedDrop + fortune; ++i) {
-                    ret.add(itemSeed.copy());
+                    ret.add(seed.copy());
                 }
             }
         }
 
         if (age <= 6) {
-            if (notGrownDrop() != null) {
+            if (!notGrownDrop().isEmpty()) {
                 ret.add(notGrownDrop().copy());
             }
         }

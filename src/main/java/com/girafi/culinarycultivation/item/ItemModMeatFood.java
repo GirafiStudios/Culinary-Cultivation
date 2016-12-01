@@ -28,7 +28,7 @@ public class ItemModMeatFood extends ItemFood {
     }
 
     @Override
-    public int getHealAmount(ItemStack stack) {
+    public int getHealAmount(@Nonnull ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (meattype.isHaveRawMeat()) {
             return this.cooked && meattype.isHaveCookedMeat() ? meattype.getHealAmountCooked() : meattype.getHealAmountRaw();
@@ -37,7 +37,7 @@ public class ItemModMeatFood extends ItemFood {
     }
 
     @Override
-    public float getSaturationModifier(ItemStack stack) {
+    public float getSaturationModifier(@Nonnull ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (meattype.isHaveRawMeat()) {
             return this.cooked && meattype.isHaveCookedMeat() ? meattype.getSaturationAmountCooked() : meattype.getSaturationAmountRaw();
@@ -46,7 +46,7 @@ public class ItemModMeatFood extends ItemFood {
     }
 
     @Override
-    protected void onFoodEaten(ItemStack stack, World world, @Nonnull EntityPlayer player) {
+    protected void onFoodEaten(@Nonnull ItemStack stack, World world, @Nonnull EntityPlayer player) {
         MeatType meatType = MeatType.getMeatType(stack);
         double potionEffectProbability = (float) Math.random();
 
@@ -79,7 +79,7 @@ public class ItemModMeatFood extends ItemFood {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getUnlocalizedName(@Nonnull ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (this.cooked && meattype.isHaveCookedMeat()) {
             return "item." + Paths.MOD_ASSETS + "meat_" + meattype.getMeatName() + "_cooked";
@@ -171,7 +171,7 @@ public class ItemModMeatFood extends ItemFood {
             return meattype == null ? LAMB : meattype;
         }
 
-        public static MeatType getMeatType(ItemStack stack) {
+        public static MeatType getMeatType(@Nonnull ItemStack stack) {
             return stack.getItem() instanceof ItemModMeatFood ? getMeatTypeList(stack.getItemDamage()) : LAMB;
         }
 

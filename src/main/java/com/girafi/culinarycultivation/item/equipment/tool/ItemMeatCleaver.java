@@ -8,6 +8,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemMeatCleaver extends ItemSword implements ICraftingTool {
@@ -18,7 +19,7 @@ public class ItemMeatCleaver extends ItemSword implements ICraftingTool {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         tooltip.add("A finer way to cleave meat");
     }
 }

@@ -45,8 +45,8 @@ public class ItemSeedBag extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        if (getSeedStack(stack) != null) {
+    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+        if (!getSeedStack(stack).isEmpty()) {
             tooltip.add(TextFormatting.GREEN + getSeedStack(stack).getDisplayName());
             if (advanced) tooltip.add("");
         }
@@ -58,12 +58,12 @@ public class ItemSeedBag extends Item {
     }
 
     @Override
-    public boolean showDurabilityBar(ItemStack stack) {
+    public boolean showDurabilityBar(@Nonnull ItemStack stack) {
         return stack.getTagCompound() != null && this.getSeedAmount(stack) != 0;
     }
 
     @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
+    public double getDurabilityForDisplay(@Nonnull ItemStack stack) {
         return 1.0D - (double) this.getSeedAmount(stack) / (double) stack.getMaxDamage();
     }
 
@@ -75,13 +75,13 @@ public class ItemSeedBag extends Item {
         return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
-    public static EnumActionResult useSeedBag(EntityPlayer player, World world, BlockPos pos, EnumHand hand, ItemStack heldStack, EnumFacing facing) {
+    public static EnumActionResult useSeedBag(EntityPlayer player, World world, BlockPos pos, EnumHand hand, @Nonnull ItemStack heldStack, EnumFacing facing) {
         if (player.isSneaking()) return EnumActionResult.PASS;
 
         SeedBagInventory seedBagInventory = new SeedBagInventory(heldStack);
         ItemStack seedStack = getSeedStack(player.getHeldItem(hand));
 
-        if (seedStack != null && seedStack.getItem() instanceof IPlantable) {
+        if (!seedStack.isEmpty() && seedStack.getItem() instanceof IPlantable) {
             IPlantable plantable = (IPlantable) seedStack.getItem();
             IBlockState state = world.getBlockState(pos);
             if (state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, plantable) && world.isAirBlock(pos.up())) {
@@ -132,7 +132,7 @@ public class ItemSeedBag extends Item {
         }
     }
 
-    private int getSeedAmount(ItemStack stack) {
+    private int getSeedAmount(@Nonnull ItemStack stack) {
         int amount = 0;
         SeedBagInventory seedBagInventory = new SeedBagInventory(stack);
         for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
@@ -144,8 +144,9 @@ public class ItemSeedBag extends Item {
         return amount;
     }
 
-    private static ItemStack getSeedStack(ItemStack stack) {
-        ItemStack seedStack = null;
+    @Nonnull
+    private static ItemStack getSeedStack(@Nonnull ItemStack stack) {
+        ItemStack seedStack = ItemStack.EMPTY;
         SeedBagInventory seedBagInventory = new SeedBagInventory(stack);
         for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
             seedStack = seedBagInventory.getStackInSlot(i);

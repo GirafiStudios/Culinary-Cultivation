@@ -37,7 +37,7 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
         this.outputChances = new HashMap<>();
         this.junkChances = new HashMap<>();
         if (recipe.getOutput() != null) {
-            recipe.getOutput().getSet().stream().filter(stack -> stack != null).forEach(stack -> {
+            recipe.getOutput().getSet().stream().filter(stack -> !stack.isEmpty()).forEach(stack -> {
                 this.outputs.add(stack);
                 this.outputChances.put(Pair.of(stack.getItem(), stack.getItemDamage()), recipe.getOutput().get(stack) + "%");
             });
@@ -46,7 +46,7 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
         }
 
         if (recipe.getJunk() != null) {
-            recipe.getJunk().getSet().stream().filter(stack -> stack != null).forEach(stack -> {
+            recipe.getJunk().getSet().stream().filter(stack -> !stack.isEmpty()).forEach(stack -> {
                 this.junks.add(stack);
                 this.junkChances.put(Pair.of(stack.getItem(), stack.getItemDamage()), recipe.getJunk().get(stack) + "%");
             });

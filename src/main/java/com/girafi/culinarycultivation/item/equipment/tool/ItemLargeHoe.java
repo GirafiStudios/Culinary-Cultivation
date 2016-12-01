@@ -104,7 +104,7 @@ public class ItemLargeHoe extends ItemHoe {
         return EnumActionResult.PASS;
     }
 
-    private EnumActionResult useLargeHoe(ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
+    private EnumActionResult useLargeHoe(@Nonnull ItemStack stack, EntityPlayer player, World world, BlockPos pos, IBlockState newState) {
         switch (this.getMaterialName()) {
             case "WOOD":
                 this.setBlockOrSeed(stack, player, world, pos, newState);
@@ -162,7 +162,7 @@ public class ItemLargeHoe extends ItemHoe {
         }
     }
 
-    private void plantSeed(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing) {
+    private void plantSeed(@Nonnull ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing) {
         ItemStack heldOff = player.getHeldItemOffhand();
         if (!heldOff.isEmpty() && heldOff.getItem() == ModItems.SEED_BAG) {
             IBlockState state = world.getBlockState(pos);

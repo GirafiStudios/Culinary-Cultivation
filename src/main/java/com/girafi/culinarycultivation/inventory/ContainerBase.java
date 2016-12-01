@@ -37,13 +37,13 @@ public class ContainerBase extends Container {
         this.maxStackSize = size;
     }
 
-    private int getMaxStackSize(ItemStack stack, boolean reverse) {
+    private int getMaxStackSize(@Nonnull ItemStack stack, boolean reverse) {
         if (reverse) return getMaxStackSize();
         return stack.getMaxStackSize();
     }
 
     @Override
-    protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
+    protected boolean mergeItemStack(@Nonnull ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
         boolean movingIn = startIndex == 0;
         boolean flag = false;
         int indexStart = startIndex;
@@ -114,7 +114,7 @@ public class ContainerBase extends Container {
         return flag;
     }
 
-    private static boolean areItemStacksEqual(ItemStack stackA, ItemStack stackB) {
+    private static boolean areItemStacksEqual(@Nonnull ItemStack stackA, @Nonnull ItemStack stackB) {
         return stackB.getItem() == stackA.getItem() && (!stackA.getHasSubtypes() || stackA.getMetadata() == stackB.getMetadata()) && ItemStack.areItemStackTagsEqual(stackA, stackB);
     }
 

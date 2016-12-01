@@ -70,7 +70,7 @@ public class ItemStorageJar extends Item {
             return storageJarType == null ? EMPTY : storageJarType;
         }
 
-        public static StorageJarType getStorageJarType(ItemStack stack) {
+        public static StorageJarType getStorageJarType(@Nonnull ItemStack stack) {
             return stack.getItem() instanceof ItemStorageJar ? getStorageJarTypeList(stack.getItemDamage()) : EMPTY;
         }
 
@@ -102,13 +102,13 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack stack) {
+    public int getMaxItemUseDuration(@Nonnull ItemStack stack) {
         return 32;
     }
 
     @Override
     @Nonnull
-    public EnumAction getItemUseAction(ItemStack stack) {
+    public EnumAction getItemUseAction(@Nonnull ItemStack stack) {
         if (stack.getItemDamage() == 0) {
             return EnumAction.NONE;
         }
@@ -160,7 +160,8 @@ public class ItemStorageJar extends Item {
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
-    private ItemStack fillJar(ItemStack stack, EntityPlayer player, ItemStack jarStack) {
+    @Nonnull
+    private ItemStack fillJar(@Nonnull ItemStack stack, EntityPlayer player, @Nonnull ItemStack jarStack) {
         stack.shrink(1);
         player.addStat(StatList.getObjectUseStats(this));
 
@@ -170,7 +171,6 @@ public class ItemStorageJar extends Item {
             if (!player.inventory.addItemStackToInventory(jarStack)) {
                 player.dropItem(jarStack, false);
             }
-
             return stack;
         }
     }
@@ -183,7 +183,7 @@ public class ItemStorageJar extends Item {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getUnlocalizedName(@Nonnull ItemStack stack) {
         StorageJarType storageJarType = StorageJarType.getStorageJarType(stack);
         if (storageJarType.getMetaData() == 0) {
             return this.getUnlocalizedName() + "_" + storageJarType.getUnlocalizedName();

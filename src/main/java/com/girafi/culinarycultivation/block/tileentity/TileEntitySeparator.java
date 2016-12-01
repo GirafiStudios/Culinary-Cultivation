@@ -148,22 +148,22 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                     ItemStack output = recipe.getOutput().get(world);
                     ItemStack junk = recipe.getJunk().get(world);
                     EnumFacing facing = state.getValue(BlockFanHousing.FACING);
-                    if (output != null) outputItems(output, getPos(), facing);
-                    if (junk != null) outputItems(junk, getPos(), facing.rotateAround(Axis.Y).getOpposite());
+                    if (!output.isEmpty()) outputItems(output, getPos(), facing);
+                    if (!junk.isEmpty()) outputItems(junk, getPos(), facing.rotateAround(Axis.Y).getOpposite());
                     ItemStackHelper.getAndSplit(inventory, 0, 1); //Decrease by 1
                 }
             } else timer++;
         }
     }
 
-    private void outputItems(ItemStack stack, BlockPos pos, EnumFacing facing) {
+    private void outputItems(@Nonnull ItemStack stack, BlockPos pos, EnumFacing facing) {
         TileEntity tileEntity = world.getTileEntity(pos.offset(facing));
         if (tileEntity instanceof ISidedInventory && ((ISidedInventory) tileEntity).getSlotsForFace(facing).length > 0 || tileEntity instanceof IInventory && ((IInventory) tileEntity).getSizeInventory() > 0) {
             IInventory inventory = ((IInventory) tileEntity);
             stack = InventoryHandlerHelper.insertStackIntoInventory(inventory, stack, facing, false);
         }
 
-        if (stack != null) {
+        if (!stack.isEmpty()) {
             EntityItem ei = new EntityItem(world, (double) facing.getFrontOffsetX() + pos.getX() + 0.5D, (double) pos.getY() + 0.15D, (double) facing.getFrontOffsetZ() + pos.getZ() + 0.5D, stack.copy());
             ei.motionX = (0.055F * facing.getFrontOffsetX());
             ei.motionY = 0.025D;

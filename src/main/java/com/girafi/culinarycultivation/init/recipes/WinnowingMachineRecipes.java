@@ -17,39 +17,34 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
         return WINNOWING_MACHINE_INSTANCE;
     }
 
-    private WinnowingMachineRecipes() {}
+    private WinnowingMachineRecipes() {
+    }
 
     @Override
-    public void addJunk(ItemStack input, ItemStack output, double weight) {
+    public void addJunk(@Nonnull ItemStack input, @Nonnull ItemStack output, double weight) {
         getRecipe(input).getJunk().add(output, weight);
     }
 
     @Override
-    public void addOutput(ItemStack input, ItemStack output, double weight) {
+    public void addOutput(@Nonnull ItemStack input, @Nonnull ItemStack output, double weight) {
         getRecipe(input).getOutput().add(output, weight);
     }
 
     @Override
-    public void addRecipe(ItemStack input, ItemStack output, double weight, ItemStack junkOutput, double junkWeight) {
+    public void addRecipe(@Nonnull ItemStack input, @Nonnull ItemStack output, double weight, ItemStack junkOutput, double junkWeight) {
         WinnowingMachineRecipe recipe = getRecipe(input);
         recipe.getOutput().add(output, weight);
         recipe.getJunk().add(junkOutput, junkWeight);
     }
 
     @Override
-    public void addRecipe(ItemStack input, ItemStack output, double weight) {
+    public void addRecipe(@Nonnull ItemStack input, @Nonnull ItemStack output, double weight) {
         addRecipe(input, output, weight, new ItemStack(ModItems.CHAFF_PILE), 10D);
     }
 
     //Returns a recipe for this input, if this input has nothing create a new recipe
     private WinnowingMachineRecipe getRecipe(ItemStack input) {
-        WinnowingMachineRecipe recipe = recipes.get(Pair.of(input.getItem(), input.getItemDamage()));
-        if (recipe == null) {
-            recipe = new WinnowingMachineRecipe();
-            recipes.put(Pair.of(input.getItem(), input.getItemDamage()), recipe);
-        }
-
-        return recipe;
+        return recipes.computeIfAbsent(Pair.of(input.getItem(), input.getItemDamage()), k -> new WinnowingMachineRecipe());
     }
 
     public WinnowingMachineRecipe getProcessingResult(@Nonnull final ItemStack stack) {

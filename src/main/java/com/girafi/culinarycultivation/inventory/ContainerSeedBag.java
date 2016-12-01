@@ -20,7 +20,7 @@ public class ContainerSeedBag extends ContainerBase {
 
         this.addSlotToContainer(new Slot(this.seedBagInventory, 0, 80, 20) {
             @Override
-            public boolean isItemValid(ItemStack stack) {
+            public boolean isItemValid(@Nonnull ItemStack stack) {
                 return seedBagInventory.isItemValidForSlot(0, stack);
             }
         });

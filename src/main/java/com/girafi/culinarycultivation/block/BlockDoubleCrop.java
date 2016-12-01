@@ -26,8 +26,10 @@ import java.util.Random;
 
 public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 14);
-    private ItemStack itemCrop;
-    private ItemStack itemSeed;
+    @Nonnull
+    private ItemStack crop;
+    @Nonnull
+    private ItemStack seed;
     private int minDropValueCrop;
     private int maxDropValueCrop;
     private int minDropValueSeed;
@@ -63,10 +65,10 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
     @Override
     @Nonnull
     public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
-        if (itemSeed == null) {
-            return itemCrop;
+        if (seed.isEmpty()) {
+            return crop;
         }
-        return itemSeed;
+        return seed;
     }
 
     @Override
@@ -262,15 +264,15 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         return new BlockStateContainer(this, AGE);
     }
 
-    public BlockDoubleCrop setModCrop(ItemStack item, int minDropValue, int maxDropValue) {
-        itemCrop = item;
+    public BlockDoubleCrop setModCrop(@Nonnull ItemStack stack, int minDropValue, int maxDropValue) {
+        crop = stack;
         minDropValueCrop = minDropValue;
         maxDropValueCrop = maxDropValue;
         return this;
     }
 
-    public BlockDoubleCrop setModSeed(ItemStack stack, int minDropValue, int maxDropValue) {
-        itemSeed = stack;
+    public BlockDoubleCrop setModSeed(@Nonnull ItemStack stack, int minDropValue, int maxDropValue) {
+        seed = stack;
         minDropValueSeed = minDropValue;
         maxDropValueSeed = maxDropValue;
         return this;
@@ -280,17 +282,18 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         return canRightClickHarvest = true;
     }
 
+    @Nonnull
     private ItemStack notGrownDrop() {
-        if (itemSeed == null) {
-            return itemCrop;
+        if (seed.isEmpty()) {
+            return crop;
         }
-        return itemSeed;
+        return seed;
     }
 
     @Override
     @Nonnull
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return state.getValue(AGE) == 7 ? itemCrop.getItem() : notGrownDrop().getItem();
+        return state.getValue(AGE) == 7 ? crop.getItem() : notGrownDrop().getItem();
     }
 
     @Override
@@ -304,27 +307,27 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
             int cropDrop = MathHelper.getInt(rand, minDropValueCrop, maxDropValueCrop);
             if (cropDrop == 0) {
                 if (rand.nextInt(100) >= 50) {
-                    ret.add(itemCrop.copy());
+                    ret.add(crop.copy());
                 }
             }
             for (int i = 0; i < cropDrop + fortune; ++i) {
-                ret.add(itemCrop.copy());
+                ret.add(crop.copy());
             }
 
-            if (itemSeed != null) {
+            if (!seed.isEmpty()) {
                 int seedDrop = MathHelper.getInt(rand, minDropValueSeed, maxDropValueSeed);
                 if (seedDrop == 0) {
                     if (rand.nextInt(100) >= 25) {
-                        ret.add(itemSeed.copy());
+                        ret.add(seed.copy());
                     }
                 }
                 for (int i = 0; i < seedDrop + fortune; ++i) {
-                    ret.add(itemSeed.copy());
+                    ret.add(seed.copy());
                 }
             }
         }
         if (age <= 7) {
-            if (notGrownDrop() != null) {
+            if (!notGrownDrop().isEmpty()) {
                 ret.add(notGrownDrop().copy());
             }
         }

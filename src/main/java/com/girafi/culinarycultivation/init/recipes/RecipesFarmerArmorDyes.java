@@ -21,7 +21,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
 
     @Override
     public boolean matches(@Nonnull InventoryCrafting crafting, @Nonnull World world) {
-        ItemStack stack = null;
+        ItemStack stack = ItemStack.EMPTY;
         List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < crafting.getSizeInventory(); ++i) {
@@ -31,7 +31,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                 if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     ItemFarmerArmor armor = (ItemFarmerArmor) craftingStack.getItem();
 
-                    if (armor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || stack != null) {
+                    if (armor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || !stack.isEmpty()) {
                         return false;
                     }
                     stack = craftingStack;
@@ -43,13 +43,13 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                 }
             }
         }
-        return stack != null && !list.isEmpty();
+        return !stack.isEmpty() && !list.isEmpty();
     }
 
     @Override
     @Nonnull
     public ItemStack getCraftingResult(@Nonnull InventoryCrafting crafting) {
-        ItemStack stack = null;
+        ItemStack stack = ItemStack.EMPTY;
         int[] aint = new int[3];
         int i = 0;
         int j = 0;
@@ -62,7 +62,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                 if (craftingStack.getItem() instanceof ItemFarmerArmor && craftingStack.getItem() != ModItems.FARMER_STRAWHAT) {
                     farmerArmor = (ItemFarmerArmor) craftingStack.getItem();
 
-                    if (farmerArmor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || stack != null) {
+                    if (farmerArmor.getArmorMaterial() != CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL || !stack.isEmpty()) {
                         return ItemStack.EMPTY;
                     }
 

@@ -42,12 +42,12 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     @Override
     @Nonnull
-    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+    public String getArmorTexture(@Nonnull ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         return type == null ? Paths.ARMOR_MODEL + armorPieceName + ".png" : Paths.ARMOR_MODEL + armorPieceName + "_overlay" + ".png";
     }
 
     @Override
-    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+    public void onArmorTick(World world, EntityPlayer player, @Nonnull ItemStack stack) {
         int exhaustionReductionChance;
         if (hasFullArmorSet(player)) {
             exhaustionReductionChance = 15;
@@ -88,7 +88,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         if (GuiScreen.isShiftKeyDown()) {
             addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.name") + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")", tooltip);
             ItemStack[] stacks = getArmorSetStacks();
@@ -191,7 +191,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     }
 
     @Override
-    public void setColor(ItemStack stack, int color) {
+    public void setColor(@Nonnull ItemStack stack, int color) {
         NBTTagCompound tag = stack.getTagCompound();
 
         if (tag == null) {
