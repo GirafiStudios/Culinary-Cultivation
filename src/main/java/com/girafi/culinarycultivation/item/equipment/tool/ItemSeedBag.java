@@ -23,7 +23,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemSeedBag extends Item {
@@ -123,11 +122,11 @@ public class ItemSeedBag extends Item {
         }
     }
 
-    private void finishSeeds(EntityItemPickupEvent event, EntityItem entity, EntityPlayer player, @Nullable ItemStack leftover) {
+    private void finishSeeds(EntityItemPickupEvent event, EntityItem entity, EntityPlayer player, @Nonnull ItemStack leftover) {
         entity.setDead();
         event.setCanceled(true);
         player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-        if (leftover != null && !leftover.isEmpty()) {
+        if (!leftover.isEmpty()) {
             ItemHandlerHelper.giveItemToPlayer(player, leftover);
         }
     }

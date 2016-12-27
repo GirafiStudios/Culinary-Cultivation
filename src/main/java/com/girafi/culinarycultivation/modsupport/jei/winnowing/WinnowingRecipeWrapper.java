@@ -72,20 +72,21 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
         return junks;
     }
 
+    @Nonnull
     private ItemStack getStack(IGuiIngredient<ItemStack> input) {
-        return input.getDisplayedIngredient() != null ? input.getDisplayedIngredient() : null;
+        return input.getDisplayedIngredient() != null ? input.getDisplayedIngredient() : ItemStack.EMPTY;
     }
 
     private void rebuild() {
         ItemStack theOutput = getStack(output);
-        if (theOutput != null) {
+        if (!theOutput.isEmpty()) {
             chanceNormal = outputChances.get(Pair.of(theOutput.getItem(), theOutput.getItemDamage()));
         } else {
             chanceNormal = null;
         }
 
         ItemStack theJunk = getStack(junk);
-        if (theJunk != null) {
+        if (!theJunk.isEmpty()) {
             chanceJunk = junkChances.get(Pair.of(theJunk.getItem(), theJunk.getItemDamage()));
         } else {
             chanceJunk = null;
