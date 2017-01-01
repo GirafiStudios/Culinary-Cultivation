@@ -27,9 +27,9 @@ import java.util.Random;
 public class BlockDoubleCrop extends BlockBush implements IGrowable {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 14);
     @Nonnull
-    private ItemStack crop;
+    private ItemStack crop = ItemStack.EMPTY;
     @Nonnull
-    private ItemStack seed;
+    private ItemStack seed = ItemStack.EMPTY;
     private int minDropValueCrop;
     private int maxDropValueCrop;
     private int minDropValueSeed;

@@ -1,4 +1,3 @@
-/*
 package com.girafi.culinarycultivation.modsupport.waila;
 
 import com.girafi.culinarycultivation.block.BlockDoubleCrop;
@@ -83,4 +82,4 @@ public class WailaHUDHandler implements IWailaDataProvider {
         ModuleRegistrar.instance().registerBodyProvider(provider, BlockDoubleCrop.class);
         ModuleRegistrar.instance().registerBodyProvider(provider, BlockModCauldron.class);
     }
-}*/
+}

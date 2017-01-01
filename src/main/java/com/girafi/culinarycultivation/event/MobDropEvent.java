@@ -15,8 +15,8 @@ public class MobDropEvent {
     private static final Random RANDOM = new Random();
     private Class<? extends EntityLivingBase> entityLivingClass;
     private boolean isChild;
-    private ItemStack drop;
-    private ItemStack dropBurning;
+    private ItemStack drop = ItemStack.EMPTY;
+    private ItemStack dropBurning = ItemStack.EMPTY;
     private boolean canDropBurned;
     private Item killTool;
     private int vanillaDropChance;

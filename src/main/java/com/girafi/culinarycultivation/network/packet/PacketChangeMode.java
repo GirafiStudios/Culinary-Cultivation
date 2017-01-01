@@ -10,7 +10,7 @@ import java.io.IOException;
 public class PacketChangeMode extends Packet<PacketChangeMode> {
     private int damage;
     @Nonnull
-    private ItemStack stack;
+    private ItemStack stack = ItemStack.EMPTY;
     private int slot;
     private boolean direction;
 

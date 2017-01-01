@@ -1,8 +1,11 @@
 package com.girafi.culinarycultivation.modsupport;
 
+import com.girafi.culinarycultivation.modsupport.forestry.Forestry;
+import com.girafi.culinarycultivation.modsupport.waila.Waila;
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import com.girafi.culinarycultivation.util.LogHelper;
 import com.girafi.culinarycultivation.util.reference.Reference;
+import com.girafi.culinarycultivation.util.reference.SupportedModIDs;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
@@ -20,9 +23,9 @@ public class ModSupport {
 
     public void modSupportIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<>();
-        //modSupportClasses.put(SupportedModIDs.FORESTRY, Forestry.class);
+        modSupportClasses.put(SupportedModIDs.FORESTRY, Forestry.class);
         //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
-        //modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
+        modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
 
 
         List<String> enabledModSupport = modSupportClasses.keySet().stream().filter(modid -> ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MOD_SUPPORT_ENABLING, modid, true).getBoolean()).collect(Collectors.toList());

@@ -20,7 +20,7 @@ repositories {
         url "http://dvs1.progwml6.com/files/maven"
     }
     maven {
-        url "http://mobiusstrip.eu/maven"
+        url "http://tehnut.info/maven"
     }
 }
 
@@ -44,9 +44,9 @@ minecraft {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_1.11:${jei_version}"
-    //deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.9.4"
-    //deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}_1.11"
+    deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
 }
 
 processResources {

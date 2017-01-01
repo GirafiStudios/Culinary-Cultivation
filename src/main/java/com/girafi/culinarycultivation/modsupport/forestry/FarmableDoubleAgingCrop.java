@@ -1,4 +1,3 @@
-/*
 package com.girafi.culinarycultivation.modsupport.forestry;
 
 import forestry.api.farming.ICrop;
@@ -12,13 +11,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class FarmableDoubleAgingCrop extends FarmableAgingCrop {
     public FarmableDoubleAgingCrop(ItemStack germling, Block cropBlock, IProperty<Integer> ageProperty, int minHarvestAge) {
         super(germling, cropBlock, ageProperty, minHarvestAge, null);
     }
 
     @Override
-    public ICrop getCropAt(World world, BlockPos pos, IBlockState blockState) {
+    public ICrop getCropAt(@Nonnull World world, @Nonnull BlockPos pos, IBlockState blockState) {
         if (blockState.getBlock() != cropBlock) {
             return null;
         }
@@ -28,11 +29,11 @@ public class FarmableDoubleAgingCrop extends FarmableAgingCrop {
         }
 
         if (replantAge != null) {
-            IBlockState replantState = getReplantState(world, pos.up(), blockState);
+            IBlockState replantState = getReplantState(world.getBlockState(pos.up()));
             for (int i = 0; i <= 1; i++) {
                 return new CropDestroy(world, blockState, pos.offset(EnumFacing.UP, i), replantState);
             }
         }
         return new CropDestroy(world, blockState, pos, null);
     }
-}*/
+}
