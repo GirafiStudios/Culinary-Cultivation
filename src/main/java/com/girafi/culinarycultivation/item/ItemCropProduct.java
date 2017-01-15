@@ -95,9 +95,8 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
             world.setBlockState(pos.up(), productType.crop.getDefaultState(), 11);
             stack.shrink(1);
             return EnumActionResult.SUCCESS;
-        } else {
-            return EnumActionResult.FAIL;
         }
+        return EnumActionResult.FAIL;
     }
 
     @Override

@@ -17,7 +17,7 @@ public class InventoryItem extends InventoryBasic {
     private final ItemStack invItem;
     private final NonNullList<ItemStack> inventory;
 
-    public InventoryItem(ItemStack inventoryItem, String name, int size, int stackLimit) {
+    public InventoryItem(@Nonnull ItemStack inventoryItem, String name, int size, int stackLimit) {
         super(I18n.translateToLocal(Paths.MOD_ASSETS + "container." + name), true, size);
         this.invItem = inventoryItem;
         this.inventory = NonNullList.withSize(size, ItemStack.EMPTY);
@@ -27,7 +27,7 @@ public class InventoryItem extends InventoryBasic {
         this.readFromNBT();
     }
 
-    public InventoryItem(ItemStack inventoryItem, String name, int size) {
+    public InventoryItem(@Nonnull ItemStack inventoryItem, String name, int size) {
         this(inventoryItem, name, size, 64);
     }
 
