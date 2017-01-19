@@ -5,8 +5,8 @@ import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCa
 import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeHandler;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import mezz.jei.api.BlankModPlugin;
-import mezz.jei.api.IItemBlacklist;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.ingredients.IIngredientBlacklist;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -27,11 +27,11 @@ public class JEIPlugin extends BlankModPlugin {
     }
 
     private void addBlacklist(@Nonnull IModRegistry registry) {
-        IItemBlacklist blacklist = registry.getJeiHelpers().getItemBlacklist();
+        IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
 
-        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.BLACK_PEPPER));
-        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.CAULDRON));
-        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.CUCUMBER));
-        blacklist.addItemToBlacklist(new ItemStack(ModBlocks.TOMATO));
+        blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.BLACK_PEPPER));
+        blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CAULDRON));
+        blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CUCUMBER));
+        blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.TOMATO));
     }
 }
