@@ -38,7 +38,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     @Override
     public int getHealAmount(@Nonnull ItemStack stack) {
         ProductType productType = ProductType.byItemStack(stack);
-        if (productType.isHasCrop() &! this.isSeed) {
+        if (productType.hasCrop() &! this.isSeed) {
             return productType.getHungerAmount();
         }
         return super.getHealAmount(stack);
@@ -47,7 +47,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     @Override
     public float getSaturationModifier(@Nonnull ItemStack stack) {
         ProductType productType = ProductType.byItemStack(stack);
-        if (productType.isHasCrop() &! this.isSeed) {
+        if (productType.hasCrop() &! this.isSeed) {
             return productType.getSaturation();
         }
         return super.getSaturationModifier(stack);
@@ -67,10 +67,10 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     @SideOnly(Side.CLIENT)
     public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (ProductType productType : ProductType.values()) {
-            if (!productType.isHasCrop() && this.isSeed && productType.isHasSeed()) {
+            if (!productType.hasCrop() && this.isSeed && productType.hasSeed()) {
                 subItems.add(new ItemStack(this, 1, productType.getMetadata()));
             }
-            if (productType.isHasCrop() && (this.isSeed || productType.isHasSeed())) {
+            if (productType.hasCrop() && (this.isSeed || productType.hasSeed())) {
                 subItems.add(new ItemStack(this, 1, productType.getMetadata()));
             }
         }
@@ -172,11 +172,11 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
             return this.crop;
         }
 
-        public boolean isHasSeed() {
+        public boolean hasSeed() {
             return this.hasSeed;
         }
 
-        public boolean isHasCrop() {
+        public boolean hasCrop() {
             return this.hasCrop;
         }
 

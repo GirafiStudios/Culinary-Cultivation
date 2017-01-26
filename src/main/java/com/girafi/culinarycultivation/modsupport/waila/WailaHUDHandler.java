@@ -1,7 +1,9 @@
 package com.girafi.culinarycultivation.modsupport.waila;
 
+import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.block.BlockDoubleCrop;
 import com.girafi.culinarycultivation.block.BlockModCauldron;
+import com.girafi.culinarycultivation.init.ModItems;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -18,13 +20,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class WailaHUDHandler implements IWailaDataProvider {
 
     @Override
+    @Nonnull
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return null;
+        Block block = accessor.getBlock();
+        if (block instanceof BlockCrop || block instanceof BlockDoubleCrop) {
+            return new ItemStack(block);
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -78,6 +86,9 @@ public class WailaHUDHandler implements IWailaDataProvider {
 
     public static void register() {
         IWailaDataProvider provider = new WailaHUDHandler();
+
+        ModuleRegistrar.instance().registerStackProvider(provider, BlockCrop.class);
+        ModuleRegistrar.instance().registerStackProvider(provider, BlockDoubleCrop.class);
 
         ModuleRegistrar.instance().registerBodyProvider(provider, BlockDoubleCrop.class);
         ModuleRegistrar.instance().registerBodyProvider(provider, BlockModCauldron.class);

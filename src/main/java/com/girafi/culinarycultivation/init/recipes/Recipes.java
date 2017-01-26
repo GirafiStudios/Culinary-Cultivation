@@ -86,7 +86,7 @@ public class Recipes {
 
         //Crop -> Seed recipes
         for (ProductType productType : ProductType.values()) {
-            if (productType.isHasCrop()) {
+            if (productType.hasCrop()) {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CROP_SEEDS, 1, productType.getMetadata()), new ItemStack(CROP_FOOD, 1, productType.getMetadata())));
             }
         }

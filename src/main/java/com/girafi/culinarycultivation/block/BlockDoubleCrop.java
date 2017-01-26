@@ -1,5 +1,7 @@
 package com.girafi.culinarycultivation.block;
 
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.properties.PropertyInteger;
@@ -264,17 +266,30 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         return new BlockStateContainer(this, AGE);
     }
 
-    public BlockDoubleCrop setModCrop(@Nonnull ItemStack stack, int minDropValue, int maxDropValue) {
-        crop = stack;
-        minDropValueCrop = minDropValue;
-        maxDropValueCrop = maxDropValue;
+    public BlockDoubleCrop set(@Nonnull ItemStack stack, int minDropValue, int maxDropValue) {
+        if (stack.getItem().equals(ModItems.CROP_FOOD)) {
+            crop = stack;
+            minDropValueCrop = minDropValue;
+            maxDropValueCrop = maxDropValue;
+        }
+        if (stack.getItem().equals(ModItems.CROP_SEEDS)) {
+            seed = stack;
+            minDropValueSeed = minDropValue;
+            maxDropValueSeed = maxDropValue;
+        }
         return this;
     }
 
-    public BlockDoubleCrop setModSeed(@Nonnull ItemStack stack, int minDropValue, int maxDropValue) {
-        seed = stack;
-        minDropValueSeed = minDropValue;
-        maxDropValueSeed = maxDropValue;
+    public BlockDoubleCrop setCrop(ItemCropProduct.ProductType productType, int minDropValue, int maxDropValue) {
+        set(new ItemStack(ModItems.CROP_FOOD, 1, productType.getMetadata()), minDropValue, maxDropValue);
+        if (productType.hasSeed()) {
+            seed = new ItemStack(ModItems.CROP_SEEDS, 1, productType.getMetadata());
+        }
+        return this;
+    }
+
+    public BlockDoubleCrop setSeed(ItemCropProduct.ProductType productType, int minDropValue, int maxDropValue) {
+        set(new ItemStack(ModItems.CROP_SEEDS, 1, productType.getMetadata()), minDropValue, maxDropValue);
         return this;
     }
 
@@ -304,17 +319,19 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
         if (age == 14) {
-            int cropDrop = MathHelper.getInt(rand, minDropValueCrop, maxDropValueCrop);
-            if (cropDrop == 0) {
-                if (rand.nextInt(100) >= 50) {
+            if (!crop.isEmpty() && maxDropValueCrop > 0) {
+                int cropDrop = MathHelper.getInt(rand, minDropValueCrop, maxDropValueCrop);
+                if (cropDrop == 0) {
+                    if (rand.nextInt(100) >= 50) {
+                        ret.add(crop.copy());
+                    }
+                }
+                for (int i = 0; i < cropDrop + fortune; ++i) {
                     ret.add(crop.copy());
                 }
             }
-            for (int i = 0; i < cropDrop + fortune; ++i) {
-                ret.add(crop.copy());
-            }
 
-            if (!seed.isEmpty()) {
+            if (!seed.isEmpty() && maxDropValueSeed > 0) {
                 int seedDrop = MathHelper.getInt(rand, minDropValueSeed, maxDropValueSeed);
                 if (seedDrop == 0) {
                     if (rand.nextInt(100) >= 25) {

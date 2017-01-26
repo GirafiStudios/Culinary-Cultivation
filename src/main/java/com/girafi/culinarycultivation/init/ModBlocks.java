@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -37,9 +36,9 @@ public class ModBlocks {
     }
 
     public static void setup() {
-        CUCUMBER.setModCrop(new ItemStack(ModItems.CROP_FOOD, 1, ItemCropProduct.ProductType.CUCUMBER.getMetadata()), 0, 4).setRightClickHarvest();
-        BLACK_PEPPER.setModCrop(new ItemStack(ModItems.CROP_SEEDS, 1, ItemCropProduct.ProductType.BLACK_PEPPER_DRUPE.getMetadata()), 1, 5).setRightClickHarvest();
-        TOMATO.setModCrop(new ItemStack(ModItems.CROP_FOOD, 1, ItemCropProduct.ProductType.TOMATO.getMetadata()), 1, 4).setRightClickHarvest();
+        CUCUMBER.setCrop(ItemCropProduct.ProductType.CUCUMBER, 0, 4);
+        BLACK_PEPPER.setSeed(ItemCropProduct.ProductType.BLACK_PEPPER_DRUPE, 1, 5).setRightClickHarvest();
+        TOMATO.setCrop(ItemCropProduct.ProductType.TOMATO, 1, 4).setRightClickHarvest();
     }
 
     private static Block registerCrop(Block block, String name) {
