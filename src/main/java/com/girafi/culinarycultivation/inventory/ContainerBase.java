@@ -289,7 +289,7 @@ public class ContainerBase extends Container {
                 if (slotStack.isEmpty()) {
                     if (invSlot.canTakeStack(player)) {
                         playerInv.setInventorySlotContents(dragType, invSlotStack);
-                        //invSlot.onSwapCraft(invSlotStack.getCount()); //TODO Figure out if Forge wants to fix this, or add AT
+                        //invSlot.onSwapCraft(invSlotStack.getCount()); //TODO Figure out if Forge wants to fix this, or add AT & what does this even do?
                         invSlot.putStack(ItemStack.EMPTY);
                         invSlot.onTake(player, invSlotStack);
                     }

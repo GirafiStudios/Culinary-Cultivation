@@ -2,20 +2,18 @@ package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFarmland;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Random;
 
 public class ItemFarmerBoots extends ItemFarmerArmor {
 
@@ -26,17 +24,16 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
     @Override
     public void onArmorTick(World world, EntityPlayer player, @Nonnull ItemStack stack) {
         super.onArmorTick(world, player, stack);
+        BlockPos pos = player.getPosition();
+        Block playerStandingOnBlock = player.world.getBlockState(pos.down()).getBlock();
 
-        Block playerStandingOnBlock = player.world.getBlockState(player.getPosition().down()).getBlock();
+        if (player.onGround && player.isSneaking()) {
+            if (playerStandingOnBlock instanceof BlockFarmland) {
+                player.setPosition(pos.getX(), pos.getY() + 0.5D, pos.getZ());
+                playerStandingOnBlock.onFallenUpon(world, pos.down(), player, 1.0F);
 
-        if (player.onGround) {
-            if (player.isSneaking()) {
-                if (playerStandingOnBlock == Blocks.FARMLAND) {
-                    world.playSound(player, (player.posX + 0.5F), (player.posY + 0.5F), (player.posZ + 0.5F), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    if (!world.isRemote) {
-                        world.setBlockState(player.getPosition().down(), Blocks.DIRT.getDefaultState());
-                    }
-                    stack.attemptDamageItem(1, new Random(5));
+                if (world.rand.nextInt(100) <= 50) {
+                    stack.damageItem(1, player);
                 }
             }
         }

@@ -35,7 +35,9 @@ public class ItemLargeHoe extends ItemHoe {
         ItemStack stack = player.getHeldItem(hand);
         RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
-        if (rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
+        if (rayTraceResult == null) {
+            return EnumActionResult.PASS;
+        } else if (rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
             return EnumActionResult.PASS;
         } else {
             BlockPos rayTracePos = rayTraceResult.getBlockPos();

@@ -123,7 +123,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
         return hasArmorSetPiece(player, 0) && hasArmorSetPiece(player, 1) && hasArmorSetPiece(player, 2) && hasArmorSetPiece(player, 3);
     }
 
-    private boolean hasArmorSetPiece(EntityPlayer player, int i) {
+    public static boolean hasArmorSetPiece(EntityPlayer player, int i) {
         ItemStack stack = player.inventory.armorInventory.get(3 - i);
         switch (i) {
             case 0:
