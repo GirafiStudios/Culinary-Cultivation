@@ -70,7 +70,6 @@ public class ItemSeedBag extends Item {
     @Nonnull
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         useSeedBag(player, world, pos, hand, player.getHeldItem(hand), facing);
-
         return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
@@ -78,20 +77,17 @@ public class ItemSeedBag extends Item {
         if (player.isSneaking()) return EnumActionResult.PASS;
 
         SeedBagInventory seedBagInventory = new SeedBagInventory(heldStack);
-        ItemStack seedStack = getSeedStack(player.getHeldItem(hand));
-
+        ItemStack seedStack = seedBagInventory.getStackInSlot(0);
         if (!seedStack.isEmpty() && seedStack.getItem() instanceof IPlantable) {
             IPlantable plantable = (IPlantable) seedStack.getItem();
             IBlockState state = world.getBlockState(pos);
             if (state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, plantable) && world.isAirBlock(pos.up())) {
-                for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
-                    ItemStack slotStack = seedBagInventory.getStackInSlot(i);
-                    if (!slotStack.isEmpty()) {
-                        slotStack.onItemUse(player, world, pos, hand, facing, 0, 0, 0);
-                        seedBagInventory.decrStackSize(i, 0);
-                        return EnumActionResult.SUCCESS;
-                    }
-                }
+                seedBagInventory.decrStackSize(0, 1); //Decrease the stack size by one
+                ItemStack before = heldStack.copy(); //Make a copy of our held item beforehand
+                player.setHeldItem(hand, seedStack); //Set the held item to the seeds
+                seedStack.onItemUse(player, world, pos, hand, facing, 0, 0, 0); //Plant the seeds
+                player.setHeldItem(hand, before); //Replace the held item after it was destroyed
+                return EnumActionResult.SUCCESS;
             }
         }
         return EnumActionResult.PASS;
@@ -145,11 +141,6 @@ public class ItemSeedBag extends Item {
 
     @Nonnull
     private static ItemStack getSeedStack(@Nonnull ItemStack stack) {
-        ItemStack seedStack = ItemStack.EMPTY;
-        SeedBagInventory seedBagInventory = new SeedBagInventory(stack);
-        for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
-            seedStack = seedBagInventory.getStackInSlot(i);
-        }
-        return seedStack;
+        return new SeedBagInventory(stack).getStackInSlot(0);
     }
 }
