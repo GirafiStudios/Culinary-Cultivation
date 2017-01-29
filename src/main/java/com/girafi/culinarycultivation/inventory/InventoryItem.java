@@ -3,6 +3,7 @@ package com.girafi.culinarycultivation.inventory;
 import com.girafi.culinarycultivation.util.NBTHelper;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -69,17 +70,9 @@ public class InventoryItem extends InventoryBasic {
     @Override
     @Nonnull
     public ItemStack decrStackSize(int index, int count) {
-        ItemStack stack = getStackInSlot(index);
-
-        if (!stack.isEmpty()) {
-            if (stack.getCount() > count) {
-                stack = stack.splitStack(count);
-                this.markDirty();
-            } else {
-                this.setInventorySlotContents(index, ItemStack.EMPTY);
-            }
-        }
-        return stack;
+        ItemStack itemstack = ItemStackHelper.getAndSplit(inventory, index, count);
+        this.markDirty();
+        return itemstack;
     }
 
     @Override
