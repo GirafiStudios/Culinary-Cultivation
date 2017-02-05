@@ -87,7 +87,7 @@ public class InventoryItem extends InventoryBasic {
     public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
         this.inventory.set(index, stack);
 
-        if (stack.getCount() > getInventoryStackLimit()) {
+        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
             stack.setCount(getInventoryStackLimit());
         }
         this.markDirty();

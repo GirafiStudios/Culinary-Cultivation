@@ -108,36 +108,31 @@ public class ItemSeedBag extends Item {
                     SeedBagInventory seedBagInventory = new SeedBagInventory(playerSlotStack);
                     ItemStack original = leftover.copy();
                     leftover = InventoryHandlerHelper.insertStackIntoInventory(seedBagInventory, leftover, EnumFacing.DOWN, true);
-                    System.out.println("Leftover: " + leftover);
                     if (!leftover.isEmpty()) {
                         if (leftover.getCount() <= 0) {
                             finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
                         }
                     } else {
+                        finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
                         return;
                     }
 
-                    //We had seed bags
                     if (!handled) {
-                        System.out.println("Is not handled");
                         handled = original.getCount() != leftover.getCount();
                     }
                 }
             }
             if (handled) {
-                System.out.println("Handled");
                 finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
             }
         }
     }
 
     private void finishSeeds(EntityItemPickupEvent event, EntityItem entity, EntityPlayer player, @Nonnull ItemStack leftover) {
-        System.out.println("finishSeeds");
         entity.setDead();
         event.setCanceled(true);
         player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         if (!leftover.isEmpty()) {
-            System.out.println("Finish leftoever is not empty");
             ItemHandlerHelper.giveItemToPlayer(player, leftover);
         }
     }
