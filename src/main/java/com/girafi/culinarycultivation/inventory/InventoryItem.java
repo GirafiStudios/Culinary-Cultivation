@@ -70,9 +70,9 @@ public class InventoryItem extends InventoryBasic {
     @Override
     @Nonnull
     public ItemStack decrStackSize(int index, int count) {
-        ItemStack itemstack = ItemStackHelper.getAndSplit(inventory, index, count);
+        ItemStack stack = ItemStackHelper.getAndSplit(inventory, index, count);
         this.markDirty();
-        return itemstack;
+        return stack;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class InventoryItem extends InventoryBasic {
     public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
         this.inventory.set(index, stack);
 
-        if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
+        if (stack.getCount() > getInventoryStackLimit()) {
             stack.setCount(getInventoryStackLimit());
         }
         this.markDirty();

@@ -3,7 +3,6 @@ package com.girafi.culinarycultivation.modsupport.waila;
 import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.block.BlockDoubleCrop;
 import com.girafi.culinarycultivation.block.BlockModCauldron;
-import com.girafi.culinarycultivation.init.ModItems;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;

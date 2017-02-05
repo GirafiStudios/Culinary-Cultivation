@@ -12,7 +12,9 @@ public class InventoryHandlerHelper {
 
     @Nonnull
     public static ItemStack insertStackIntoInventory(IInventory inventory, @Nonnull ItemStack stack, EnumFacing facing, boolean ignoreStackLimit) {
-        if (stack.isEmpty() || inventory.isEmpty()) {
+        System.out.println("Picked up stack: " + stack);
+        if (stack.isEmpty() || inventory == null) {
+            System.out.println("Stack or inventory is empty");
             return ItemStack.EMPTY;
         }
 
@@ -43,23 +45,27 @@ public class InventoryHandlerHelper {
                     stack = addToEmptyInventorySlot(sidedInv, slots[i], stack);
                 }
         } else {
+            System.out.println("Dududu?");
             int invSize = inventory.getSizeInventory();
             for (int i = 0; i < invSize && !stack.isEmpty(); i++) {
                 ItemStack existingStack = inventory.getStackInSlot(i);
                 if (OreDictionary.itemMatches(existingStack, stack, true) && ItemStack.areItemStackTagsEqual(stack, existingStack)) {
+                    System.out.println("Hello Stack before: " + stack);
                     stack = addToOccupiedSlot(inventory, i, stack, existingStack, ignoreStackLimit);
+                    System.out.println("Hello Stack after: " + stack);
                 }
             }
             for (int i = 0; i < invSize && !stack.isEmpty(); i++)
                 if (inventory.getStackInSlot(i).isEmpty()) {
+                    System.out.println("I am a stack and I like potatoes");
                     stack = addToEmptyInventorySlot(inventory, i, stack);
                 }
         }
 
         if (stack.isEmpty() || stack.getCount() != stackSize) {
+            System.out.println("This stack is about to be a dirty potato!");
             inventory.markDirty();
         }
-
         return stack;
     }
 
@@ -85,13 +91,14 @@ public class InventoryHandlerHelper {
             return stack;
         }
 
-        existingStack.shrink(Math.min(stack.getCount(), stackLimit));
+        existingStack.grow(Math.min(stack.getCount(), stackLimit));
         inventory.setInventorySlotContents(slot, existingStack);
         return ItemStack.EMPTY;
     }
 
     @Nonnull
     private static ItemStack copyStackWithAmount(@Nonnull ItemStack stack, int amount) {
+        System.out.println("copyStackWithAmount stack " + stack);
         if (stack.isEmpty()) {
             return ItemStack.EMPTY;
         }

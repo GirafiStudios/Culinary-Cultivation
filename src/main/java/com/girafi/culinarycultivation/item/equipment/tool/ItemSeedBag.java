@@ -70,6 +70,7 @@ public class ItemSeedBag extends Item {
     @Nonnull
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         useSeedBag(player, world, pos, hand, player.getHeldItem(hand), facing);
+
         return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
@@ -78,15 +79,16 @@ public class ItemSeedBag extends Item {
 
         SeedBagInventory seedBagInventory = new SeedBagInventory(heldStack);
         ItemStack seedStack = seedBagInventory.getStackInSlot(0);
+
         if (!seedStack.isEmpty() && seedStack.getItem() instanceof IPlantable) {
             IPlantable plantable = (IPlantable) seedStack.getItem();
             IBlockState state = world.getBlockState(pos);
             if (state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, plantable) && world.isAirBlock(pos.up())) {
-                seedBagInventory.decrStackSize(0, 1); //Decrease the stack size by one
-                ItemStack before = heldStack.copy(); //Make a copy of our held item beforehand
-                player.setHeldItem(hand, seedStack); //Set the held item to the seeds
-                seedStack.onItemUse(player, world, pos, hand, facing, 0, 0, 0); //Plant the seeds
-                player.setHeldItem(hand, before); //Replace the held item after it was destroyed
+                seedBagInventory.decrStackSize(0, 1);
+                ItemStack before = heldStack.copy();
+                player.setHeldItem(hand, seedStack);
+                seedStack.onItemUse(player, world, pos, hand, facing, 0, 0, 0);
+                player.setHeldItem(hand, before);
                 return EnumActionResult.SUCCESS;
             }
         }
@@ -106,23 +108,36 @@ public class ItemSeedBag extends Item {
                     SeedBagInventory seedBagInventory = new SeedBagInventory(playerSlotStack);
                     ItemStack original = leftover.copy();
                     leftover = InventoryHandlerHelper.insertStackIntoInventory(seedBagInventory, leftover, EnumFacing.DOWN, true);
+                    System.out.println("Leftover: " + leftover);
                     if (!leftover.isEmpty()) {
-                        if (leftover.isEmpty()) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
-                    } else return;
+                        if (leftover.getCount() <= 0) {
+                            finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
+                        }
+                    } else {
+                        return;
+                    }
 
                     //We had seed bags
-                    if (!handled) handled = original.getCount() != leftover.getCount();
+                    if (!handled) {
+                        System.out.println("Is not handled");
+                        handled = original.getCount() != leftover.getCount();
+                    }
                 }
             }
-            if (handled) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
+            if (handled) {
+                System.out.println("Handled");
+                finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
+            }
         }
     }
 
     private void finishSeeds(EntityItemPickupEvent event, EntityItem entity, EntityPlayer player, @Nonnull ItemStack leftover) {
+        System.out.println("finishSeeds");
         entity.setDead();
         event.setCanceled(true);
         player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         if (!leftover.isEmpty()) {
+            System.out.println("Finish leftoever is not empty");
             ItemHandlerHelper.giveItemToPlayer(player, leftover);
         }
     }
@@ -130,11 +145,9 @@ public class ItemSeedBag extends Item {
     private int getSeedAmount(@Nonnull ItemStack stack) {
         int amount = 0;
         SeedBagInventory seedBagInventory = new SeedBagInventory(stack);
-        for (int i = 0; i < seedBagInventory.getSizeInventory(); i++) {
-            ItemStack slotStack = seedBagInventory.getStackInSlot(i);
-            if (!slotStack.isEmpty()) {
-                amount += slotStack.getCount();
-            }
+        ItemStack slotStack = seedBagInventory.getStackInSlot(0);
+        if (!slotStack.isEmpty()) {
+            amount += slotStack.getCount();
         }
         return amount;
     }
