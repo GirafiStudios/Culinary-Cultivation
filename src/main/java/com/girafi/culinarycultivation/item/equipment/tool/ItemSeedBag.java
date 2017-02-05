@@ -113,7 +113,10 @@ public class ItemSeedBag extends Item {
                     leftover = InventoryHandlerHelper.insertStackIntoInventory(seedBagInventory, leftover, EnumFacing.DOWN, true);
                     if (leftover != null) {
                         if (leftover.stackSize <= 0) finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
-                    } else return;
+                    } else {
+                        finishSeeds(event, entityItem, event.getEntityPlayer(), leftover);
+                        return;
+                    }
 
                     //We had seed bags
                     if (!handled) handled = original.stackSize != leftover.stackSize;
