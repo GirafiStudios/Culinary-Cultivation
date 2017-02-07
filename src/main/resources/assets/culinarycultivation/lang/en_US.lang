@@ -6,6 +6,8 @@ item.culinarycultivation:calf_belly.name=Calf Belly
 item.culinarycultivation:cane_knife.name=Cane Knife
 item.culinarycultivation:chaff_pile.name=Pile of Chaff
 item.culinarycultivation:cheese_slice.name=Cheese Slice
+item.culinarycultivation:corn.name=Corn Cob
+item.culinarycultivation:corn_seed.name=Corn Kernel
 item.culinarycultivation:cucumber.name=Cucumber
 item.culinarycultivation:cucumber_seed.name=Cucumber Seeds
 item.culinarycultivation:debug_item_debug.name=Debug Item
@@ -81,10 +83,11 @@ item.culinarycultivation:wooden_hoe_large.name=Wooden Large Hoe
 tile.culinarycultivation:black_pepper.name=Black Pepper
 tile.culinarycultivation:cauldron.name=Cauldron
 tile.culinarycultivation:cheese.name=Cheese
+tile.culinarycultivation:corn.name=Corn
 tile.culinarycultivation:cucumber.name=Cucumbers
-tile.culinarycultivation:tomato.name=Tomatoes
 tile.culinarycultivation:fan_housing.name=Winnowing Machine Fan Housing
 tile.culinarycultivation:separator.name=Winnowing Machine Separator
+tile.culinarycultivation:tomato.name=Tomatoes
 
 #GUI
 culinarycultivation:container.seed_bag=Seed Bag

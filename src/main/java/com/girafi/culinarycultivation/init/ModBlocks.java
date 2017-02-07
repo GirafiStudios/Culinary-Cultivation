@@ -2,7 +2,6 @@ package com.girafi.culinarycultivation.init;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.block.*;
-import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,10 +10,13 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import static com.girafi.culinarycultivation.item.ItemCropProduct.ProductType;
+
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModBlocks {
 
     public static final BlockDoubleCrop BLACK_PEPPER = new BlockDoubleCrop();
+    public static final BlockDoubleCrop CORN = new BlockDoubleCrop();
     public static final BlockCrop CUCUMBER = new BlockCrop();
     public static final BlockCrop TOMATO = new BlockCrop();
 
@@ -26,6 +28,7 @@ public class ModBlocks {
     public static void init() {
         //Crops
         registerCrop(BLACK_PEPPER, "black_pepper");
+        registerCrop(CORN, "corn");
         registerCrop(CUCUMBER, "cucumber");
         registerCrop(TOMATO, "tomato");
 
@@ -36,9 +39,10 @@ public class ModBlocks {
     }
 
     public static void setup() {
-        CUCUMBER.setCrop(ItemCropProduct.ProductType.CUCUMBER, 0, 4);
-        BLACK_PEPPER.setSeed(ItemCropProduct.ProductType.BLACK_PEPPER_DRUPE, 1, 5).setRightClickHarvest();
-        TOMATO.setCrop(ItemCropProduct.ProductType.TOMATO, 1, 4).setRightClickHarvest();
+        BLACK_PEPPER.setSeed(ProductType.BLACK_PEPPER_DRUPE, 1, 5).setRightClickHarvest();
+        CORN.setCrop(ProductType.CORN, 2, 4);
+        CUCUMBER.setCrop(ProductType.CUCUMBER, 0, 4);
+        TOMATO.setCrop(ProductType.TOMATO, 1, 4).setRightClickHarvest();
     }
 
     private static Block registerCrop(Block block, String name) {

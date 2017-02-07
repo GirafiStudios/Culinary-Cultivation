@@ -117,7 +117,8 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     public enum ProductType {
         CUCUMBER(0, "cucumber", 3, 0.5F, ModBlocks.CUCUMBER),
         TOMATO(1, "tomato", 3, 0.7F, ModBlocks.TOMATO),
-        BLACK_PEPPER_DRUPE(2, "black_pepper_drupe", ModBlocks.BLACK_PEPPER);
+        BLACK_PEPPER_DRUPE(2, "black_pepper_drupe", ModBlocks.BLACK_PEPPER),
+        CORN(3, "corn", 2, 0.4F, ModBlocks.CORN);
 
         private static final Map<Integer, ProductType> META_LOOKUP = Maps.newHashMap();
         private final int meta;

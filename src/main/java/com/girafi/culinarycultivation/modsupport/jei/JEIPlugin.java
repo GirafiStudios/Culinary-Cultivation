@@ -31,7 +31,9 @@ public class JEIPlugin extends BlankModPlugin {
 
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.BLACK_PEPPER));
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CAULDRON));
+        blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CORN));
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CUCUMBER));
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.TOMATO));
+        //TODO Add hashmap for all crops, for easier blacklisting
     }
 }
