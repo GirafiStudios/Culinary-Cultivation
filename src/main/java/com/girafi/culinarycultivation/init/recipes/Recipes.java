@@ -33,10 +33,16 @@ public class Recipes {
     }
 
     public static void init() {
-        //Machine recipes
+        addRecipes();
+        addFurnaceRecipes();
+        addWinnowingRecipes();
+    }
+
+    private static void addRecipes() {
+        //Machines
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.FAN_HOUSING), "PPP", "PRD", "I  ", 'P', "plankWood", 'R', "blockRedstone", 'D', Blocks.DISPENSER, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.SEPARATOR), "PHP", "PBF", "  I", 'H', Blocks.HOPPER, 'P', "plankWood", 'B', Items.BOWL, 'F', Blocks.IRON_BARS, 'I', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.SEED_BAG), " S ", "CXC", " C ",  'C', new ItemStack(Blocks.CARPET, 1, OreDictionary.WILDCARD_VALUE), 'S', Items.STRING, 'X', new ItemStack(ModItems.CROP_SEEDS, 1, OreDictionary.WILDCARD_VALUE)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.SEED_BAG), " S ", "CXC", " C ", 'C', new ItemStack(Blocks.CARPET, 1, OreDictionary.WILDCARD_VALUE), 'S', Items.STRING, 'X', new ItemStack(ModItems.CROP_SEEDS, 1, OreDictionary.WILDCARD_VALUE)));
 
         //Tools, armor and other stuff
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(CAKE_KNIFE), "  H", "II ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
@@ -66,8 +72,32 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CAKE_PIECE, 7), new ItemStack(CAKE_KNIFE, 1, OreDictionary.WILDCARD_VALUE), Items.CAKE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CHEESE_SLICE, 7), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.CHEESE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
+    }
 
-        //Winnowing recipes
+    private static void addFurnaceRecipes() {
+        GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(COOKED_FISH, 1, FishType.CLOWNFISH.getMetadata()), 0.35F);
+        GameRegistry.addSmelting(new ItemStack(MEAT, 1, MeatType.RIBS_BEEF.getMetadata()), new ItemStack(COOKED_MEAT, 1, MeatType.RIBS.getMetadata()), 0.35F);
+
+        for (FishType fishType : FishType.values()) {
+            if (fishType.isHaveCookedFish() && fishType.isHaveRawFish()) {
+                GameRegistry.addSmelting(new ItemStack(FISH, 1, fishType.getMetadata()), new ItemStack(COOKED_FISH, 1, fishType.getMetadata()), 0.35F);
+            }
+        }
+
+        for (MeatType meatType : MeatType.values()) {
+            if (meatType.isHaveCookedMeat()) {
+                GameRegistry.addSmelting(new ItemStack(MEAT, 1, meatType.getMetadata()), new ItemStack(COOKED_MEAT, 1, meatType.getMetadata()), 0.35F);
+            }
+        }
+
+        for (ProductType productType : ProductType.values()) {
+            if (productType.hasCookedCrop()) {
+                GameRegistry.addSmelting(new ItemStack(CROP_FOOD, 1, productType.getMetadata()), new ItemStack(CROP_COOKED, 1, productType.getMetadata()), 0.35F);
+            }
+        }
+    }
+
+    private static void addWinnowingRecipes() {
         ItemStack tallGrass = new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta());
         ItemStack doubleTallGrass = new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta());
 
@@ -75,7 +105,8 @@ public class Recipes {
         CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.CUCUMBER.getMetadata()), 10);
         CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.TOMATO.getMetadata()), 8);
         CulinaryCultivationAPI.winnowing.addJunk(tallGrass, new ItemStack(ModItems.CHAFF_PILE), 10);
-        CulinaryCultivationAPI.winnowing.addRecipe(doubleTallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.BLACK_PEPPER_DRUPE.getMetadata()), 20);
+        CulinaryCultivationAPI.winnowing.addRecipe(doubleTallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.BLACK_PEPPER_DRUPE.getMetadata()), 18);
+        CulinaryCultivationAPI.winnowing.addRecipe(doubleTallGrass, new ItemStack(CROP_SEEDS, 1, ProductType.CORN.getMetadata()), 8);
 
         //Vanilla outputs
         CulinaryCultivationAPI.winnowing.addOutput(tallGrass, new ItemStack(Items.WHEAT_SEEDS), 10);
@@ -88,22 +119,6 @@ public class Recipes {
         for (ProductType productType : ProductType.values()) {
             if (productType.hasCrop()) {
                 GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CROP_SEEDS, 1, productType.getMetadata()), new ItemStack(CROP_FOOD, 1, productType.getMetadata())));
-            }
-        }
-
-        //Furnace recipes
-        GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(COOKED_FISH, 1, FishType.CLOWNFISH.getMetadata()), 0.35F);
-        GameRegistry.addSmelting(new ItemStack(MEAT, 1, MeatType.RIBS_BEEF.getMetadata()), new ItemStack(COOKED_MEAT, 1, MeatType.RIBS.getMetadata()), 0.35F);
-
-        for (FishType fishtype : FishType.values()) {
-            if (fishtype.isHaveCookedFish() && fishtype.isHaveRawFish()) {
-                GameRegistry.addSmelting(new ItemStack(FISH, 1, fishtype.getMetadata()), new ItemStack(COOKED_FISH, 1, fishtype.getMetadata()), 0.35F);
-            }
-        }
-
-        for (MeatType meattype : MeatType.values()) {
-            if (meattype.isHaveCookedMeat()) {
-                GameRegistry.addSmelting(new ItemStack(MEAT, 1, meattype.getMetadata()), new ItemStack(COOKED_MEAT, 1, meattype.getMetadata()), 0.35F);
             }
         }
     }

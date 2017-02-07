@@ -23,6 +23,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
+import static com.girafi.culinarycultivation.item.ItemCropProduct.Type;
+
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
     /* Tools */
@@ -49,8 +51,9 @@ public class ModItems {
     public static final Item COOKED_FISH = new ItemModFishFood(true);
     public static final Item COOKED_MEAT = new ItemModMeatFood(true);
     public static final Item FISH = new ItemModFishFood(false);
-    public static final Item CROP_FOOD = new ItemCropProduct(false);
-    public static final Item CROP_SEEDS = new ItemCropProduct(true);
+    public static final Item CROP_COOKED = new ItemCropProduct(Type.CROP_COOKED);
+    public static final Item CROP_FOOD = new ItemCropProduct(Type.CROP);
+    public static final Item CROP_SEEDS = new ItemCropProduct(Type.SEED);
     public static final Item MEAT = new ItemModMeatFood(false);
     public static final Item CAKE_PIECE = new ItemFood(2, 0.1F, false);
     public static final Item CALF_BELLY = new Item().setMaxStackSize(1);
@@ -67,6 +70,7 @@ public class ModItems {
         registerItem(FISH, "fish");
         registerItem(COOKED_FISH, "cooked_fish");
         registerItem(CROP_FOOD, "crop_food");
+        registerItem(CROP_COOKED, "crop_cooked");
         registerItem(CROP_SEEDS, "crop_seeds");
         registerItem(CHAFF_PILE, "chaff_pile");
         registerItem(STORAGE_JAR, "storage_jar");

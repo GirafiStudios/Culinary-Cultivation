@@ -27,51 +27,75 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class ItemCropProduct extends ItemFood implements IPlantable {
-    private final boolean isSeed;
+    private Type type;
 
-    public ItemCropProduct(boolean isSeed) {
+    public ItemCropProduct(Type type) {
         super(0, 0.0F, false);
-        this.isSeed = isSeed;
+        this.type = type;
         this.setHasSubtypes(true);
     }
 
     @Override
     public int getHealAmount(@Nonnull ItemStack stack) {
         ProductType productType = ProductType.byItemStack(stack);
-        if (productType.hasCrop() &! this.isSeed) {
-            return productType.getHungerAmount();
+
+        switch (type) {
+            case CROP:
+                return productType.getCropHunger();
+            case CROP_COOKED:
+                return productType.getCookedHunger();
+            default:
+                return super.getHealAmount(stack);
         }
-        return super.getHealAmount(stack);
     }
 
     @Override
     public float getSaturationModifier(@Nonnull ItemStack stack) {
         ProductType productType = ProductType.byItemStack(stack);
-        if (productType.hasCrop() &! this.isSeed) {
-            return productType.getSaturation();
+
+        switch (type) {
+            case CROP:
+                return productType.getCropSaturation();
+            case CROP_COOKED:
+                return productType.getCookedSaturation();
+            default:
+                return super.getSaturationModifier(stack);
         }
-        return super.getSaturationModifier(stack);
     }
 
 
     @Override
     @Nonnull
     public EnumAction getItemUseAction(@Nonnull ItemStack stack) {
-        if (!this.isSeed) {
-            return super.getItemUseAction(stack);
+        switch (type) {
+            case CROP:
+            case CROP_COOKED:
+                return super.getItemUseAction(stack);
+            default:
+                return EnumAction.NONE;
         }
-        return EnumAction.NONE;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (ProductType productType : ProductType.values()) {
-            if (!productType.hasCrop() && this.isSeed && productType.hasSeed()) {
-                subItems.add(new ItemStack(this, 1, productType.getMetadata()));
-            }
-            if (productType.hasCrop() && (this.isSeed || productType.hasSeed())) {
-                subItems.add(new ItemStack(this, 1, productType.getMetadata()));
+            switch (type) {
+                case SEED:
+                    if (productType.hasSeed()) {
+                        subItems.add(new ItemStack(this, 1, productType.getMetadata()));
+                    }
+                    break;
+                case CROP:
+                    if (productType.hasCrop()) {
+                        subItems.add(new ItemStack(this, 1, productType.getMetadata()));
+                    }
+                    break;
+                case CROP_COOKED:
+                    if (productType.hasCookedCrop()) {
+                        subItems.add(new ItemStack(this, 1, productType.getMetadata()));
+                    }
+                    break;
             }
         }
     }
@@ -79,10 +103,16 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     @Override
     @Nonnull
     public String getUnlocalizedName(@Nonnull ItemStack stack) {
-        if (this.isSeed) {
-            return "item." + Paths.MOD_ASSETS + ProductType.byItemStack(stack).getCropName() + "_seed";
+        String name = "item." + Paths.MOD_ASSETS + ProductType.byItemStack(stack).getCropName();
+        switch (type) {
+            case SEED:
+                return name + "_seed";
+            case CROP_COOKED:
+                return name + "_cooked";
+            case CROP:
+            default:
+                return name;
         }
-        return "item." + Paths.MOD_ASSETS + ProductType.byItemStack(stack).getCropName();
     }
 
     @Override
@@ -91,7 +121,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
         ItemStack stack = player.getHeldItem(hand);
         ProductType productType = ProductType.byItemStack(stack);
         IBlockState state = world.getBlockState(pos);
-        if ((productType.canPlantCrop() || this.isSeed) && facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
+        if ((productType.canPlantCrop() || type == Type.SEED) && facing == EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock().canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
             world.setBlockState(pos.up(), productType.crop.getDefaultState(), 11);
             stack.shrink(1);
             return EnumActionResult.SUCCESS;
@@ -107,7 +137,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     @Override
     public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
         for (ProductType productType : ProductType.values()) {
-            if (productType.canPlantCrop() || this.isSeed) {
+            if (productType.canPlantCrop() || type == Type.SEED) {
                 return productType.crop.getDefaultState();
             }
         }
@@ -118,39 +148,41 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
         CUCUMBER(0, "cucumber", 3, 0.5F, ModBlocks.CUCUMBER),
         TOMATO(1, "tomato", 3, 0.7F, ModBlocks.TOMATO),
         BLACK_PEPPER_DRUPE(2, "black_pepper_drupe", ModBlocks.BLACK_PEPPER),
-        CORN(3, "corn", 2, 0.4F, ModBlocks.CORN);
+        CORN(3, "corn", 2, 0.4F, 4, 0.8F, ModBlocks.CORN);
 
         private static final Map<Integer, ProductType> META_LOOKUP = Maps.newHashMap();
         private final int meta;
         private final String name;
-        private final int hungerAmount;
-        private final float saturationModifier;
+        private final int cropHunger;
+        private final float cropSaturation;
+        private final int cookedHunger;
+        private final float cookedSaturation;
         private final boolean hasSeed;
-        private final boolean hasCrop;
         private final boolean isCropPlantable;
         private final Block crop;
 
-        ProductType(int meta, String name, int hungerAmount, float saturationModifier, boolean hasSeed, boolean hasCrop, boolean isCropPlantable, Block crop) {
+        ProductType(int meta, String name, int cropHunger, float cropSat, int cookedHunger, float cookedSat, boolean hasSeed, boolean isCropPlantable, Block crop) {
             this.meta = meta;
             this.name = name;
-            this.hungerAmount = hungerAmount;
-            this.saturationModifier = saturationModifier;
+            this.cropHunger = cropHunger;
+            this.cropSaturation = cropSat;
+            this.cookedHunger = cookedHunger;
+            this.cookedSaturation = cookedSat;
             this.hasSeed = hasSeed;
-            this.hasCrop = hasCrop;
             this.isCropPlantable = isCropPlantable;
             this.crop = crop;
         }
 
-        ProductType(int meta, String name, int hungerAmount, float saturationModifier, Block crop) {
-            this(meta, name, hungerAmount, saturationModifier, true, true, false, crop);
+        ProductType(int meta, String name, int cropHunger, float cropSat, Block crop) {
+            this(meta, name, cropHunger, cropSat, 0, 0.0F, true, false, crop);
         }
 
-        ProductType(int meta, String name, int hungerAmount, float saturationModifier, Block crop, boolean isCropPlantable) {
-            this(meta, name, hungerAmount, saturationModifier, true, true, isCropPlantable, crop);
+        ProductType(int meta, String name, int cropHunger, float cropSat, int cookedHunger, float cookedSat, Block crop) {
+            this(meta, name, cropHunger, cropSat, cookedHunger, cookedSat, true, false, crop);
         }
 
         ProductType(int meta, String name, Block crop) {
-            this(meta, name, 0, 0.0F, true, false, false, crop);
+            this(meta, name, 0, 0.0F, 0, 0.0F, true, false, crop);
         }
 
         public int getMetadata() {
@@ -161,12 +193,20 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
             return this.name;
         }
 
-        public int getHungerAmount() {
-            return this.hungerAmount;
+        public int getCropHunger() {
+            return this.cropHunger;
         }
 
-        public float getSaturation() {
-            return this.saturationModifier;
+        public float getCropSaturation() {
+            return this.cropSaturation;
+        }
+
+        public int getCookedHunger() {
+            return this.cookedHunger;
+        }
+
+        public float getCookedSaturation() {
+            return this.cookedSaturation;
         }
 
         public Block getCropBlock() {
@@ -178,7 +218,11 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
         }
 
         public boolean hasCrop() {
-            return this.hasCrop;
+            return cropHunger > 0 || cropSaturation > 0.0F;
+        }
+
+        public boolean hasCookedCrop() {
+            return hasCrop() && (cookedHunger > 0 || cookedSaturation > 0.0F);
         }
 
         public boolean canPlantCrop() {
@@ -199,5 +243,11 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
                 META_LOOKUP.put(cropValues.getMetadata(), cropValues);
             }
         }
+    }
+
+    public enum Type {
+        CROP,
+        CROP_COOKED,
+        SEED
     }
 }

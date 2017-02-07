@@ -10,6 +10,8 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import javax.annotation.Nullable;
+
 import static com.girafi.culinarycultivation.item.ItemCropProduct.ProductType;
 
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
@@ -53,9 +55,11 @@ public class ModBlocks {
         return registerBlock(block, name, CulinaryCultivation.TAB);
     }
 
-    private static Block registerBlock(Block block, String name, CreativeTabs tab) {
+    private static Block registerBlock(Block block, String name, @Nullable CreativeTabs tab) {
         block.setUnlocalizedName(new ResourceLocation(Reference.MOD_ID, name).toString());
-        block.setCreativeTab(tab);
+        if (tab != null) {
+            block.setCreativeTab(tab);
+        }
 
         GameRegistry.register(block, new ResourceLocation(Reference.MOD_ID, name));
         GameRegistry.register(new ItemBlock(block), block.getRegistryName());
