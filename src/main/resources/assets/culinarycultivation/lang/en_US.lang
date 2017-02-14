@@ -90,9 +90,6 @@ tile.culinarycultivation:fan_housing.name=Winnowing Machine Fan Housing
 tile.culinarycultivation:separator.name=Winnowing Machine Separator
 tile.culinarycultivation:tomato.name=Tomatoes
 
-#GUI
-culinarycultivation:container.seed_bag=Seed Bag
-
 #Misc
 culinarycultivation.misc.shift=Press &3&oShift&r&7 for info
 itemGroup.culinarycultivation=Culinary Cultivation

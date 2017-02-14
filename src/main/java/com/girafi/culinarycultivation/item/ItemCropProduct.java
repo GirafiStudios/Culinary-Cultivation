@@ -45,7 +45,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
             case CROP_COOKED:
                 return productType.getCookedHunger();
             default:
-                return super.getHealAmount(stack);
+                return 0;
         }
     }
 
@@ -59,7 +59,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
             case CROP_COOKED:
                 return productType.getCookedSaturation();
             default:
-                return super.getSaturationModifier(stack);
+                return 0;
         }
     }
 

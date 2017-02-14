@@ -16,9 +16,8 @@ public class ContainerSeedBag extends ContainerBase {
     public ContainerSeedBag(InventoryPlayer playerInventory, SeedBagInventory seedBagInv, EntityPlayer player) {
         this.seedBagInventory = seedBagInv;
         this.seedBagInventory.openInventory(player);
-        this.setMaxStackSize(seedBagInventory.getInventoryStackLimit());
 
-        this.addSlotToContainer(new Slot(this.seedBagInventory, 0, 80, 20) {
+        this.addSlotToContainer(new Slot(this.seedBagInventory, 0, 51, 13) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return seedBagInventory.isItemValidForSlot(0, stack);
@@ -46,7 +45,7 @@ public class ContainerSeedBag extends ContainerBase {
     @Nonnull
     public ItemStack slotClick(int slotId, int dragType, ClickType clickType, EntityPlayer player) {
         ItemStack slotStack = slotId < 0 || slotId > this.inventorySlots.size() ? ItemStack.EMPTY : this.inventorySlots.get(slotId).getStack();
-        if (!slotStack.isEmpty() && slotStack.getItem() == ModItems.SEED_BAG) {
+        if (!slotStack.isEmpty() && slotStack.getItem().equals(ModItems.SEED_BAG)) {
             return ItemStack.EMPTY;
         }
         return super.slotClick(slotId, dragType, clickType, player);

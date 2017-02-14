@@ -19,7 +19,7 @@ public class InventoryItem extends InventoryBasic {
     private final NonNullList<ItemStack> inventory;
 
     public InventoryItem(@Nonnull ItemStack inventoryItem, String name, int size, int stackLimit) {
-        super(I18n.translateToLocal(Paths.MOD_ASSETS + "container." + name), true, size);
+        super(name.equals("") ? "" : I18n.translateToLocal(Paths.MOD_ASSETS + "container." + name), true, size);
         this.invItem = inventoryItem;
         this.inventory = NonNullList.withSize(size, ItemStack.EMPTY);
         this.stackLimit = stackLimit;

@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 public class SeedBagInventory extends InventoryItem {
 
     public SeedBagInventory(@Nonnull ItemStack stack) {
-        super(stack, "seed_bag", 1, 960);
+        super(stack, "", 1, 1280);
     }
 
     @Override
