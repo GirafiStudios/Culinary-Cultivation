@@ -17,7 +17,7 @@ public class ContainerSeedBag extends ContainerBase {
         this.seedBagInventory = seedBagInv;
         this.seedBagInventory.openInventory(player);
 
-        this.addSlotToContainer(new Slot(this.seedBagInventory, 0, 51, 13) {
+        this.addSlotToContainer(new Slot(this.seedBagInventory, 0, 59, 13) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return seedBagInventory.isItemValidForSlot(0, stack);
