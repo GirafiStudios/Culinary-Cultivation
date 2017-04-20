@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
 import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipe;
+import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipes;
 import mezz.jei.api.gui.IGuiIngredient;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
@@ -15,6 +16,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory.junkSlot;
 import static com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory.outputSlot;
@@ -59,6 +61,14 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
         Map<Integer, ? extends IGuiIngredient<ItemStack>> ingredients = layout.getItemStacks().getGuiIngredients();
         output = ingredients.get(outputSlot);
         junk = ingredients.get(junkSlot);
+    }
+
+    public static List<WinnowingRecipeWrapper> getRecipes() {
+        List<WinnowingRecipeWrapper> wrappers = new ArrayList<>();
+        Map<Pair<Item, Integer>, WinnowingMachineRecipe> recipes = WinnowingMachineRecipes.instance().getRecipes();
+        wrappers.addAll(recipes.keySet().stream().map(pair -> new WinnowingRecipeWrapper(pair, recipes.get(pair))).collect(Collectors.toList()));
+
+        return wrappers;
     }
 
     @Override

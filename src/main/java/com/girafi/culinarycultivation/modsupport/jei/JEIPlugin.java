@@ -1,12 +1,15 @@
 package com.girafi.culinarycultivation.modsupport.jei;
 
 import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipe;
 import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory;
-import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeHandler;
+import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeWrapper;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -20,10 +23,16 @@ public class JEIPlugin extends BlankModPlugin {
         addBlacklist(registry);
 
         registry.addRecipeCategories(new WinnowingRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.handleRecipes(WinnowingMachineRecipe.class, new IRecipeWrapperFactory<WinnowingMachineRecipe>() {
+            @Override
+            @Nonnull
+            public IRecipeWrapper getRecipeWrapper(@Nonnull WinnowingMachineRecipe recipe) {
+                return new WinnowingRecipeWrapper(null, recipe); //TODO?
+            }
+        }, WINNOWING);
+        registry.addRecipes(WinnowingRecipeWrapper.getRecipes(), WINNOWING);
         registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.FAN_HOUSING), WINNOWING);
         registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.SEPARATOR), WINNOWING);
-        registry.addRecipeHandlers(new WinnowingRecipeHandler());
-        registry.addRecipes(WinnowingRecipeHandler.getRecipes());
     }
 
     private void addBlacklist(@Nonnull IModRegistry registry) {
