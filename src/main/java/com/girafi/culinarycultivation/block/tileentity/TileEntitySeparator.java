@@ -145,8 +145,8 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                 WinnowingMachineRecipe recipe = WinnowingMachineRecipes.instance().getProcessingResult(input);
                 if (recipe != null) {
                     IBlockState state = world.getBlockState(getPos());
-                    ItemStack output = recipe.getOutput().get(world);
-                    ItemStack junk = recipe.getJunk().get(world);
+                    ItemStack output = recipe.getOutput().get();
+                    ItemStack junk = recipe.getJunk().get();
                     EnumFacing facing = state.getValue(BlockFanHousing.FACING);
                     if (!output.isEmpty()) outputItems(output, getPos(), facing);
                     if (!junk.isEmpty()) outputItems(junk, getPos(), facing.rotateAround(Axis.Y).getOpposite());

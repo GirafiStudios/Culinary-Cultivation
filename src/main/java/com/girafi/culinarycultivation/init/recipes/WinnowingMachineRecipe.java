@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.NavigableMap;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -45,10 +46,11 @@ public class WinnowingMachineRecipe {
 
         //Returns the result
         @Nonnull
-        public ItemStack get(World world) {
+        public ItemStack get() {
+            Random rand = new Random();
             //Let's update the map so that it reaches maximum effectiveness
             if (total < 100D) add(ItemStack.EMPTY, 100D - total);
-            return map.ceilingEntry((world.rand.nextDouble() * total)).getValue();
+            return map.ceilingEntry((rand.nextDouble() * total)).getValue();
         }
     }
 }

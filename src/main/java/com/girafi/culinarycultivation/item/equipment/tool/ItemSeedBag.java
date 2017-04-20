@@ -34,6 +34,11 @@ public class ItemSeedBag extends Item {
     }
 
     @Override
+    public boolean isEnchantable(@Nonnull ItemStack stack) {
+        return false;
+    }
+
+    @Override
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
         if (!world.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND) {

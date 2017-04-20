@@ -74,7 +74,7 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
     @Override
     public void getIngredients(@Nonnull IIngredients ingredients) {
         ingredients.setInputs(ItemStack.class, inputs);
-        ingredients.setOutputs(ItemStack.class, outputs);
+        ingredients.setOutputLists(ItemStack.class, Collections.singletonList(outputs));
     }
 
     @Nonnull
