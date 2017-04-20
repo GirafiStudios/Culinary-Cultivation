@@ -17,7 +17,7 @@ public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMess
     @Override
     public REQ onMessage(REQ message, MessageContext ctx) {
         if (ctx.side == Side.SERVER) {
-            runServer(message, ctx.getServerHandler().playerEntity);
+            runServer(message, ctx.getServerHandler().player);
         } else {
             runClient(message, getPlayerClient());
         }

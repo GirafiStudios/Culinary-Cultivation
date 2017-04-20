@@ -97,13 +97,13 @@ public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
     public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         this.rebuild();
         if (chanceNormal != null && !chanceNormal.equals("")) {
-            FontRenderer fontRendererObj = minecraft.fontRendererObj;
+            FontRenderer fontRendererObj = minecraft.fontRenderer;
             int stringWidth = fontRendererObj.getStringWidth(chanceNormal);
             fontRendererObj.drawString(chanceNormal, recipeWidth - stringWidth - 20, 8, Color.gray.getRGB());
         }
 
         if (chanceJunk != null && !chanceJunk.equals("")) {
-            FontRenderer fontRendererObj = minecraft.fontRendererObj;
+            FontRenderer fontRendererObj = minecraft.fontRenderer;
             fontRendererObj.drawString(chanceJunk, recipeWidth - 16, 16, Color.gray.getRGB());
         }
     }

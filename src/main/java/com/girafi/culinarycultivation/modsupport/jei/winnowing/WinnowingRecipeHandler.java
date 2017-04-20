@@ -45,18 +45,6 @@ public class WinnowingRecipeHandler implements IRecipeHandler<WinnowingRecipeWra
 
     @Override
     public boolean isRecipeValid(@Nonnull WinnowingRecipeWrapper recipe) {
-        if (recipe.inputs.isEmpty()) {
-            String recipeInfo = ErrorUtil.getInfoFromRecipe(recipe, this);
-            Log.error("Recipe has no inputs. {}", recipeInfo);
-        }
-        if (recipe.outputs.isEmpty()) {
-            String recipeInfo = ErrorUtil.getInfoFromRecipe(recipe, this);
-            Log.error("Recipe has no outputs. {}", recipeInfo);
-        }
-        if (recipe.junks.isEmpty()) {
-            String recipeInfo = ErrorUtil.getInfoFromRecipe(recipe, this);
-            Log.error("Recipe has no junk outputs. {}", recipeInfo);
-        }
         return true;
     }
 }

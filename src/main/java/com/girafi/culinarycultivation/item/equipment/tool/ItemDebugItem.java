@@ -74,7 +74,7 @@ public class ItemDebugItem extends Item {
             }
         }
         if (stack.getItemDamage() == 2) {
-            player.getFoodStats().addStats(10000, 0F);
+            player.getFoodStats().addStats(10000, 20.0F);
             player.heal(20);
             player.extinguish();
         }
@@ -85,12 +85,7 @@ public class ItemDebugItem extends Item {
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if (stack.getItemDamage() == 1) {
-            if (player.canEat(alwaysEdible)) {
-                player.setActiveHand(hand);
-            }
-        }
-        if (stack.getItemDamage() == 2) {
+        if (stack.getItemDamage() == 1 || stack.getItemDamage() == 2) {
             if (player.canEat(alwaysEdible)) {
                 player.setActiveHand(hand);
             }
