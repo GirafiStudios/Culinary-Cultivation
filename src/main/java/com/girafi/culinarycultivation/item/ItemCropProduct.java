@@ -145,7 +145,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
     }
 
     public enum ProductType {
-        CUCUMBER(0, "cucumber", 3, 0.5F, ModBlocks.CUCUMBER),
+        CUCUMBER(0, "cucumber", 3, 0.5F, 0, 0.0F, true, true, ModBlocks.CUCUMBER),
         TOMATO(1, "tomato", 3, 0.7F, ModBlocks.TOMATO),
         BLACK_PEPPER_DRUPE(2, "black_pepper_drupe", ModBlocks.BLACK_PEPPER),
         CORN(3, "corn", 2, 0.4F, 4, 0.8F, ModBlocks.CORN);

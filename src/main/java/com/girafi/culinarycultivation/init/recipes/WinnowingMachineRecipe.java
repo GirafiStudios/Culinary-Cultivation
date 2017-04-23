@@ -3,7 +3,6 @@ package com.girafi.culinarycultivation.init.recipes;
 import gnu.trove.map.TObjectDoubleMap;
 import gnu.trove.map.hash.TObjectDoubleHashMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.NavigableMap;

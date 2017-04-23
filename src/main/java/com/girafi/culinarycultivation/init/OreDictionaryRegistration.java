@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.init;
 
+import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import net.minecraft.init.Items;
@@ -8,8 +9,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.text.WordUtils;
 
-public class OreDictionaryRegistration {
-    public static void preInit() {
+public class OreDictionaryRegistration { //TODO Clean up this shitty code
+
+    public static void init() {
+        for (ItemCropProduct.ProductType product : ItemCropProduct.ProductType.values()) {
+            OreDictionary.registerOre("crop" + toCamelCase(product.getCropName()), new ItemStack(ModItems.CROP_FOOD, 1, product.getMetadata()));
+            OreDictionary.registerOre("seed" + toCamelCase(product.getCropName()), new ItemStack(ModItems.CROP_SEEDS, 1, product.getMetadata()));
+        }
         for (FishType fishtype : FishType.values()) {
             if (fishtype.isHaveRawFish() && fishtype.getMetadata() != FishType.FILLET.getMetadata() && fishtype.getMetadata() != FishType.SMALL_SQUID.getMetadata()) {
                 OreDictionary.registerOre("filletFish", new ItemStack(ModItems.FISH, 1, fishtype.getMetadata()));

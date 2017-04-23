@@ -153,7 +153,7 @@ public class BlockCrop extends BlockCrops {
             }
         }
 
-        if (age <= 6) {
+        if (age < 7) {
             if (!notGrownDrop().isEmpty()) {
                 ret.add(notGrownDrop().copy());
             }

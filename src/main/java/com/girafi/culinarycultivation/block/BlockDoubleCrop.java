@@ -343,7 +343,7 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                 }
             }
         }
-        if (age <= 7) {
+        if (age < 7) {
             if (!notGrownDrop().isEmpty()) {
                 ret.add(notGrownDrop().copy());
             }

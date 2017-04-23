@@ -52,7 +52,7 @@ public class CulinaryCultivation {
         NetworkHandler.init();
         proxy.preInit();
         Recipes.initHandlers();
-        OreDictionaryRegistration.preInit();
+        OreDictionaryRegistration.init();
         ModSupport.INSTANCE.preInit();
         LogHelper.debug(Reference.MOD_NAME + " Pre Initialization Complete.");
     }
