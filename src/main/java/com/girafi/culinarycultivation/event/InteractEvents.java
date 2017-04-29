@@ -1,11 +1,9 @@
 package com.girafi.culinarycultivation.event;
 
-import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
-import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
@@ -13,14 +11,11 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -111,38 +106,7 @@ public class InteractEvents {
         }
     }
 
-    public static class CauldronTransformation {
-        @SubscribeEvent
-        public void cauldronTransformationEvent(PlayerInteractEvent.RightClickBlock iEvent) {
-            ItemStack heldItem = iEvent.getEntityPlayer().getHeldItem(iEvent.getHand());
-            Block block = iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock();
-
-            if (block == Blocks.CAULDRON) {
-                if (!heldItem.isEmpty() && heldItem.getItem() == ModItems.STORAGE_JAR || heldItem.getItem() == Items.MILK_BUCKET) {
-                    iEvent.getWorld().setBlockState(iEvent.getPos(), ModBlocks.CAULDRON.getDefaultState());
-                }
-            }
-        }
-
-        @SubscribeEvent
-        public void removeDyeEvent(PlayerInteractEvent.RightClickBlock iEvent) {
-            ItemStack heldItem = iEvent.getEntityPlayer().getHeldItem(iEvent.getHand());
-            if (!heldItem.isEmpty() && heldItem.getItem() instanceof ItemFarmerArmor && iEvent.getWorld().getBlockState(iEvent.getPos()).getBlock() == Blocks.CAULDRON) {
-                int i = iEvent.getWorld().getBlockState(iEvent.getPos()).getValue(BlockCauldron.LEVEL);
-                ItemFarmerArmor farmerArmor = (ItemFarmerArmor) heldItem.getItem();
-                if (farmerArmor.getArmorMaterial() == CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL && farmerArmor.hasColor(heldItem) && i > 0 && !iEvent.getWorld().isRemote) {
-                    farmerArmor.removeColor(heldItem);
-                    this.setWaterLevel(iEvent.getWorld(), iEvent.getPos(), iEvent.getWorld().getBlockState(iEvent.getPos()), i - 1);
-                    iEvent.getEntityPlayer().addStat(StatList.ARMOR_CLEANED);
-                }
-            }
-        }
-
-        private void setWaterLevel(World world, BlockPos pos, IBlockState state, int level) {
-            world.setBlockState(pos, state.withProperty(BlockCauldron.LEVEL, MathHelper.clamp(level, 0, 3)), 2);
-            world.updateComparatorOutputLevel(pos, Blocks.CAULDRON);
-        }
-    }
+    //TODO Readd remove dye for cauldron
 
     public static class DebugItemEvent {
         @SubscribeEvent

@@ -29,7 +29,6 @@ public class Events {
         register(new AchievementTriggerEvent());
         register(new CakeKnifeInteractionEvent());
         register(new CaneKnife());
-        register(new CauldronTransformation());
         register(new CheeseInteractionEvent());
         register(new CraftedEvent());
         register(new DebugItemEvent());

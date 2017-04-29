@@ -1,7 +1,10 @@
 package com.girafi.culinarycultivation;
 
 import com.girafi.culinarycultivation.client.gui.GuiHandler;
-import com.girafi.culinarycultivation.init.*;
+import com.girafi.culinarycultivation.init.Events;
+import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.init.OreDictionaryRegistration;
 import com.girafi.culinarycultivation.init.recipes.Recipes;
 import com.girafi.culinarycultivation.modsupport.ModSupport;
 import com.girafi.culinarycultivation.network.NetworkHandler;
@@ -60,7 +63,7 @@ public class CulinaryCultivation {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-        ModTileEntities.init();
+        ModBlocks.initTiles();
         Recipes.init();
         ModSupport.INSTANCE.init();
         LogHelper.debug(Reference.MOD_NAME + " Initialization Complete.");

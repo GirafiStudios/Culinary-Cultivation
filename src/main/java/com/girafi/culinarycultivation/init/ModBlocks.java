@@ -2,6 +2,9 @@ package com.girafi.culinarycultivation.init;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.block.*;
+import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
+import com.girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
+import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -38,6 +41,11 @@ public class ModBlocks {
         registerBlock(FAN_HOUSING, "fan_housing");
         registerBlock(SEPARATOR, "separator");
         registerBlock(CHEESE, "cheese");
+    }
+
+    public static void initTiles() {
+        GameRegistry.registerTileEntity(TileEntityCauldron.class, Paths.MOD_ASSETS + "cauldron");
+        GameRegistry.registerTileEntity(TileEntitySeparator.class, Paths.MOD_ASSETS + "separator");
     }
 
     public static void setup() {

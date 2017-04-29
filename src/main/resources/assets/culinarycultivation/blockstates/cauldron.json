@@ -1,21 +1,12 @@
 {
     "forge_marker": 1,
+    "defaults": {
+        "model": "cauldron_empty"
+    },
     "variants": {
-        "level": {
-            "0": { "model": "cauldron_empty" },
-            "1": { "model": "cauldron_level1" },
-            "2": { "model": "cauldron_level2" },
-            "3": { "model": "cauldron_level3" },
-            "4": { "model": "cauldron_level1", "textures": { "water": "culinarycultivation:blocks/milk_still" }},
-            "5": { "model": "cauldron_level2", "textures": { "water": "culinarycultivation:blocks/milk_still" }},
-            "6": { "model": "cauldron_level3", "textures": { "water": "culinarycultivation:blocks/milk_still" }},
-            "7": { "model": "cauldron_level1", "textures": { "water": "culinarycultivation:blocks/rennet_still" }},
-            "8": { "model": "cauldron_level2", "textures": { "water": "culinarycultivation:blocks/rennet_still" }},
-            "9": { "model": "cauldron_level3", "textures": { "water": "culinarycultivation:blocks/rennet_still" }},
-            "10": { "model": "cauldron_level1", "textures": { "water": "culinarycultivation:blocks/cheese_mass_still" }},
-            "11": { "model": "cauldron_level2", "textures": { "water": "culinarycultivation:blocks/cheese_mass_still" }},
-            "12": { "model": "cauldron_level3", "textures": { "water": "culinarycultivation:blocks/cheese_mass_still" }},
-            "13": { "model": "cauldron_level3", "textures": { "water": "culinarycultivation:blocks/cheese_top" }}
-        }
+        "normal": [{}],
+        "inventory": [{
+            "transform": "forge:default-block"
+        }]
     }
 }
