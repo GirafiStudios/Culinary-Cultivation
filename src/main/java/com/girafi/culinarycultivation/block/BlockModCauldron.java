@@ -20,10 +20,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,18 +60,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         }
 
         //Fluid handling
-        TileEntityCauldron tank = (TileEntityCauldron) world.getTileEntity(pos);
-
-        if (tank == null || !tank.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
-            return false;
-        }
-
-        IFluidHandler fluidHandler = tank.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
-        FluidActionResult result = FluidUtil.interactWithFluidHandler(stack, fluidHandler, player);
-        if (result.isSuccess()) {
-            player.setHeldItem(hand, result.getResult());
-            return true;
-        }
+        FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing);
 
         return FluidUtil.getFluidHandler(stack) != null;
     }
