@@ -57,9 +57,6 @@ public class TileEntityCauldron extends TileEntity {
 
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return (T) this.tank;
-        }
-        return super.getCapability(capability, facing);
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ? (T) this.tank : super.getCapability(capability, facing);
     }
 }

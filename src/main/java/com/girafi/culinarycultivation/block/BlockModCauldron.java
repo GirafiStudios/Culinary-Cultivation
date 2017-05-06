@@ -2,9 +2,13 @@ package com.girafi.culinarycultivation.block;
 
 import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.girafi.culinarycultivation.block.tileentity.TileFluidTank;
+import com.girafi.culinarycultivation.util.NBTHelper;
+import com.girafi.culinarycultivation.util.StringUtils;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +24,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,11 +53,26 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+        if (NBTHelper.hasKey(stack, "FluidName")) {
+            if (GuiScreen.isShiftKeyDown()) {
+                TileFluidTank tank = new TileFluidTank(0);
+                tank.readFromNBT(stack.getTagCompound());
+
+                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".tank.fluid", tank.getFluid().getLocalizedName()));
+                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".tank.amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
+            } else {
+                tooltip.add(StringUtils.shiftTooltip());
+            }
+        }
+    }
+
+    @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.getHeldItem(hand);
 
         if (player.isSneaking() /*&& !stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, facing)*/) { //TODO Force both hands to be empty, and lock the Cauldron in both slots when picked up
-            System.out.println("Poof");
             this.onBlockDestroyedByPlayer(world, pos, state);
             ItemStack cauldron = getDrops(world, pos, state, 0).get(0);
             if (!player.inventory.addItemStackToInventory(cauldron)) {

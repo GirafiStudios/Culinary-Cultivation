@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.inventory;
 
 import com.girafi.culinarycultivation.util.NBTHelper;
+import com.girafi.culinarycultivation.util.StringUtils;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.ItemStackHelper;
@@ -8,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
@@ -19,7 +19,7 @@ public class InventoryItem extends InventoryBasic {
     private final NonNullList<ItemStack> inventory;
 
     public InventoryItem(@Nonnull ItemStack inventoryItem, String name, int size, int stackLimit) {
-        super(name.equals("") ? "" : I18n.translateToLocal(Paths.MOD_ASSETS + "container." + name), true, size);
+        super(name.equals("") ? "" : StringUtils.translateToLocal(Paths.MOD_ASSETS + "container." + name), true, size);
         this.invItem = inventoryItem;
         this.inventory = NonNullList.withSize(size, ItemStack.EMPTY);
         this.stackLimit = stackLimit;

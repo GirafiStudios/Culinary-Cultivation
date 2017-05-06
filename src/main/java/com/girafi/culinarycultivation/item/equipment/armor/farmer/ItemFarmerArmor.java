@@ -3,6 +3,7 @@ package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.util.LogHelper;
+import com.girafi.culinarycultivation.util.StringUtils;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
@@ -16,7 +17,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -90,20 +90,17 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     @SideOnly(Side.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         if (GuiScreen.isShiftKeyDown()) {
-            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.name") + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")", tooltip);
+            tooltip.add(StringUtils.formatColorCode(Reference.MOD_ID + ".armorset.farmer.name") + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")");
             ItemStack[] stacks = getArmorSetStacks();
             for (int i = 0; i < stacks.length; i++) {
-                addStringToTooltip((hasArmorSetPiece(player, i) ? TextFormatting.YELLOW : "") + " " + stacks[i].getDisplayName(), tooltip);
+                tooltip.add((hasArmorSetPiece(player, i) ? TextFormatting.YELLOW : "") + " " + stacks[i].getDisplayName());
             }
-            addStringToTooltip("", tooltip);
-            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.desc"), tooltip);
-            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".armorset.farmer.descFull"), tooltip);
-        } else
-            addStringToTooltip(I18n.translateToLocal(Reference.MOD_ID + ".misc.shift"), tooltip);
-    }
-
-    protected void addStringToTooltip(String s, List<String> tooltip) {
-        tooltip.add(s.replaceAll("&", "\u00a7"));
+            tooltip.add("");
+            tooltip.add(StringUtils.translateToLocal(Reference.MOD_ID + ".armorset.farmer.desc"));
+            tooltip.add(StringUtils.translateToLocal(Reference.MOD_ID + ".armorset.farmer.descFull"));
+        } else {
+            tooltip.add(StringUtils.shiftTooltip());
+        }
     }
 
     private ItemStack[] armorSet;

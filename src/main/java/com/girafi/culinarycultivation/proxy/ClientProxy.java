@@ -1,5 +1,7 @@
 package com.girafi.culinarycultivation.proxy;
 
+import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
+import com.girafi.culinarycultivation.client.renderer.tileentity.TileEntityCauldronRenderer;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemStorageJar;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
@@ -11,6 +13,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class ClientProxy extends CommonProxy {
 
@@ -20,6 +23,7 @@ public class ClientProxy extends CommonProxy {
         for (int i = 0; i <= ItemDebugItem.getModeName(i).length() + 1; i++) {
             ModelLoader.setCustomModelResourceLocation(ModItems.DEBUG_ITEM, i, new ModelResourceLocation(ModItems.DEBUG_ITEM.getRegistryName() + "_" + ItemDebugItem.getModeName(i), "inventory"));
         }
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCauldron.class, new TileEntityCauldronRenderer());
     }
 
     @Override

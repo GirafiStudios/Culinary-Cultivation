@@ -27,7 +27,7 @@ public class JEIPlugin extends BlankModPlugin {
             @Override
             @Nonnull
             public IRecipeWrapper getRecipeWrapper(@Nonnull WinnowingMachineRecipe recipe) {
-                return new WinnowingRecipeWrapper(null, recipe); //TODO?
+                return new WinnowingRecipeWrapper(null, recipe);
             }
         }, WINNOWING);
         registry.addRecipes(WinnowingRecipeWrapper.getRecipes(), WINNOWING);
@@ -39,7 +39,6 @@ public class JEIPlugin extends BlankModPlugin {
         IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
 
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.BLACK_PEPPER));
-        blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CAULDRON));
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CORN));
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.CUCUMBER));
         blacklist.addIngredientToBlacklist(new ItemStack(ModBlocks.TOMATO));

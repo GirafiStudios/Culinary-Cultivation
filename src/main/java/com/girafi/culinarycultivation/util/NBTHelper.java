@@ -20,6 +20,10 @@ public class NBTHelper {
         return stack.hasTagCompound();
     }
 
+    public static boolean hasKey(@Nonnull ItemStack stack, String string) {
+        return stack.getTagCompound() != null && stack.getTagCompound().hasKey(string);
+    }
+
     public static void setInt(@Nonnull ItemStack stack, String key, int value) {
         getTag(stack).setInteger(key, value);
     }

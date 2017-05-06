@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.item;
 
 import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.util.StringUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,7 +16,6 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -195,7 +195,7 @@ public class ItemStorageJar extends Item {
     @Override
     @Nonnull
     public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-        return I18n.translateToLocal("item." + this.getRegistryName() + "_" + StorageJarType.getStorageJarType(stack).getUnlocalizedName() + ".name").trim();
+        return StringUtils.translateToLocal("item." + this.getRegistryName() + "_" + StorageJarType.getStorageJarType(stack).getUnlocalizedName() + ".name").trim();
     }
 
     private static int setColor(int r, int g, int b) {
