@@ -4,7 +4,6 @@ import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.item.ItemModFishFood;
 import com.girafi.culinarycultivation.item.ItemModMeatFood;
-import com.girafi.culinarycultivation.item.ItemStorageJar;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerBoots;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOveralls;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
@@ -43,7 +42,7 @@ public class ModItems {
     public static final Item KITCHEN_KNIFE = new ItemKitchenKnife();
     public static final Item MEAT_CLEAVER = new ItemMeatCleaver();
     public static final Item SEED_BAG = new ItemSeedBag();
-    public static final Item STORAGE_JAR = new ItemStorageJar();
+    public static final ItemStorageJar STORAGE_JAR = new ItemStorageJar();
     public static final Item TOOL_HANDLE = new Item();
 
     /* Food */

@@ -20,6 +20,6 @@ public class ItemMeatCleaver extends ItemSword implements ICraftingTool {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        tooltip.add("A finer way to cleave meat");
+        tooltip.add("A finer way to cleave meat"); //Temporary
     }
 }

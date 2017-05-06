@@ -3,7 +3,6 @@ package com.girafi.culinarycultivation.proxy;
 import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.girafi.culinarycultivation.client.renderer.tileentity.TileEntityCauldronRenderer;
 import com.girafi.culinarycultivation.init.ModItems;
-import com.girafi.culinarycultivation.item.ItemStorageJar;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemDebugItem;
 import com.girafi.culinarycultivation.modsupport.ModSupport;
@@ -30,11 +29,6 @@ public class ClientProxy extends CommonProxy {
     public void postInit() {
         Minecraft mc = Minecraft.getMinecraft();
         mc.getItemColors().registerItemColorHandler((stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemFarmerArmor) stack.getItem()).getColor(stack), ModItems.FARMER_SHIRT, ModItems.FARMER_OVERALLS, ModItems.FARMER_BOOTS);
-
-        mc.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-            ItemStorageJar.StorageJarType storageJarType = ItemStorageJar.StorageJarType.getStorageJarType(stack);
-            return tintIndex > 0 ? 16777215 : storageJarType.getMetaData() != 0 ? storageJarType.getColorNumber() : -1;
-        }, ModItems.STORAGE_JAR);
     }
 
     @Override

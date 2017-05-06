@@ -93,8 +93,9 @@ tile.culinarycultivation:tomato.name=Tomatoes
 #Misc
 culinarycultivation.misc.shift=Press &3&oShift&r&7 for info
 itemGroup.culinarycultivation=Culinary Cultivation
-culinarycultivation.tank.fluid= Fluid: %s
-culinarycultivation.tank.amount= Amount: %d mB
+culinarycultivation.tank.fluid=Fluid: %s
+culinarycultivation.tank.amount=Amount: %d mB
+culinarycultivation.seed_bag.seeds=Seeds: %s
 
 #Armor
 culinarycultivation.armorset.farmer.boots.desc=Good to stomp on things with

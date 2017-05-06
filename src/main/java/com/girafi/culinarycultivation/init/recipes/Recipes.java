@@ -5,7 +5,6 @@ import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
-import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.girafi.culinarycultivation.util.FuelHandler;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.BlockDoublePlant;
@@ -57,7 +56,7 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_IRON), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KITCHEN_KNIFE), "  I", " I ", "H  ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MEAT_CLEAVER), " II", " II", "H  ", 'H', TOOL_HANDLE, 'I', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
+        //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(STORAGE_JAR, 1, StorageJarType.EMPTY.getMetaData()), " S ", "P P", " P ", 'P', "paneGlass", 'S', "slabWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_STONE), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "cobblestone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TOOL_HANDLE), "S", "S", 'S', "stickWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(HOE_LARGE_WOODEN), "###", " H ", "H  ", 'H', TOOL_HANDLE, '#', "plankWood"));
@@ -72,7 +71,7 @@ public class Recipes {
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MEAT, 2, MeatType.SQUID_RING.getMetadata()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(FISH, 1, FishType.SMALL_SQUID.getMetadata())));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CAKE_PIECE, 7), new ItemStack(CAKE_KNIFE, 1, OreDictionary.WILDCARD_VALUE), Items.CAKE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(CHEESE_SLICE, 7), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), ModBlocks.CHEESE));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
+        //GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
     }
 
     private static void addFurnaceRecipes() {

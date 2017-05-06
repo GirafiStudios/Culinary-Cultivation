@@ -3,7 +3,6 @@ package com.girafi.culinarycultivation.event;
 import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
-import com.girafi.culinarycultivation.item.ItemStorageJar.StorageJarType;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
@@ -143,7 +142,7 @@ public class InteractEvents {
 
 
     public static class StorageJarMilkFill {
-        @SubscribeEvent
+        /*@SubscribeEvent
         public void storageJarMilkFillEvent(PlayerInteractEvent.EntityInteract iEvent) {
             ItemStack heldItem = iEvent.getEntityPlayer().getHeldItem(iEvent.getHand());
             if (iEvent.getTarget() instanceof EntityCow & !iEvent.getEntityLiving().isChild()) {
@@ -159,7 +158,7 @@ public class InteractEvents {
                     }
                 }
             }
-        }
+        }*/
     }
 
     public static class CaneKnife {

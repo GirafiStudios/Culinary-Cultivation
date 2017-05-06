@@ -5,16 +5,15 @@ import net.minecraft.util.text.translation.I18n;
 
 public class StringUtils {
 
+    /*
+     * Universal method for adding "Press Shift for info" tooltip
+     */
     public static String shiftTooltip() {
         return StringUtils.formatColorCode(Reference.MOD_ID + ".misc.shift");
     }
 
-    public static String newLine() {
-        return translateFormatted("\n");
-    }
-
     /*
-     * Formats any Minecraft color code. Handles
+     * Formats any Minecraft color code. Handles formatting as well.
      */
     public static String formatColorCode(String string) {
         String formatted = translateToLocal(string);
