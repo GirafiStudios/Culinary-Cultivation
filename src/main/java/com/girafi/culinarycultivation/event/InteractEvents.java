@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.event;
 
+import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
@@ -7,13 +8,10 @@ import com.girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -23,6 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class InteractEvents {
 
+    @RegisterEvent
     public static class CakeKnifeInteractionEvent {
         @SubscribeEvent
         public void cakeKnifeInteractionEvent(PlayerInteractEvent iEvent) {
@@ -88,6 +87,7 @@ public class InteractEvents {
         }
     }
 
+    @RegisterEvent
     public static class CheeseInteractionEvent extends CakeKnifeInteractionEvent {
         @Override
         public Item sliceItem() {
@@ -107,6 +107,7 @@ public class InteractEvents {
 
     //TODO Readd remove dye for cauldron
 
+    @RegisterEvent
     public static class DebugItemEvent {
         @SubscribeEvent
         public void debugItemEvent(PlayerInteractEvent iEvent) {
@@ -140,7 +141,7 @@ public class InteractEvents {
         }
     }
 
-
+    @RegisterEvent
     public static class StorageJarMilkFill {
         /*@SubscribeEvent
         public void storageJarMilkFillEvent(PlayerInteractEvent.EntityInteract iEvent) {
@@ -161,6 +162,7 @@ public class InteractEvents {
         }*/
     }
 
+    @RegisterEvent
     public static class CaneKnife {
         @SubscribeEvent
         public void caneKnifeBreakEvent(BlockEvent.BreakEvent event) {
@@ -214,7 +216,12 @@ public class InteractEvents {
         }
     }
 
-    public static class VanillaCrops {
+    @RegisterEvent
+    public static class VanillaCrops implements RegisterEvent.IRegisterEvent {
+        public boolean isActive() {
+            return true;
+        }
+
         @SubscribeEvent
         public void vanillaRightClickCropsHarvesting(PlayerInteractEvent.RightClickBlock iEvent) {
             World world = iEvent.getWorld();

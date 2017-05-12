@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.event;
 
+import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import static com.girafi.culinarycultivation.util.reference.Reference.MOD_ID;
 
+@RegisterEvent
 public class FishingLootEvent {
     private static final String FISHING = "gameplay/fishing/";
     private static final String[] LOOT_TABLES = new String[]{FISHING + "fish", FISHING + "junk", FISHING + "treasure"};

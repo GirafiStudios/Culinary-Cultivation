@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.item.equipment.tool;
 
+import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.network.NetworkHandler;
 import com.girafi.culinarycultivation.network.packet.PacketChangeMode;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
+@RegisterEvent
 public class ItemDebugItem extends Item {
     private boolean alwaysEdible;
 

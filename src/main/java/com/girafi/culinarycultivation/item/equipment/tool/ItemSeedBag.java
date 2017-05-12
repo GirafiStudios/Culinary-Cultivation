@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.item.equipment.tool;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
+import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.client.gui.GuiHandler;
 import com.girafi.culinarycultivation.inventory.SeedBagInventory;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
@@ -27,6 +28,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import javax.annotation.Nonnull;
 import java.util.List;
 
+@RegisterEvent
 public class ItemSeedBag extends Item {
 
     public ItemSeedBag() {

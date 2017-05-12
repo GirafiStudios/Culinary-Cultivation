@@ -170,7 +170,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }*/
 
     @Override
-    public boolean isPassable(IBlockAccess world, BlockPos pos) {
+    public boolean blocksMovement(IBlockAccess world, BlockPos pos) {
         return true;
     }
 }

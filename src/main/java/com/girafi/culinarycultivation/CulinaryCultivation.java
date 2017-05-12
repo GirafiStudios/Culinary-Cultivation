@@ -16,6 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -42,6 +43,11 @@ public class CulinaryCultivation {
             return new ItemStack(ModItems.MEAT_CLEAVER);
         }
     };
+
+    @Mod.EventHandler
+    public void onConstruction(FMLConstructionEvent event) {
+        proxy.registerAnnotations(event.getASMHarvestedData());
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

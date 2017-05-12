@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.event;
 
+import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.api.item.ICraftingTool;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemModFishFood;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
 
 public class ItemCraftingEvent {
 
+    @RegisterEvent
     public static class CraftedEvent {
         @SubscribeEvent
         public void craftingHandler(ItemCraftedEvent craftedEvent) {
@@ -45,6 +47,7 @@ public class ItemCraftingEvent {
         }
     }
 
+    @RegisterEvent
     public static class AchievementTriggerEvent {
         @SubscribeEvent
         public void smeltedEvent(ItemSmeltedEvent smeltedEvent) {
