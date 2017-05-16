@@ -218,6 +218,7 @@ public class InteractEvents {
 
     @RegisterEvent
     public static class VanillaCrops implements RegisterEvent.IRegisterEvent {
+        @Override
         public boolean isActive() {
             return true;
         }

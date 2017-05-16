@@ -56,27 +56,29 @@ public class ModBlocks {
     }
 
     private static Block registerCrop(Block block, String name) {
-        return registerBlock(block, name, null);
+        return registerBlock(block, name, null, false);
     }
 
     private static Block registerBlock(Block block, String name) {
-        return registerBlock(block, name, CulinaryCultivation.TAB);
+        return registerBlock(block, name, CulinaryCultivation.TAB, true);
     }
 
     private static Block registerBlock(Block block, String name, @Nullable CreativeTabs tab) {
+        return registerBlock(block, name, tab, true);
+    }
+
+    private static Block registerBlock(Block block, String name, @Nullable CreativeTabs tab, boolean registerItemBlock) {
         block.setUnlocalizedName(new ResourceLocation(Reference.MOD_ID, name).toString());
         if (tab != null) {
             block.setCreativeTab(tab);
         }
 
         GameRegistry.register(block, new ResourceLocation(Reference.MOD_ID, name));
-        GameRegistry.register(new ItemBlock(block), block.getRegistryName());
-        registerBlockVariant(block, name);
+        if (registerItemBlock) {
+            GameRegistry.register(new ItemBlock(block), block.getRegistryName());
+        }
+        CulinaryCultivation.proxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
 
         return block;
-    }
-
-    private static void registerBlockVariant(Block block, String name) {
-        CulinaryCultivation.proxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
     }
 }
