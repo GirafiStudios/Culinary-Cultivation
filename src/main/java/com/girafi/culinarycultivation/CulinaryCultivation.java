@@ -16,7 +16,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -45,15 +44,10 @@ public class CulinaryCultivation {
     };
 
     @Mod.EventHandler
-    public void onConstruction(FMLConstructionEvent event) {
-        proxy.registerAnnotations(event.getASMHarvestedData());
-    }
-
-    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         ConfigurationHandler.init(new File(event.getModConfigurationDirectory(), "CulinaryCultivation.cfg"));
-        Events.register(new ConfigurationHandler());
-        ModSupport.INSTANCE.modSupportIndex();
+        proxy.registerAnnotations(event.getAsmData());
+        ModSupport.INSTANCE.initIndex();
         ModItems.init();
         ModBlocks.init();
         ModBlocks.setup();

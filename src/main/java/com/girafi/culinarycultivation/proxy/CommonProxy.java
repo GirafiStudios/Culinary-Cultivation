@@ -25,16 +25,15 @@ public abstract class CommonProxy {
     }
 
     private static void registerEvents(@Nonnull ASMDataTable asmDataTable) {
-        String annotationClassName = RegisterEvent.class.getCanonicalName();
-        Set<ASMDataTable.ASMData> asmDataSet = new HashSet<>(asmDataTable.getAll(annotationClassName));
+        String className = RegisterEvent.class.getCanonicalName();
+        Set<ASMDataTable.ASMData> asmDataSet = new HashSet<>(asmDataTable.getAll(className));
         for (ASMDataTable.ASMData asmData : asmDataSet) {
             try {
                 Class clazz = Class.forName(asmData.getClassName());
                 if (RegisterEvent.IRegisterEvent.class.isAssignableFrom(clazz)) {
-                    RegisterEvent.IRegisterEvent eventActive = RegisterEvent.IRegisterEvent.class.newInstance();
-                    if (eventActive.isActive()) { //TODO isActive check is not working
+                    RegisterEvent.IRegisterEvent eventActive = (RegisterEvent.IRegisterEvent) clazz.newInstance();
+                    if (eventActive.isActive()) {
                         MinecraftForge.EVENT_BUS.register(clazz.newInstance());
-                        System.out.println("isActive");
                     }
                 } else {
                     MinecraftForge.EVENT_BUS.register(clazz.newInstance());

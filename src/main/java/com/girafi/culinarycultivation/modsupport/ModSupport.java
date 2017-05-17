@@ -21,7 +21,7 @@ public class ModSupport {
     public static final ModSupport INSTANCE = new ModSupport();
     private final List<IModSupport> modSupportMods = new ArrayList<>();
 
-    public void modSupportIndex() {
+    public void initIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<>();
         modSupportClasses.put(SupportedModIDs.FORESTRY, Forestry.class);
         //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);

@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.util;
 
+import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -7,6 +8,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
 
+@RegisterEvent
 public class ConfigurationHandler {
     public static Configuration config;
     public static final String CATEGORY_MOB_DROPS = "mob drops";

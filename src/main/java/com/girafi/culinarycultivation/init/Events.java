@@ -20,16 +20,12 @@ public class Events {
         register(new MobDropEvent().setDrop(EntitySheep.class, new ItemStack(ModItems.MEAT, 1, MeatType.LEG_SHEEP.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, MeatType.LEG_SHEEP.getMetadata()), 0, 2), shouldSheepDropLegOfSheep);
         register(new MobDropEvent().setWaterDrop(EntitySquid.class, new ItemStack(ModItems.MEAT, 1, MeatType.SQUID_MANTLE.getMetadata()), 1, 2), shouldSquidDropSquidMantle);
         register(new MobDropEvent().setWaterDrop(EntitySquid.class, new ItemStack(ModItems.MEAT, 1, MeatType.SQUID_TENTACLE.getMetadata()), 0, 1), shouldSquidDropSquidTentacle);
-        register(new MobDropEvent().setFullDrop(EntityCow.class, true, new ItemStack(ModItems.CALF_BELLY), null, false, ModItems.MEAT_CLEAVER, -1, 0, 1));
+        register(new MobDropEvent().setFullDrop(EntityCow.class, true, new ItemStack(ModItems.CALF_BELLY), null, false, ModItems.MEAT_CLEAVER, -1, 0, 1), true);
     }
 
     public static void register(Object eventClass, boolean b) {
         if (b) {
-            register(eventClass);
+            MinecraftForge.EVENT_BUS.register(eventClass);
         }
-    }
-
-    public static void register(Object eventClass) {
-        MinecraftForge.EVENT_BUS.register(eventClass);
     }
 }

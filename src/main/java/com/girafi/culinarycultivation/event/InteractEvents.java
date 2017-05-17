@@ -5,6 +5,7 @@ import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
+import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -220,7 +221,7 @@ public class InteractEvents {
     public static class VanillaCrops implements RegisterEvent.IRegisterEvent {
         @Override
         public boolean isActive() {
-            return true;
+            return ConfigurationHandler.canRightClickHarvestVanillaCrops;
         }
 
         @SubscribeEvent

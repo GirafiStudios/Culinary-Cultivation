@@ -20,7 +20,7 @@ public class GuiFactory extends DefaultGuiFactory {
 
     @Override
     public GuiScreen createConfigGui(GuiScreen parentScreen) {
-        return new GuiConfig(parentScreen, getConfigElements(), Reference.MOD_ID, true, true, title);
+        return new GuiConfig(parentScreen, getConfigElements(), Reference.MOD_ID, false, false, title);
     }
 
     private static List<IConfigElement> getConfigElements() {
