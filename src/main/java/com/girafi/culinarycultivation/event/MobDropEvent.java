@@ -81,7 +81,7 @@ public class MobDropEvent {
     public static void register(Class<? extends EntityLivingBase> living, boolean child, @Nonnull ItemStack dropStack, @Nonnull ItemStack burningDrop, boolean dropBurned, Item tool, int vanillaChance, int min, int max) {
         Map<String, Class<? extends EntityLivingBase>> animalClasses = new HashMap<>();
         animalClasses.put("Drop " + dropStack.getDisplayName().toLowerCase().replace("raw ", ""), living);
-        String subCategoryNames = ConfigurationHandler.CATEGORY_MOB_DROPS + Configuration.CATEGORY_SPLITTER + living.getSimpleName().replace("Entity", "");
+        String subCategoryNames = ConfigurationHandler.CATEGORY_MOB_DROPS + Configuration.CATEGORY_SPLITTER + living.getSimpleName().replace("Entity", "") + (child ? Configuration.CATEGORY_SPLITTER + "baby" : "");
         List<String> subCategories = animalClasses.keySet().stream().filter(modID -> ConfigurationHandler.config.get(subCategoryNames, modID, true).getBoolean()).collect(Collectors.toList());
 
         ConfigurationHandler.config.save();
