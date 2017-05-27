@@ -27,7 +27,7 @@ public class GuiFactory extends DefaultGuiFactory {
         List<IConfigElement> list = new ArrayList<>();
 
         List<IConfigElement> mobDrops = new ConfigElement(ConfigurationHandler.config.getCategory(ConfigurationHandler.CATEGORY_MOB_DROPS)).getChildElements();
-        List<IConfigElement> modSupport = new ConfigElement(ConfigurationHandler.config.getCategory(ConfigurationHandler.CATEGORY_MOD_SUPPORT_ENABLING)).getChildElements();
+        List<IConfigElement> modSupport = new ConfigElement(ConfigurationHandler.config.getCategory(ConfigurationHandler.CATEGORY_MOD_SUPPORT)).getChildElements();
         List<IConfigElement> rightClickHarvesting = new ConfigElement(ConfigurationHandler.config.getCategory(ConfigurationHandler.CATEGORY_RIGHT_CLICK_HARVESTING)).getChildElements();
 
 

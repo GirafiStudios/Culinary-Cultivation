@@ -2,8 +2,15 @@ package com.girafi.culinarycultivation.util;
 
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.util.text.translation.I18n;
+import org.apache.commons.lang3.text.WordUtils;
 
 public class StringUtils {
+    /**
+     * Formats the inserted string into camel case
+     */
+    public static String toCamelCase(String string) {
+        return WordUtils.capitalizeFully(string, '_').replace("_", "");
+    }
 
     /*
      * Universal method for adding "Press Shift for info" tooltip

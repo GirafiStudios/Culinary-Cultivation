@@ -28,7 +28,7 @@ public class ModSupport {
         modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
 
 
-        List<String> enabledModSupport = modSupportClasses.keySet().stream().filter(modid -> ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MOD_SUPPORT_ENABLING, modid, true).getBoolean()).collect(Collectors.toList());
+        List<String> enabledModSupport = modSupportClasses.keySet().stream().filter(modid -> ConfigurationHandler.config.get(ConfigurationHandler.CATEGORY_MOD_SUPPORT, modid, true).getBoolean()).collect(Collectors.toList());
 
         ConfigurationHandler.config.save();
 

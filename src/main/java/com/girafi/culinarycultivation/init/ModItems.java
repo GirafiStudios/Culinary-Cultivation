@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.init;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
+import com.girafi.culinarycultivation.event.MobDropEvent;
 import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.item.ItemModFishFood;
 import com.girafi.culinarycultivation.item.ItemModMeatFood;
@@ -12,6 +13,7 @@ import com.girafi.culinarycultivation.item.equipment.tool.*;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.passive.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -89,6 +91,20 @@ public class ModItems {
         registerItem(FARMER_SHIRT, "farmer_shirt");
         registerItem(FARMER_OVERALLS, "farmer_overalls");
         registerItem(FARMER_BOOTS, "farmer_boots");
+    }
+
+    public static void setup() {
+        MobDropEvent.register(EntityChicken.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.CHICKEN_WING.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.CHICKEN_WING.getMetadata()), 0, 2);
+        MobDropEvent.registerChild(EntityCow.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.VEAL.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.VEAL.getMetadata()), 0, 3);
+        MobDropEvent.register(EntityCow.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.RIBS_BEEF.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.RIBS.getMetadata()), 0, 3);
+        MobDropEvent.register(EntityCow.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.ROAST.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.ROAST.getMetadata()), 0, 1);
+        MobDropEvent.register(EntityCow.class, true, new ItemStack(ModItems.CALF_BELLY), ItemStack.EMPTY, false, ModItems.MEAT_CLEAVER, -1, 0, 1);
+        MobDropEvent.register(EntityPig.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.HAM.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.HAM.getMetadata()), 0, 1);
+        MobDropEvent.register(EntityPig.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.RIBS.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.RIBS.getMetadata()), 1, 2);
+        MobDropEvent.registerChild(EntitySheep.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.LAMB.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.LAMB.getMetadata()), 1, 2);
+        MobDropEvent.register(EntitySheep.class, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.LEG_SHEEP.getMetadata()), new ItemStack(ModItems.COOKED_MEAT, 1, ItemModMeatFood.MeatType.LEG_SHEEP.getMetadata()), 0, 2);
+        MobDropEvent.register(EntitySquid.class, false, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.SQUID_MANTLE.getMetadata()), ItemStack.EMPTY, false, ModItems.MEAT_CLEAVER, 25, 1, 2);
+        MobDropEvent.register(EntitySquid.class, false, new ItemStack(ModItems.MEAT, 1, ItemModMeatFood.MeatType.SQUID_TENTACLE.getMetadata()), ItemStack.EMPTY, false, ModItems.MEAT_CLEAVER, 25, 0, 1);
     }
 
     private static Item registerItem(Item item, String name) {

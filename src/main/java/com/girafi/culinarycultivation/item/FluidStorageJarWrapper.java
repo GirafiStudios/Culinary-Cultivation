@@ -21,7 +21,7 @@ public class FluidStorageJarWrapper implements IFluidHandlerItem, ICapabilityPro
     @Nonnull
     private ItemStack container;
 
-    public  FluidStorageJarWrapper(ItemStack stack) {
+    public FluidStorageJarWrapper(ItemStack stack) {
         container = stack;
     }
 
@@ -91,9 +91,6 @@ public class FluidStorageJarWrapper implements IFluidHandlerItem, ICapabilityPro
     @Override
     @Nullable
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.cast(this);
-        }
-        return null;
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY ? CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.cast(this) : null;
     }
 }
