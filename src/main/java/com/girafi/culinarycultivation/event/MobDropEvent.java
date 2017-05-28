@@ -20,35 +20,33 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class MobDropEvent {
-    private static Class<? extends EntityLivingBase> livingClass;
-    private static boolean isChild;
-    private static ItemStack drop = ItemStack.EMPTY;
-    private static ItemStack dropBurning = ItemStack.EMPTY;
-    private static boolean canDropBurned;
-    private static Item killTool;
-    private static int vanillaDropChance, dropMin, dropMax;
+    private Class<? extends EntityLivingBase> livingClass;
+    private boolean isChild;
+    private ItemStack drop = ItemStack.EMPTY;
+    private ItemStack dropBurning = ItemStack.EMPTY;
+    private boolean canDropBurned;
+    private Item killTool;
+    private int vanillaDropChance, dropMin, dropMax;
 
     @SubscribeEvent
     public void livingDropsEvent(LivingDropsEvent event) {
         Random random = new Random();
         if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
-            System.out.println("Player");
             EntityPlayer player = (EntityPlayer) event.getSource().getSourceOfDamage();
-            if (player.inventory.getCurrentItem().getItem() == killTool) {
-                System.out.println("Tool");
-                if (event.getEntityLiving().getClass().isAssignableFrom(livingClass) && isChild == event.getEntityLiving().isChild()) {
+            if (player.inventory.getCurrentItem().getItem() == this.killTool) {
+                if (event.getEntityLiving().getClass().isAssignableFrom(this.livingClass) && this.isChild == event.getEntityLiving().isChild()) {
                     System.out.println("Assignable");
-                    if (vanillaDropChance == -1 ? random.nextInt(100) <= 35 : random.nextInt(100) <= vanillaDropChance) {
+                    if (this.vanillaDropChance == -1 ? random.nextInt(100) <= 35 : random.nextInt(100) <= this.vanillaDropChance) {
                         event.getDrops().clear();
                         System.out.println("Clear");
                     }
-                    int dropChance = MathHelper.getInt(random, dropMin, dropMax);
+                    int dropChance = MathHelper.getInt(random, this.dropMin, this.dropMax);
                     for (int k = 0; k < dropChance + event.getLootingLevel(); ++k) {
-                        if (event.getEntityLiving().isBurning() && canDropBurned) {
-                            event.getEntityLiving().entityDropItem(dropBurning.copy(), 1F);
+                        if (event.getEntityLiving().isBurning() && this.canDropBurned) {
+                            event.getEntityLiving().entityDropItem(this.dropBurning.copy(), 1F);
                             System.out.println("Burned");
                         } else {
-                            event.getEntityLiving().entityDropItem(drop.copy(), 1F);
+                            event.getEntityLiving().entityDropItem(this.drop.copy(), 1F);
                             System.out.println("Drop");
                         }
                     }
@@ -57,16 +55,16 @@ public class MobDropEvent {
         }
     }
 
-    private MobDropEvent setDrop(Class<? extends EntityLivingBase> living, boolean child, @Nonnull ItemStack dropStack, @Nonnull ItemStack burningDrop, boolean dropBurned, Item tool, int vanillaChance, int min, int max) {
-        livingClass = living;
-        isChild = child;
-        drop = dropStack;
-        dropBurning = burningDrop;
-        canDropBurned = dropBurned;
-        killTool = tool;
-        vanillaDropChance = vanillaChance;
-        dropMin = min;
-        dropMax = max;
+    private MobDropEvent setDrop(Class<? extends EntityLivingBase> livingClass, boolean isChild, @Nonnull ItemStack drop, @Nonnull ItemStack dropBurning, boolean canDropBurned, Item killTool, int vanillaDropChance, int dropMin, int dropMax) {
+        this.livingClass = livingClass;
+        this.isChild = isChild;
+        this.drop = drop;
+        this.dropBurning = dropBurning;
+        this.canDropBurned = canDropBurned;
+        this.killTool = killTool;
+        this.vanillaDropChance = vanillaDropChance;
+        this.dropMin = dropMin;
+        this.dropMax = dropMax;
         return this;
     }
 
