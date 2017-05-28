@@ -35,8 +35,7 @@ public class MobDropEvent {
             EntityPlayer player = (EntityPlayer) event.getSource().getSourceOfDamage();
             if (player.inventory.getCurrentItem().getItem() == this.killTool) {
                 if (event.getEntityLiving().getClass().isAssignableFrom(this.livingClass) && this.isChild == event.getEntityLiving().isChild()) {
-                    System.out.println("Assignable");
-                    if (this.vanillaDropChance == -1 ? random.nextInt(100) <= 35 : random.nextInt(100) <= this.vanillaDropChance) {
+                    if (this.vanillaDropChance == -1 ? random.nextInt(100) >= 35 : random.nextInt(100) <= this.vanillaDropChance) {
                         event.getDrops().clear();
                         System.out.println("Clear");
                     }
@@ -44,10 +43,8 @@ public class MobDropEvent {
                     for (int k = 0; k < dropChance + event.getLootingLevel(); ++k) {
                         if (event.getEntityLiving().isBurning() && this.canDropBurned) {
                             event.getEntityLiving().entityDropItem(this.dropBurning.copy(), 1F);
-                            System.out.println("Burned");
                         } else {
                             event.getEntityLiving().entityDropItem(this.drop.copy(), 1F);
-                            System.out.println("Drop");
                         }
                     }
                 }
