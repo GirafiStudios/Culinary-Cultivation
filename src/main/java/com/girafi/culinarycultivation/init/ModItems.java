@@ -44,7 +44,7 @@ public class ModItems {
     public static final Item KITCHEN_KNIFE = new ItemKitchenKnife();
     public static final Item MEAT_CLEAVER = new ItemMeatCleaver();
     public static final Item SEED_BAG = new ItemSeedBag();
-    public static final ItemStorageJar STORAGE_JAR = new ItemStorageJar();
+    public static final Item STORAGE_JAR = new ItemStorageJar();
     public static final Item TOOL_HANDLE = new Item();
 
     /* Food */
