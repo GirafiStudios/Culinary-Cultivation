@@ -24,26 +24,25 @@ public class ItemStorageJar extends Item {
 
     public ItemStorageJar() {
         setContainerItem(this);
-        setHasSubtypes(true);
     }
 
-    @Nonnull
     @Override
-    public ItemStack getContainerItem(@Nonnull ItemStack stack) {
-        if (!hasContainerItem(stack)) {
-            return ItemStack.EMPTY;
-        }
-        return new ItemStack(getContainerItem());
+    @Nonnull
+    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
+        FluidHandlerItemStack fluidHandler = new FluidHandlerItemStack(stack, JAR_VOLUME);
+        FluidStack fluidStack = fluidHandler.getFluid();
+
+        return fluidStack == null ? super.getItemStackDisplayName(stack) : super.getItemStackDisplayName(stack) + " (" + fluidStack.getLocalizedName() + ")";
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(@Nonnull Item item, @Nullable CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
-        subItems.add(new ItemStack(item, 1, 0));
+        subItems.add(new ItemStack(this, 1, 0));
         for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
             if (fluid.getTemperature() < MAX_TEMPERATURE) {
                 FluidStack fluidStack = new FluidStack(fluid, JAR_VOLUME);
-                IFluidHandlerItem fluidHandler = new FluidHandlerItemStack(new ItemStack(item), JAR_VOLUME);
+                IFluidHandlerItem fluidHandler = new FluidHandlerItemStack(new ItemStack(this), JAR_VOLUME);
                 if (fluidHandler.fill(fluidStack, true) == fluidStack.amount) {
                     subItems.add(fluidHandler.getContainer());
                 }

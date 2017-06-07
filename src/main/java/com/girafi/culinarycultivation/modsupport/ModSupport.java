@@ -24,7 +24,6 @@ public class ModSupport {
     public void initIndex() {
         Map<String, Class<? extends IModSupport>> modSupportClasses = new HashMap<>();
         modSupportClasses.put(SupportedModIDs.FORESTRY, Forestry.class);
-        //modSupportClasses.put(SupportedModIDs.TC, Thaumcraft.class);
         modSupportClasses.put(SupportedModIDs.WAILA, Waila.class);
 
 

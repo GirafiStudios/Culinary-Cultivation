@@ -39,7 +39,7 @@ public class ItemCakeKnife extends ItemTool implements ICraftingTool {
     }
 
     @Override
-    public int getItemEnchantability() {
-        return 0;
+    public boolean isEnchantable(@Nonnull ItemStack stack) {
+        return false;
     }
 }

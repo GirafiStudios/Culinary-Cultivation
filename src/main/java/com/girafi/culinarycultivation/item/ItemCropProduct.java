@@ -1,5 +1,7 @@
 package com.girafi.culinarycultivation.item;
 
+import com.girafi.culinarycultivation.api.IOreDictEntry;
+import com.girafi.culinarycultivation.api.OreDictHolder;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
@@ -26,7 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class ItemCropProduct extends ItemFood implements IPlantable {
+public class ItemCropProduct extends ItemFood implements IPlantable, IOreDictEntry {
     private Type type;
 
     public ItemCropProduct(Type type) {
@@ -141,6 +143,11 @@ public class ItemCropProduct extends ItemFood implements IPlantable {
                 return productType.crop.getDefaultState();
             }
         }
+        return null;
+    }
+
+    @Override
+    public NonNullList getOreDictEntries(OreDictHolder holder) {
         return null;
     }
 
