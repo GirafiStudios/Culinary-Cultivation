@@ -1,9 +1,12 @@
 package com.girafi.culinarycultivation.util;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
@@ -98,5 +101,15 @@ public class InventoryHandlerHelper {
         ItemStack copyStack = stack.copy();
         copyStack.setCount(amount);
         return copyStack;
+    }
+
+    public static void giveItem(EntityPlayer player, EnumHand hand, @Nonnull ItemStack stack) {
+        if (player.getHeldItem(hand).isEmpty()) {
+            player.setHeldItem(hand, stack);
+        } else if (!player.inventory.addItemStackToInventory(stack)) {
+            player.dropItem(stack, false);
+        } else if (player instanceof EntityPlayerMP) {
+            ((EntityPlayerMP) player).sendContainerToPlayer(player.inventoryContainer);
+        }
     }
 }

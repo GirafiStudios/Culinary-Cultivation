@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 
 public class ItemCropProduct extends ItemFood implements IPlantable, IOreDictEntry {
@@ -63,6 +65,12 @@ public class ItemCropProduct extends ItemFood implements IPlantable, IOreDictEnt
             default:
                 return 0;
         }
+    }
+
+    @Override
+    @Nonnull
+    public ItemStack onItemUseFinish(ItemStack stack, @Nullable World world, EntityLivingBase entityLiving) {
+        return type != Type.SEED ? super.onItemUseFinish(stack, world, entityLiving) : ItemStack.EMPTY;
     }
 
 
