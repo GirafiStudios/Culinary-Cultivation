@@ -23,6 +23,9 @@ public class ClientProxy extends CommonProxy {
             ModelLoader.setCustomModelResourceLocation(ModItems.DEBUG_ITEM, i, new ModelResourceLocation(ModItems.DEBUG_ITEM.getRegistryName() + "_" + ItemDebugItem.getModeName(i), "inventory"));
         }
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCauldron.class, new TileEntityCauldronRenderer());
+
+        ModelLoader.setCustomModelResourceLocation(ModItems.STORAGE_JAR, 0, new ModelResourceLocation(new ResourceLocation(Reference.MOD_ID, "storage_jar_empty"), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(ModItems.STORAGE_JAR, 1, new ModelResourceLocation(new ResourceLocation(Reference.MOD_ID, "storage_jar"), "inventory"));
     }
 
     @Override
@@ -30,6 +33,7 @@ public class ClientProxy extends CommonProxy {
         Minecraft mc = Minecraft.getMinecraft();
         mc.getItemColors().registerItemColorHandler((stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemFarmerArmor) stack.getItem()).getColor(stack), ModItems.FARMER_SHIRT, ModItems.FARMER_OVERALLS, ModItems.FARMER_BOOTS);
     }
+
 
     @Override
     public void registerItemVariantModel(Item item, final String name) {

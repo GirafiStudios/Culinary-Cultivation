@@ -33,12 +33,11 @@ public class FluidHandlerItemStackAdvanced extends FluidHandlerItemStack {
 
     @Override
     protected void setContainerToEmpty() {
-        if (getFluid() != null) {
-            System.out.println("Temp: " + getFluid().getFluid().getTemperature(getFluid()));
-        }
-        System.out.println("Max temp " + maxTemperature);
-        if (destroyByTemperature && getFluid() != null && getFluid().getFluid().getTemperature(getFluid()) > maxTemperature) {
-            System.out.println("setContainerToEmpty, temperature");
+        FluidStack fluidStack = getFluid();
+        if (fluidStack == null) return;
+        Fluid fluid = fluidStack.getFluid();
+
+        if (destroyByTemperature && fluid.getTemperature(fluidStack) > maxTemperature) {
             container.shrink(1);
         }
         container = new ItemStack(container.getItem(), 1, 0);
@@ -52,6 +51,12 @@ public class FluidHandlerItemStackAdvanced extends FluidHandlerItemStack {
     @Override
     public boolean canDrainFluidType(FluidStack fluidStack) {
         return contentsAllowed(fluidStack);
+    }
+
+    @Override
+    protected void setFluid(FluidStack fluid) {
+        super.setFluid(fluid);
+        container.setItemDamage(1);
     }
 
     private boolean contentsAllowed(FluidStack fluidStack) {

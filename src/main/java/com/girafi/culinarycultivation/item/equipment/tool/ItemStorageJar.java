@@ -48,11 +48,11 @@ public class ItemStorageJar extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(@Nonnull Item item, @Nullable CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
-        subItems.add(new ItemStack(this, 1, 0));
+        subItems.add(new ItemStack(item));
         for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
             if (fluid.getTemperature() < MAX_TEMPERATURE) {
                 FluidStack fluidStack = new FluidStack(fluid, JAR_VOLUME);
-                IFluidHandlerItem fluidHandler = new FluidHandlerItemStack(new ItemStack(this), JAR_VOLUME);
+                IFluidHandlerItem fluidHandler = new FluidHandlerItemStack(new ItemStack(item, 1, 1), JAR_VOLUME);
                 if (fluidHandler.fill(fluidStack, true) == fluidStack.amount) {
                     subItems.add(fluidHandler.getContainer());
                 }
@@ -87,6 +87,6 @@ public class ItemStorageJar extends Item {
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
-
+        
     }
 }

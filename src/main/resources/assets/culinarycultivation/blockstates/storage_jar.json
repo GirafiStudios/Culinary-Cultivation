@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "inventory": {
+      "model": "forge:forgebucket",
+      "textures": {
+        "base": "culinarycultivation:items/storage_jar",
+        "fluid": "culinarycultivation:items/storage_jar_overlay"
+      },
+      "transform": "forge:default-item"
+    }
+  }
+}
