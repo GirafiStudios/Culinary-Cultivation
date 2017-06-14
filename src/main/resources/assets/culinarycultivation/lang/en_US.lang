@@ -90,8 +90,8 @@ tile.culinarycultivation:tomato.name=Tomatoes
 #Misc
 culinarycultivation.misc.shift=Press &3&oShift&r&7 for info
 itemGroup.culinarycultivation=Culinary Cultivation
-culinarycultivation.tank.fluid=Fluid: %s
-culinarycultivation.tank.amount=Amount: %d mB
+culinarycultivation.fluid=Fluid: %s
+culinarycultivation.fluid_amount=Amount: %d mB
 culinarycultivation.seed_bag.seeds=Seeds: %s
 
 #Armor

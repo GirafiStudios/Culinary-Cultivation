@@ -5,6 +5,9 @@ import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.FluidHandlerItemStackAdvanced;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import com.girafi.culinarycultivation.util.NBTHelper;
+import com.girafi.culinarycultivation.util.StringUtils;
+import com.girafi.culinarycultivation.util.reference.Reference;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 @RegisterEvent
 public class ItemStorageJar extends Item {
@@ -34,6 +38,22 @@ public class ItemStorageJar extends Item {
 
     public ItemStorageJar() {
         setContainerItem(this);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+        if (NBTHelper.hasKey(stack, FluidHandlerItemStack.FLUID_NBT_KEY)) {
+            FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(NBTHelper.getTag(stack).getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY));
+            if (GuiScreen.isShiftKeyDown() && fluidStack != null) {
+                Fluid fluid = fluidStack.getFluid();
+
+                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid", fluid.getLocalizedName(fluidStack)));
+                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid_amount", fluidStack.amount + " / " + JAR_VOLUME));
+            } else {
+                tooltip.add(StringUtils.shiftTooltip());
+            }
+        }
     }
 
     @Override
@@ -68,11 +88,11 @@ public class ItemStorageJar extends Item {
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         EntityPlayer player = event.getEntityPlayer();
-        ItemStack heldItem = player.getHeldItem(event.getHand());
+        ItemStack heldStack = player.getHeldItem(event.getHand());
         if (event.getTarget() instanceof EntityCow & !event.getEntityLiving().isChild() && FluidRegistry.isFluidRegistered("milk")) {
-            if (heldItem.getItem() == ModItems.STORAGE_JAR && !NBTHelper.hasTag(heldItem) && !player.capabilities.isCreativeMode) {
+            if (heldStack.getItem() == ModItems.STORAGE_JAR && !NBTHelper.hasTag(heldStack) && !player.capabilities.isCreativeMode) {
                 FluidStack fluidStack = new FluidStack(FluidRegistry.getFluid("milk"), JAR_VOLUME);
-                ItemStack container = new ItemStack(ModItems.STORAGE_JAR);
+                ItemStack container = new ItemStack(ModItems.STORAGE_JAR, 1, 1);
                 NBTTagCompound fluidTag = new NBTTagCompound();
 
                 fluidStack.writeToNBT(fluidTag);
@@ -80,13 +100,8 @@ public class ItemStorageJar extends Item {
 
                 player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
                 InventoryHandlerHelper.giveItem(player, event.getHand(), container);
-                heldItem.shrink(1);
+                heldStack.shrink(1);
             }
         }
-    }
-
-    @SubscribeEvent
-    public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
-        
     }
 }

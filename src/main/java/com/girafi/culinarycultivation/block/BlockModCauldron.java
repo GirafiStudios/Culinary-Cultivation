@@ -60,8 +60,8 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 TileFluidTank tank = new TileFluidTank(0);
                 tank.readFromNBT(stack.getTagCompound());
 
-                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".tank.fluid", tank.getFluid().getLocalizedName()));
-                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".tank.amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
+                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid", tank.getFluid().getLocalizedName()));
+                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid_amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
             } else {
                 tooltip.add(StringUtils.shiftTooltip());
             }
@@ -72,7 +72,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack stack = player.getHeldItem(hand);
+        ItemStack heldStack = player.getHeldItem(hand);
 
         if (player.isSneaking() /*&& !stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, facing)*/) { //TODO Force both hands to be empty, and lock the Cauldron in both slots when picked up
             this.onBlockDestroyedByPlayer(world, pos, state);
@@ -86,7 +86,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         //Fluid handling
         FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing);
 
-        return FluidUtil.getFluidHandler(stack) != null;
+        return FluidUtil.getFluidHandler(heldStack) != null;
     }
 
     @Override
