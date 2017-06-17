@@ -54,7 +54,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         if (NBTHelper.hasKey(stack, "FluidName")) {
             if (GuiScreen.isShiftKeyDown()) {
                 TileFluidTank tank = new TileFluidTank(0);

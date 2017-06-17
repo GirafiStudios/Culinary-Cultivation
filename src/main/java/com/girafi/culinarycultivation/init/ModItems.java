@@ -62,7 +62,7 @@ public class ModItems {
     /* Misc */
     public static final Item CHAFF_PILE = new Item();
 
-    public static void init() {
+    public static void register() {
         registerItem(CHEESE_SLICE, "cheese_slice");
         registerItem(CAKE_PIECE, "cake_piece");
         registerItem(CALF_BELLY, "calf_belly");

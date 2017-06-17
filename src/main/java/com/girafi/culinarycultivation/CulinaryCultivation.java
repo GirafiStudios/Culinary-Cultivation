@@ -3,7 +3,6 @@ package com.girafi.culinarycultivation;
 import com.girafi.culinarycultivation.client.gui.GuiHandler;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
-import com.girafi.culinarycultivation.init.OreDictionaryRegistration;
 import com.girafi.culinarycultivation.init.recipes.Recipes;
 import com.girafi.culinarycultivation.modsupport.ModSupport;
 import com.girafi.culinarycultivation.network.NetworkHandler;
@@ -47,14 +46,13 @@ public class CulinaryCultivation {
         ConfigurationHandler.init(new File(event.getModConfigurationDirectory(), "CulinaryCultivation.cfg"));
         proxy.registerAnnotations(event.getAsmData());
         ModSupport.INSTANCE.initIndex();
-        ModItems.init();
-        ModBlocks.init();
+        ModItems.register();
+        ModBlocks.register();
         ModItems.setup();
         ModBlocks.setup();
-        NetworkHandler.init();
-        proxy.preInit();
-        OreDictionaryRegistration.init();
+        NetworkHandler.register();
         Recipes.initHandlers();
+        proxy.preInit();
         ModSupport.INSTANCE.preInit();
         LogHelper.debug(Reference.MOD_NAME + " Pre Initialization Complete.");
     }

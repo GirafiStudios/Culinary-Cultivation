@@ -30,7 +30,7 @@ public class ModBlocks {
     public static final Block FAN_HOUSING = new BlockFanHousing();
     public static final Block SEPARATOR = new BlockSeparator();
 
-    public static void init() {
+    public static void register() {
         //Crops
         registerCrop(BLACK_PEPPER, "black_pepper");
         registerCrop(CORN, "corn");

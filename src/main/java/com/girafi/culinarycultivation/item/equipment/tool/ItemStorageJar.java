@@ -7,6 +7,8 @@ import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import com.girafi.culinarycultivation.util.NBTHelper;
 import com.girafi.culinarycultivation.util.StringUtils;
 import com.girafi.culinarycultivation.util.reference.Reference;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntityCow;
@@ -15,14 +17,16 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,14 +45,18 @@ public class ItemStorageJar extends Item {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        if (NBTHelper.hasKey(stack, FluidHandlerItemStack.FLUID_NBT_KEY)) {
-            FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(NBTHelper.getTag(stack).getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY));
-            if (GuiScreen.isShiftKeyDown() && fluidStack != null) {
-                Fluid fluid = fluidStack.getFluid();
+    @Nonnull
+    public ItemStack getContainerItem(@Nonnull ItemStack stack) {
+        return new ItemStack(getContainerItem(), 1, 1);
+    }
 
-                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid", fluid.getLocalizedName(fluidStack)));
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+        if (NBTHelper.hasKey(stack, FluidHandlerItemStackAdvanced.FLUID_NBT_KEY)) {
+            FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(NBTHelper.getTag(stack).getCompoundTag(FluidHandlerItemStackAdvanced.FLUID_NBT_KEY));
+            if (GuiScreen.isShiftKeyDown() && fluidStack != null) {
+                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid", fluidStack.getFluid().getLocalizedName(fluidStack)));
                 tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid_amount", fluidStack.amount + " / " + JAR_VOLUME));
             } else {
                 tooltip.add(StringUtils.shiftTooltip());
@@ -59,10 +67,48 @@ public class ItemStorageJar extends Item {
     @Override
     @Nonnull
     public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-        FluidHandlerItemStack fluidHandler = new FluidHandlerItemStack(stack, JAR_VOLUME);
+        FluidHandlerItemStackAdvanced fluidHandler = new FluidHandlerItemStackAdvanced(stack, JAR_VOLUME);
         FluidStack fluidStack = fluidHandler.getFluid();
 
         return fluidStack == null ? super.getItemStackDisplayName(stack) : super.getItemStackDisplayName(stack) + " (" + fluidStack.getLocalizedName() + ")";
+    }
+
+    @Override
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull EnumHand hand) { //TODO Handle vanilla fluids
+        ItemStack heldStack = player.getHeldItem(hand);
+        RayTraceResult rayTrace = this.rayTrace(world, player, true);
+
+        if (rayTrace == null || rayTrace.typeOfHit != RayTraceResult.Type.BLOCK || NBTHelper.hasTag(heldStack)) {
+            return new ActionResult<>(EnumActionResult.PASS, heldStack);
+        }
+        IBlockState state = world.getBlockState(rayTrace.getBlockPos());
+        FluidHandlerItemStackAdvanced fluidHandler = new FluidHandlerItemStackAdvanced(getContainerItem(heldStack), JAR_VOLUME, MAX_TEMPERATURE);
+        if (isFluid(state)) {
+            FluidStack fluidStackBlock = new FluidStack(FluidRegistry.lookupFluidForBlock(state.getBlock()), JAR_VOLUME);
+            if (!fluidHandler.canFillFluidType(fluidStackBlock)) {
+                player.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 1.0F);
+                heldStack.shrink(1);
+                return new ActionResult<>(EnumActionResult.PASS, heldStack);
+            }
+        }
+
+        int fluid = 0;
+        if (isFluid(world.getBlockState(rayTrace.getBlockPos().north()))) fluid++;
+        if (isFluid(world.getBlockState(rayTrace.getBlockPos().east()))) fluid++;
+        if (isFluid(world.getBlockState(rayTrace.getBlockPos().south()))) fluid++;
+        if (isFluid(world.getBlockState(rayTrace.getBlockPos().west()))) fluid++;
+
+        if (fluid >= 2) { // Make sure the fluid source is infinite
+            player.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
+            InventoryHandlerHelper.fillContainer(fluidHandler.getContainer(), new FluidStack(FluidRegistry.lookupFluidForBlock(state.getBlock()), JAR_VOLUME), heldStack, player, hand);
+            return new ActionResult<>(EnumActionResult.SUCCESS, heldStack);
+        }
+        return new ActionResult<>(EnumActionResult.FAIL, heldStack);
+    }
+
+    private boolean isFluid(IBlockState state) {
+        return (state.getBlock() instanceof IFluidBlock || state.getBlock() instanceof BlockLiquid) && !(state.getBlock() instanceof BlockFluidFinite) && state.getValue(BlockLiquid.LEVEL) == 0;
     }
 
     @Override
@@ -70,19 +116,17 @@ public class ItemStorageJar extends Item {
     public void getSubItems(@Nonnull Item item, @Nullable CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
         subItems.add(new ItemStack(item));
         for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
-            if (fluid.getTemperature() < MAX_TEMPERATURE) {
-                FluidStack fluidStack = new FluidStack(fluid, JAR_VOLUME);
-                IFluidHandlerItem fluidHandler = new FluidHandlerItemStack(new ItemStack(item, 1, 1), JAR_VOLUME);
-                if (fluidHandler.fill(fluidStack, true) == fluidStack.amount) {
-                    subItems.add(fluidHandler.getContainer());
-                }
+            FluidStack fluidStack = new FluidStack(fluid, JAR_VOLUME);
+            IFluidHandlerItem fluidHandler = new FluidHandlerItemStackAdvanced(new ItemStack(item, 1, 1), JAR_VOLUME, MAX_TEMPERATURE);
+            if (fluidHandler.fill(fluidStack, true) == fluidStack.amount) {
+                subItems.add(fluidHandler.getContainer());
             }
         }
     }
 
     @Override
     public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable NBTTagCompound nbt) {
-        return new FluidHandlerItemStackAdvanced(stack, JAR_VOLUME, MAX_TEMPERATURE, true);
+        return new FluidHandlerItemStackAdvanced(stack, JAR_VOLUME, MAX_TEMPERATURE);
     }
 
     @SubscribeEvent
@@ -91,16 +135,8 @@ public class ItemStorageJar extends Item {
         ItemStack heldStack = player.getHeldItem(event.getHand());
         if (event.getTarget() instanceof EntityCow & !event.getEntityLiving().isChild() && FluidRegistry.isFluidRegistered("milk")) {
             if (heldStack.getItem() == ModItems.STORAGE_JAR && !NBTHelper.hasTag(heldStack) && !player.capabilities.isCreativeMode) {
-                FluidStack fluidStack = new FluidStack(FluidRegistry.getFluid("milk"), JAR_VOLUME);
-                ItemStack container = new ItemStack(ModItems.STORAGE_JAR, 1, 1);
-                NBTTagCompound fluidTag = new NBTTagCompound();
-
-                fluidStack.writeToNBT(fluidTag);
-                NBTHelper.getTag(container).setTag(FluidHandlerItemStack.FLUID_NBT_KEY, fluidTag);
-
                 player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-                InventoryHandlerHelper.giveItem(player, event.getHand(), container);
-                heldStack.shrink(1);
+                InventoryHandlerHelper.fillContainer(getContainerItem(heldStack), new FluidStack(FluidRegistry.getFluid("milk"), JAR_VOLUME), heldStack, player, event.getHand());
             }
         }
     }

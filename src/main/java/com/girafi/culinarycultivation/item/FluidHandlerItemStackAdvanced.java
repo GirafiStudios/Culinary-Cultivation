@@ -1,5 +1,7 @@
 package com.girafi.culinarycultivation.item;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -9,7 +11,6 @@ import javax.annotation.Nonnull;
 
 public class FluidHandlerItemStackAdvanced extends FluidHandlerItemStack {
     private int maxTemperature;
-    private boolean destroyByTemperature;
 
     /**
      * @param container The container stack, data is stored on it directly as NBT.
@@ -20,26 +21,17 @@ public class FluidHandlerItemStackAdvanced extends FluidHandlerItemStack {
     }
 
     /**
-     * @param container            The container stack, data is stored on it directly as NBT.
-     * @param capacity             The maximum capacity of this fluid tank.
-     * @param maxTemperature       The maximum temperature the container stack can contain.
-     * @param destroyByTemperature If the container stack should be destroyed, if attempting to fill it with a too hot fluid.
+     * @param container      The container stack, data is stored on it directly as NBT.
+     * @param capacity       The maximum capacity of this fluid tank.
+     * @param maxTemperature The maximum temperature the container stack can contain.
      */
-    public FluidHandlerItemStackAdvanced(@Nonnull ItemStack container, int capacity, int maxTemperature, boolean destroyByTemperature) {
+    public FluidHandlerItemStackAdvanced(@Nonnull ItemStack container, int capacity, int maxTemperature) {
         super(container, capacity);
         this.maxTemperature = maxTemperature;
-        this.destroyByTemperature = destroyByTemperature;
     }
 
     @Override
     protected void setContainerToEmpty() {
-        FluidStack fluidStack = getFluid();
-        if (fluidStack == null) return;
-        Fluid fluid = fluidStack.getFluid();
-
-        if (destroyByTemperature && fluid.getTemperature(fluidStack) > maxTemperature) {
-            container.shrink(1);
-        }
         container = new ItemStack(container.getItem(), 1, 0);
     }
 
@@ -61,13 +53,6 @@ public class FluidHandlerItemStackAdvanced extends FluidHandlerItemStack {
 
     private boolean contentsAllowed(FluidStack fluidStack) {
         Fluid fluid = fluidStack.getFluid();
-        if (fluid == null) {
-            return false;
-        }
-        if (fluid.getTemperature() > maxTemperature) {
-            setContainerToEmpty();
-            return false;
-        }
-        return true;
+        return fluid != null && fluid.getTemperature(fluidStack) <= maxTemperature;
     }
 }

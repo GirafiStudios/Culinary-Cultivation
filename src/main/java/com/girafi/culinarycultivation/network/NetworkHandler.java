@@ -14,7 +14,7 @@ public class NetworkHandler {
         WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(modId);
     }
 
-    public static void init() {
+    public static void register() {
         registerPacket(PacketChangeMode.class, Side.SERVER);
     }
 
