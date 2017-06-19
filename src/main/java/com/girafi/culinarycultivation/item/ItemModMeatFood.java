@@ -1,10 +1,13 @@
 package com.girafi.culinarycultivation.item;
 
+import com.girafi.culinarycultivation.api.item.IOreDictEntry;
 import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.util.OreDictHelper;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -18,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class ItemModMeatFood extends ItemFood {
+public class ItemModMeatFood extends ItemFood implements IOreDictEntry {
     private final boolean cooked;
 
     public ItemModMeatFood(boolean cooked) {
@@ -86,6 +89,15 @@ public class ItemModMeatFood extends ItemFood {
         } else {
             return this.getUnlocalizedName() + "_" + meattype.getMeatName();
         }
+    }
+
+    @Override
+    public void getOreDictEntries() {
+        for (MeatType meatType : MeatType.values()) {
+            OreDictHelper.add(ModItems.MEAT, meatType.getMetadata(), "food", meatType.getMeatName() + "Raw");
+            OreDictHelper.add(ModItems.COOKED_MEAT, meatType.getMetadata(), "food", meatType.getMeatName() + "Cooked");
+        }
+        OreDictHelper.add("foodMincedMeat", new ItemStack(Items.BEEF), new ItemStack(Items.MUTTON), new ItemStack(Items.PORKCHOP), new ItemStack(Items.RABBIT), new ItemStack(ModItems.MEAT, 1, MeatType.HAM.getMetadata()), new ItemStack(ModItems.MEAT, 1, MeatType.LAMB.getMetadata()), new ItemStack(ModItems.MEAT, 1, MeatType.ROAST.getMetadata()), new ItemStack(ModItems.MEAT, 1, MeatType.VEAL.getMetadata()));
     }
 
     public enum MeatType {

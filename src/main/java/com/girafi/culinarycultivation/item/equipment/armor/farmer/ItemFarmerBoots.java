@@ -1,6 +1,6 @@
 package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 
-import com.girafi.culinarycultivation.util.StringUtils;
+import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
@@ -42,7 +42,7 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        tooltip.add(StringUtils.translateToLocal(Reference.MOD_ID + ".armorset.farmer.boots.desc"));
+        tooltip.add(StringUtil.translateToLocal(Reference.MOD_ID + ".armorset.farmer.boots.desc"));
         tooltip.add("");
         super.addInformation(stack, player, tooltip, advanced);
     }

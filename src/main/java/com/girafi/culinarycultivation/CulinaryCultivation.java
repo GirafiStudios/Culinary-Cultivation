@@ -8,7 +8,7 @@ import com.girafi.culinarycultivation.modsupport.ModSupport;
 import com.girafi.culinarycultivation.network.NetworkHandler;
 import com.girafi.culinarycultivation.proxy.CommonProxy;
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
-import com.girafi.culinarycultivation.util.LogHelper;
+import com.girafi.culinarycultivation.util.OreDictHelper;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -50,11 +50,11 @@ public class CulinaryCultivation {
         ModBlocks.register();
         ModItems.setup();
         ModBlocks.setup();
+        OreDictHelper.register();
         NetworkHandler.register();
         Recipes.initHandlers();
         proxy.preInit();
         ModSupport.INSTANCE.preInit();
-        LogHelper.debug(Reference.MOD_NAME + " Pre Initialization Complete.");
     }
 
     @Mod.EventHandler
@@ -63,13 +63,11 @@ public class CulinaryCultivation {
         ModBlocks.initTiles();
         Recipes.init();
         ModSupport.INSTANCE.init();
-        LogHelper.debug(Reference.MOD_NAME + " Initialization Complete.");
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit();
         ModSupport.INSTANCE.postInit();
-        LogHelper.debug(Reference.MOD_NAME + " Post Initialization Complete.");
     }
 }

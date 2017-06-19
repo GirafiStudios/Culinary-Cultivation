@@ -5,7 +5,7 @@ import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.FluidHandlerItemStackAdvanced;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import com.girafi.culinarycultivation.util.NBTHelper;
-import com.girafi.culinarycultivation.util.StringUtils;
+import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -56,10 +56,10 @@ public class ItemStorageJar extends Item {
         if (NBTHelper.hasKey(stack, FluidHandlerItemStackAdvanced.FLUID_NBT_KEY)) {
             FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(NBTHelper.getTag(stack).getCompoundTag(FluidHandlerItemStackAdvanced.FLUID_NBT_KEY));
             if (GuiScreen.isShiftKeyDown() && fluidStack != null) {
-                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid", fluidStack.getFluid().getLocalizedName(fluidStack)));
-                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid_amount", fluidStack.amount + " / " + JAR_VOLUME));
+                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid", fluidStack.getFluid().getLocalizedName(fluidStack)));
+                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid_amount", fluidStack.amount + " / " + JAR_VOLUME));
             } else {
-                tooltip.add(StringUtils.shiftTooltip());
+                tooltip.add(StringUtil.shiftTooltip());
             }
         }
     }
@@ -75,7 +75,7 @@ public class ItemStorageJar extends Item {
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull EnumHand hand) { //TODO Handle vanilla fluids
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull EnumHand hand) { //TODO Destroy jar when trying to fill too hot fluid from tank
         ItemStack heldStack = player.getHeldItem(hand);
         RayTraceResult rayTrace = this.rayTrace(world, player, true);
 

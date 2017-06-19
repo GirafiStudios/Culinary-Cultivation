@@ -2,21 +2,34 @@ package com.girafi.culinarycultivation.util;
 
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.util.text.translation.I18n;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang3.StringUtils;
 
-public class StringUtils {
+public class StringUtil {
+
     /**
      * Formats the inserted string into camel case
      */
     public static String toCamelCase(String string) {
-        return WordUtils.capitalizeFully(string, '_').replace("_", "");
+        String[] words = StringUtils.splitByCharacterTypeCamelCase(string);
+
+        boolean firstWordNotFound = true;
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (firstWordNotFound && word.length() > 0) {
+                words[i] = word.toLowerCase();
+                firstWordNotFound = false;
+            } else {
+                words[i] = StringUtils.capitalize(word.toLowerCase());
+            }
+        }
+        return StringUtils.join(words).replaceAll("[\\s_]", "");
     }
 
     /*
      * Universal method for adding "Press Shift for info" tooltip
      */
     public static String shiftTooltip() {
-        return StringUtils.formatColorCode(Reference.MOD_ID + ".misc.shift");
+        return StringUtil.formatColorCode(Reference.MOD_ID + ".misc.shift");
     }
 
     /*

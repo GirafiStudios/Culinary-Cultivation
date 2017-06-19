@@ -1,11 +1,16 @@
 package com.girafi.culinarycultivation.item;
 
+import com.girafi.culinarycultivation.api.item.IOreDictEntry;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.util.OreDictHelper;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -17,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class ItemModFishFood extends ItemFood {
+public class ItemModFishFood extends ItemFood implements IOreDictEntry {
     private final boolean cooked;
 
     public ItemModFishFood(boolean cooked) {
@@ -85,6 +90,21 @@ public class ItemModFishFood extends ItemFood {
         } else {
             return "item." + Paths.MOD_ASSETS + "fish_" + fishtype.getFishName() + "_cooked";
         }
+    }
+
+    @Override
+    public void getOreDictEntries() {
+        for (FishType fishtype : FishType.values()) {
+            int metadata = fishtype.getMetadata();
+            String name = fishtype.getFishName();
+            if (fishtype.isHaveRawFish() && metadata != FishType.FILLET.getMetadata() && metadata != FishType.SMALL_SQUID.getMetadata()) {
+                OreDictHelper.add(ModItems.FISH, metadata, "filletFish");
+                OreDictHelper.add(ModItems.FISH, metadata, "fish");
+            }
+            OreDictHelper.add(ModItems.FISH, metadata, "food", name + "Raw");
+            OreDictHelper.add(ModItems.COOKED_FISH, metadata, "food", name + "Cooked");
+        }
+        OreDictHelper.add("filletFish", new ItemStack(Items.FISH, 1, ItemFishFood.FishType.COD.getMetadata()), new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata()), new ItemStack(Items.FISH, 1, ItemFishFood.FishType.CLOWNFISH.getMetadata()));
     }
 
     public enum FishType {

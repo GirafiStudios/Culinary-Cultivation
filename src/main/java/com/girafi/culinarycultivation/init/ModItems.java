@@ -1,6 +1,7 @@
 package com.girafi.culinarycultivation.init;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
+import com.girafi.culinarycultivation.api.item.IOreDictEntry;
 import com.girafi.culinarycultivation.event.MobDropEvent;
 import com.girafi.culinarycultivation.item.ItemCropProduct;
 import com.girafi.culinarycultivation.item.ItemModFishFood;
@@ -10,6 +11,7 @@ import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerOver
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerShirt;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerStrawhat;
 import com.girafi.culinarycultivation.item.equipment.tool.*;
+import com.girafi.culinarycultivation.util.OreDictHelper;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -116,6 +118,11 @@ public class ModItems {
         item.setCreativeTab(tab);
 
         GameRegistry.register(item, new ResourceLocation(Reference.MOD_ID, name));
+
+        if (item instanceof IOreDictEntry) {
+            IOreDictEntry entry = (IOreDictEntry) item;
+            OreDictHelper.entries.add(entry);
+        }
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             if (item.getHasSubtypes()) {

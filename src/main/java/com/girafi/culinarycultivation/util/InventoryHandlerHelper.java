@@ -2,14 +2,12 @@ package com.girafi.culinarycultivation.util;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -119,12 +117,14 @@ public class InventoryHandlerHelper {
     }
 
     public static void fillContainer(ItemStack container, FluidStack fluidStack, ItemStack heldStack, EntityPlayer player, EnumHand hand) {
-        NBTTagCompound fluidTag = new NBTTagCompound();
+        if (!player.isCreative()) {
+            NBTTagCompound fluidTag = new NBTTagCompound();
 
-        fluidStack.writeToNBT(fluidTag);
-        NBTHelper.getTag(container).setTag(FluidHandlerItemStack.FLUID_NBT_KEY, fluidTag);
+            fluidStack.writeToNBT(fluidTag);
+            NBTHelper.getTag(container).setTag(FluidHandlerItemStack.FLUID_NBT_KEY, fluidTag);
 
-        InventoryHandlerHelper.giveItem(player, hand, container);
-        heldStack.shrink(1);
+            InventoryHandlerHelper.giveItem(player, hand, container);
+            heldStack.shrink(1);
+        }
     }
 }

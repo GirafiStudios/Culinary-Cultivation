@@ -3,7 +3,7 @@ package com.girafi.culinarycultivation.block;
 import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.girafi.culinarycultivation.block.tileentity.TileFluidTank;
 import com.girafi.culinarycultivation.util.NBTHelper;
-import com.girafi.culinarycultivation.util.StringUtils;
+import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -60,10 +60,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 TileFluidTank tank = new TileFluidTank(0);
                 tank.readFromNBT(stack.getTagCompound());
 
-                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid", tank.getFluid().getLocalizedName()));
-                tooltip.add(StringUtils.translateFormatted(Reference.MOD_ID + ".fluid_amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
+                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid", tank.getFluid().getLocalizedName()));
+                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid_amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
             } else {
-                tooltip.add(StringUtils.shiftTooltip());
+                tooltip.add(StringUtil.shiftTooltip());
             }
         }
     }

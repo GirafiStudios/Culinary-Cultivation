@@ -1,8 +1,9 @@
 package com.girafi.culinarycultivation.item;
 
-import com.girafi.culinarycultivation.api.IOreDictEntry;
-import com.girafi.culinarycultivation.api.OreDictHolder;
+import com.girafi.culinarycultivation.api.item.IOreDictEntry;
 import com.girafi.culinarycultivation.init.ModBlocks;
+import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.util.OreDictHelper;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
@@ -155,8 +156,10 @@ public class ItemCropProduct extends ItemFood implements IPlantable, IOreDictEnt
     }
 
     @Override
-    public NonNullList getOreDictEntries(OreDictHolder holder) {
-        return null;
+    public void getOreDictEntries() {
+        for (ItemCropProduct.ProductType product : ItemCropProduct.ProductType.values()) {
+            OreDictHelper.addForType(ModItems.CROP_FOOD, ModItems.CROP_SEEDS, "crop", "seed", product.getCropName(), product.getMetadata());
+        }
     }
 
     public enum ProductType {

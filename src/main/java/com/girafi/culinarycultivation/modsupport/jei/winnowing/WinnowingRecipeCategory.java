@@ -1,7 +1,7 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
 import com.girafi.culinarycultivation.modsupport.jei.JEIPlugin;
-import com.girafi.culinarycultivation.util.StringUtils;
+import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -35,7 +35,7 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory<WinnowingRecipe
     @Override
     @Nonnull
     public String getTitle() {
-        return StringUtils.translateToLocal(getUid());
+        return StringUtil.translateToLocal(getUid());
     }
 
     @Override

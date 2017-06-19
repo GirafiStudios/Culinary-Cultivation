@@ -3,7 +3,7 @@ package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.util.LogHelper;
-import com.girafi.culinarycultivation.util.StringUtils;
+import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.client.gui.GuiScreen;
@@ -90,16 +90,16 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     @SideOnly(Side.CLIENT)
     public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         if (GuiScreen.isShiftKeyDown()) {
-            tooltip.add(StringUtils.formatColorCode(Reference.MOD_ID + ".armorset.farmer.name") + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")");
+            tooltip.add(StringUtil.formatColorCode(Reference.MOD_ID + ".armorset.farmer.name") + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")");
             ItemStack[] stacks = getArmorSetStacks();
             for (int i = 0; i < stacks.length; i++) {
                 tooltip.add((hasArmorSetPiece(player, i) ? TextFormatting.YELLOW : "") + " " + stacks[i].getDisplayName());
             }
             tooltip.add("");
-            tooltip.add(StringUtils.translateToLocal(Reference.MOD_ID + ".armorset.farmer.desc"));
-            tooltip.add(StringUtils.translateToLocal(Reference.MOD_ID + ".armorset.farmer.descFull"));
+            tooltip.add(StringUtil.translateToLocal(Reference.MOD_ID + ".armorset.farmer.desc"));
+            tooltip.add(StringUtil.translateToLocal(Reference.MOD_ID + ".armorset.farmer.descFull"));
         } else {
-            tooltip.add(StringUtils.shiftTooltip());
+            tooltip.add(StringUtil.shiftTooltip());
         }
     }
 
