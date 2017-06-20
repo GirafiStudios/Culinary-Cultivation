@@ -2,6 +2,7 @@ package com.girafi.culinarycultivation.block;
 
 import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.girafi.culinarycultivation.block.tileentity.TileFluidTank;
+import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import com.girafi.culinarycultivation.util.NBTHelper;
 import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
@@ -13,10 +14,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBanner;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityBanner;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
@@ -25,7 +32,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -47,6 +57,16 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
     @Nonnull
     public TileEntity createNewTileEntity(@Nonnull World world, int metadata) {
         return new TileEntityCauldron();
@@ -58,7 +78,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         if (NBTHelper.hasKey(stack, "FluidName")) {
             if (GuiScreen.isShiftKeyDown()) {
                 TileFluidTank tank = new TileFluidTank(0);
-                tank.readFromNBT(stack.getTagCompound());
+                tank.readFromNBT(NBTHelper.getTag(stack));
 
                 tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid", tank.getFluid().getLocalizedName()));
                 tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid_amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
@@ -68,19 +88,23 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         }
     }
 
-    //TODO Readd remove dye for cauldron
-
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack heldStack = player.getHeldItem(hand);
+        ItemStack cauldron = getDrops(world, pos, state, 0).get(0);
 
-        if (player.isSneaking() /*&& !stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, facing)*/) { //TODO Force both hands to be empty, and lock the Cauldron in both slots when picked up
+        if (player.isSneaking()) { //TODO Force both hands to be empty, and lock the Cauldron in both slots when picked up
             this.onBlockDestroyedByPlayer(world, pos, state);
-            ItemStack cauldron = getDrops(world, pos, state, 0).get(0);
             if (!player.inventory.addItemStackToInventory(cauldron)) {
                 player.dropItem(cauldron, false);
             }
             world.setBlockToAir(pos);
+        }
+        TileFluidTank tank = new TileFluidTank(0);
+        tank.readFromNBT(NBTHelper.getTag(cauldron));
+
+        if (removeDye(world, pos, player, hand, heldStack, tank)) {
+            return true;
         }
 
         //Fluid handling
@@ -89,11 +113,46 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         return FluidUtil.getFluidHandler(heldStack) != null;
     }
 
+    private boolean removeDye(World world, BlockPos pos, EntityPlayer player, EnumHand hand, @Nonnull ItemStack stack, TileFluidTank tank) {
+        IFluidHandler handler = FluidUtil.getFluidHandler(world, pos, null);
+        if (handler == null) return false;
+        if (tank.getFluid() != null && tank.getFluid().getFluid() == FluidRegistry.WATER && tank.getFluidAmount() >= 250) {
+            if (stack.getItem() instanceof ItemArmor && ((ItemArmor) stack.getItem()).hasColor(stack)) {
+                if (!world.isRemote) {
+                    ((ItemArmor) stack.getItem()).removeColor(stack);
+                    player.addStat(StatList.ARMOR_CLEANED);
+                    handler.drain(250, true);
+                }
+                player.playSound(SoundEvents.ENTITY_BOBBER_SPLASH, 0.16F, 0.66F);
+                return true;
+            }
+            if (stack.getItem() instanceof ItemBanner) {
+                if (TileEntityBanner.getPatterns(stack) > 0) {
+                    if (!world.isRemote) {
+                        ItemStack banner = stack.copy();
+                        banner.setCount(1);
+                        TileEntityBanner.removeBannerData(banner);
+                        player.addStat(StatList.BANNER_CLEANED);
+
+                        if (!player.capabilities.isCreativeMode) {
+                            stack.shrink(1);
+                            handler.drain(250, true);
+                        }
+                        InventoryHandlerHelper.giveItem(player, hand, banner);
+                    }
+                    player.playSound(SoundEvents.ENTITY_BOBBER_SPLASH, 0.16F, 0.66F);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, @Nonnull ItemStack stack) {
         TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileEntityCauldron && stack != null && stack.hasTagCompound()) {
-            ((TileEntityCauldron) te).tank.readFromNBT(stack.getTagCompound());
+        if (te instanceof TileEntityCauldron && !stack.isEmpty() && stack.hasTagCompound()) {
+            ((TileEntityCauldron) te).tank.readFromNBT(NBTHelper.getTag(stack));
         }
     }
 
@@ -121,6 +180,53 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+        IFluidHandler handler = FluidUtil.getFluidHandler(world, pos, null);
+        TileFluidTank tank = new TileFluidTank(0);
+        tank.readFromNBT(NBTHelper.getTag(getDrops(world, pos, state, 0).get(0)));
+        FluidStack fluidStack = tank.getFluid();
+        if (handler == null || fluidStack == null) return;
+
+        float f = (float) pos.getY() + (6.0F + (float) 3) / 16.0F;
+
+        if (entity.getEntityBoundingBox().minY <= (double) f) {
+            int temperature = fluidStack.getFluid().getTemperature(world, pos);
+            if (entity.isBurning() && temperature < 1000) {
+                if (!world.isRemote) {
+                    entity.extinguish();
+                    handler.drain(750, true);
+                }
+                entity.playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.7F, 1.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
+            } else if (!entity.isImmuneToFire()) {
+                if (temperature >= 340 && temperature < 1000) {
+                    entity.attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
+                } else if (temperature > 1000) {
+                    entity.attackEntityFrom(DamageSource.LAVA, 2.5F);
+                    entity.setFire(7);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void fillWithRain(World world, BlockPos pos) {
+        IFluidHandler handler = FluidUtil.getFluidHandler(world, pos, null);
+        ItemStack cauldron = getDrops(world, pos, world.getBlockState(pos), 0).get(0);
+        TileFluidTank tank = new TileFluidTank(0);
+        tank.readFromNBT(NBTHelper.getTag(cauldron));
+
+        float temperature = world.getBiome(pos).getFloatTemperature(pos);
+        if (world.getBiomeProvider().getTemperatureAtHeight(temperature, pos.getY()) >= 0.15F) {
+
+            if ((tank.getFluidAmount() == 0 || tank.getFluid() != null && tank.getFluid().getFluid() == FluidRegistry.WATER) && tank.getFluidAmount() < Fluid.BUCKET_VOLUME) {
+                if (handler != null) {
+                    handler.fill(new FluidStack(FluidRegistry.WATER, 333), true);
+                }
+            }
+        }
+    }
+
+    @Override
     public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> collidingBoxes, @Nullable Entity entity, boolean b) {
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_LEGS);
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_WEST);
@@ -133,16 +239,6 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return FULL_BLOCK_AABB;
-    }
-
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return false;
     }
 
     @Override
@@ -159,17 +255,6 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         TileFluidTank tank = ((TileEntityCauldron) tileEntity).tank;
         return 15 * tank.getFluidAmount() / tank.getCapacity();
     }
-
-/*    @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) { //TODO Add back feature, but only with cold fluids
-        int level = state.getValue(LEVEL);
-        float f = (float) pos.getY() + (6.0F + (float) (3 * level)) / 16.0F;
-
-        if (!world.isRemote && entity.isBurning() && level > 0 && level < 13 && entity.getEntityBoundingBox().minY <= (double) f) {
-            entity.extinguish();
-            world.setBlockState(pos, ModBlocks.CAULDRON.getDefaultState());
-        }
-    }*/
 
     @Override
     public boolean blocksMovement(IBlockAccess world, BlockPos pos) {

@@ -38,7 +38,7 @@ import java.util.List;
 @RegisterEvent
 public class ItemStorageJar extends Item {
     public static final int JAR_VOLUME = 250;
-    private static final int MAX_TEMPERATURE = FluidRegistry.LAVA.getTemperature() - 1;
+    private static final int MAX_TEMPERATURE = 1000; //Approximate softening point of glass
 
     public ItemStorageJar() {
         setContainerItem(this);

@@ -17,6 +17,7 @@ public class TileEntityCauldron extends TileEntity {
 
     public TileEntityCauldron() {
         tank = new TileFluidTank(CAPACITY);
+        tank.setTileEntity(this);
     }
 
     @Override

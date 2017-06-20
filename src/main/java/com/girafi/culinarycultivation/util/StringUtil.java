@@ -29,7 +29,7 @@ public class StringUtil {
      * Universal method for adding "Press Shift for info" tooltip
      */
     public static String shiftTooltip() {
-        return StringUtil.formatColorCode(Reference.MOD_ID + ".misc.shift");
+        return formatColorCode(Reference.MOD_ID + ".misc.shift");
     }
 
     /*
