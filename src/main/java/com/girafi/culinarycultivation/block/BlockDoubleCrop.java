@@ -46,6 +46,49 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
         this.disableStats();
     }
 
+    private static float getGrowthChance(Block block, World world, BlockPos pos) {
+        float f = 1.0F;
+        BlockPos posDown = pos.down();
+
+        for (int i = -1; i <= 1; ++i) {
+            for (int j = -1; j <= 1; ++j) {
+                float f1 = 0.0F;
+                IBlockState iblockstate = world.getBlockState(posDown.add(i, 0, j));
+
+                if (iblockstate.getBlock().canSustainPlant(iblockstate, world, posDown.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) block)) {
+                    f1 = 1.0F;
+
+                    if (iblockstate.getBlock().isFertile(world, posDown.add(i, 0, j))) {
+                        f1 = 3.0F;
+                    }
+                }
+
+                if (i != 0 || j != 0) {
+                    f1 /= 4.0F;
+                }
+
+                f += f1;
+            }
+        }
+        BlockPos posNorth = pos.north();
+        BlockPos posSouth = pos.south();
+        BlockPos posWest = pos.west();
+        BlockPos posEast = pos.east();
+        boolean isWestOrEast = block == world.getBlockState(posWest).getBlock() || block == world.getBlockState(posEast).getBlock();
+        boolean isNorthOrSouth = block == world.getBlockState(posNorth).getBlock() || block == world.getBlockState(posSouth).getBlock();
+
+        if (isWestOrEast && isNorthOrSouth) {
+            f /= 2.0F;
+        } else {
+            boolean flag2 = block == world.getBlockState(posWest.north()).getBlock() || block == world.getBlockState(posEast.north()).getBlock() || block == world.getBlockState(posEast.south()).getBlock() || block == world.getBlockState(posWest.south()).getBlock();
+
+            if (flag2) {
+                f /= 2.0F;
+            }
+        }
+        return f;
+    }
+
     @Override
     @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -140,49 +183,6 @@ public class BlockDoubleCrop extends BlockBush implements IGrowable {
                 }
             }
         }
-    }
-
-    private static float getGrowthChance(Block block, World world, BlockPos pos) {
-        float f = 1.0F;
-        BlockPos posDown = pos.down();
-
-        for (int i = -1; i <= 1; ++i) {
-            for (int j = -1; j <= 1; ++j) {
-                float f1 = 0.0F;
-                IBlockState iblockstate = world.getBlockState(posDown.add(i, 0, j));
-
-                if (iblockstate.getBlock().canSustainPlant(iblockstate, world, posDown.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable) block)) {
-                    f1 = 1.0F;
-
-                    if (iblockstate.getBlock().isFertile(world, posDown.add(i, 0, j))) {
-                        f1 = 3.0F;
-                    }
-                }
-
-                if (i != 0 || j != 0) {
-                    f1 /= 4.0F;
-                }
-
-                f += f1;
-            }
-        }
-        BlockPos posNorth = pos.north();
-        BlockPos posSouth = pos.south();
-        BlockPos posWest = pos.west();
-        BlockPos posEast = pos.east();
-        boolean isWestOrEast = block == world.getBlockState(posWest).getBlock() || block == world.getBlockState(posEast).getBlock();
-        boolean isNorthOrSouth = block == world.getBlockState(posNorth).getBlock() || block == world.getBlockState(posSouth).getBlock();
-
-        if (isWestOrEast && isNorthOrSouth) {
-            f /= 2.0F;
-        } else {
-            boolean flag2 = block == world.getBlockState(posWest.north()).getBlock() || block == world.getBlockState(posEast.north()).getBlock() || block == world.getBlockState(posEast.south()).getBlock() || block == world.getBlockState(posWest.south()).getBlock();
-
-            if (flag2) {
-                f /= 2.0F;
-            }
-        }
-        return f;
     }
 
     @Override

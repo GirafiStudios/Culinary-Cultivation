@@ -30,6 +30,7 @@ import java.util.List;
 public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     private static final Field EXHAUSTION = ReflectionHelper.findField(FoodStats.class, "field_75126_c", "foodExhaustionLevel");
     private final String armorPieceName;
+    private ItemStack[] armorSet;
 
     public ItemFarmerArmor(EntityEquipmentSlot equipmentSlot, String name) {
         this(equipmentSlot, name, CulinaryCultivationAPI.FARMER_ARMOR_MATERIAL);
@@ -38,6 +39,21 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
     private ItemFarmerArmor(EntityEquipmentSlot equipmentSlot, String name, ArmorMaterial mat) {
         super(mat, 0, equipmentSlot);
         this.armorPieceName = name;
+    }
+
+    public static boolean hasArmorSetPiece(EntityPlayer player, int i) {
+        ItemStack stack = player.inventory.armorInventory.get(3 - i);
+        switch (i) {
+            case 0:
+                return stack.getItem() == ModItems.FARMER_STRAWHAT;
+            case 1:
+                return stack.getItem() == ModItems.FARMER_SHIRT;
+            case 2:
+                return stack.getItem() == ModItems.FARMER_OVERALLS;
+            case 3:
+                return stack.getItem() == ModItems.FARMER_BOOTS;
+        }
+        return false;
     }
 
     @Override
@@ -103,8 +119,6 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
         }
     }
 
-    private ItemStack[] armorSet;
-
     private ItemStack[] getArmorSetStacks() {
         if (armorSet == null)
             armorSet = new ItemStack[]{
@@ -118,21 +132,6 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     private boolean hasFullArmorSet(EntityPlayer player) {
         return hasArmorSetPiece(player, 0) && hasArmorSetPiece(player, 1) && hasArmorSetPiece(player, 2) && hasArmorSetPiece(player, 3);
-    }
-
-    public static boolean hasArmorSetPiece(EntityPlayer player, int i) {
-        ItemStack stack = player.inventory.armorInventory.get(3 - i);
-        switch (i) {
-            case 0:
-                return stack.getItem() == ModItems.FARMER_STRAWHAT;
-            case 1:
-                return stack.getItem() == ModItems.FARMER_SHIRT;
-            case 2:
-                return stack.getItem() == ModItems.FARMER_OVERALLS;
-            case 3:
-                return stack.getItem() == ModItems.FARMER_BOOTS;
-        }
-        return false;
     }
 
     private int getPiecesEquipped(EntityPlayer player) {

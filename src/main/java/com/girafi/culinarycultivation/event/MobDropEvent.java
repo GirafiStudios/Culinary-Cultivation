@@ -28,6 +28,40 @@ public class MobDropEvent {
     private Item killTool;
     private int vanillaDropChance, dropMin, dropMax;
 
+    public static void register(Class<? extends EntityLivingBase> living, @Nonnull ItemStack drop, @Nonnull ItemStack dropBurning, int dropMin, int dropMax) {
+        register(living, false, drop, dropBurning, true, ModItems.MEAT_CLEAVER, -1, dropMin, dropMax);
+    }
+
+    public static void registerChild(Class<? extends EntityLivingBase> living, @Nonnull ItemStack drop, @Nonnull ItemStack dropBurning, int dropMin, int dropMax) {
+        register(living, true, drop, dropBurning, true, ModItems.MEAT_CLEAVER, -1, dropMin, dropMax);
+    }
+
+    public static void register(Class<? extends EntityLivingBase> living, boolean child, @Nonnull ItemStack dropStack, @Nonnull ItemStack burningDrop, boolean dropBurned, Item tool, int vanillaChance, int min, int max) {
+        Map<String, Class<? extends EntityLivingBase>> animalClasses = new HashMap<>();
+        animalClasses.put("Drop " + dropStack.getDisplayName().toLowerCase().replace("raw ", ""), living);
+        String subCategoryNames = ConfigurationHandler.CATEGORY_MOB_DROPS + Configuration.CATEGORY_SPLITTER + living.getSimpleName().replace("Entity", "") + (child ? Configuration.CATEGORY_SPLITTER + "baby" : "");
+        List<String> subCategories = animalClasses.keySet().stream().filter(modID -> ConfigurationHandler.config.get(subCategoryNames, modID, true).getBoolean()).collect(Collectors.toList());
+
+        ConfigurationHandler.config.save();
+
+        animalClasses.entrySet().stream().filter(entry -> subCategories.contains(entry.getKey())).forEach(entry -> {
+            MinecraftForge.EVENT_BUS.register(new MobDropEvent().setDrop(living, child, dropStack, burningDrop, dropBurned, tool, vanillaChance, min, max));
+        });
+    }
+
+    private MobDropEvent setDrop(Class<? extends EntityLivingBase> livingClass, boolean isChild, @Nonnull ItemStack drop, @Nonnull ItemStack dropBurning, boolean canDropBurned, Item killTool, int vanillaDropChance, int dropMin, int dropMax) {
+        this.livingClass = livingClass;
+        this.isChild = isChild;
+        this.drop = drop;
+        this.dropBurning = dropBurning;
+        this.canDropBurned = canDropBurned;
+        this.killTool = killTool;
+        this.vanillaDropChance = vanillaDropChance;
+        this.dropMin = dropMin;
+        this.dropMax = dropMax;
+        return this;
+    }
+
     @SubscribeEvent
     public void livingDropsEvent(LivingDropsEvent event) {
         Random random = new Random();
@@ -50,39 +84,5 @@ public class MobDropEvent {
                 }
             }
         }
-    }
-
-    private MobDropEvent setDrop(Class<? extends EntityLivingBase> livingClass, boolean isChild, @Nonnull ItemStack drop, @Nonnull ItemStack dropBurning, boolean canDropBurned, Item killTool, int vanillaDropChance, int dropMin, int dropMax) {
-        this.livingClass = livingClass;
-        this.isChild = isChild;
-        this.drop = drop;
-        this.dropBurning = dropBurning;
-        this.canDropBurned = canDropBurned;
-        this.killTool = killTool;
-        this.vanillaDropChance = vanillaDropChance;
-        this.dropMin = dropMin;
-        this.dropMax = dropMax;
-        return this;
-    }
-
-    public static void register(Class<? extends EntityLivingBase> living, @Nonnull ItemStack drop, @Nonnull ItemStack dropBurning, int dropMin, int dropMax) {
-        register(living, false, drop, dropBurning, true, ModItems.MEAT_CLEAVER, -1, dropMin, dropMax);
-    }
-
-    public static void registerChild(Class<? extends EntityLivingBase> living, @Nonnull ItemStack drop, @Nonnull ItemStack dropBurning, int dropMin, int dropMax) {
-        register(living, true, drop, dropBurning, true, ModItems.MEAT_CLEAVER, -1, dropMin, dropMax);
-    }
-
-    public static void register(Class<? extends EntityLivingBase> living, boolean child, @Nonnull ItemStack dropStack, @Nonnull ItemStack burningDrop, boolean dropBurned, Item tool, int vanillaChance, int min, int max) {
-        Map<String, Class<? extends EntityLivingBase>> animalClasses = new HashMap<>();
-        animalClasses.put("Drop " + dropStack.getDisplayName().toLowerCase().replace("raw ", ""), living);
-        String subCategoryNames = ConfigurationHandler.CATEGORY_MOB_DROPS + Configuration.CATEGORY_SPLITTER + living.getSimpleName().replace("Entity", "") + (child ? Configuration.CATEGORY_SPLITTER + "baby" : "");
-        List<String> subCategories = animalClasses.keySet().stream().filter(modID -> ConfigurationHandler.config.get(subCategoryNames, modID, true).getBoolean()).collect(Collectors.toList());
-
-        ConfigurationHandler.config.save();
-
-        animalClasses.entrySet().stream().filter(entry -> subCategories.contains(entry.getKey())).forEach(entry -> {
-            MinecraftForge.EVENT_BUS.register(new MobDropEvent().setDrop(living, child, dropStack, burningDrop, dropBurned, tool, vanillaChance, min, max));
-        });
     }
 }

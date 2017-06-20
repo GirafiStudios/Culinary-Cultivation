@@ -55,7 +55,7 @@ public class BlockSeparator extends SourceBlockTileEntity {
     public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
         this.setDefaultFacing(world, pos, state);
         if (world.getTileEntity(pos) instanceof TileEntitySeparator) {
-            ((TileEntitySeparator)world.getTileEntity(pos)).checkForFanHousing();
+            ((TileEntitySeparator) world.getTileEntity(pos)).checkForFanHousing();
         }
     }
 

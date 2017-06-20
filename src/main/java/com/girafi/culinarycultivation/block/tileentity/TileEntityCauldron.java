@@ -12,8 +12,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import javax.annotation.Nonnull;
 
 public class TileEntityCauldron extends TileEntity {
-    public TileFluidTank tank;
     private static final int CAPACITY = Fluid.BUCKET_VOLUME;
+    public TileFluidTank tank;
 
     public TileEntityCauldron() {
         tank = new TileFluidTank(CAPACITY);

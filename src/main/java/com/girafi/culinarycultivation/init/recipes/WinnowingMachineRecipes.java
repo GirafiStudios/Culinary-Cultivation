@@ -13,11 +13,11 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
     private static final WinnowingMachineRecipes WINNOWING_MACHINE_INSTANCE = new WinnowingMachineRecipes();
     private final HashMap<Pair<Item, Integer>, WinnowingMachineRecipe> recipes = new HashMap<>();
 
-    public static WinnowingMachineRecipes instance() {
-        return WINNOWING_MACHINE_INSTANCE;
+    private WinnowingMachineRecipes() {
     }
 
-    private WinnowingMachineRecipes() {
+    public static WinnowingMachineRecipes instance() {
+        return WINNOWING_MACHINE_INSTANCE;
     }
 
     @Override
