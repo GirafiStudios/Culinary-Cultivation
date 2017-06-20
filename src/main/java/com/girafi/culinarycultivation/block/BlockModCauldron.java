@@ -95,9 +95,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
         if (player.isSneaking()) { //TODO Force both hands to be empty, and lock the Cauldron in both slots when picked up
             this.onBlockDestroyedByPlayer(world, pos, state);
-            if (!player.inventory.addItemStackToInventory(cauldron)) {
-                player.dropItem(cauldron, false);
-            }
+            InventoryHandlerHelper.giveItem(player, hand, cauldron);
             world.setBlockToAir(pos);
         }
         TileFluidTank tank = new TileFluidTank(0);
@@ -210,17 +208,19 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     @Override
     public void fillWithRain(World world, BlockPos pos) {
-        IFluidHandler handler = FluidUtil.getFluidHandler(world, pos, null);
-        ItemStack cauldron = getDrops(world, pos, world.getBlockState(pos), 0).get(0);
-        TileFluidTank tank = new TileFluidTank(0);
-        tank.readFromNBT(NBTHelper.getTag(cauldron));
+        if (world.rand.nextInt(10) == 1) {
+            IFluidHandler handler = FluidUtil.getFluidHandler(world, pos, null);
+            ItemStack cauldron = getDrops(world, pos, world.getBlockState(pos), 0).get(0);
+            TileFluidTank tank = new TileFluidTank(0);
+            tank.readFromNBT(NBTHelper.getTag(cauldron));
 
-        float temperature = world.getBiome(pos).getFloatTemperature(pos);
-        if (world.getBiomeProvider().getTemperatureAtHeight(temperature, pos.getY()) >= 0.15F) {
+            float temperature = world.getBiome(pos).getFloatTemperature(pos);
+            if (world.getBiomeProvider().getTemperatureAtHeight(temperature, pos.getY()) >= 0.15F) {
 
-            if ((tank.getFluidAmount() == 0 || tank.getFluid() != null && tank.getFluid().getFluid() == FluidRegistry.WATER) && tank.getFluidAmount() < Fluid.BUCKET_VOLUME) {
-                if (handler != null) {
-                    handler.fill(new FluidStack(FluidRegistry.WATER, 333), true);
+                if ((tank.getFluidAmount() == 0 || tank.getFluid() != null && tank.getFluid().getFluid() == FluidRegistry.WATER) && tank.getFluidAmount() < Fluid.BUCKET_VOLUME) {
+                    if (handler != null) {
+                        handler.fill(new FluidStack(FluidRegistry.WATER, 250), true);
+                    }
                 }
             }
         }
