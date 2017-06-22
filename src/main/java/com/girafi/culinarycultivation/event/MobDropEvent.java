@@ -65,8 +65,8 @@ public class MobDropEvent {
     @SubscribeEvent
     public void livingDropsEvent(LivingDropsEvent event) {
         Random random = new Random();
-        if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getSource().getSourceOfDamage();
+        if (event.getSource().getImmediateSource() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
             if (player.inventory.getCurrentItem().getItem() == this.killTool) {
                 if (event.getEntityLiving().getClass().isAssignableFrom(this.livingClass) && this.isChild == event.getEntityLiving().isChild()) {
                     if (this.vanillaDropChance == -1 ? random.nextInt(100) >= 35 : random.nextInt(100) <= this.vanillaDropChance) {

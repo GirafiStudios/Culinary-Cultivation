@@ -119,7 +119,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
 
     private void pickupItems() {
         for (EntityItem entityItem : getCaptureItems(world, pos)) {
-            ItemStack stack = entityItem.getEntityItem().copy();
+            ItemStack stack = entityItem.getItem().copy();
             if (WinnowingMachineRecipes.instance().getProcessingResult(stack) != null) {
                 if (inventory.get(0).isEmpty()) {
                     inventory.set(0, stack);
@@ -129,7 +129,7 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
                     if (ret.isEmpty()) {
                         entityItem.setDead();
                     } else {
-                        entityItem.setEntityItemStack(ret);
+                        entityItem.setItem(ret);
                     }
                 }
             }

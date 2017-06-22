@@ -40,6 +40,12 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory<WinnowingRecipe
 
     @Override
     @Nonnull
+    public String getModName() {
+        return Reference.MOD_NAME;
+    }
+
+    @Override
+    @Nonnull
     public IDrawable getBackground() {
         return background;
     }

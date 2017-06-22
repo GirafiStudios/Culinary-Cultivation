@@ -7,6 +7,7 @@ import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeWr
 import com.girafi.culinarycultivation.util.reference.Reference;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.item.ItemStack;
@@ -19,7 +20,6 @@ public class JEIPlugin extends BlankModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
-        registry.addRecipeCategories(new WinnowingRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.handleRecipes(WinnowingMachineRecipe.class, new IRecipeWrapperFactory<WinnowingMachineRecipe>() {
             @Override
             @Nonnull
@@ -28,7 +28,12 @@ public class JEIPlugin extends BlankModPlugin {
             }
         }, WINNOWING);
         registry.addRecipes(WinnowingRecipeWrapper.getRecipes(), WINNOWING);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.FAN_HOUSING), WINNOWING);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.SEPARATOR), WINNOWING);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.FAN_HOUSING), WINNOWING);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.SEPARATOR), WINNOWING);
+    }
+
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registry) {
+        registry.addRecipeCategories(new WinnowingRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 }

@@ -109,7 +109,7 @@ public class ItemSeedBag extends Item {
         boolean handled = false;
         EntityItem entityItem = event.getItem();
         if (entityItem != null) {
-            ItemStack leftover = entityItem.getEntityItem();
+            ItemStack leftover = entityItem.getItem();
             InventoryPlayer playerInv = event.getEntityPlayer().inventory;
             for (int i = 0; i < playerInv.getSizeInventory(); i++) {
                 ItemStack playerSlotStack = playerInv.getStackInSlot(i);

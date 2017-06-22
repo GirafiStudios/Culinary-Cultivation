@@ -23,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 @RegisterEvent
 public class ItemDebugItem extends Item {
@@ -110,19 +111,19 @@ public class ItemDebugItem extends Item {
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.getHeldItem(hand);
         if (stack.getItemDamage() == 3) {
-            if (player.isSneaking() && applyBonemeal(stack, world, pos, player) && world.getBlockState(pos).getBlock() instanceof BlockCrops) {
+            if (player.isSneaking() && applyBonemeal(player, world, pos, stack, hand) && world.getBlockState(pos).getBlock() instanceof BlockCrops) {
                 if (!world.isRemote) {
                     world.playEvent(2005, pos, 0);
                     for (int x = -1; x <= 1; x++) {
                         for (int z = -1; z <= 1; z++) {
-                            if (applyBonemeal(stack, world, pos.add(x, 0, z), player)) {
+                            if (applyBonemeal(player, world, pos.add(x, 0, z), stack, hand)) {
                                 world.playEvent(2005, pos.add(x, 0, z), 0);
                             }
                         }
                     }
                 }
                 return EnumActionResult.SUCCESS;
-            } else if (applyBonemeal(stack, world, pos, player)) {
+            } else if (applyBonemeal(player, world, pos, stack, hand)) {
                 if (!world.isRemote) {
                     world.playEvent(2005, pos, 0);
                 }
@@ -163,16 +164,16 @@ public class ItemDebugItem extends Item {
         return EnumActionResult.PASS;
     }
 
-    private static boolean applyBonemeal(@Nonnull ItemStack stack, World world, BlockPos target, EntityPlayer player) {
-        IBlockState state = world.getBlockState(target);
-        int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, world, target, state, stack);
+    private static boolean applyBonemeal(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull ItemStack stack, @Nullable EnumHand hand) {
+        IBlockState state = world.getBlockState(pos);
+        int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, world, pos, state, stack, hand);
         if (hook != 0) return hook > 0;
         if (state.getBlock() instanceof IGrowable) {
             IGrowable igrowable = (IGrowable) state.getBlock();
-            if (igrowable.canGrow(world, target, state, world.isRemote)) {
+            if (igrowable.canGrow(world, pos, state, world.isRemote)) {
                 if (!world.isRemote) {
-                    if (igrowable.canUseBonemeal(world, world.rand, target, state)) {
-                        igrowable.grow(world, world.rand, target, state);
+                    if (igrowable.canUseBonemeal(world, world.rand, pos, state)) {
+                        igrowable.grow(world, world.rand, pos, state);
                     }
                 }
                 return true;
