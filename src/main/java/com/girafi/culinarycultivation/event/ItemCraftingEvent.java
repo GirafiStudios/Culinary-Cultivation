@@ -1,6 +1,5 @@
 package com.girafi.culinarycultivation.event;
 
-import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.api.item.ICraftingTool;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemModFishFood;
@@ -8,8 +7,8 @@ import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import com.girafi.culinarycultivation.util.NBTHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.util.EnumHand;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
@@ -18,10 +17,10 @@ import java.util.Random;
 
 public class ItemCraftingEvent {
 
-    @RegisterEvent
+    @EventBusSubscriber
     public static class CraftedEvent {
         @SubscribeEvent
-        public void craftingHandler(ItemCraftedEvent craftedEvent) {
+        public static void craftingHandler(ItemCraftedEvent craftedEvent) {
             for (int i = 0; i < craftedEvent.craftMatrix.getSizeInventory(); i++) {
                 ItemStack stack = craftedEvent.craftMatrix.getStackInSlot(i);
                 if (!stack.isEmpty() && stack.getItem() instanceof ICraftingTool && !(craftedEvent.crafting.getItem() instanceof ICraftingTool)) {
@@ -41,7 +40,7 @@ public class ItemCraftingEvent {
 
 
         @SubscribeEvent
-        public void drumstickCraftedEvent(ItemCraftedEvent event) {
+        public static void drumstickCraftedEvent(ItemCraftedEvent event) {
             ItemStack stack = event.crafting;
             if (stack.getItem() == ModItems.MEAT && stack.getItemDamage() == MeatType.CHICKEN_NUGGET.getMetadata()) {
                 Random rand = event.player.getRNG();
@@ -50,12 +49,12 @@ public class ItemCraftingEvent {
         }
     }
 
-    @RegisterEvent
+    @EventBusSubscriber
     public static class AchievementTriggerEvent {
         @SubscribeEvent
-        public void smeltedEvent(ItemSmeltedEvent event) {
+        public static void smeltedEvent(ItemSmeltedEvent event) {
             if (event.smelting.getItem() instanceof ItemModFishFood) {
-                event.player.addStat(AchievementList.COOK_FISH);
+                //event.player.addStat(AdvancementList.COOK_FISH); //TODO
             }
         }
     }

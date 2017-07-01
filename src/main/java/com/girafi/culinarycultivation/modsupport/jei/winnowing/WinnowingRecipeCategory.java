@@ -1,6 +1,6 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
-import com.girafi.culinarycultivation.modsupport.jei.JEIPlugin;
+import com.girafi.culinarycultivation.modsupport.jei.JEI;
 import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import mezz.jei.api.IGuiHelper;
@@ -9,14 +9,14 @@ import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeCategory;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class WinnowingRecipeCategory extends BlankRecipeCategory<WinnowingRecipeWrapper> {
+public class WinnowingRecipeCategory implements IRecipeCategory<WinnowingRecipeWrapper> {
     static final int inputSlot = 0;
     static final int outputSlot = 1;
     static final int junkSlot = 2;
@@ -29,7 +29,7 @@ public class WinnowingRecipeCategory extends BlankRecipeCategory<WinnowingRecipe
     @Override
     @Nonnull
     public String getUid() {
-        return JEIPlugin.WINNOWING;
+        return JEI.WINNOWING;
     }
 
     @Override

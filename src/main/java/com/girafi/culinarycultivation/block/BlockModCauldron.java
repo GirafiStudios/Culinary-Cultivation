@@ -10,6 +10,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,7 +75,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(@Nonnull ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
         if (NBTHelper.hasKey(stack, "FluidName")) {
             if (GuiScreen.isShiftKeyDown()) {
                 TileFluidTank tank = new TileFluidTank(0);

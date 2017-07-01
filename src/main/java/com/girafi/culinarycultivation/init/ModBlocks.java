@@ -11,20 +11,20 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
 import javax.annotation.Nullable;
 
 import static com.girafi.culinarycultivation.item.ItemCropProduct.ProductType;
 
-@GameRegistry.ObjectHolder(Reference.MOD_ID)
+@ObjectHolder(Reference.MOD_ID)
 public class ModBlocks {
-
     public static final BlockDoubleCrop BLACK_PEPPER = new BlockDoubleCrop();
     public static final BlockDoubleCrop CORN = new BlockDoubleCrop();
     public static final BlockCrop CUCUMBER = new BlockCrop();
     public static final BlockCrop TOMATO = new BlockCrop();
-
     public static final Block CHEESE = new BlockCheese();
     public static final Block CAULDRON = new BlockModCauldron();
     public static final Block FAN_HOUSING = new BlockFanHousing();
@@ -68,14 +68,18 @@ public class ModBlocks {
     }
 
     private static Block registerBlock(Block block, String name, @Nullable CreativeTabs tab, boolean registerItemBlock) {
-        block.setUnlocalizedName(new ResourceLocation(Reference.MOD_ID, name).toString());
         if (tab != null) {
             block.setCreativeTab(tab);
         }
+        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, name);
+        block.setUnlocalizedName(resourceLocation.toString());
+        block.setRegistryName(resourceLocation);
+        ForgeRegistries.BLOCKS.register(block);
 
-        GameRegistry.register(block, new ResourceLocation(Reference.MOD_ID, name));
         if (registerItemBlock) {
-            GameRegistry.register(new ItemBlock(block), block.getRegistryName());
+            ItemBlock itemBlock = new ItemBlock(block);
+            itemBlock.setRegistryName(name);
+            ForgeRegistries.ITEMS.register(itemBlock);
         }
         CulinaryCultivation.proxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
 

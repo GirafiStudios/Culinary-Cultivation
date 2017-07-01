@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class TileEntityCauldronRenderer extends TileEntitySpecialRenderer<TileEntityCauldron> {
 
     @Override
-    public void renderTileEntityAt(TileEntityCauldron cauldron, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void render(TileEntityCauldron cauldron, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         if (cauldron != null) {
             final TileFluidTank tank = cauldron.tank;
 

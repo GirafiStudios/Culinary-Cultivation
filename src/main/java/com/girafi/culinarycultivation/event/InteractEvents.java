@@ -1,6 +1,6 @@
 package com.girafi.culinarycultivation.event;
 
-import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
+import com.girafi.culinarycultivation.api.annotations.IRegisterEvent;
 import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
@@ -18,11 +18,12 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class InteractEvents {
 
-    @RegisterEvent
+    @EventBusSubscriber
     public static class CakeKnifeInteractionEvent {
         @SubscribeEvent
         public void cakeKnifeInteractionEvent(PlayerInteractEvent event) {
@@ -88,7 +89,7 @@ public class InteractEvents {
         }
     }
 
-    @RegisterEvent
+    @EventBusSubscriber
     public static class CheeseInteractionEvent extends CakeKnifeInteractionEvent {
         @Override
         public Item sliceItem() {
@@ -106,10 +107,10 @@ public class InteractEvents {
         }
     }
 
-    @RegisterEvent
+    @EventBusSubscriber
     public static class DebugItemEvent {
         @SubscribeEvent
-        public void debugItemEvent(PlayerInteractEvent event) {
+        public static void debugItemEvent(PlayerInteractEvent event) {
             IBlockState state = event.getWorld().getBlockState(event.getPos());
             Block block = state.getBlock();
             ItemStack heldItem = event.getEntityPlayer().getHeldItem(event.getHand());
@@ -140,10 +141,10 @@ public class InteractEvents {
         }
     }
 
-    @RegisterEvent
+    @EventBusSubscriber
     public static class CaneKnife {
         @SubscribeEvent
-        public void caneKnifeBreakEvent(BlockEvent.BreakEvent event) {
+        public static void caneKnifeBreakEvent(BlockEvent.BreakEvent event) {
             ItemStack heldStack = event.getPlayer().inventory.getCurrentItem();
             if (!heldStack.isEmpty() && heldStack.getItem() instanceof ItemCaneKnife) {
                 World world = event.getWorld();
@@ -194,8 +195,8 @@ public class InteractEvents {
         }
     }
 
-    @RegisterEvent
-    public static class VanillaCrops implements RegisterEvent.IRegisterEvent {
+    @EventBusSubscriber
+    public static class VanillaCrops implements IRegisterEvent {
         @Override
         public boolean isActive() {
             return ConfigurationHandler.canRightClickHarvestVanillaCrops;

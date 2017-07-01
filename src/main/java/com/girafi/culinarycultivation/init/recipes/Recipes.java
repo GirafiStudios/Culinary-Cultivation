@@ -5,7 +5,6 @@ import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineHandler;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.girafi.culinarycultivation.util.FuelHandler;
-import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockPlanks;
@@ -14,24 +13,20 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import javax.annotation.Nonnull;
 
 import static com.girafi.culinarycultivation.init.ModBlocks.*;
 import static com.girafi.culinarycultivation.init.ModItems.*;
 import static com.girafi.culinarycultivation.item.ItemCropProduct.ProductType;
-import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
 
 public class Recipes {
     public static void initHandlers() {
         CulinaryCultivationAPI.winnowing = WinnowingMachineRecipes.instance();
-        GameRegistry.addRecipe(new RecipesFarmerArmorDyes());
-        RecipeSorter.register(Reference.MOD_ID + ":farmerarmordyes", RecipesFarmerArmorDyes.class, SHAPELESS, "after:minecraft:shapeless");
+        ForgeRegistries.RECIPES.register(new RecipesFarmerArmorDyes());
         GameRegistry.registerFuelHandler(new FuelHandler());
     }
 
@@ -138,10 +133,8 @@ public class Recipes {
     }
 
     private static void addShaped(@Nonnull ItemStack result, Object... recipe) {
-        GameRegistry.addRecipe(new ShapedOreRecipe(result, recipe));
     }
 
     private static void addShapeless(@Nonnull ItemStack result, Object... recipe) {
-        GameRegistry.addRecipe(new ShapelessOreRecipe(result, recipe));
     }
 }

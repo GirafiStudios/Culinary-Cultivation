@@ -3,21 +3,27 @@ package com.girafi.culinarycultivation.init.recipes;
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.equipment.armor.farmer.ItemFarmerArmor;
+import com.girafi.culinarycultivation.util.reference.Reference;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class RecipesFarmerArmorDyes implements IRecipe {
+public class RecipesFarmerArmorDyes extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+    public RecipesFarmerArmorDyes() {
+        setRegistryName(new ResourceLocation(Reference.MOD_ID, "farmerarmordyes"));
+    }
 
     @Override
     public boolean matches(@Nonnull InventoryCrafting crafting, @Nonnull World world) {
@@ -85,7 +91,7 @@ public class RecipesFarmerArmorDyes implements IRecipe {
                         return ItemStack.EMPTY;
                     }
 
-                    float[] afloat = EntitySheep.getDyeRgb(EnumDyeColor.byDyeDamage(craftingStack.getMetadata()));
+                    float[] afloat = EnumDyeColor.byDyeDamage(craftingStack.getMetadata()).getColorComponentValues();
                     int l1 = (int) (afloat[0] * 255.0F);
                     int i2 = (int) (afloat[1] * 255.0F);
                     int j2 = (int) (afloat[2] * 255.0F);
@@ -117,11 +123,6 @@ public class RecipesFarmerArmorDyes implements IRecipe {
     }
 
     @Override
-    public int getRecipeSize() {
-        return 10;
-    }
-
-    @Override
     @Nonnull
     public ItemStack getRecipeOutput() {
         return ItemStack.EMPTY;
@@ -137,5 +138,15 @@ public class RecipesFarmerArmorDyes implements IRecipe {
             stacks.set(i, ForgeHooks.getContainerItem(stack));
         }
         return stacks;
+    }
+
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
+
+    @Override
+    public boolean canFit(int width, int height) {
+        return width * height >= 2;
     }
 }

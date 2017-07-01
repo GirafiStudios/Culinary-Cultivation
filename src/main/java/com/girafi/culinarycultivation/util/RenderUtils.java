@@ -1,10 +1,11 @@
 package com.girafi.culinarycultivation.util;
 
+import com.girafi.culinarycultivation.CulinaryCultivation;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -17,7 +18,7 @@ public class RenderUtils {
     public static void renderFluid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color) {
         final Minecraft mc = Minecraft.getMinecraft();
         final Tessellator tessellator = Tessellator.getInstance();
-        final VertexBuffer buffer = tessellator.getBuffer();
+        final BufferBuilder buffer = tessellator.getBuffer();
         final int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
         buffer.begin(7, DefaultVertexFormats.BLOCK);
@@ -39,9 +40,9 @@ public class RenderUtils {
         cleanupRenderState();
     }
 
-    public static void addTexturedQuad(VertexBuffer buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int color, int brightness) {
+    public static void addTexturedQuad(BufferBuilder buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int color, int brightness) {
         if (sprite == null) {
-            LogHelper.warn("Attempted to draw a textures quad with no texture! X:%f Y:%f Z:%f");
+            CulinaryCultivation.LOG.warn("Attempted to draw a textures quad with no texture! X:%f Y:%f Z:%f");
             return;
         }
 
@@ -55,7 +56,7 @@ public class RenderUtils {
         addTextureQuad(buffer, sprite, x, y, z, width, height, length, face, red, green, blue, alpha, firstLightValue, secondLightValue);
     }
 
-    public static void addTextureQuad(VertexBuffer buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int red, int green, int blue, int alpha, int light1, int light2) {
+    public static void addTextureQuad(BufferBuilder buffer, TextureAtlasSprite sprite, double x, double y, double z, double width, double height, double length, EnumFacing face, int red, int green, int blue, int alpha, int light1, int light2) {
         double minU;
         double maxU;
         double minV;

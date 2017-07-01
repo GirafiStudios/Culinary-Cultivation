@@ -23,12 +23,15 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 
 import static com.girafi.culinarycultivation.item.ItemCropProduct.Type;
 
-@GameRegistry.ObjectHolder(Reference.MOD_ID)
+@ObjectHolder(Reference.MOD_ID)
+@EventBusSubscriber
 public class ModItems {
     /* Tools */
     public static final Item CAKE_KNIFE = new ItemCakeKnife();
@@ -114,10 +117,11 @@ public class ModItems {
     }
 
     private static Item registerItem(Item item, String name, CreativeTabs tab) {
-        item.setUnlocalizedName(new ResourceLocation(Reference.MOD_ID, name).toString());
+        ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, name);
+        item.setUnlocalizedName(resourceLocation.toString());
+        item.setRegistryName(resourceLocation);
         item.setCreativeTab(tab);
-
-        GameRegistry.register(item, new ResourceLocation(Reference.MOD_ID, name));
+        ForgeRegistries.ITEMS.register(item);
 
         if (item instanceof IOreDictEntry) {
             IOreDictEntry entry = (IOreDictEntry) item;
@@ -127,7 +131,7 @@ public class ModItems {
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
             if (item.getHasSubtypes()) {
                 NonNullList<ItemStack> subItems = NonNullList.create();
-                item.getSubItems(item, tab, subItems);
+                item.getSubItems(tab, subItems);
                 for (ItemStack stack : subItems) {
                     String subItemName = item.getUnlocalizedName(stack).replace("item.culinarycultivation:", "");
 

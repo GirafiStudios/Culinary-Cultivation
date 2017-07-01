@@ -1,12 +1,14 @@
 package com.girafi.culinarycultivation.item.equipment.armor.farmer;
 
+import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.init.ModItems;
-import com.girafi.culinarycultivation.util.LogHelper;
 import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -79,7 +81,7 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
         try {
             return EXHAUSTION.getFloat(player.getFoodStats());
         } catch (Exception ignored) {
-            LogHelper.error("Farmer Armor could not reduce exhaustion properly.");
+            CulinaryCultivation.LOG.error("Farmer Armor could not reduce exhaustion properly.");
         }
         return 0;
     }
@@ -104,7 +106,8 @@ public class ItemFarmerArmor extends ItemArmor implements ISpecialArmor {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(@Nonnull ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
+        EntityPlayer player = Minecraft.getMinecraft().player;
         if (GuiScreen.isShiftKeyDown()) {
             tooltip.add(StringUtil.formatColorCode(Reference.MOD_ID + ".armorset.farmer.name") + " (" + getPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")");
             ItemStack[] stacks = getArmorSetStacks();

@@ -5,8 +5,9 @@ import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipe;
 import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory;
 import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeWrapper;
 import com.girafi.culinarycultivation.util.reference.Reference;
-import mezz.jei.api.BlankModPlugin;
+import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
@@ -14,8 +15,8 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-@mezz.jei.api.JEIPlugin
-public class JEIPlugin extends BlankModPlugin {
+@JEIPlugin
+public class JEI implements IModPlugin {
     public static final String WINNOWING = Reference.MOD_ID + "." + "winnowing";
 
     @Override

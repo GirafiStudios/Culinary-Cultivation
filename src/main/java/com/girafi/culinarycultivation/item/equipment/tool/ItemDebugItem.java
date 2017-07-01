@@ -1,6 +1,5 @@
 package com.girafi.culinarycultivation.item.equipment.tool;
 
-import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.network.NetworkHandler;
 import com.girafi.culinarycultivation.network.packet.PacketChangeMode;
@@ -18,6 +17,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.MouseEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@RegisterEvent
+@EventBusSubscriber
 public class ItemDebugItem extends Item {
     private boolean alwaysEdible;
 
@@ -204,7 +204,7 @@ public class ItemDebugItem extends Item {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onMouseEvent(MouseEvent event) {
+    public static void onMouseEvent(MouseEvent event) {
         if (event.getButton() < 0) {
             EntityPlayer player = Minecraft.getMinecraft().player;
             if (player.isSneaking()) {

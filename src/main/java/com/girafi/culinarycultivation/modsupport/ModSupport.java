@@ -1,9 +1,9 @@
 package com.girafi.culinarycultivation.modsupport;
 
+import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.modsupport.forestry.Forestry;
 import com.girafi.culinarycultivation.modsupport.waila.Waila;
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
-import com.girafi.culinarycultivation.util.LogHelper;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import com.girafi.culinarycultivation.util.reference.SupportedModIDs;
 import net.minecraftforge.fml.common.Loader;
@@ -35,7 +35,7 @@ public class ModSupport {
             try {
                 modSupportMods.add(entry.getValue().newInstance());
             } catch (Exception e) {
-                LogHelper.error("Failed to load mod support handler");
+                CulinaryCultivation.LOG.error("Failed to load mod support handler");
                 e.printStackTrace();
             }
         });
@@ -46,7 +46,7 @@ public class ModSupport {
             try {
                 modSupport.preInit();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in PreInit");
+                CulinaryCultivation.LOG.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in PreInit");
                 e.printStackTrace();
             }
         }
@@ -57,7 +57,7 @@ public class ModSupport {
             try {
                 modSupport.init();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in Init");
+                CulinaryCultivation.LOG.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in Init");
                 e.printStackTrace();
             }
         }
@@ -68,7 +68,7 @@ public class ModSupport {
             try {
                 modSupport.postInit();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in PostInit");
+                CulinaryCultivation.LOG.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " in PostInit");
                 e.printStackTrace();
             }
         }
@@ -79,7 +79,7 @@ public class ModSupport {
             try {
                 modSupport.clientSide();
             } catch (Exception e) {
-                LogHelper.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " on client side!");
+                CulinaryCultivation.LOG.error(Reference.MOD_NAME + " could not load mod support content from " + modSupport.getClass() + " on client side!");
                 e.printStackTrace();
             }
         }

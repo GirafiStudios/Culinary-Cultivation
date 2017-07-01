@@ -5,7 +5,7 @@ import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipes;
 import mezz.jei.api.gui.IGuiIngredient;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import static com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory.junkSlot;
 import static com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory.outputSlot;
 
-public class WinnowingRecipeWrapper extends BlankRecipeWrapper {
+public class WinnowingRecipeWrapper implements IRecipeWrapper {
     public final List<ItemStack> inputs;
     public final List<ItemStack> junks;
     public final List<ItemStack> outputs;

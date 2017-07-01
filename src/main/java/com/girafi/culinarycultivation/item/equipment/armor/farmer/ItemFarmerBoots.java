@@ -4,6 +4,7 @@ import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -41,9 +42,9 @@ public class ItemFarmerBoots extends ItemFarmerArmor {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(@Nonnull ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
         tooltip.add(StringUtil.translateToLocal(Reference.MOD_ID + ".armorset.farmer.boots.desc"));
         tooltip.add("");
-        super.addInformation(stack, player, tooltip, advanced);
+        super.addInformation(stack, world, tooltip, flag);
     }
 }

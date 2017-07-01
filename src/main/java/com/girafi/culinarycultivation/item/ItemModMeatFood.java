@@ -9,14 +9,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -66,8 +63,7 @@ public class ItemModMeatFood extends ItemFood implements IOreDictEntry {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(@Nonnull Item item, CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
+    public void getSubItems(@Nonnull CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
         for (MeatType meattype : MeatType.values()) {
             if (!meattype.isHaveRawMeat() && this.cooked && meattype.isHaveCookedMeat()) {
                 list.add(new ItemStack(this, 1, meattype.getMetadata()));

@@ -1,13 +1,13 @@
 package com.girafi.culinarycultivation.item.equipment.tool;
 
 import com.girafi.culinarycultivation.CulinaryCultivation;
-import com.girafi.culinarycultivation.api.annotations.RegisterEvent;
 import com.girafi.culinarycultivation.client.gui.GuiHandler;
 import com.girafi.culinarycultivation.inventory.SeedBagInventory;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -20,6 +20,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,7 +29,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-@RegisterEvent
+@EventBusSubscriber
 public class ItemSeedBag extends Item {
 
     public ItemSeedBag() {
@@ -53,13 +54,13 @@ public class ItemSeedBag extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(@Nonnull ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
         if (!getSeedStack(stack).isEmpty()) {
             tooltip.add(TextFormatting.GREEN + getSeedStack(stack).getDisplayName());
-            if (advanced) tooltip.add("");
+            if (flag.isAdvanced()) tooltip.add("");
         }
 
-        if (advanced) {
+        if (flag.isAdvanced()) {
             int maxDamage = this.getMaxDamage(stack);
             tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".seed_bag.seeds", this.getSeedAmount(stack) + " / " + maxDamage));
         }
@@ -83,7 +84,7 @@ public class ItemSeedBag extends Item {
         return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
-    public static EnumActionResult useSeedBag(EntityPlayer player, World world, BlockPos pos, EnumHand hand, @Nonnull ItemStack heldStack, EnumFacing facing) {
+    static EnumActionResult useSeedBag(EntityPlayer player, World world, BlockPos pos, EnumHand hand, @Nonnull ItemStack heldStack, EnumFacing facing) {
         if (player.isSneaking()) return EnumActionResult.PASS;
 
         SeedBagInventory seedBagInventory = new SeedBagInventory(heldStack);
@@ -105,7 +106,7 @@ public class ItemSeedBag extends Item {
     }
 
     @SubscribeEvent
-    public void pickupSeeds(EntityItemPickupEvent event) {
+    public static void pickupSeeds(EntityItemPickupEvent event) {
         boolean handled = false;
         EntityItem entityItem = event.getItem();
         if (entityItem != null) {
@@ -137,7 +138,7 @@ public class ItemSeedBag extends Item {
         }
     }
 
-    private void finishSeeds(EntityItemPickupEvent event, EntityItem entity, EntityPlayer player, @Nonnull ItemStack leftover) {
+    private static void finishSeeds(EntityItemPickupEvent event, EntityItem entity, EntityPlayer player, @Nonnull ItemStack leftover) {
         entity.setDead();
         event.setCanceled(true);
         player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
