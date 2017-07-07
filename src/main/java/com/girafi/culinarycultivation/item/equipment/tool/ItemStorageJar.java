@@ -1,5 +1,6 @@
 package com.girafi.culinarycultivation.item.equipment.tool;
 
+import com.girafi.culinarycultivation.api.annotations.EventRegister;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.FluidHandlerItemStackAdvanced;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
@@ -27,7 +28,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@EventBusSubscriber
+@EventRegister
 public class ItemStorageJar extends Item {
     public static final int JAR_VOLUME = 250;
     private static final int MAX_TEMPERATURE = 1000; //Approximate softening point of glass
@@ -136,7 +136,7 @@ public class ItemStorageJar extends Item {
         if (event.getTarget() instanceof EntityCow & !event.getEntityLiving().isChild() && FluidRegistry.isFluidRegistered("milk")) {
             if (heldStack.getItem() == ModItems.STORAGE_JAR && !NBTHelper.hasTag(heldStack) && !player.capabilities.isCreativeMode) {
                 player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-                InventoryHandlerHelper.fillContainer(getContainerItem(heldStack), new FluidStack(FluidRegistry.getFluid("milk"), JAR_VOLUME), heldStack, player, event.getHand());
+                InventoryHandlerHelper.fillContainer(new ItemStack(heldStack.getItem(), 1, 1), new FluidStack(FluidRegistry.getFluid("milk"), JAR_VOLUME), heldStack, player, event.getHand());
             }
         }
     }

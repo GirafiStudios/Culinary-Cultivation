@@ -1,9 +1,8 @@
 package com.girafi.culinarycultivation.proxy;
 
-import com.girafi.culinarycultivation.api.annotations.IRegisterEvent;
+import com.girafi.culinarycultivation.api.annotations.EventRegister;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 
 import javax.annotation.Nonnull;
@@ -25,17 +24,19 @@ public abstract class CommonProxy {
         registerEvents(data);
     }
 
-    private static void registerEvents(@Nonnull ASMDataTable asmDataTable) {
-        String className = EventBusSubscriber.class.getCanonicalName();
-        Set<ASMDataTable.ASMData> asmDataSet = new HashSet<>(asmDataTable.getAll(className));
-        for (ASMDataTable.ASMData asmData : asmDataSet) {
+    private static void registerEvents(@Nonnull ASMDataTable dataTable) {
+        String className = EventRegister.class.getCanonicalName();
+        Set<ASMDataTable.ASMData> dataSet = new HashSet<>(dataTable.getAll(className));
+        for (ASMDataTable.ASMData data : dataSet) {
             try {
-                Class clazz = Class.forName(asmData.getClassName());
-                if (IRegisterEvent.class.isAssignableFrom(clazz)) {
-                    IRegisterEvent eventActive = (IRegisterEvent) clazz.newInstance();
+                Class clazz = Class.forName(data.getClassName());
+                if (EventRegister.IOptionalEvent.class.isAssignableFrom(clazz)) {
+                    EventRegister.IOptionalEvent eventActive = (EventRegister.IOptionalEvent) clazz.newInstance();
                     if (eventActive.isActive()) {
                         MinecraftForge.EVENT_BUS.register(clazz.newInstance());
                     }
+                } else {
+                    MinecraftForge.EVENT_BUS.register(clazz.newInstance());
                 }
             } catch (Exception ignored) {
             }

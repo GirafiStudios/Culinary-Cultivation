@@ -23,7 +23,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
@@ -31,10 +30,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import static com.girafi.culinarycultivation.item.ItemCropProduct.Type;
 
 @ObjectHolder(Reference.MOD_ID)
-@EventBusSubscriber
 public class ModItems {
     /* Tools */
-    public static final Item CAKE_KNIFE = new ItemCakeKnife();
     public static final Item CANE_KNIFE = new ItemCaneKnife();
     public static final Item DEBUG_ITEM = new ItemDebugItem();
     public static final Item FARMER_BOOTS = new ItemFarmerBoots();
@@ -61,7 +58,6 @@ public class ModItems {
     public static final Item CROP_FOOD = new ItemCropProduct(Type.CROP);
     public static final Item CROP_SEEDS = new ItemCropProduct(Type.SEED);
     public static final Item MEAT = new ItemModMeatFood(false);
-    public static final Item CAKE_PIECE = new ItemFood(2, 0.1F, false);
     public static final Item CALF_BELLY = new Item().setMaxStackSize(1);
 
     /* Misc */
@@ -69,7 +65,6 @@ public class ModItems {
 
     public static void register() {
         registerItem(CHEESE_SLICE, "cheese_slice");
-        registerItem(CAKE_PIECE, "cake_piece");
         registerItem(CALF_BELLY, "calf_belly");
         registerItem(MEAT, "meat");
         registerItem(COOKED_MEAT, "cooked_meat");
@@ -82,7 +77,6 @@ public class ModItems {
         registerItem(STORAGE_JAR, "storage_jar");
         registerItem(TOOL_HANDLE, "tool_handle");
         registerItem(KITCHEN_KNIFE, "kitchen_knife");
-        registerItem(CAKE_KNIFE, "cake_knife");
         registerItem(MEAT_CLEAVER, "meat_cleaver");
         registerItem(CANE_KNIFE, "cane_knife");
         registerItem(HOE_LARGE_WOODEN, "wooden_hoe_large");

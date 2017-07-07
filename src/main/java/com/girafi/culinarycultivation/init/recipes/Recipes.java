@@ -44,7 +44,6 @@ public class Recipes {
         addShaped(SEED_BAG, " S ", "CXC", " C ", 'C', new ItemStack(Blocks.CARPET, 1, OreDictionary.WILDCARD_VALUE), 'S', "string", 'X', new ItemStack(CROP_SEEDS, 1, OreDictionary.WILDCARD_VALUE));
 
         //Tools, armor and other stuff
-        addShaped(CAKE_KNIFE, "  H", "II ", 'H', TOOL_HANDLE, 'I', "ingotIron");
         addShaped(CANE_KNIFE, " II", " I ", " H ", 'H', TOOL_HANDLE, 'I', "ingotIron");
         addShaped(FARMER_BOOTS, " B ", "LLL", 'B', Items.LEATHER_BOOTS, 'L', Items.LEATHER);
         addShaped(FARMER_OVERALLS, "S S", "#L#", 'S', "string", 'L', Items.LEATHER_LEGGINGS, '#', "dyeLightBlue");
@@ -61,14 +60,12 @@ public class Recipes {
         addShaped(TOOL_HANDLE, "S", "S", 'S', "stickWood");
 
         //Food
-        addShaped(Items.CAKE, " C ", "CCC", "CCC", 'C', CAKE_PIECE);
         addShapeless(new ItemStack(FISH, 1, FishType.FILLET.getMetadata()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), "filletFish");
         addShapeless(new ItemStack(MEAT, 1, MeatType.PATTY.getMetadata()), new ItemStack(MEAT_CLEAVER, 1, OreDictionary.WILDCARD_VALUE), "foodMincedMeat");
         addShapeless(new ItemStack(MEAT, 3, MeatType.BACON.getMetadata()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.PORKCHOP));
         addShapeless(new ItemStack(MEAT, 2, MeatType.CHICKEN_NUGGET.getMetadata()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.CHICKEN));
         addShapeless(new ItemStack(MEAT, 3, MeatType.SQUID_RING.getMetadata()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(MEAT, 1, MeatType.SQUID_MANTLE.getMetadata()));
         addShapeless(new ItemStack(MEAT, 2, MeatType.SQUID_RING.getMetadata()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(FISH, 1, FishType.SMALL_SQUID.getMetadata()));
-        addShapeless(new ItemStack(CAKE_PIECE, 7), new ItemStack(CAKE_KNIFE, 1, OreDictionary.WILDCARD_VALUE), Items.CAKE);
         addShapeless(new ItemStack(CHEESE_SLICE, 7), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CHEESE);
         //addShapeless(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
 

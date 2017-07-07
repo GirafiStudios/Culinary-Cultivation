@@ -1,17 +1,14 @@
 package com.girafi.culinarycultivation.event;
 
-import com.girafi.culinarycultivation.api.annotations.IRegisterEvent;
+import com.girafi.culinarycultivation.api.annotations.EventRegister;
 import com.girafi.culinarycultivation.block.BlockCrop;
-import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.equipment.tool.ItemCaneKnife;
 import com.girafi.culinarycultivation.util.ConfigurationHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -22,90 +19,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class InteractEvents {
-
-    @EventBusSubscriber
-    public static class CakeKnifeInteractionEvent {
-        @SubscribeEvent
-        public void cakeKnifeInteractionEvent(PlayerInteractEvent event) {
-            World world = event.getWorld();
-            IBlockState state = world.getBlockState(event.getPos());
-            EntityPlayer player = event.getEntityPlayer();
-            ItemStack heldItem = player.getHeldItem(event.getHand());
-            double x = player.posX;
-            double y = player.posY;
-            double z = player.posZ;
-
-            if (!heldItem.isEmpty() && heldItem.getItem() == ModItems.CAKE_KNIFE && state.getBlock() instanceof BlockCake) {
-                int bites = state.getValue(BlockCake.BITES);
-
-                if (event instanceof PlayerInteractEvent.LeftClickBlock) {
-                    if (bites == 0) {
-                        world.setBlockToAir(event.getPos());
-                        if (!world.isRemote) {
-                            world.spawnEntity(new EntityItem(world, x, y, z, state.getBlock().getPickBlock(state, null, world, event.getPos(), player)));
-                        }
-                    } else if (bites > 0 && state.getBlock() == baseBlock()) {
-                        world.setBlockToAir(event.getPos());
-                        if (!world.isRemote) {
-                            world.spawnEntity(new EntityItem(world, x, y, z, new ItemStack(sliceItem(), 7 - bites)));
-                        }
-                    }
-                }
-
-                if (event instanceof PlayerInteractEvent.RightClickBlock && !player.isSneaking() && state.getBlock() == baseBlock()) {
-                    if (player.getFoodStats().needFood()) {
-                        player.getFoodStats().addStats(-hungerAmount(), -saturationAmount());
-
-                        if (!world.isRemote) {
-                            world.spawnEntity(new EntityItem(world, x, y, z, new ItemStack(sliceItem())));
-                        }
-                    } else if (!world.isRemote) {
-                        world.spawnEntity(new EntityItem(world, x, y, z, new ItemStack(sliceItem())));
-
-                        if (bites < 6) {
-                            world.setBlockState(event.getPos(), state.withProperty(BlockCake.BITES, state.getValue(BlockCake.BITES) + 1), 3);
-                        } else {
-                            world.setBlockToAir(event.getPos());
-                        }
-                    }
-                }
-            }
-        }
-
-        public Item sliceItem() {
-            return ModItems.CAKE_PIECE;
-        }
-
-        public Block baseBlock() {
-            return Blocks.CAKE;
-        }
-
-        private int hungerAmount() {
-            return 2;
-        }
-
-        public float saturationAmount() {
-            return 0.1F;
-        }
-    }
-
-    @EventBusSubscriber
-    public static class CheeseInteractionEvent extends CakeKnifeInteractionEvent {
-        @Override
-        public Item sliceItem() {
-            return ModItems.CHEESE_SLICE;
-        }
-
-        @Override
-        public Block baseBlock() {
-            return ModBlocks.CHEESE;
-        }
-
-        @Override
-        public float saturationAmount() {
-            return 0.4F;
-        }
-    }
 
     @EventBusSubscriber
     public static class DebugItemEvent {
@@ -195,8 +108,9 @@ public class InteractEvents {
         }
     }
 
-    @EventBusSubscriber
-    public static class VanillaCrops implements IRegisterEvent {
+    @EventRegister
+    public static class VanillaCrops implements EventRegister.IOptionalEvent {
+
         @Override
         public boolean isActive() {
             return ConfigurationHandler.canRightClickHarvestVanillaCrops;
