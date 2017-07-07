@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "culinarycultivation:meat",
+    "data": 7,
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "item": "culinarycultivation:kitchen_knife",
+      "data": 32767
+    },
+    {
+      "item": "minecraft:porkchop"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "culinarycultivation:farmer_boots"
+  },
+  "pattern": [
+    " B ",
+    "LLL"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:leather_boots"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "culinarycultivation:seed_bag"
+  },
+  "pattern": [
+    " S ",
+    "CXC",
+    " C "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:carpet",
+      "data": 32767
+    },
+    "S": {
+      "ore": "string",
+      "type": "forge:ore_dict"
+    },
+    "X": {
+      "item": "culinarycultivation:crop_seeds",
+      "data": 32767
+    }
+  }
+}

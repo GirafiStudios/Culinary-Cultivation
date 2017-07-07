@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "culinarycultivation:meat",
+    "data": 14,
+    "count": 2
+  },
+  "ingredients": [
+    {
+      "item": "culinarycultivation:kitchen_knife",
+      "data": 32767
+    },
+    {
+      "item": "culinarycultivation:fish",
+      "data": 5
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

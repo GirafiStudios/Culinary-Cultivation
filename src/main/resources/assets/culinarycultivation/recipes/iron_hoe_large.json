@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "culinarycultivation:iron_hoe_large"
+  },
+  "pattern": [
+    "###",
+    " H ",
+    "H  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "#": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    },
+    "H": {
+      "item": "culinarycultivation:tool_handle"
+    }
+  }
+}

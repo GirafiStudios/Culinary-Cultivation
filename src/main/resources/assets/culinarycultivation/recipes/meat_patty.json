@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "culinarycultivation:meat",
+    "data": 8
+  },
+  "ingredients": [
+    {
+      "item": "culinarycultivation:meat_cleaver",
+      "data": 32767
+    },
+    {
+      "ore": "foodMincedMeat",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

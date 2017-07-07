@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "culinarycultivation:kitchen_knife"
+  },
+  "pattern": [
+    "  I",
+    " I ",
+    "H  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "H": {
+      "item": "culinarycultivation:tool_handle"
+    },
+    "I": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

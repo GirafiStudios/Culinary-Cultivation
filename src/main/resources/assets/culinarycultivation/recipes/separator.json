@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "culinarycultivation:separator"
+  },
+  "pattern": [
+    "PHP",
+    "PBF",
+    "  I"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "B": {
+      "item": "minecraft:bowl"
+    },
+    "F": {
+      "item": "minecraft:iron_bars"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "I": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

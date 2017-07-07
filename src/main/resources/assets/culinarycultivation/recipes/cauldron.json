@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "culinarycultivation:cauldron"
+  },
+  "pattern": [
+    "   ",
+    "ICI",
+    " I "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "I": {
+      "ore": "nuggetIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

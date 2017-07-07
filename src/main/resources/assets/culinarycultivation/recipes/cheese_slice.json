@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "culinarycultivation:cheese_slice",
+    "count": 7
+  },
+  "ingredients": [
+    {
+      "item": "culinarycultivation:kitchen_knife",
+      "data": 32767
+    },
+    {
+      "item": "culinarycultivation:cheese"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

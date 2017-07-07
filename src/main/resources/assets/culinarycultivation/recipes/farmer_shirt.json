@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "culinarycultivation:farmer_shirt"
+  },
+  "pattern": [
+    "# #",
+    "###",
+    "###"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:wool",
+      "data": 14
+    }
+  }
+}

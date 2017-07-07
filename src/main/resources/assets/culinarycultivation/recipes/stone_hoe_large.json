@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "culinarycultivation:stone_hoe_large"
+  },
+  "pattern": [
+    "###",
+    " H ",
+    "H  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "#": {
+      "ore": "cobblestone",
+      "type": "forge:ore_dict"
+    },
+    "H": {
+      "item": "culinarycultivation:tool_handle"
+    }
+  }
+}

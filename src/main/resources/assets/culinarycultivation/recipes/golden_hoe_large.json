@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "culinarycultivation:golden_hoe_large"
+  },
+  "pattern": [
+    "###",
+    " H ",
+    "H  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "#": {
+      "ore": "ingotGold",
+      "type": "forge:ore_dict"
+    },
+    "H": {
+      "item": "culinarycultivation:tool_handle"
+    }
+  }
+}

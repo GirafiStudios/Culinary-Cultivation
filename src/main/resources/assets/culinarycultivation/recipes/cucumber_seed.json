@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "culinarycultivation:crop_seeds",
+    "data": 0
+  },
+  "ingredients": [
+    {
+      "item": "culinarycultivation:crop_food",
+      "data": 0
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

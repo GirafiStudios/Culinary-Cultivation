@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "culinarycultivation:tool_handle"
+  },
+  "pattern": [
+    "S",
+    "S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    }
+  }
+}

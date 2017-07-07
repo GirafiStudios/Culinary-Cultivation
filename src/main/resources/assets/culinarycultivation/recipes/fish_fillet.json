@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "culinarycultivation:fish",
+    "data": 7
+  },
+  "ingredients": [
+    {
+      "item": "culinarycultivation:kitchen_knife",
+      "data": 32767
+    },
+    {
+      "ore": "filletFish",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

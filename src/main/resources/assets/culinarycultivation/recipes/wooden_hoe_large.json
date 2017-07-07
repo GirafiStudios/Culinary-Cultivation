@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "culinarycultivation:wooden_hoe_large"
+  },
+  "pattern": [
+    "###",
+    " H ",
+    "H  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "#": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "H": {
+      "item": "culinarycultivation:tool_handle"
+    }
+  }
+}

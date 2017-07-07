@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "culinarycultivation:diamond_hoe_large"
+  },
+  "pattern": [
+    "###",
+    " H ",
+    "H  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "#": {
+      "ore": "gemDiamond",
+      "type": "forge:ore_dict"
+    },
+    "H": {
+      "item": "culinarycultivation:tool_handle"
+    }
+  }
+}

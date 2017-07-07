@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "culinarycultivation:storage_jar"
+  },
+  "pattern": [
+    " S ",
+    "P P",
+    " P "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "ore": "paneGlass",
+      "type": "forge:ore_dict"
+    },
+    "S": {
+      "ore": "slabWood",
+      "type": "forge:ore_dict"
+    }
+  }
+}

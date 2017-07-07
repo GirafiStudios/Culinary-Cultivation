@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "culinarycultivation:farmer_strawhat"
+  },
+  "pattern": [
+    "SHS",
+    "W W"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "ore": "string",
+      "type": "forge:ore_dict"
+    },
+    "W": {
+      "ore": "cropWheat",
+      "type": "forge:ore_dict"
+    },
+    "H": {
+      "item": "minecraft:hay_block"
+    }
+  }
+}

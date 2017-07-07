@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "culinarycultivation:fan_housing"
+  },
+  "pattern": [
+    "PPP",
+    "PRD",
+    "I  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "R": {
+      "ore": "blockRedstone",
+      "type": "forge:ore_dict"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    },
+    "I": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

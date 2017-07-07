@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "culinarycultivation:farmer_overalls"
+  },
+  "pattern": [
+    "S S",
+    "#L#"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "ore": "string",
+      "type": "forge:ore_dict"
+    },
+    "#": {
+      "ore": "dyeLightBlue",
+      "type": "forge:ore_dict"
+    },
+    "L": {
+      "item": "minecraft:leather_leggings"
+    }
+  }
+}
