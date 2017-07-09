@@ -31,7 +31,7 @@ public class Forestry implements IModSupport {
             if (productType.getCropBlock() instanceof BlockDoubleCrop) {
                 BlockDoubleCrop doubleCrop = (BlockDoubleCrop) productType.getCropBlock();
                 IBlockState planted = productType.getCropBlock().getDefaultState();
-                IBlockState mature = doubleCrop.withAge(doubleCrop.getMaxAge());
+                IBlockState mature = ;
                 farmRegistry.registerFarmables(identifier, new FarmableDoubleAgingCrop(seed, planted, mature)); //Make sure the seed can always be planted
                 farmRegistry.registerFarmables(identifier, new FarmableDoubleAgingCrop(stack, planted, mature));
             } else {
