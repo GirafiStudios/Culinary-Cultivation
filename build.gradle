@@ -11,6 +11,10 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 repositories {
     maven {
+	    name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
         url "http://maven.ic2.player.to/"
     }
     maven {
@@ -60,4 +64,14 @@ processResources {
         exclude '**/*.info'
         exclude '**/*.properties'
     }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+    from sourceSets.api.allJava
+}
+
+artifacts {
+    archives sourcesJar
 }
