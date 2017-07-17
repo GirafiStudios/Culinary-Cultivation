@@ -4,8 +4,6 @@ import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineHandler;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
-import com.girafi.culinarycultivation.util.FuelHandler;
-import com.girafi.culinarycultivation.util.RecipeGenerator;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockTallGrass;
@@ -15,8 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.annotation.Nonnull;
-
 import static com.girafi.culinarycultivation.init.ModItems.*;
 import static com.girafi.culinarycultivation.item.ItemCropProduct.ProductType;
 
@@ -24,24 +20,12 @@ public class Recipes {
     public static void initHandlers() {
         CulinaryCultivationAPI.winnowing = WinnowingMachineRecipes.instance();
         ForgeRegistries.RECIPES.register(new RecipesFarmerArmorDyes());
-        GameRegistry.registerFuelHandler(new FuelHandler());
+        ForgeRegistries.RECIPES.register(new WinnowingMachineRecipe());
     }
 
     public static void init() {
-        addRecipes();
         addFurnaceRecipes();
         addWinnowingRecipes();
-    }
-
-    private static void addRecipes() {
-        //addShapeless(STORAGE_JAR, 3, StorageJarType.RENNET.getMetaData()), new ItemStack(KITCHEN_KNIFE, 1, OreDictionary.WILDCARD_VALUE), CALF_BELLY, STORAGE_JAR, STORAGE_JAR, STORAGE_JAR, Items.WATER_BUCKET));
-
-        //Crop -> Seed recipes
-        for (ProductType productType : ProductType.values()) {
-            if (productType.hasCrop()) {
-                addShapeless(new ItemStack(CROP_SEEDS, 1, productType.getMetadata()), new ItemStack(CROP_FOOD, 1, productType.getMetadata()));
-            }
-        }
     }
 
     private static void addFurnaceRecipes() {
@@ -86,13 +70,5 @@ public class Recipes {
         winnowing.addOutput(tallGrass, new ItemStack(Items.PUMPKIN_SEEDS), 1);
         winnowing.addRecipe(new ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.getMetadata()), new ItemStack(Items.MELON_SEEDS), 1, new ItemStack(Blocks.DEADBUSH), 10);
         winnowing.addRecipe(new ItemStack(Items.WHEAT), new ItemStack(Items.WHEAT_SEEDS), 15, new ItemStack(CHAFF_PILE), 90);
-    }
-
-    private static void addShaped(@Nonnull ItemStack result, Object... recipe) {
-        RecipeGenerator.createShapedRecipe(result, recipe); //TODO Run only in dev
-    }
-
-    private static void addShapeless(@Nonnull ItemStack result, Object... recipe) {
-        RecipeGenerator.createShapelessRecipe(result, recipe); //TODO Run only in dev
     }
 }

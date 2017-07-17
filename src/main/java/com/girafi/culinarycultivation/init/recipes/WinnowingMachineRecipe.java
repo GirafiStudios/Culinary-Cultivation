@@ -1,8 +1,14 @@
 package com.girafi.culinarycultivation.init.recipes;
 
+import com.girafi.culinarycultivation.util.reference.Reference;
 import gnu.trove.map.TObjectDoubleMap;
 import gnu.trove.map.hash.TObjectDoubleHashMap;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.NavigableMap;
@@ -10,9 +16,35 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class WinnowingMachineRecipe {
+public class WinnowingMachineRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
     private final WeightedItems output = new WeightedItems();
     private final WeightedItems junk = new WeightedItems();
+
+    public WinnowingMachineRecipe() {
+        setRegistryName(new ResourceLocation(Reference.MOD_ID, "winnowing"));
+    }
+
+    @Override
+    public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World world) {
+        return true;
+    }
+
+    @Override
+    @Nonnull
+    public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
+        return output.get().copy();
+    }
+
+    @Override
+    public boolean canFit(int width, int height) {
+        return true;
+    }
+
+    @Override
+    @Nonnull
+    public ItemStack getRecipeOutput() {
+        return output.get();
+    }
 
     public WeightedItems getOutput() {
         return output;
