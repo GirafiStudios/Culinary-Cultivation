@@ -24,10 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBanner;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -202,6 +199,10 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 } else if (temperature > 1000) {
                     entity.attackEntityFrom(DamageSource.LAVA, 2.5F);
                     entity.setFire(7);
+                    if (!(entity instanceof EntityLivingBase)) {
+                        entity.setDead();
+                        world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+                    }
                 }
             }
         }
