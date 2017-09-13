@@ -1,13 +1,8 @@
-package com.girafi.culinarycultivation.init.recipes;
+package com.girafi.culinarycultivation.init;
 
-import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
-import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineHandler;
+import com.girafi.culinarycultivation.crafting.RecipesFarmerArmorDyes;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockTallGrass;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -18,14 +13,12 @@ import static com.girafi.culinarycultivation.item.ItemCropProduct.ProductType;
 
 public class Recipes {
     public static void initHandlers() {
-        CulinaryCultivationAPI.winnowing = WinnowingMachineRecipes.instance();
         ForgeRegistries.RECIPES.register(new RecipesFarmerArmorDyes());
-        ForgeRegistries.RECIPES.register(new WinnowingMachineRecipe());
     }
 
     public static void init() {
         addFurnaceRecipes();
-        addWinnowingRecipes();
+        //addWinnowingRecipes();
     }
 
     private static void addFurnaceRecipes() {
@@ -52,7 +45,7 @@ public class Recipes {
     }
 
     private static void addWinnowingRecipes() {
-        IWinnowingMachineHandler winnowing = CulinaryCultivationAPI.winnowing;
+        /*IWinnowingMachineHandler winnowing = CulinaryCultivationAPI.winnowing;
 
         ItemStack tallGrass = new ItemStack(Blocks.TALLGRASS, 1, BlockTallGrass.EnumType.GRASS.getMeta());
         ItemStack doubleTallGrass = new ItemStack(Blocks.DOUBLE_PLANT, 1, BlockDoublePlant.EnumPlantType.GRASS.getMeta());
@@ -69,6 +62,6 @@ public class Recipes {
         winnowing.addOutput(tallGrass, new ItemStack(Items.BEETROOT_SEEDS), 2);
         winnowing.addOutput(tallGrass, new ItemStack(Items.PUMPKIN_SEEDS), 1);
         winnowing.addRecipe(new ItemStack(Blocks.SAPLING, 1, BlockPlanks.EnumType.JUNGLE.getMetadata()), new ItemStack(Items.MELON_SEEDS), 1, new ItemStack(Blocks.DEADBUSH), 10);
-        winnowing.addRecipe(new ItemStack(Items.WHEAT), new ItemStack(Items.WHEAT_SEEDS), 15, new ItemStack(CHAFF_PILE), 90);
+        winnowing.addRecipe(new ItemStack(Items.WHEAT), new ItemStack(Items.WHEAT_SEEDS), 15, new ItemStack(CHAFF_PILE), 90);*/
     }
 }

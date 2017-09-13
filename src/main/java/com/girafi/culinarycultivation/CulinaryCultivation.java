@@ -3,7 +3,7 @@ package com.girafi.culinarycultivation;
 import com.girafi.culinarycultivation.client.gui.GuiHandler;
 import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.init.ModItems;
-import com.girafi.culinarycultivation.init.recipes.Recipes;
+import com.girafi.culinarycultivation.init.Recipes;
 import com.girafi.culinarycultivation.modsupport.ModSupport;
 import com.girafi.culinarycultivation.network.NetworkHandler;
 import com.girafi.culinarycultivation.proxy.CommonProxy;
