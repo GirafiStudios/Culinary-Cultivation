@@ -78,16 +78,18 @@ public class ItemStorageJar extends Item {
     @Nonnull
     public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull EnumHand hand) { //TODO Destroy jar when trying to fill too hot fluid from tank
         ItemStack heldStack = player.getHeldItem(hand);
-        RayTraceResult rayTrace = this.rayTrace(world, player, true);
+        RayTraceResult rayTrace = this.rayTrace(world, player, false);
+        RayTraceResult rayTraceLiquid = this.rayTrace(world, player, true);
 
-        if (rayTrace == null || rayTrace.typeOfHit != RayTraceResult.Type.BLOCK || NBTHelper.hasTag(heldStack)) {
+        if (rayTraceLiquid == null || rayTrace == null || rayTraceLiquid.typeOfHit != RayTraceResult.Type.BLOCK || rayTrace.typeOfHit != RayTraceResult.Type.BLOCK || NBTHelper.hasTag(heldStack)) {
             return new ActionResult<>(EnumActionResult.PASS, heldStack);
         }
-        IBlockState state = world.getBlockState(rayTrace.getBlockPos());
+        IBlockState fluidState = world.getBlockState(rayTraceLiquid.getBlockPos());
         FluidHandlerItemStackAdvanced fluidHandler = new FluidHandlerItemStackAdvanced(getContainerItem(heldStack), JAR_VOLUME, MAX_TEMPERATURE);
-        if (isFluid(state)) {
-            FluidStack fluidStackBlock = new FluidStack(FluidRegistry.lookupFluidForBlock(state.getBlock()), JAR_VOLUME);
-            if (!fluidHandler.canFillFluidType(fluidStackBlock)) {
+        if (isFluid(fluidState)) {
+            Fluid blockFluid = FluidRegistry.lookupFluidForBlock(fluidState.getBlock());
+            FluidStack fluidStackBlock = blockFluid != null ? new FluidStack(blockFluid, JAR_VOLUME) : null;
+            if (fluidStackBlock != null && !fluidHandler.canFillFluidType(fluidStackBlock)) {
                 player.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 1.0F);
                 heldStack.shrink(1);
                 return new ActionResult<>(EnumActionResult.PASS, heldStack);
@@ -95,14 +97,14 @@ public class ItemStorageJar extends Item {
         }
 
         int fluid = 0;
-        if (isFluid(world.getBlockState(rayTrace.getBlockPos().north()))) fluid++;
-        if (isFluid(world.getBlockState(rayTrace.getBlockPos().east()))) fluid++;
-        if (isFluid(world.getBlockState(rayTrace.getBlockPos().south()))) fluid++;
-        if (isFluid(world.getBlockState(rayTrace.getBlockPos().west()))) fluid++;
+        if (isFluid(world.getBlockState(rayTraceLiquid.getBlockPos().north()))) fluid++;
+        if (isFluid(world.getBlockState(rayTraceLiquid.getBlockPos().east()))) fluid++;
+        if (isFluid(world.getBlockState(rayTraceLiquid.getBlockPos().south()))) fluid++;
+        if (isFluid(world.getBlockState(rayTraceLiquid.getBlockPos().west()))) fluid++;
 
         if (fluid >= 2) { // Make sure the fluid source is infinite
             player.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 1.0F);
-            InventoryHandlerHelper.fillContainer(fluidHandler.getContainer(), new FluidStack(FluidRegistry.lookupFluidForBlock(state.getBlock()), JAR_VOLUME), heldStack, player, hand);
+            InventoryHandlerHelper.fillContainer(fluidHandler.getContainer(), new FluidStack(FluidRegistry.lookupFluidForBlock(fluidState.getBlock()), JAR_VOLUME), heldStack, player, hand);
             return new ActionResult<>(EnumActionResult.SUCCESS, heldStack);
         }
         return new ActionResult<>(EnumActionResult.FAIL, heldStack);
