@@ -71,7 +71,6 @@ public class MobDropEvent {
                 if (event.getEntityLiving().getClass().isAssignableFrom(this.livingClass) && this.isChild == event.getEntityLiving().isChild()) {
                     if (this.vanillaDropChance == -1 ? random.nextInt(100) >= 35 : random.nextInt(100) <= this.vanillaDropChance) {
                         event.getDrops().clear();
-                        System.out.println("Clear");
                     }
                     int dropChance = MathHelper.getInt(random, this.dropMin, this.dropMax);
                     for (int k = 0; k < dropChance + event.getLootingLevel(); ++k) {

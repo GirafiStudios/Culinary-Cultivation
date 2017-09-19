@@ -91,7 +91,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         ItemStack heldStack = player.getHeldItem(hand);
         ItemStack cauldron = getDrops(world, pos, state, 0).get(0);
 
-        if (player.isSneaking()) { //TODO Force both hands to be empty, and lock the Cauldron in both slots when picked up
+        if (player.isSneaking() && (player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty())) { //TODO Lock the Cauldron in both slots when picked up
             this.onBlockDestroyedByPlayer(world, pos, state);
             InventoryHandlerHelper.giveItem(player, hand, cauldron);
             world.setBlockToAir(pos);
