@@ -2,6 +2,7 @@ package com.girafi.culinarycultivation.init.recipes;
 
 import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineHandler;
 import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemGeneral;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
@@ -39,7 +40,7 @@ public class WinnowingMachineRecipes implements IWinnowingMachineHandler {
 
     @Override
     public void addRecipe(@Nonnull ItemStack input, @Nonnull ItemStack output, double weight) {
-        addRecipe(input, output, weight, new ItemStack(ModItems.CHAFF_PILE), 10D);
+        addRecipe(input, output, weight, new ItemStack(ModItems.GENERAL, 1, ItemGeneral.Type.CHAFF_PILE.getMetadata()), 10D);
     }
 
     //Returns a recipe for this input, if this input has nothing create a new recipe

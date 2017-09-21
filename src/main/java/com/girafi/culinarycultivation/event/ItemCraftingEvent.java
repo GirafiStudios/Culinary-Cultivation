@@ -3,6 +3,7 @@ package com.girafi.culinarycultivation.event;
 import com.girafi.culinarycultivation.api.annotations.EventRegister;
 import com.girafi.culinarycultivation.api.item.ICraftingTool;
 import com.girafi.culinarycultivation.init.ModItems;
+import com.girafi.culinarycultivation.item.ItemGeneral;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import com.girafi.culinarycultivation.util.NBTHelper;
@@ -13,9 +14,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
 import java.util.Random;
-
-import static com.girafi.culinarycultivation.init.ModItems.CHAFF_PILE;
-import static com.girafi.culinarycultivation.init.ModItems.TOOL_HANDLE;
 
 public class ItemCraftingEvent {
 
@@ -56,9 +54,9 @@ public class ItemCraftingEvent {
         @SubscribeEvent
         public void getBurnTime(FurnaceFuelBurnTimeEvent event) {
             ItemStack fuel = event.getItemStack();
-            if (fuel.getItem() == TOOL_HANDLE) {
+            if (fuel.equals(new ItemStack(ModItems.GENERAL, 1, ItemGeneral.Type.TOOL_HANDLE.getMetadata()))) {
                 event.setBurnTime(200);
-            } else if (fuel.getItem() == CHAFF_PILE) {
+            } else if (fuel.equals(new ItemStack(ModItems.GENERAL, 1, ItemGeneral.Type.CHAFF_PILE.getMetadata()))) {
                 event.setBurnTime(50);
             }
         }

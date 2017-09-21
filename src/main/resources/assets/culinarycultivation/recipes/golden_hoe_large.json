@@ -14,7 +14,8 @@
       "type": "forge:ore_dict"
     },
     "H": {
-      "item": "culinarycultivation:tool_handle"
+      "item": "culinarycultivation:general",
+      "data": 4
     }
   }
 }

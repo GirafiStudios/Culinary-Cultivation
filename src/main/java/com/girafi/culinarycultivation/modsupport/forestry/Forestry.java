@@ -4,6 +4,7 @@ import com.girafi.culinarycultivation.block.BlockCrop;
 import com.girafi.culinarycultivation.block.BlockDoubleCrop;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemCropProduct;
+import com.girafi.culinarycultivation.item.ItemGeneral;
 import com.girafi.culinarycultivation.item.ItemModMeatFood;
 import com.girafi.culinarycultivation.modsupport.IModSupport;
 import forestry.api.core.ForestryAPI;
@@ -51,7 +52,7 @@ public class Forestry implements IModSupport {
             addToHunterBackpack(new ItemStack(ModItems.MEAT, 1, type.getMetadata()));
             addToHunterBackpack(new ItemStack(ModItems.COOKED_MEAT, 1, type.getMetadata()));
         }
-        addToHunterBackpack(new ItemStack(ModItems.CALF_BELLY));
+        addToHunterBackpack(new ItemStack(ModItems.GENERAL, 1, ItemGeneral.Type.CALF_BELLY.getMetadata()));
     }
 
     private void addToHunterBackpack(ItemStack stack) {

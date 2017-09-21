@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "culinarycultivation:tool_handle"
+    "item": "culinarycultivation:general",
+    "data": 4
   },
   "pattern": [
     "S",
