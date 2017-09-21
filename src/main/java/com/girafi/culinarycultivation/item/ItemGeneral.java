@@ -61,6 +61,7 @@ public class ItemGeneral extends Item implements IOreDictEntry {
 
     @Override
     public void getOreDictEntries() {
+        OreDictHelper.add(new ItemStack(this, 1, Type.PEPPER.getMetadata()), "foodPepper", "foodBlackPepper");
         OreDictHelper.add("dustSalt", new ItemStack(this, 1, Type.SALT.getMetadata()));
     }
 

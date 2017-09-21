@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "culinarycultivation:general",
+    "data": 0,
+    "count": 2
+  },
+  "ingredients": [
+    {
+      "item": "culinarycultivation:meat_cleaver",
+      "data": 32767
+    },
+    {
+      "ore": "seedBlackPepperDrupe",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

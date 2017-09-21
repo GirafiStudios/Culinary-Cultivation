@@ -28,6 +28,12 @@ public class OreDictHelper {
         }
     }
 
+    public static void add(ItemStack stack, String... names) {
+        for (String name : names) {
+            OreDictionary.registerOre(StringUtil.toCamelCase(name), stack);
+        }
+    }
+
     public static void register() {
         for (IOreDictEntry entry : entries) {
             entry.getOreDictEntries();
