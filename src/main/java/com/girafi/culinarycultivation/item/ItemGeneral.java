@@ -46,6 +46,20 @@ public class ItemGeneral extends Item implements IOreDictEntry {
     }
 
     @Override
+    public int getItemBurnTime(ItemStack stack) {
+        Type type = Type.byItemStack(stack);
+        switch (type) {
+            case TOOL_HANDLE:
+                return 200;
+            case CHAFF_PILE:
+                return 50;
+            default:
+                return super.getItemBurnTime(stack);
+
+        }
+    }
+
+    @Override
     public void getOreDictEntries() {
         OreDictHelper.add("dustSalt", new ItemStack(this, 1, Type.SALT.getMetadata()));
     }
