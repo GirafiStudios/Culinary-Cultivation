@@ -1,4 +1,4 @@
-package com.girafi.culinarycultivation.init.recipes;
+package com.girafi.culinarycultivation.crafting;
 
 import com.girafi.culinarycultivation.util.reference.Reference;
 import gnu.trove.map.TObjectDoubleMap;

@@ -1,7 +1,7 @@
 package com.girafi.culinarycultivation.modsupport.jei.winnowing;
 
-import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipe;
-import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipes;
+import com.girafi.culinarycultivation.crafting.WinnowingMachineRecipe;
+import com.girafi.culinarycultivation.crafting.WinnowingMachineRecipes;
 import mezz.jei.api.gui.IGuiIngredient;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;

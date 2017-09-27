@@ -3,7 +3,7 @@ package com.girafi.culinarycultivation.init;
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineHandler;
 import com.girafi.culinarycultivation.crafting.RecipesFarmerArmorDyes;
-import com.girafi.culinarycultivation.init.recipes.WinnowingMachineRecipes;
+import com.girafi.culinarycultivation.crafting.WinnowingMachineRecipes;
 import com.girafi.culinarycultivation.item.ItemGeneral;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
 import com.girafi.culinarycultivation.item.ItemModMeatFood.MeatType;
