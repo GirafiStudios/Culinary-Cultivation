@@ -95,6 +95,8 @@ itemGroup.culinarycultivation=Culinary Cultivation
 culinarycultivation.fluid=Fluid: %s
 culinarycultivation.fluid_amount=Amount: %d mB
 culinarycultivation.seed_bag.seeds=Seeds: %s
+culinarycultivation.pepper=Peppered
+culinarycultivation.salt=Salted
 
 #Armor
 culinarycultivation.armorset.farmer.boots.desc=Good to stomp on things with

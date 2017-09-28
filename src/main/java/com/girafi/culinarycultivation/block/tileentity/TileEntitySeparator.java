@@ -2,9 +2,9 @@ package com.girafi.culinarycultivation.block.tileentity;
 
 import com.girafi.culinarycultivation.block.BlockFanHousing;
 import com.girafi.culinarycultivation.block.BlockSeparator;
-import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.crafting.WinnowingMachineRecipe;
 import com.girafi.culinarycultivation.crafting.WinnowingMachineRecipes;
+import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;

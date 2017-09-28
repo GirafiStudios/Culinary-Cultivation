@@ -14,11 +14,15 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
+@EventBusSubscriber
 public class RecipesFarmerArmorDyes extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
     public RecipesFarmerArmorDyes() {
@@ -148,5 +152,10 @@ public class RecipesFarmerArmorDyes extends IForgeRegistryEntry.Impl<IRecipe> im
     @Override
     public boolean canFit(int width, int height) {
         return width * height >= 2;
+    }
+
+    @SubscribeEvent
+    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        event.getRegistry().register(new RecipesFarmerArmorDyes());
     }
 }

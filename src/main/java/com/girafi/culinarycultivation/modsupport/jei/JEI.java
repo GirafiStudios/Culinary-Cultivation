@@ -1,7 +1,7 @@
 package com.girafi.culinarycultivation.modsupport.jei;
 
-import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.crafting.WinnowingMachineRecipe;
+import com.girafi.culinarycultivation.init.ModBlocks;
 import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory;
 import com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeWrapper;
 import com.girafi.culinarycultivation.util.reference.Reference;

@@ -2,7 +2,6 @@ package com.girafi.culinarycultivation.init;
 
 import com.girafi.culinarycultivation.api.CulinaryCultivationAPI;
 import com.girafi.culinarycultivation.api.crafting.IWinnowingMachineHandler;
-import com.girafi.culinarycultivation.crafting.RecipesFarmerArmorDyes;
 import com.girafi.culinarycultivation.crafting.WinnowingMachineRecipes;
 import com.girafi.culinarycultivation.item.ItemGeneral;
 import com.girafi.culinarycultivation.item.ItemModFishFood.FishType;
@@ -13,7 +12,6 @@ import net.minecraft.block.BlockTallGrass;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static com.girafi.culinarycultivation.init.ModItems.*;
@@ -22,7 +20,6 @@ import static com.girafi.culinarycultivation.item.ItemCropProduct.ProductType;
 public class Recipes {
     public static void initHandlers() {
         CulinaryCultivationAPI.winnowing = WinnowingMachineRecipes.instance();
-        ForgeRegistries.RECIPES.register(new RecipesFarmerArmorDyes());
     }
 
     public static void init() {
