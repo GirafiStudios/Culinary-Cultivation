@@ -156,12 +156,12 @@ public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implemen
 
     private static boolean isSalted(@Nonnull ItemStack stack) {
         NBTTagCompound tag = stack.getTagCompound();
-        return stack.getTagCompound() != null && tag.getCompoundTag(SEASONING_NBT_KEY).getBoolean(SALTED_NBT_KEY);
+        return tag != null && tag.getCompoundTag(SEASONING_NBT_KEY) != null && tag.getCompoundTag(SEASONING_NBT_KEY).getBoolean(SALTED_NBT_KEY);
     }
 
     private static boolean isPeppered(@Nonnull ItemStack stack) {
         NBTTagCompound tag = stack.getTagCompound();
-        return stack.getTagCompound() != null && tag.getCompoundTag(SEASONING_NBT_KEY).getBoolean(PEPPERED_NBT_KEY);
+        return tag != null && tag.getCompoundTag(SEASONING_NBT_KEY) != null && tag.getCompoundTag(SEASONING_NBT_KEY).getBoolean(PEPPERED_NBT_KEY);
     }
 
     @SubscribeEvent
