@@ -24,11 +24,12 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Objects;
 
 @EventBusSubscriber
 public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
     public static final String SEASONING_NBT_KEY = "Seasoning";
+    public static final String PEPPERED_NBT_KEY = "Peppered";
+    public static final String SALTED_NBT_KEY = "Salted";
 
     private RecipesSeasoning() {
         setRegistryName(new ResourceLocation(Reference.MOD_ID, "seasoning"));
@@ -52,8 +53,13 @@ public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implemen
                     stack = craftingStack;
                 } else {
                     int meta = craftingStack.getMetadata();
-                    if (craftingStack.getItem() != ModItems.GENERAL && (meta != ItemGeneral.Type.PEPPER.getMetadata() || meta != ItemGeneral.Type.SALT.getMetadata())) {
-                        return false;
+                    if (craftingStack.getItem() == ModItems.GENERAL) {
+                        if (meta == ItemGeneral.Type.PEPPER.getMetadata()) {
+                            return !isPeppered(stack);
+                        }
+                        if (meta == ItemGeneral.Type.SALT.getMetadata()) {
+                            return !isSalted(stack);
+                        }
                     }
                     list.add(craftingStack);
                 }
@@ -66,6 +72,8 @@ public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implemen
     @Nonnull
     public ItemStack getCraftingResult(@Nonnull InventoryCrafting crafting) {
         ItemStack stack = ItemStack.EMPTY;
+        boolean peppered = false;
+        boolean salted = false;
 
         for (int k = 0; k < crafting.getSizeInventory(); ++k) {
             ItemStack craftingStack = crafting.getStackInSlot(k);
@@ -82,28 +90,40 @@ public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implemen
                     stack.setCount(1);
                 }
             }
-            NBTTagCompound tag = new NBTTagCompound();
 
             int meta = craftingStack.getMetadata();
             if (craftingStack.getItem() == ModItems.GENERAL) {
                 if (meta == ItemGeneral.Type.PEPPER.getMetadata()) {
-                    tag.setString(SEASONING_NBT_KEY, "Peppered");
+                    peppered = true;
                 } else if (meta == ItemGeneral.Type.SALT.getMetadata()) {
-                    tag.setString(SEASONING_NBT_KEY, "Salted");
+                    salted = true;
                 }
             }
-
-            if (NBTHelper.hasTag(craftingStack) && stack.getTagCompound() != null) { //TODO Fix
-                System.out.println("Already have tag");
-                tag.setString(SEASONING_NBT_KEY, stack.getTagCompound().getString(SEASONING_NBT_KEY));
-            }
-
-            if (!tag.hasNoTags()) {
-                stack.setTagCompound(tag);
-                return stack;
-            }
         }
-        return ItemStack.EMPTY;
+
+        if (stack.isEmpty()) return ItemStack.EMPTY;
+
+        if (!stack.hasTagCompound()) {
+            stack.setTagCompound(new NBTTagCompound());
+        }
+
+        NBTTagCompound baseTag = stack.getTagCompound();
+
+        if (baseTag == null) return ItemStack.EMPTY;
+
+        if (!baseTag.hasKey(SEASONING_NBT_KEY)) {
+            baseTag.setTag(SEASONING_NBT_KEY, new NBTTagCompound());
+        }
+
+        NBTTagCompound seasoningTag = baseTag.getCompoundTag(SEASONING_NBT_KEY);
+
+        if (peppered) {
+            seasoningTag.setBoolean(PEPPERED_NBT_KEY, peppered);
+        }
+        if (salted) {
+            seasoningTag.setBoolean(SALTED_NBT_KEY, salted);
+        }
+        return stack;
     }
 
     @Override
@@ -134,13 +154,24 @@ public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implemen
         return width * height >= 2;
     }
 
+    private static boolean isSalted(@Nonnull ItemStack stack) {
+        NBTTagCompound tag = stack.getTagCompound();
+        return stack.getTagCompound() != null && tag.getCompoundTag(SEASONING_NBT_KEY).getBoolean(SALTED_NBT_KEY);
+    }
+
+    private static boolean isPeppered(@Nonnull ItemStack stack) {
+        NBTTagCompound tag = stack.getTagCompound();
+        return stack.getTagCompound() != null && tag.getCompoundTag(SEASONING_NBT_KEY).getBoolean(PEPPERED_NBT_KEY);
+    }
+
     @SubscribeEvent
     public static void addTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemFood && NBTHelper.hasKey(stack, SEASONING_NBT_KEY) && stack.getTagCompound() != null) {
-            if (Objects.equals(stack.getTagCompound().getString(SEASONING_NBT_KEY), "Peppered")) {
+            if (isPeppered(stack)) {
                 event.getToolTip().add("" + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + StringUtil.translateFormatted(Reference.MOD_ID + ".pepper"));
-            } else if (Objects.equals(stack.getTagCompound().getString(SEASONING_NBT_KEY), "Salted")) {
+            }
+            if (isSalted(stack)) {
                 event.getToolTip().add("" + TextFormatting.WHITE + TextFormatting.ITALIC + StringUtil.translateFormatted(Reference.MOD_ID + ".salt"));
             }
         }
