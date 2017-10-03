@@ -37,7 +37,7 @@ public class ModBlocks {
         registerCrop(CUCUMBER, "cucumber");
         registerCrop(TOMATO, "tomato");
 
-        registerBlock(CAULDRON, "cauldron", null);
+        registerBlock(CAULDRON, "cauldron");
         registerBlock(FAN_HOUSING, "fan_housing");
         registerBlock(SEPARATOR, "separator");
         registerBlock(CHEESE, "cheese");
@@ -55,19 +55,23 @@ public class ModBlocks {
         TOMATO.setCrop(ProductType.TOMATO, 1, 4).setRightClickHarvest();
     }
 
-    private static Block registerCrop(Block block, String name) {
-        return registerBlock(block, name, null, false);
+    private static void registerCrop(Block block, String name) {
+        registerBlock(block, null, name, null);
     }
 
-    private static Block registerBlock(Block block, String name) {
-        return registerBlock(block, name, CulinaryCultivation.TAB, true);
+    private static void registerBlock(Block block, ItemBlock itemBlock, String name) {
+        registerBlock(block, itemBlock, name, CulinaryCultivation.TAB);
     }
 
-    private static Block registerBlock(Block block, String name, @Nullable CreativeTabs tab) {
-        return registerBlock(block, name, tab, true);
+    private static void registerBlock(Block block, String name) {
+        registerBlock(block, name, CulinaryCultivation.TAB);
     }
 
-    private static Block registerBlock(Block block, String name, @Nullable CreativeTabs tab, boolean registerItemBlock) {
+    private static void registerBlock(Block block, String name, @Nullable CreativeTabs tab) {
+        registerBlock(block, new ItemBlock(block), name, tab);
+    }
+
+    private static void registerBlock(Block block, ItemBlock itemBlock, String name, @Nullable CreativeTabs tab) {
         if (tab != null) {
             block.setCreativeTab(tab);
         }
@@ -76,13 +80,10 @@ public class ModBlocks {
         block.setRegistryName(resourceLocation);
         ForgeRegistries.BLOCKS.register(block);
 
-        if (registerItemBlock) {
-            ItemBlock itemBlock = new ItemBlock(block);
+        if (itemBlock != null) {
             itemBlock.setRegistryName(name);
             ForgeRegistries.ITEMS.register(itemBlock);
         }
         CulinaryCultivation.proxy.registerItemVariantModel(Item.getItemFromBlock(block), name);
-
-        return block;
     }
 }

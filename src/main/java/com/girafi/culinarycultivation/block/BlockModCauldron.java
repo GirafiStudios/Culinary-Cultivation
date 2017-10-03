@@ -91,13 +91,15 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         ItemStack heldStack = player.getHeldItem(hand);
         ItemStack cauldron = getDrops(world, pos, state, 0).get(0);
 
-        if (player.isSneaking() && (player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty())) { //TODO Lock the Cauldron in both slots when picked up
+        if (player.isSneaking() && (player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty())) {
             this.onBlockDestroyedByPlayer(world, pos, state);
             InventoryHandlerHelper.giveItem(player, hand, cauldron);
             world.setBlockToAir(pos);
         }
         TileFluidTank tank = new TileFluidTank(0);
-        tank.readFromNBT(NBTHelper.getTag(cauldron));
+        if (cauldron.getTagCompound() != null) {
+            tank.readFromNBT(cauldron.getTagCompound());
+        }
 
         if (removeDye(world, pos, player, hand, heldStack, tank)) {
             return true;
@@ -152,16 +154,14 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         }
     }
 
-    @Nonnull
     @Override
-    public NonNullList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-        NonNullList<ItemStack> ret = NonNullList.create();
+    public void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
         Item item = this.getItemDropped(state, rand, fortune);
         ItemStack stack = ItemStack.EMPTY;
         if (item != Items.AIR) {
             stack = new ItemStack(item, 1, this.damageDropped(state));
-            ret.add(stack);
+            drops.add(stack);
         }
 
         TileEntity tileEntity = world.getTileEntity(pos);
@@ -172,7 +172,6 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 stack.setTagCompound(tag);
             }
         }
-        return ret;
     }
 
     @Override
