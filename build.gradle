@@ -45,8 +45,8 @@ minecraft {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_1.12.1:${jei_version}:api"
-    runtime "mezz.jei:jei_1.12.1:${jei_version}"
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
+    runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
     deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}_1.12"
     deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"
 }
