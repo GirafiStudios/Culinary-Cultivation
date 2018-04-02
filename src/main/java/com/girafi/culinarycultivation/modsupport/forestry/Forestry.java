@@ -13,7 +13,7 @@ import forestry.api.recipes.RecipeManagers;
 import forestry.api.storage.BackpackManager;
 import forestry.core.fluids.Fluids;
 import forestry.farming.FarmRegistry;
-import forestry.farming.logic.FarmableAgingCrop;
+import forestry.farming.logic.farmables.FarmableAgingCrop;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 

@@ -1,8 +1,8 @@
 package com.girafi.culinarycultivation.modsupport.forestry;
 
 import forestry.api.farming.ICrop;
-import forestry.farming.logic.CropDestroy;
-import forestry.farming.logic.FarmableBase;
+import forestry.farming.logic.crops.CropDestroy;
+import forestry.farming.logic.farmables.FarmableBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
