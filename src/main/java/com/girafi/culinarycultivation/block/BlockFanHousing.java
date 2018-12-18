@@ -44,7 +44,7 @@ public class BlockFanHousing extends Block {
 
     @Override
     public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-        return side == EnumFacing.getFront(state.getBlock().getMetaFromState(state));
+        return side == EnumFacing.byIndex(state.getBlock().getMetaFromState(state));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class BlockFanHousing extends Block {
     }
 
     private boolean isFrontPowered(World world, BlockPos pos, IBlockState state) {
-        return world.getRedstonePower(pos, EnumFacing.getFront(state.getBlock().getMetaFromState(state))) > 0;
+        return world.getRedstonePower(pos, EnumFacing.byIndex(state.getBlock().getMetaFromState(state))) > 0;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class BlockFanHousing extends Block {
     }
 
     @Override
-    public void onBlockDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
+    public void onExplosionDestroy(World world, BlockPos pos, Explosion explosion) {
         //Check for a block on the world
         if (!world.isAirBlock(pos)) {
             BlockPos right = pos.offset(world.getBlockState(pos).getValue(FACING).rotateAround(Axis.Y).getOpposite());
@@ -96,7 +96,7 @@ public class BlockFanHousing extends Block {
                 ((TileEntitySeparator) world.getTileEntity(right)).checkForFanHousing();
             }
         }
-        super.onBlockDestroyedByExplosion(world, pos, explosion);
+        super.onExplosionDestroy(world, pos, explosion);
     }
 
     private void setDefaultFacing(World world, BlockPos pos, IBlockState state) {
@@ -141,7 +141,7 @@ public class BlockFanHousing extends Block {
     @Override
     @Nonnull
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
             enumfacing = EnumFacing.NORTH;

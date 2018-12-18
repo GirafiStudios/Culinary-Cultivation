@@ -78,12 +78,12 @@ public class ItemModMeatFood extends ItemFood implements IOreDictEntry {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(@Nonnull ItemStack stack) {
+    public String getTranslationKey(@Nonnull ItemStack stack) {
         MeatType meattype = MeatType.getMeatType(stack);
         if (this.cooked && meattype.isHaveCookedMeat()) {
             return "item." + Paths.MOD_ASSETS + "meat_" + meattype.getMeatName() + "_cooked";
         } else {
-            return this.getUnlocalizedName() + "_" + meattype.getMeatName();
+            return this.getTranslationKey() + "_" + meattype.getMeatName();
         }
     }
 

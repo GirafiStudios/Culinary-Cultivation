@@ -38,7 +38,7 @@ public class CulinaryCultivation {
         @Override
         @SideOnly(Side.CLIENT)
         @Nonnull
-        public ItemStack getTabIconItem() {
+        public ItemStack createIcon() {
             return new ItemStack(ModItems.MEAT_CLEAVER);
         }
     };

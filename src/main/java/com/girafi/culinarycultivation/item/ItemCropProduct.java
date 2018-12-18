@@ -109,7 +109,7 @@ public class ItemCropProduct extends ItemFood implements IPlantable, IOreDictEnt
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(@Nonnull ItemStack stack) {
+    public String getTranslationKey(@Nonnull ItemStack stack) {
         String name = "item." + Paths.MOD_ASSETS + ProductType.byItemStack(stack).getCropName();
         switch (type) {
             case SEED:

@@ -10,6 +10,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -78,8 +79,8 @@ public class BlockModCauldron extends SourceBlockTileEntity {
                 TileFluidTank tank = new TileFluidTank(0);
                 tank.readFromNBT(NBTHelper.getTag(stack));
 
-                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid", tank.getFluid().getLocalizedName()));
-                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid_amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
+                tooltip.add(I18n.format(Reference.MOD_ID + ".fluid", tank.getFluid().getLocalizedName()));
+                tooltip.add(I18n.format(Reference.MOD_ID + ".fluid_amount", tank.getFluid().amount + " / " + Fluid.BUCKET_VOLUME));
             } else {
                 tooltip.add(StringUtil.shiftTooltip());
             }
@@ -92,7 +93,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
         ItemStack cauldron = getDrops(world, pos, state, 0).get(0);
 
         if (player.isSneaking() && (player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty())) {
-            this.onBlockDestroyedByPlayer(world, pos, state);
+            this.onPlayerDestroy(world, pos, state);
             InventoryHandlerHelper.giveItem(player, hand, cauldron);
             world.setBlockToAir(pos);
         }
@@ -175,7 +176,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
         IFluidHandler handler = FluidUtil.getFluidHandler(world, pos, null);
         TileFluidTank tank = new TileFluidTank(0);
         tank.readFromNBT(NBTHelper.getTag(getDrops(world, pos, state, 0).get(0)));
@@ -215,7 +216,7 @@ public class BlockModCauldron extends SourceBlockTileEntity {
             TileFluidTank tank = new TileFluidTank(0);
             tank.readFromNBT(NBTHelper.getTag(cauldron));
 
-            float temperature = world.getBiome(pos).getFloatTemperature(pos);
+            float temperature = world.getBiome(pos).getTemperature(pos);
             if (world.getBiomeProvider().getTemperatureAtHeight(temperature, pos.getY()) >= 0.15F) {
 
                 if ((tank.getFluidAmount() == 0 || tank.getFluid() != null && tank.getFluid().getFluid() == FluidRegistry.WATER) && tank.getFluidAmount() < Fluid.BUCKET_VOLUME) {

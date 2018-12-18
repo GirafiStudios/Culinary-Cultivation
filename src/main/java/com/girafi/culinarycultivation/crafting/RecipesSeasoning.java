@@ -3,9 +3,9 @@ package com.girafi.culinarycultivation.crafting;
 import com.girafi.culinarycultivation.init.ModItems;
 import com.girafi.culinarycultivation.item.ItemGeneral;
 import com.girafi.culinarycultivation.util.NBTHelper;
-import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import com.google.common.collect.Lists;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -20,12 +20,13 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-@EventBusSubscriber
+@EventBusSubscriber(value = Side.CLIENT)
 public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
     public static final String SEASONING_NBT_KEY = "Seasoning";
     public static final String PEPPERED_NBT_KEY = "Peppered";
@@ -145,7 +146,7 @@ public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implemen
     }
 
     @Override
-    public boolean isHidden() {
+    public boolean isDynamic() {
         return true;
     }
 
@@ -169,10 +170,10 @@ public class RecipesSeasoning extends IForgeRegistryEntry.Impl<IRecipe> implemen
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemFood && NBTHelper.hasKey(stack, SEASONING_NBT_KEY) && stack.getTagCompound() != null) {
             if (isPeppered(stack)) {
-                event.getToolTip().add("" + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + StringUtil.translateFormatted(Reference.MOD_ID + ".pepper"));
+                event.getToolTip().add("" + TextFormatting.DARK_GRAY + TextFormatting.ITALIC + I18n.format(Reference.MOD_ID + ".pepper"));
             }
             if (isSalted(stack)) {
-                event.getToolTip().add("" + TextFormatting.WHITE + TextFormatting.ITALIC + StringUtil.translateFormatted(Reference.MOD_ID + ".salt"));
+                event.getToolTip().add("" + TextFormatting.WHITE + TextFormatting.ITALIC + I18n.format(Reference.MOD_ID + ".salt"));
             }
         }
     }

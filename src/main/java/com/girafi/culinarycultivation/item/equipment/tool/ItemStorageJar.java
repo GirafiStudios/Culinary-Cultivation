@@ -10,6 +10,7 @@ import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntityCow;
@@ -59,8 +60,8 @@ public class ItemStorageJar extends Item {
         if (NBTHelper.hasKey(stack, FluidHandlerItemStackAdvanced.FLUID_NBT_KEY)) {
             FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(NBTHelper.getTag(stack).getCompoundTag(FluidHandlerItemStackAdvanced.FLUID_NBT_KEY));
             if (GuiScreen.isShiftKeyDown() && fluidStack != null) {
-                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid", fluidStack.getFluid().getLocalizedName(fluidStack)));
-                tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".fluid_amount", fluidStack.amount + " / " + JAR_VOLUME));
+                tooltip.add(I18n.format(Reference.MOD_ID + ".fluid", fluidStack.getFluid().getLocalizedName(fluidStack)));
+                tooltip.add(I18n.format(Reference.MOD_ID + ".fluid_amount", fluidStack.amount + " / " + JAR_VOLUME));
             } else {
                 tooltip.add(StringUtil.shiftTooltip());
             }

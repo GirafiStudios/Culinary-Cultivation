@@ -37,8 +37,8 @@ public class ItemDebugItem extends Item {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(@Nonnull ItemStack stack) {
-        return super.getUnlocalizedName(stack) + "_" + getModeName(stack.getItemDamage());
+    public String getTranslationKey(@Nonnull ItemStack stack) {
+        return super.getTranslationKey(stack) + "_" + getModeName(stack.getItemDamage());
     }
 
     public static String getModeName(int metadata) {

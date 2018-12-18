@@ -147,7 +147,6 @@ public class TileEntityInventory extends TileEntity implements IInventory {
     }
 
     private IItemHandler itemHandler;
-
     private IItemHandler createUnSidedHandler() {
         return new InvWrapper(this);
     }

@@ -46,11 +46,4 @@ public class StringUtil {
     public static String translateToLocal(String string) {
         return I18n.translateToLocal(string);
     }
-
-    /*
-     * Redirects to the vanilla version for less calls to deprecated code.
-     */
-    public static String translateFormatted(String string, Object... objects) {
-        return I18n.translateToLocalFormatted(string, objects);
-    }
 }

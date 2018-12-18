@@ -145,7 +145,7 @@ public class RecipesFarmerArmorDyes extends IForgeRegistryEntry.Impl<IRecipe> im
     }
 
     @Override
-    public boolean isHidden() {
+    public boolean isDynamic() {
         return true;
     }
 

@@ -79,10 +79,10 @@ public class ItemModFishFood extends ItemFood implements IOreDictEntry {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(@Nonnull ItemStack stack) {
+    public String getTranslationKey(@Nonnull ItemStack stack) {
         FishType fishtype = FishType.getFishType(stack);
         if (fishtype.isHaveRawFish() & !this.cooked) {
-            return this.getUnlocalizedName() + "_" + fishtype.getFishName();
+            return this.getTranslationKey() + "_" + fishtype.getFishName();
         } else {
             return "item." + Paths.MOD_ASSETS + "fish_" + fishtype.getFishName() + "_cooked";
         }

@@ -4,9 +4,9 @@ import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.client.gui.GuiHandler;
 import com.girafi.culinarycultivation.inventory.SeedBagInventory;
 import com.girafi.culinarycultivation.util.InventoryHandlerHelper;
-import com.girafi.culinarycultivation.util.StringUtil;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,7 +62,7 @@ public class ItemSeedBag extends Item {
 
         if (flag.isAdvanced()) {
             int maxDamage = this.getMaxDamage(stack);
-            tooltip.add(StringUtil.translateFormatted(Reference.MOD_ID + ".seed_bag.seeds", this.getSeedAmount(stack) + " / " + maxDamage));
+            tooltip.add(I18n.format(Reference.MOD_ID + ".seed_bag.seeds", this.getSeedAmount(stack) + " / " + maxDamage));
         }
     }
 

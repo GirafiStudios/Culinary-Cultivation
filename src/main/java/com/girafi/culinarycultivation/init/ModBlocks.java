@@ -4,7 +4,6 @@ import com.girafi.culinarycultivation.CulinaryCultivation;
 import com.girafi.culinarycultivation.block.*;
 import com.girafi.culinarycultivation.block.tileentity.TileEntityCauldron;
 import com.girafi.culinarycultivation.block.tileentity.TileEntitySeparator;
-import com.girafi.culinarycultivation.util.reference.Paths;
 import com.girafi.culinarycultivation.util.reference.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -44,8 +43,8 @@ public class ModBlocks {
     }
 
     public static void initTiles() {
-        GameRegistry.registerTileEntity(TileEntityCauldron.class, Paths.MOD_ASSETS + "cauldron");
-        GameRegistry.registerTileEntity(TileEntitySeparator.class, Paths.MOD_ASSETS + "separator");
+        GameRegistry.registerTileEntity(TileEntityCauldron.class, new ResourceLocation(Reference.MOD_ID, "cauldron"));
+        GameRegistry.registerTileEntity(TileEntitySeparator.class, new ResourceLocation(Reference.MOD_ID, "separator"));
     }
 
     public static void setup() {
@@ -76,7 +75,7 @@ public class ModBlocks {
             block.setCreativeTab(tab);
         }
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, name);
-        block.setUnlocalizedName(resourceLocation.toString());
+        block.setTranslationKey(resourceLocation.toString());
         block.setRegistryName(resourceLocation);
         ForgeRegistries.BLOCKS.register(block);
 

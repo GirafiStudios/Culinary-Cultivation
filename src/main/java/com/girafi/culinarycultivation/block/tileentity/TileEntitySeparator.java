@@ -164,10 +164,10 @@ public class TileEntitySeparator extends TileEntityInventory implements ITickabl
         }
 
         if (!stack.isEmpty()) {
-            EntityItem ei = new EntityItem(world, (double) facing.getFrontOffsetX() + pos.getX() + 0.5D, (double) pos.getY() + 0.15D, (double) facing.getFrontOffsetZ() + pos.getZ() + 0.5D, stack.copy());
-            ei.motionX = (0.055F * facing.getFrontOffsetX());
+            EntityItem ei = new EntityItem(world, (double) facing.getXOffset() + pos.getX() + 0.5D, (double) pos.getY() + 0.15D, (double) facing.getZOffset() + pos.getZ() + 0.5D, stack.copy());
+            ei.motionX = (0.055F * facing.getXOffset());
             ei.motionY = 0.025D;
-            ei.motionZ = (0.055F * facing.getFrontOffsetZ());
+            ei.motionZ = (0.055F * facing.getZOffset());
             world.spawnEntity(ei);
         }
     }

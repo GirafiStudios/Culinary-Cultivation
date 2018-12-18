@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMessageHandler<REQ, REQ> {
 
@@ -30,7 +31,7 @@ public abstract class Packet<REQ extends Packet<REQ>> implements IMessage, IMess
     }
 
     private void runServer(final REQ packet, final EntityPlayer player) {
-        player.getServer().addScheduledTask(() -> packet.handleServerSide(player));
+        Objects.requireNonNull(player.getServer()).addScheduledTask(() -> packet.handleServerSide(player));
     }
 
     @SideOnly(Side.CLIENT)

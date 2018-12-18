@@ -104,7 +104,7 @@ public class ModItems {
 
     private static Item registerItem(Item item, String name, CreativeTabs tab) {
         ResourceLocation resourceLocation = new ResourceLocation(Reference.MOD_ID, name);
-        item.setUnlocalizedName(resourceLocation.toString());
+        item.setTranslationKey(resourceLocation.toString());
         item.setRegistryName(resourceLocation);
         item.setCreativeTab(tab);
         ForgeRegistries.ITEMS.register(item);
@@ -119,7 +119,7 @@ public class ModItems {
                 NonNullList<ItemStack> subItems = NonNullList.create();
                 item.getSubItems(tab, subItems);
                 for (ItemStack stack : subItems) {
-                    String subItemName = item.getUnlocalizedName(stack).replace("item.culinarycultivation:", "");
+                    String subItemName = item.getTranslationKey(stack).replace("item.culinarycultivation:", "");
                     ModelLoader.setCustomModelResourceLocation(item, stack.getItemDamage(), new ModelResourceLocation(new ResourceLocation(Reference.MOD_ID, subItemName), "inventory"));
                 }
             } else {

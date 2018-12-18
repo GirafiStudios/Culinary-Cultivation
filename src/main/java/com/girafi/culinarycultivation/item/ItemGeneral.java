@@ -33,7 +33,7 @@ public class ItemGeneral extends Item implements IOreDictEntry {
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(@Nonnull ItemStack stack) {
+    public String getTranslationKey(@Nonnull ItemStack stack) {
         Type type = Type.byItemStack(stack);
         return "item." + Paths.MOD_ASSETS + type.getName();
     }

@@ -14,8 +14,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.girafi.culinarycultivation.modsupport.jei.winnowing.WinnowingRecipeCategory.junkSlot;

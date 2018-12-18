@@ -27,13 +27,13 @@ public class ItemCaneKnife extends ItemAxe {
     }
 
     @Override
-    public float getStrVsBlock(@Nullable ItemStack stack, IBlockState state) {
+    public float getDestroySpeed(@Nullable ItemStack stack, IBlockState state) {
         for (String type : getToolClasses(stack)) {
             if (state.getBlock().isToolEffective(type, state)) {
-                return efficiencyOnProperMaterial;
+                return efficiency;
             }
         }
         Material material = state.getMaterial();
-        return material == Material.PLANTS || material == Material.VINE || material == Material.LEAVES || material == Material.GOURD || material == Material.CACTUS ? this.efficiencyOnProperMaterial : 1.0F;
+        return material == Material.PLANTS || material == Material.VINE || material == Material.LEAVES || material == Material.GOURD || material == Material.CACTUS ? this.efficiency : 1.0F;
     }
 }

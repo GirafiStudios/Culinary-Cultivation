@@ -35,11 +35,13 @@ public class WailaHUDHandler implements IWailaDataProvider {
     }
 
     @Override
+    @Nonnull
     public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         return currenttip;
     }
 
     @Override
+    @Nonnull
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         Block block = accessor.getBlock();
         if (config.getConfig("general.showcrop")) {
@@ -74,11 +76,13 @@ public class WailaHUDHandler implements IWailaDataProvider {
     }
 
     @Override
+    @Nonnull
     public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
         return currenttip;
     }
 
     @Override
+    @Nonnull
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
         return tag;
     }
